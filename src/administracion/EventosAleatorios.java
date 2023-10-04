@@ -1,5 +1,7 @@
 package administracion;
 
+import java.util.Random;
+
 public class EventosAleatorios {
 	
 }
@@ -58,3 +60,51 @@ public class EventosAleatorios {
         eventoPaquete = EventoPaquete.LLORONA; // Valor personalizado para eventoPaquete
         eventoAnimal = EventoAnimal.MUERTO;    // Valor personalizado para eventoAnimal
     }
+
+    // Métodos para obtener y establecer la probabilidad
+    public int getProbabilidad() {
+        return probabilidad;
+    }
+
+    public void setProbabilidad(int probabilidad) {
+        this.probabilidad = probabilidad;
+    }
+
+    // Métodos para obtener y establecer eventoPaquete
+    public EventoPaquete getEventoPaquete() {
+        return eventoPaquete;
+    }
+
+    public void setEventoPaquete(EventoPaquete eventoPaquete) {
+        this.eventoPaquete = eventoPaquete;
+    }
+
+    // Métodos para obtener y establecer eventoAnimal
+    public EventoAnimal getEventoAnimal() {
+        return eventoAnimal;
+    }
+
+    public void setEventoAnimal(EventoAnimal eventoAnimal) {
+        this.eventoAnimal = eventoAnimal;
+    }
+
+    // Método para generar un evento aleatorio
+    public void generarEventoAleatorio() {
+        Random random = new Random();
+        int numeroAleatorio = random.nextInt(100); // Rango entre 0 y 99
+
+        if (numeroAleatorio < eventoPaquete.getProbabilidad()) {
+            System.out.println("¡Ha ocurrido un evento de paquete: " + eventoPaquete + "!"); // El viernes asignaremos un print mas enfocado 
+        } else if (numeroAleatorio < (eventoPaquete.getProbabilidad() + eventoAnimal.getProbabilidad())) {
+            System.out.println("¡Ha ocurrido un evento de animal: " + eventoAnimal + "!");
+        } else {
+            System.out.println("No ha ocurrido ningún evento.");
+        }
+    }
+
+    public static void main(String[] args) {
+        EventosAleatorios objeto = new EventosAleatorios();
+        // Llamar al método para generar eventos aleatorios
+        objeto.generarEventoAleatorio();
+    }
+}

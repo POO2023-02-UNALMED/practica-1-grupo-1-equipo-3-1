@@ -7,17 +7,19 @@ import java.util.Map;
 
 public class Sucursal {
 	enum Horario {
-		Lunes, 
-		Martes, 
-		Miercoles,
-		Jueves, 
-		Viernes,
-		Sabado,
-		Domingo
+		LUNES, 
+		MARTES, 
+		MIERCOLES,
+		JUEVES, 
+		VIERNES,
+		SABADO,
+		DOMINGO,
 	}
 
 	private String ciudad;
 	private int capacidad;
+	private int latitud;
+	private int longitud;
     private Map<String, String> inventario;
     private Map<Horario, String> horario;
 	private int cantidadMotosDisponibles;
@@ -29,22 +31,24 @@ public class Sucursal {
 
 	
 	//constructor
-	public Sucursal(String ciudad, Horario horario, int capacidad, Map inventario, float latitud, float altitud) {
+	public Sucursal(String ciudad, Map<Horario, String> horario, int capacidad, Map<String, String> inventario, int latitud, int longitud) {
+		//TOMASCorregí el tipo de horario e inventario
+		//TOMASAgregue los atributos latitud y longitud y los combié a enteros (plano cartesiano)
 		this.ciudad = ciudad;
 		this.horario = horario;
 		this.capacidad = capacidad;
 		this.inventario = new HashMap<>();
 		this.horario = new HashMap<>();
 		this.latitud = latitud;
-		this.altitud = altitud;
+		this.longitud = longitud;
 	}
 	
-    public Sucursal(String ciudad) {
+    public Sucursal(String ciudad) { //TOMASPorqué dos constructores?
     	this.ciudad = ciudad;
         this.inventario = new HashMap<>();
         this.horario = new HashMap<>();
     
-		asignarhorario();
+		asignarhorario(); //TOMASLo volví un método, como va a meter todo eso en un constructor ome cochino
     }
 
 	//metodos

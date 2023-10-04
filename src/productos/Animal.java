@@ -25,14 +25,15 @@ public class Animal extends Producto {
         GRANDE,
     }
 
-    public Animal(int codigo, String nombre, int edad, double peso, tipoAnimal tipo) {
-        this.codigo = codigo;
+    public Animal(String nombre, int edad, double peso, tipoAnimal tipo) {
         this.nombre = nombre;
         this.edad = edad;
-        vivo = true;
         this.peso = peso;
         this.tipo = tipo;
 
+        vivo = true;
+
+        asignarCodigo();
         asignarPeligro();
         asignarTamano();
         asignarVolumen();

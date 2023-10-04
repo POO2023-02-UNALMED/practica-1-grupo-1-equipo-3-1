@@ -5,6 +5,7 @@ public class Documento extends Producto {
         peso = 0.1;
         volumen = 0.1;
         
+        asignarCodigo();
         asignarCostoDelPedido();
     }
 

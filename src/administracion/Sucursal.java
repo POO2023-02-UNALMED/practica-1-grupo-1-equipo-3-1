@@ -2,7 +2,6 @@ package administracion;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-//import (paquete).Producto
 //import (paquete).Guia
 
 import productos.*;
@@ -24,8 +23,7 @@ public class Sucursal {
 	private int capacidadPeso; //TOMAS Las sucursales van a estar limitadas por el peso?
 	private int latitud; //TOMAS
 	private int longitud; //TOMAS
-	private ArrayList<Producto> inventario1 = new ArrayList<>(); //TOMAS
-    private Map<String, String> inventario;
+	private ArrayList<Producto> inventario = new ArrayList<>(); //TOMAS
     private Map<Horario, String> horario;
 	private int cantidadMotosDisponibles;
     private int cantidadCamionesDisponibles;
@@ -33,29 +31,19 @@ public class Sucursal {
 	private int cantidadJaulasPequeñas;
 	private int cantidadJaulasMedianas;
 	private int cantidadJaulasGrandes;
-
+}
 	
 	//constructor
-	public Sucursal(String ciudad, Map<Horario, String> horario, int capacidad, Map<String, String> inventario, int latitud, int longitud) {
+	public Sucursal(String ciudad, int capacidad, int latitud, int longitud) {
 		//TOMASCorregí el tipo de horario e inventario
 		//TOMASAgregue los atributos latitud y longitud y los combié a enteros (plano cartesiano)
 		this.ciudad = ciudad;
 		this.horario = horario;
 		this.capacidad = capacidad;
-		this.inventario = new HashMap<>();
-		this.horario = new HashMap<>();
 		this.latitud = latitud;
 		this.longitud = longitud;
 	}
-	
-    public Sucursal(String ciudad) { //TOMASPorqué dos constructores?
-    	this.ciudad = ciudad;
-        this.inventario = new HashMap<>();
-        this.horario = new HashMap<>();
-    
-		asignarhorario(); //TOMASLo volví un método, como va a meter todo eso en un constructor ome cochino
-    }
-
+	   
 	//metodos
 	public void asignarhorario() {
         	//  horarios específicos para cada sucursal,
@@ -104,6 +92,7 @@ public class Sucursal {
 	
 	// horario. IDEA: Dar una opción para conocer la disponibilidad de la sucursal
 	 public String consultarHorario() {
+		 String nombre = ciudad;
 	        return "Horario de la Sucursal " + nombre + ":";
 	        for (Horario dia : Horario.values()) {
 	            return dia + ": " + horario.get(dia);
@@ -171,7 +160,7 @@ public class Sucursal {
 
 			if (capacidadVolumen > nuevoProducto.getVolumen()) {
 				if (capacidadPeso > nuevoProducto.getPeso()) {
-					inventario1.add(nuevoProducto);
+					inventario.add(nuevoProducto);
 
 					capacidadVolumen -= nuevoProducto.getVolumen();
 					capacidadPeso -= nuevoProducto.getPeso();
@@ -183,12 +172,12 @@ public class Sucursal {
 		if (seAgrega) {
 			return "Tenemos disponibilidad";
 		} else {
-			return "Lo sentimos, nuestra sucursal no tiene dispnobilidad en este momento";
+			return "Lo sentimos, nuestra sucursal no tiene disponibilidad en este momento";
 		}
 	}
 
 	public String verificarProductoCliente(Producto producto) { //verifica para ser recogido por el cliente
-		if (inventario1.contains(producto)) {
+		if (inventario.contains(producto)) {
 	        return "El paquete con código " + producto.getCodigo() + " se encuentra en la sucursal y está listo para ser recogido.";
 		} else {
 	        return "Lo sentimos, paquete con código " + producto.getCodigo() + " no está en la sucursal.";
@@ -196,53 +185,59 @@ public class Sucursal {
 	}
 
 	public boolean verificarProducto(Producto producto) { //Verifica para ser recogido por los transportes para llevarlo a otra sucursal
-		if (inventario1.contains(producto)) {
+		if (inventario.contains(producto)) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-
-
-
-	//public String agregarPaquete(String codigoPaquete, String descripcion, String tipoTransporte) {
-    //    if (tipoTransporte.equalsI("Moto") && cantidadMotosDisponibles > 0) {
-    //       inventario.put(codigoPaquete, descripcion);
-	//        cantidadMotosDisponibles =- 1;
-	//        return "El paquete con código " + codigoPaquete + " ha llegado a la sucursal " + nombre + " y se ha agregado al inventario.";
-	//    } else if (tipoTransporte.equals("Camion") && cantidadCamionesDisponibles > 0) {
-	//        inventario.put(codigoPaquete, descripcion);
-	//        cantidadCamionesDisponibles =- 1;
-	//        return "El paquete con código " + codigoPaquete + " ha llegado a la sucursal " + nombre + " y se ha agregado al inventario.";
-	//    } else if (tipoTransporte.equalsIgnoreCase("Avion") && cantidadAvionesDisponibles > 0) {
-	//        inventario.put(codigoPaquete, descripcion);
-	//        cantidadAvionesDisponibles =- 1;
-	//        return "El paquete con código " + codigoPaquete + " ha llegado a la sucursal " + nombre + " y se ha agregado al inventario .";
-	//    } else {
-	//        return "No hay disponibilidad de transporte para el paquete con código " + codigoPaquete + " en la sucursal " + nombre + ".";
-	//    }
-	// }
+	public String asignarTransporte(Producto producto, String ciudad, String tipoTransporte) {
+		String codigoP = inventario.get(producto);
+		String nombre = ciudad;
+	
+        if (tipoTransporte.equalsI("Moto") && cantidadMotosDisponibles > 0) {
+           Guia.vehiculo = "Moto";
+	        cantidadMotosDisponibles =- 1;
+	
+	    } else if (tipoTransporte.equals("Camion") && cantidadCamionesDisponibles > 0) {
+	        Guia.vehiculo = "Camion";
+	       cantidadCamionesDisponibles =- 1;
+	       
+	    } else if (tipoTransporte.equals("Avion") && cantidadAvionesDisponibles > 0) {
+	        Guia.vehiculo = "Avion";
+	        cantidadAvionesDisponibles =- 1;
+	       
+	   } else {
+	        return "No hay disponibilidad de transporte para el paquete con código " + codigoP + " en la sucursal " + nombre + ".";
+	    }
+	 }
 	
 	// Método para obtener la disponibilidad de cada tipo de transporte en la sucursal
 	
-	// public String obtenerDisponibilidadTransporte() {
-	//    return "Disponibilidad de transporte en la Sucursal " + nombre + ":";
-	//    return "Motos disponibles: " + cantidadMotosDisponibles;
-	//    return "Camiones disponibles: " + cantidadCamionesDisponibles;
-	//    return "Aviones disponibles: " + cantidadAvionesDisponibles;
-	// }
+	 public String obtenerDisponibilidadTransporte() {
+		 if cantidadMotosDisponibles>0 || cantidadCamionesDisponibles>0 || cantidadAvionesDisponibles>0{
+	
+		 	return "Disponibilidad de transporte en la Sucursal " + nombre + ":";
+		 	return "Motos disponibles: " + cantidadMotosDisponibles;
+		 	return "Camiones disponibles: " + cantidadCamionesDisponibles;
+		 	return "Aviones disponibles: " + cantidadAvionesDisponibles;
+		 }
+		 if cantidadMotosDisponibles<0 && cantidadCamionesDisponibles<0 && cantidadAvionesDisponibles<0{
+			 return "No hay disponibilidad de transporte para el paquete.";
+		 }
 
 
 
 	    // Método para agregar un paquete al inventario de la sucursal
-	 public void agregarPaquete(String codigoPaquete, String descripcion) {
-	      inventario.put(codigoPaquete, descripcion);
+	 public void agregarPaquete(Producto producto) {
+	      inventario.add(codigoPaquete, descripcion); 
 	 }
 
 	    // Método para verificar si un paquete está en la sucursal
-	 public String verificarPaquete(String codigoPaquete) {
-	      if (inventario.containsKey(codigoPaquete)) {
+	 public String verificarPaquete(Producto producto) {
+	     String codigoPaquete = inventario.get(producto)
+		 if (inventario.contains(producto)) {
 	            return "El paquete con código " + codigoPaquete + " se encuentra en la sucursal.";
 	      } else {
 	            return "El paquete con código " + codigoPaquete + " no está en la sucursal.";
@@ -265,19 +260,17 @@ public class Sucursal {
 	
 
 		//recoger
-	    
-	 public String recoger(String codigoPaquete, String cedulaRemitente, String cedulaDestinatario) {
+	   
+	 public String recoger(Producto producto, Cliente cedulaRemitente, Guia cedulaDestinatario) {
 	      // Verificar si el paquete se encuentra en la sucursal
-	      if (inventario.containsKey(codigoPaquete)) {
+	      if (inventario.contains(producto)) {
 	          // Obtener la descripción del paquete
 	    	  String descripcion = inventario.get(codigoPaquete);
-	            return "El paquete con código " + codigoPaquete + " se encuentra en la sucursal.";
-	            
-	      // Validar las cédulas del remitente y destinatario	
-	      if (validarCedula(cedulaRemitente) && validarCedula(cedulaDestinatario)) {
-		      // se entrega y se actualiza el inventario
-		      String descripcionPaquete = inventario.get(codigoPaquete);
-		        return "Entregando el paquete con código " + codigoPaquete + " a " + cedulaDestinario; //quiero colocar el nombre asociado a esa cedula
+	            return "El paquete con código " + descripcion + " se encuentra en la sucursal.";   
+	            // Validar las cédulas del remitente y destinatario	
+	            if esRemitente && esDestinatario {
+		     	// se entrega y se actualiza el inventario
+	            	return "Entregando el paquete con código " + descripcion + " a " + cedulaDestinario; //quiero colocar el nombre asociado a esa cedula
 		        // Eliminar el paquete del inventario
 		        inventario.remove(codigoPaquete);  
 		        return "El paquete se ha entregado y el inventario ha sido actualizado.";
@@ -292,8 +285,16 @@ public class Sucursal {
 	   
 
 	    // Método para validar una cédula 
-	 public boolean compararCedula(String ceduladadaDest) {
-	        return ceduladadaDest != null && ceduladadaDest.equals(cedula); // las cedulas la obtengo de la clase cliente y guia
+	 public boolean validarCedulaRemi(int ceduladadaRemi) {
+		 boolean esRemitente = false;
+	        if ceduladadaRemi != null && ceduladadaRemi.equals(cedulaRemitente){
+	        	esRemitente = true;
+	    }
+	 public boolean validarCedulaDesti(int ceduladadaDesti) { //aquí se pide digitar la cc y con eso se verifica
+	     boolean esDestinatario = false;
+		 	if ceduladadaDesti != null && ceduladadaDesti.equals(cedulaDestinatario){
+		 		esDestinatario = true;
+	        }
 	    }
 
 }

@@ -18,8 +18,11 @@ public class Sucursal {
 
 	private String ciudad;
 	private int capacidad;
-	private int latitud;
-	private int longitud;
+	private int capacidadVolumen; //TOMAS alternativa a capacidad
+	private int capacidadPeso; //TOMAS Las sucursales van a estar limitadas por el peso?
+	private int latitud; //TOMAS
+	private int longitud; //TOMAS
+	private ArrayList<Producto> inventario1 = new ArrayList<>(); //TOMAS
     private Map<String, String> inventario;
     private Map<Horario, String> horario;
 	private int cantidadMotosDisponibles;
@@ -70,7 +73,7 @@ public class Sucursal {
             horario.put(Horario.MIERCOLES, "8:00 AM - 7:00 PM");
             horario.put(Horario.JUEVES, "8:00 AM - 7:00 PM");
             horario.put(Horario.VIERNES, "8:00 AM - 7:00 PM");
-        } else if ("Cali".equalsI(ciudad)) {
+        } else if ("Cali".equals(ciudad)) {
             // Horario para Cali
             horario.put(Horario.LUNES, "10:00 AM - 5:00 PM");
             horario.put(Horario.MARTES, "10:00 AM - 5:00 PM");
@@ -113,6 +116,22 @@ public class Sucursal {
 	// los valores de estos atributos los podemos especificar directamente
 	// lo siguiente es cómo se vería el método  agregar paquete si colocamos como parametro el tipo de transporte
 	
+
+	//TOMAS
+	public void agregarProducto(Producto nuevoProducto) {
+		if (capacidadVolumen > nuevoProducto.getVolumen()) {
+			if (capacidadPeso > nuevoProducto.getPeso()) {
+				inventario1.add(Producto nuevoProducto);
+				
+				capacidadVolumen -= nuevoProducto.getVolumen();
+				capacidadPeso -= nuevoProducto.getPeso();
+			}
+		}
+	}
+
+
+
+
 	//public String agregarPaquete(String codigoPaquete, String descripcion, String tipoTransporte) {
     //    if (tipoTransporte.equalsI("Moto") && cantidadMotosDisponibles > 0) {
     //       inventario.put(codigoPaquete, descripcion);

@@ -5,6 +5,8 @@ import java.util.Map;
 //import (paquete).Producto
 //import (paquete).Guia
 
+import productos.Animal.tamanoAnimal;
+
 public class Sucursal {
 	enum Horario {
 		LUNES, 
@@ -118,14 +120,55 @@ public class Sucursal {
 	
 
 	//TOMAS
-	public void agregarProducto(Producto nuevoProducto) {
-		if (capacidadVolumen > nuevoProducto.getVolumen()) {
+	public String agregarProducto(Producto nuevoProducto) {
+		boolean seAgrega;
+
+		if (nuevoProducto instanceof Animal) {
+			nuevoProducto = (Animal) nuevoProducto;
+
+			if (nuevoProducto.getTamano().equals(tamanoAnimal.PEQUENO)) {
+				if (cantidadJaulasPequeñas > 0) {
+					cantidadJaulasPequeñas --;
+					seAgrega = true;
+					break;
+				}
+			} else if (nuevoProducto.getTamano().equals(tamanoAnimal.PEQUENO)) {
+				if (cantidadJaulasMedianas > 0) {
+					cantidadJaulasMedianas --;
+					seAgrega = true;
+					break;
+				}
+			} else {
+				if (cantidadJaulasGrandes > 0) {
+					cantidadJaulasGrandes --;
+					seAgrega = true;
+					break;
+				}
+			}
+
+		} else if (capacidadVolumen > nuevoProducto.getVolumen()) {
 			if (capacidadPeso > nuevoProducto.getPeso()) {
-				inventario1.add(Producto nuevoProducto);
-				
+				inventario1.add(nuevoProducto);
+
 				capacidadVolumen -= nuevoProducto.getVolumen();
 				capacidadPeso -= nuevoProducto.getPeso();
+				return "Tenemos disponibilidad";
+				seAgrega = true;
+				break;
 			}
+			return "Lo sentimos, nuestra sucursal no tiene dispnobilidad en este momento";
+		} else {
+			return "Lo sentimos, nuestra sucursal no tiene dispnobilidad en este momento";
+		}
+
+		if (seAgrega)
+	}
+
+	public String verificarProducto(Producto producto) {
+		if (inventario1.contains(producto)) {
+	        return "El paquete con código " + producto.getCodigo() + " se encuentra en la sucursal y está listo para ser recogido.";
+		} else {
+	            return "Lo sentimos, paquete con código " + producto.getCodigo() + " no está en la sucursal.";
 		}
 	}
 

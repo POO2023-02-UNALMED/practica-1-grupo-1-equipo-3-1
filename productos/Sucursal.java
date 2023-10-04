@@ -15,6 +15,7 @@ public class Sucursal {
 		Sabado,
 		Domingo
 	}
+
 	private String ciudad;
 	private int capacidad;
     private Map<String, String> inventario;
@@ -22,6 +23,9 @@ public class Sucursal {
 	private int cantidadMotosDisponibles;
     private int cantidadCamionesDisponibles;
     private int cantidadAvionesDisponibles;
+	private int cantidadJaulasPequeñas;
+	private int cantidadJaulasMedianas;
+	private int cantidadJaulasGrandes;
 
 	
 	//constructor
@@ -34,12 +38,17 @@ public class Sucursal {
 		this.latitud = latitud;
 		this.altitud = altitud;
 	}
+	
     public Sucursal(String ciudad) {
-    	this.nombre = nombre;
+    	this.ciudad = ciudad;
         this.inventario = new HashMap<>();
         this.horario = new HashMap<>();
     
-        
+		asignarhorario();
+    }
+
+	//metodos
+	public void asignarhorario() {
         	//  horarios específicos para cada sucursal,
         	//en este caso solo se especificaron 3 ciudadades
         	//podemos modificar las horas a gusto
@@ -65,17 +74,16 @@ public class Sucursal {
             horario.put(Horario.JUEVES, "10:00 AM - 5:00 PM");
             horario.put(Horario.VIERNES, "10:00 AM - 5:00 PM");
         }
-    }
 
-	//metodos
-	
+	}
+
 	public String getCiudad() {
 		return this.ciudad;
 	}
+
 	public void setCiudad(String ciudad) {
 		this.ciudad = ciudad;
 	}
-	
 
 	public int getCapacidad() {
 		return this.capacidad;

@@ -121,7 +121,7 @@ public class Sucursal {
 
 	//TOMAS
 
-	public boolean disponibilidadJaulas(Animal animal) {
+	public boolean disponibilidadJaulas(Animal animal) { //Se ingresa el animal para saber su tamaño y verificar si hay jaulas para él
 		boolean disponibilidad = false;
 
 		switch (animal.getTamano()) {
@@ -148,29 +148,31 @@ public class Sucursal {
 		return disponibilidad;
 	}
 
-	public String agregarProducto(Producto nuevoProducto) {
+	public String agregarProducto(Producto nuevoProducto) { //Se usa este metodo cuando se hace el envío o llega un paquete de otra sucursal
 		boolean seAgrega = false;
 
-		if (nuevoProducto instanceof Animal) {
-			Animal nuevoAnimal = (Animal) nuevoProducto;
+		if (nuevoProducto instanceof Animal) { //Verfica si este producto es animal
+			Animal nuevoAnimal = (Animal) nuevoProducto; //Fundicion de producto a animal de forma explicita
 
-			if (disponibilidadJaulas(nuevoAnimal)) {
-				if (capacidadVolumen > nuevoAnimal.getVolumen()) {
-					if (capacidadPeso > nuevoAnimal.getPeso()) {
-						inventario1.add(nuevoAnimal);
+			if (disponibilidadJaulas(nuevoAnimal)) { //Verifica si hay jaulas
+				if (capacidadVolumen > nuevoAnimal.getVolumen()) { //Verifica si hay espacio en la sucursal
+					if (capacidadPeso > nuevoAnimal.getPeso()) { //Verifica el peso
+						inventario1.add(nuevoAnimal); //Si se cumple todo lo agrega y resta las distintas capacidades
 
 						capacidadVolumen -= nuevoAnimal.getVolumen();
 						capacidadPeso -= nuevoAnimal.getPeso();
 
-						seAgrega = true;
+						seAgrega = true; //Para arrojar el mensaje al final
 					}
 				}
 			}
 
-		} else {
+		} else { //Sino es animal, no verifica las jaulas sino los otros dos parametros
+
 			if (capacidadVolumen > nuevoProducto.getVolumen()) {
 				if (capacidadPeso > nuevoProducto.getPeso()) {
 					inventario1.add(nuevoProducto);
+
 					capacidadVolumen -= nuevoProducto.getVolumen();
 					capacidadPeso -= nuevoProducto.getPeso();
 					seAgrega = true;
@@ -185,11 +187,19 @@ public class Sucursal {
 		}
 	}
 
-	public String verificarProducto(Producto producto) {
+	public String verificarProductoCliente(Producto producto) { //verifica para ser recogido por el cliente
 		if (inventario1.contains(producto)) {
 	        return "El paquete con código " + producto.getCodigo() + " se encuentra en la sucursal y está listo para ser recogido.";
 		} else {
-	            return "Lo sentimos, paquete con código " + producto.getCodigo() + " no está en la sucursal.";
+	        return "Lo sentimos, paquete con código " + producto.getCodigo() + " no está en la sucursal.";
+		}
+	}
+
+	public boolean verificarProducto(Producto producto) { //Verifica para ser recogido por los transportes para llevarlo a otra sucursal
+		if (inventario1.contains(producto)) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 

@@ -37,7 +37,7 @@ public class Sucursal {
 }
 	
 	//constructor
-	public Sucursal(String ciudad, int capacidad, int latitud, int longitud) {
+	public Sucursal(String ciudad, String ciudadDestino, int capacidadVolumen,int capacidadPeso, int latitud, int longitud) {
 		//TOMASCorregí el tipo de horario e inventario
 		//TOMASAgregue los atributos latitud y longitud y los combié a enteros (plano cartesiano)
 		this.ciudad = ciudad;
@@ -46,10 +46,11 @@ public class Sucursal {
 		this.latitud = latitud;
 		this.longitud = longitud;
 		Sucursal.sucursales.add(this); //TOMAS
+		consultarHorario();
 	}
 	   
 	//metodos
-	public void asignarhorario() {
+	public void asignarHorario() {
         	//  horarios específicos para cada sucursal,
         	//en este caso solo se especificaron 3 ciudadades
         	//podemos modificar las horas a gusto
@@ -211,43 +212,31 @@ public class Sucursal {
 	            producto.getGuia().setVehiculo(tipoTransporte);
 				disponibilidad = true;
 			}
-	
-	    } else if (tipoTransporte instanceof Camion) {
+        }else if (tipoTransporte instanceof Camion) {
 			if (cantidadCamionesDisponibles > 0) {
 	        	producto.getGuia().setVehiculo(tipoTransporte);
 	        	cantidadCamionesDisponibles --;
 				disponibilidad = true;
-
-	    } else if (tipoTransporte.equals("Avion") { 
+			}
+	    }else if (tipoTransporte instanceof Avion){ 
 			if (cantidadAvionesDisponibles > 0) {
 	        	producto.getGuia().setVehiculo(tipoTransporte);
 	        	cantidadAvionesDisponibles --;
 				disponibilidad = true;
-	       
-	   } else {
-	        return "No hay disponibilidad de transporte para el paquete con código " + codigoP + " en la sucursal " + nombre + ".";
+			}
+	    }if (disponibilidad){
+	    	return "Tenemos disponibilidad."
+	    }else {
+	    	return "Lo sentimos, paquete con código " + producto.getCodigo() + " no está en la sucursal.";
 	    }
-	 }
+	    }
 	
-	// Método para obtener la disponibilidad de cada tipo de transporte en la sucursal
 	
-	 public String obtenerDisponibilidadTransporte() {
-		 if (cantidadMotosDisponibles>0 || cantidadCamionesDisponibles>0 || cantidadAvionesDisponibles>0) {
-	
-		 	return "Disponibilidad de transporte en la Sucursal " + ciudad + ":";
-		 	return "Motos disponibles: " + cantidadMotosDisponibles;
-		 	return "Camiones disponibles: " + cantidadCamionesDisponibles;
-		 	return "Aviones disponibles: " + cantidadAvionesDisponibles;
-		 }
-		 if (cantidadMotosDisponibles < 0 && cantidadCamionesDisponibles<0 && cantidadAvionesDisponibles < 0) {
-			 return "No hay disponibilidad de transporte para el paquete.";
-		 }
-	 }
 
 
 	    // Método para agregar un paquete al inventario de la sucursal
 	 public void agregarPaquete(Producto producto) {
-	      inventario.add(codigoPaquete, descripcion); 
+	      inventario.add(producto); 
 	 }
 
 	    // Método para verificar si un paquete está en la sucursal
@@ -260,23 +249,8 @@ public class Sucursal {
 	        }
 	 }
 
-	    		//Esto iria en la clase main
-	   /// public static void main(String[] args) {
-	        //Sucursal sucursal = new Sucursal();
-
-	        // Agregar paquetes al inventario
-	        //sucursal.agregarPaquete("PAQ123", "Paquete 1");
-	        //sucursal.agregarPaquete("PAQ456", "Paquete 2");
-	        //sucursal.agregarPaquete("PAQ789", "Paquete 3");
-
-	        // Verificar si un paquete está en la sucursal
-	        //sucursal.verificarPaquete("PAQ123"); // Debería mostrar "El paquete con código PAQ123 se encuentra en la sucursal."
-	       // sucursal.verificarPaquete("PAQ999"); // Debería mostrar "El paquete con código PAQ999 no está en la sucursal."
-	    //}
-	
 
 		//recoger
-	   
 	 public String recoger(Producto producto, Cliente cedulaRemitente, Guia cedulaDestinatario) {
 	      // Verificar si el paquete se encuentra en la sucursal
 	      if (inventario.contains(producto)) {
@@ -292,7 +266,7 @@ public class Sucursal {
 		            return "Las cédulas del remitente y/o destinatario no son válidas.";
 	            }	
 	            // Eliminar el paquete del inventario
-		        inventario.remove(codigoPaquete);  
+		        inventario.remove(descripcion);  
 		        return "El paquete se ha entregado y el inventario ha sido actualizado.";
 	                         
 

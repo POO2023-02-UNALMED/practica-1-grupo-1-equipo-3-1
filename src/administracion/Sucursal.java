@@ -70,9 +70,20 @@ public class Sucursal {
             horario.put(Horario.MIERCOLES, "10:00 AM - 5:00 PM");
             horario.put(Horario.JUEVES, "10:00 AM - 5:00 PM");
             horario.put(Horario.VIERNES, "10:00 AM - 5:00 PM");
-        }
-
-	}
+        } else if ("Pasto".equals(ciudad)) {
+            // Horario para Pasto
+            horario.put(Horario.LUNES, "7:30 AM - 4:00 PM");
+            horario.put(Horario.MARTES, "7:30 AM - 4:00 PM");
+            horario.put(Horario.MIERCOLES, "7:30 AM - 4:00 PM");
+            horario.put(Horario.JUEVES, "7:30 AM - 4:00 PM");
+            horario.put(Horario.VIERNES, "7:30 AM - 4:00 PM");
+        } else if ("Florencia".equals(ciudad)) {
+            // Horario para Florencia
+            horario.put(Horario.LUNES, "11:00 AM - 8:00 PM");
+            horario.put(Horario.MARTES, "11:00 AM - 8:00 PM");
+            horario.put(Horario.MIERCOLES, "11:00 AM - 8:00 PM");
+            horario.put(Horario.JUEVES, "11:00 AM - 8:00 PM");
+            horario.put(Horario.VIERNES, "11:00 AM - 8:00 PM");
 
 	public String getCiudad() {
 		return this.ciudad;
@@ -98,14 +109,6 @@ public class Sucursal {
 	            return dia + ": " + horario.get(dia);
 	        }
 	    }
-
-	
-	// IDEA: añadir un metodo que permita conocer la disponibilidad de tipos de transporte por sucursal
-	// y así mostrarle al cliente las opciones con las cuales puede enviar el paquete
-	// aqui podemos meter directamente la capacidad como parametro
-
-	// los valores de estos atributos los podemos especificar directamente
-	// lo siguiente es cómo se vería el método  agregar paquete si colocamos como parametro el tipo de transporte
 	
 
 	//TOMAS

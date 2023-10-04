@@ -299,5 +299,18 @@ public class Sucursal {
 		 		esDestinatario = true;
 	        }
 	    }
+	 
+
+	// Método para realizar el pago del envío
+	    public String realizarPagoEnvio(double montoPago, CuentaBancaria cuentaCliente) {
+	        if (cuentaCliente.getSaldo() >= montoAPagar) {
+	            // Realizar el pago descontando el monto de la cuenta del cliente
+	            cuentaCliente.descontarSaldo(montoAPagar);
+	            return "Pago del envío realizado con éxito.";
+	        } else {
+	            // En caso de que no hayan los fondos suficientes en la cuenta
+	        	return "La cuenta bancaria del cliente no tiene fondos suficientes para el pago del envío.";
+	        }
+	    }
 
 }

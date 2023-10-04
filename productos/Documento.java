@@ -4,6 +4,17 @@ public class Documento extends Producto {
     public Documento(int codigo) {
         peso = 0.1;
         volumen = 0.1;
+        
+        asignarCostoDelPedido();
+    }
+
+    public String toString() {
+        return "Tipo de producto: Documento\n" +
+        "Codigo de pedido: " + codigo + "\n";
+    }
+
+    public void asignarCostoDelPedido() {
+        costoDelPedido = 10000;
     }
 }
 

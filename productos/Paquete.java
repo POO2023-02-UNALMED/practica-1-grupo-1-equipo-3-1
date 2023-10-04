@@ -7,6 +7,7 @@ public class Paquete extends Producto {
     private double ancho;
     private double largo;
     private String instruccionesEspeciales; //Cualquier instrucción especial para el manejo del paquete, como "manejar con cuidado" o "almacenar en lugar fresco" 
+    private boolean roto;
 
     public Paquete(int codigo, double peso, double altura, double ancho, double largo, boolean fragil,  double valor_declarado, String instruccionesEspeciales) {
         this.codigo = codigo;
@@ -18,6 +19,33 @@ public class Paquete extends Producto {
         this.fragil = fragil;
         this.volumen = altura * largo * ancho;
         this.instruccionesEspeciales = instruccionesEspeciales;
+        roto = false;
+
+        asignarCostoDelPedido();
+    }
+
+    public String toString() {
+        return "Tipo de producto: Paquete\n" +
+        "Código de pedido: " + codigo + "\n" +
+        "Peso: " + peso + "\n" +
+        "Altura: " + altura + "\n" +
+        "Ancho: " + ancho + "\n" +
+        "Largo: " + largo + "\n" +
+        "Fragil: " + (fragil ? "Sí" : "No") + "\n" +
+        "Valor declarado: " + valorDeclarado + "\n" +
+        "Instrucciones especiales: " + instruccionesEspeciales;
+    }
+
+    public void asignarCostoDelPedido() {
+        double tarifaBasePorKg = 10000;
+        double tarfifaBasePorMetroCubico = 5000;
+        double tarifaAdicionalFragil = 1.25;
+
+        costoDelPedido = (tarfifaBasePorMetroCubico * volumen) + (tarifaBasePorKg * peso);
+
+        if (fragil) {
+        costoDelPedido *= tarifaAdicionalFragil;
+        }
     }
 
     public boolean isFragil() {
@@ -27,4 +55,12 @@ public class Paquete extends Producto {
     public double getValorDeclarado() {
         return valorDeclarado;
     }    
+
+    public boolean isRoto() {
+        return roto;
+    }
+
+    public void setRoto(boolean roto) {
+        this.roto = roto;
+    }
 }

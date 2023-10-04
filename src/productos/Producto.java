@@ -1,5 +1,6 @@
 package productos;
 import java.util.Random;
+import administracion.*;
 
 public abstract class Producto {
     protected double peso;
@@ -9,6 +10,7 @@ public abstract class Producto {
     se le suma despues el del transporte y los descuentos de membresias*/
     private static int contadorProductos;
     //El volumen y el peso es el espacio que ocupará el producto de cada transporte y sucursal
+    private Guia guia;
     
     public Producto() {
         Producto.contadorProductos ++;
@@ -44,6 +46,10 @@ public abstract class Producto {
         return contadorProductos;
     }
 
+    public Guia getGuia() {
+        return guia;
+    }
+
     public void setPeso(double peso) {
         this.peso = peso;
     }
@@ -66,6 +72,10 @@ public abstract class Producto {
 
     public static void setContadorProductos(int contadorProductos) {
         Producto.contadorProductos = contadorProductos;
+    }
+
+    public void setGuia(Guia guia) {
+        this.guia = guia;
     }
 
 }

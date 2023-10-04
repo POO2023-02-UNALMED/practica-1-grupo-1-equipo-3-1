@@ -5,6 +5,7 @@ import java.util.Map;
 //import (paquete).Guia
 
 import productos.*;
+import transportes.*;
 
 public class Sucursal {
 	enum Horario {
@@ -25,6 +26,7 @@ public class Sucursal {
 	private int latitud; //TOMAS
 	private int longitud; //TOMAS
 	private ArrayList<Producto> inventario = new ArrayList<>(); //TOMAS
+	private static ArrayList<Sucursal> sucursales = new ArrayList<>(); //TOMAS
     private Map<Horario, String> horario;
 	private int cantidadMotosDisponibles;
     private int cantidadCamionesDisponibles;
@@ -43,6 +45,7 @@ public class Sucursal {
 		this.capacidad = capacidad;
 		this.latitud = latitud;
 		this.longitud = longitud;
+		Sucursal.sucursales.add(this); //TOMAS
 	}
 	   
 	//metodos
@@ -85,6 +88,8 @@ public class Sucursal {
             horario.put(Horario.MIERCOLES, "11:00 AM - 8:00 PM");
             horario.put(Horario.JUEVES, "11:00 AM - 8:00 PM");
             horario.put(Horario.VIERNES, "11:00 AM - 8:00 PM");
+		}
+	}
 
 	public String getCiudad() {
 		return this.ciudad;
@@ -150,7 +155,7 @@ public class Sucursal {
 			if (disponibilidadJaulas(nuevoAnimal)) { //Verifica si hay jaulas
 				if (capacidadVolumen > nuevoAnimal.getVolumen()) { //Verifica si hay espacio en la sucursal
 					if (capacidadPeso > nuevoAnimal.getPeso()) { //Verifica el peso
-						inventario1.add(nuevoAnimal); //Si se cumple todo lo agrega y resta las distintas capacidades
+						inventario.add(nuevoAnimal); //Si se cumple todo lo agrega y resta las distintas capacidades
 
 						capacidadVolumen -= nuevoAnimal.getVolumen();
 						capacidadPeso -= nuevoAnimal.getPeso();
@@ -158,7 +163,7 @@ public class Sucursal {
 						seAgrega = true; //Para arrojar el mensaje al final
 					}
 				}
-			}
+			} 
 
 		} else { //Sino es animal, no verifica las jaulas sino los otros dos parametros
 
@@ -196,20 +201,27 @@ public class Sucursal {
 		}
 	}
 
-	public String asignarTransporte(Producto producto, String ciudad, String tipoTransporte) {
+	//TOMAS Cambie casi todo
+	public String asignarTransporte(Producto producto, Transporte tipoTransporte) {
 		String codigoP = inventario.get(producto);
 		String nombre = ciudad;
 	
-        if (tipoTransporte.equalsI("Moto") && cantidadMotosDisponibles > 0) {
-           Guia.vehiculo = "Moto";
-	        cantidadMotosDisponibles =- 1;
+		switch (tipoTransporte) {
+			case "Moto"
+		}
+        if (tipoTransporte.equals("Moto")) {
+			if (cantidadMotosDisponibles > 0) {
+	        	cantidadMotosDisponibles --;
+	            producto.getGuia().setVehiculo(tipoTransporte);
+
+			}
 	
 	    } else if (tipoTransporte.equals("Camion") && cantidadCamionesDisponibles > 0) {
-	        Guia.vehiculo = "Camion";
+	        Guia.getVehiculo() = "Camion";
 	       cantidadCamionesDisponibles =- 1;
 	       
 	    } else if (tipoTransporte.equals("Avion") && cantidadAvionesDisponibles > 0) {
-	        Guia.vehiculo = "Avion";
+	        Guia.getVehiculo() = "Avion";
 	        cantidadAvionesDisponibles =- 1;
 	       
 	   } else {
@@ -220,17 +232,17 @@ public class Sucursal {
 	// Método para obtener la disponibilidad de cada tipo de transporte en la sucursal
 	
 	 public String obtenerDisponibilidadTransporte() {
-		 if cantidadMotosDisponibles>0 || cantidadCamionesDisponibles>0 || cantidadAvionesDisponibles>0{
+		 if (cantidadMotosDisponibles>0 || cantidadCamionesDisponibles>0 || cantidadAvionesDisponibles>0) {
 	
-		 	return "Disponibilidad de transporte en la Sucursal " + nombre + ":";
+		 	return "Disponibilidad de transporte en la Sucursal " + ciudad + ":";
 		 	return "Motos disponibles: " + cantidadMotosDisponibles;
 		 	return "Camiones disponibles: " + cantidadCamionesDisponibles;
 		 	return "Aviones disponibles: " + cantidadAvionesDisponibles;
 		 }
-		 if cantidadMotosDisponibles<0 && cantidadCamionesDisponibles<0 && cantidadAvionesDisponibles<0{
+		 if (cantidadMotosDisponibles < 0 && cantidadCamionesDisponibles<0 && cantidadAvionesDisponibles < 0) {
 			 return "No hay disponibilidad de transporte para el paquete.";
 		 }
-
+	 }
 
 
 	    // Método para agregar un paquete al inventario de la sucursal
@@ -342,7 +354,7 @@ public class Sucursal {
 	            return distanciaCalculada;
 	        }
 	// Método para determinar la siguiente sucursal basada en la distancia geográfica
-	    public Sucursal determinarSiguienteSucursal(Paquete paquete, List<Sucursal> sucursales) {
+	    public Sucursal determinarSiguienteSucursal(Paquete paquete, ArrayList<Sucursal> sucursales) {
 	            Sucursal siguienteSucursal = null;
 	            double distanciaMinima = Double.MAX_VALUE;
 	            //recorreos cada sucursal
@@ -360,7 +372,7 @@ public class Sucursal {
 	        }
 	
 	// Método para calcular las escalas del paquete según la membresía del cliente
-	    public String calcularEscalas(Producto producto, Membresia membresia, List<Sucursal> sucursales) {
+	    public String calcularEscalas(Producto producto, Membresia membresia, ArrayList<Sucursal> sucursales) {
 	        int cantidadEscalas = calcularCantidadEscalas(membresia);
 	        for (int i = 0; i < cantidadEscalas; i++) {
 	            Sucursal siguienteSucursal = determinarSiguienteSucursal(paquete, sucursales);

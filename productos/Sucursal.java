@@ -168,7 +168,7 @@ public class Sucursal {
 			}
 
 		} else { //Sino es animal, no verifica las jaulas sino los otros dos parametros
-			
+
 			if (capacidadVolumen > nuevoProducto.getVolumen()) {
 				if (capacidadPeso > nuevoProducto.getPeso()) {
 					inventario1.add(nuevoProducto);
@@ -187,11 +187,19 @@ public class Sucursal {
 		}
 	}
 
-	public String verificarProducto(Producto producto) {
+	public String verificarProductoCliente(Producto producto) { //verifica para ser recogido por el cliente
 		if (inventario1.contains(producto)) {
 	        return "El paquete con código " + producto.getCodigo() + " se encuentra en la sucursal y está listo para ser recogido.";
 		} else {
-	            return "Lo sentimos, paquete con código " + producto.getCodigo() + " no está en la sucursal.";
+	        return "Lo sentimos, paquete con código " + producto.getCodigo() + " no está en la sucursal.";
+		}
+	}
+
+	public boolean verificarProducto(Producto producto) { //Verifica para ser recogido por los transportes para llevarlo a otra sucursal
+		if (inventario1.contains(producto)) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 

@@ -203,26 +203,26 @@ public class Sucursal {
 
 	//TOMAS Cambie casi todo
 	public String asignarTransporte(Producto producto, Transporte tipoTransporte) {
-		String codigoP = inventario.get(producto);
-		String nombre = ciudad;
+		boolean disponibilidad = false;
 	
-		switch (tipoTransporte) {
-			case "Moto"
-		}
-        if (tipoTransporte.equals("Moto")) {
+        if (tipoTransporte instanceof Moto) {
 			if (cantidadMotosDisponibles > 0) {
 	        	cantidadMotosDisponibles --;
 	            producto.getGuia().setVehiculo(tipoTransporte);
-
+				disponibilidad = true;
 			}
 	
-	    } else if (tipoTransporte.equals("Camion") && cantidadCamionesDisponibles > 0) {
-	        Guia.getVehiculo() = "Camion";
-	       cantidadCamionesDisponibles =- 1;
-	       
-	    } else if (tipoTransporte.equals("Avion") && cantidadAvionesDisponibles > 0) {
-	        Guia.getVehiculo() = "Avion";
-	        cantidadAvionesDisponibles =- 1;
+	    } else if (tipoTransporte instanceof Camion) {
+			if (cantidadCamionesDisponibles > 0) {
+	        	producto.getGuia().setVehiculo(tipoTransporte);
+	        	cantidadCamionesDisponibles --;
+				disponibilidad = true;
+
+	    } else if (tipoTransporte.equals("Avion") { 
+			if (cantidadAvionesDisponibles > 0) {
+	        	producto.getGuia().setVehiculo(tipoTransporte);
+	        	cantidadAvionesDisponibles --;
+				disponibilidad = true;
 	       
 	   } else {
 	        return "No hay disponibilidad de transporte para el paquete con código " + codigoP + " en la sucursal " + nombre + ".";

@@ -47,6 +47,7 @@ public class Sucursal {
 		this.longitud = longitud;
 		Sucursal.sucursales.add(this); //TOMAS
 		consultarHorario();
+		
 	}
 	   
 	//metodos
@@ -279,13 +280,19 @@ public class Sucursal {
 	    // Método para validar una cédula 
 	 public boolean validarCedulaRemi(int ceduladadaRemi) {
 		 boolean esRemitente = false;
-	        if ceduladadaRemi != null && ceduladadaRemi.equals(Cliente.cedula){
-	        	esRemitente = true;
+	        if (ceduladadaRemi != null) {
+	        	if (ceduladadaRemi.equals(Cliente.cedula)){
+	        		esRemitente = true;
+	        	}
+	        }
+	        	
 	    }
 	 public boolean validarCedulaDesti(int ceduladadaDesti) { //aquí se pide digitar la cc y con eso se verifica
 	     boolean esDestinatario = false;
-		 	if ceduladadaDesti != null && ceduladadaDesti.equals(Cliente.cedulaDestinatario){
-		 		esDestinatario = true;
+		 	if (ceduladadaDesti != null) {
+		 		if(ceduladadaDesti.equals(Cliente.cedulaDestinatario)){
+		 			esDestinatario = true;
+		 	}
 	        }
 	    }
 	 

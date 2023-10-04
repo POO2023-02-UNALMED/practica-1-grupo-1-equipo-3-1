@@ -120,48 +120,69 @@ public class Sucursal {
 	
 
 	//TOMAS
-	public String agregarProducto(Producto nuevoProducto) {
-		boolean seAgrega;
 
-		if (nuevoProducto instanceof Animal) {
-			nuevoProducto = (Animal) nuevoProducto;
+	public boolean disponibilidadJaulas(Animal animal) {
+		boolean disponibilidad = false;
 
-			if (nuevoProducto.getTamano().equals(tamanoAnimal.PEQUENO)) {
+		switch (animal.getTamano()) {
+			case PEQUENO:
 				if (cantidadJaulasPequeñas > 0) {
 					cantidadJaulasPequeñas --;
-					seAgrega = true;
+					disponibilidad = true;
 					break;
 				}
-			} else if (nuevoProducto.getTamano().equals(tamanoAnimal.PEQUENO)) {
+			case MEDIANO:
 				if (cantidadJaulasMedianas > 0) {
 					cantidadJaulasMedianas --;
-					seAgrega = true;
+					disponibilidad = true;
 					break;
 				}
-			} else {
+			case GRANDE:
 				if (cantidadJaulasGrandes > 0) {
 					cantidadJaulasGrandes --;
-					seAgrega = true;
+					disponibilidad = true;
 					break;
+				}
+		}
+
+		return disponibilidad;
+	}
+
+	public String agregarProducto(Producto nuevoProducto) {
+		boolean seAgrega = false;
+
+		if (nuevoProducto instanceof Animal) {
+			Animal nuevoAnimal = (Animal) nuevoProducto;
+
+			if (disponibilidadJaulas(nuevoAnimal)) {
+				if (capacidadVolumen > nuevoAnimal.getVolumen()) {
+					if (capacidadPeso > nuevoAnimal.getPeso()) {
+						inventario1.add(nuevoAnimal);
+
+						capacidadVolumen -= nuevoAnimal.getVolumen();
+						capacidadPeso -= nuevoAnimal.getPeso();
+
+						seAgrega = true;
+					}
 				}
 			}
 
-		} else if (capacidadVolumen > nuevoProducto.getVolumen()) {
-			if (capacidadPeso > nuevoProducto.getPeso()) {
-				inventario1.add(nuevoProducto);
-
-				capacidadVolumen -= nuevoProducto.getVolumen();
-				capacidadPeso -= nuevoProducto.getPeso();
-				return "Tenemos disponibilidad";
-				seAgrega = true;
-				break;
+		} else {
+			if (capacidadVolumen > nuevoProducto.getVolumen()) {
+				if (capacidadPeso > nuevoProducto.getPeso()) {
+					inventario1.add(nuevoProducto);
+					capacidadVolumen -= nuevoProducto.getVolumen();
+					capacidadPeso -= nuevoProducto.getPeso();
+					seAgrega = true;
+				}
 			}
-			return "Lo sentimos, nuestra sucursal no tiene dispnobilidad en este momento";
+		}
+
+		if (seAgrega) {
+			return "Tenemos disponibilidad";
 		} else {
 			return "Lo sentimos, nuestra sucursal no tiene dispnobilidad en este momento";
 		}
-
-		if (seAgrega)
 	}
 
 	public String verificarProducto(Producto producto) {

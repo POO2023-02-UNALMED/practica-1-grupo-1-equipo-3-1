@@ -18,6 +18,7 @@ public class Sucursal {
 	}
 
 	private String ciudad;
+	private String ciudadDestino;
 	private int capacidad;
 	private int capacidadVolumen; //TOMAS alternativa a capacidad
 	private int capacidadPeso; //TOMAS Las sucursales van a estar limitadas por el peso?
@@ -274,13 +275,15 @@ public class Sucursal {
 	            if esRemitente && esDestinatario {
 		     	// se entrega y se actualiza el inventario
 	            	return "Entregando el paquete con código " + descripcion + " a " + cedulaDestinario; //quiero colocar el nombre asociado a esa cedula
-		        // Eliminar el paquete del inventario
+		    
+	            } else {
+		            return "Las cédulas del remitente y/o destinatario no son válidas.";
+	            }	
+	            // Eliminar el paquete del inventario
 		        inventario.remove(codigoPaquete);  
 		        return "El paquete se ha entregado y el inventario ha sido actualizado.";
 	                         
-	      } else {
-	            return "Las cédulas del remitente y/o destinatario no son válidas.";
-	      }
+
 	      } else {
 	            return "El paquete con código " + codigoPaquete + " no está en la sucursal.";
 	        }
@@ -290,19 +293,19 @@ public class Sucursal {
 	    // Método para validar una cédula 
 	 public boolean validarCedulaRemi(int ceduladadaRemi) {
 		 boolean esRemitente = false;
-	        if ceduladadaRemi != null && ceduladadaRemi.equals(cedulaRemitente){
+	        if ceduladadaRemi != null && ceduladadaRemi.equals(Cliente.cedula){
 	        	esRemitente = true;
 	    }
 	 public boolean validarCedulaDesti(int ceduladadaDesti) { //aquí se pide digitar la cc y con eso se verifica
 	     boolean esDestinatario = false;
-		 	if ceduladadaDesti != null && ceduladadaDesti.equals(cedulaDestinatario){
+		 	if ceduladadaDesti != null && ceduladadaDesti.equals(Cliente.cedulaDestinatario){
 		 		esDestinatario = true;
 	        }
 	    }
 	 
 
 	// Método para realizar el pago del envío
-	    public String realizarPagoEnvio(double montoPago, CuentaBancaria cuentaCliente) {
+	 public String realizarPagoEnvio(double montoPago, CuentaBancaria cuentaCliente) {
 	        if (cuentaCliente.getSaldo() >= montoAPagar) {
 	            // Realizar el pago descontando el monto de la cuenta del cliente
 	            cuentaCliente.descontarSaldo(montoAPagar);
@@ -312,5 +315,58 @@ public class Sucursal {
 	        	return "La cuenta bancaria del cliente no tiene fondos suficientes para el pago del envío.";
 	        }
 	    }
+	 // Método para obtener la ciudad destino del paquete
+	 public String getCiudadDestino() {
+		 return this.ciudadDestino;
+	 }
+	 public void setCiudadDestino(String ciudadDestino) {
+		 this.ciudadDestino = ciudadDestino;
+	 }
+	 
+	// Método para calcular la cantidad de escalas según la membresía del cliente
+	    private int calcularCantidadEscalas(Membresia membresia) {
+	        switch (membresia./*clase Membresia*/()) {
+	            case "silver":
+	                return 4; // Hace 5 escalas
+	            case "gold":
+	                return 2; // Hace la mitad de las escalas de Silver 
+	            case "platinum":
+	                return 0; // No hace ninguna escala
+	            default:
+	                return 5; // Valor predeterminado para el cliente sin membresía 
+	        }
+	// Método para calcular la distancia entre dos puntos 
+	    private double calcularDistancia(double latitud1, double longitud1, double latitud2, double longitud2) {
+	            // fórmula Haversine para calcular la distancia entre dos puntos 
 
+	            return distanciaCalculada;
+	        }
+	// Método para determinar la siguiente sucursal basada en la distancia geográfica
+	    public Sucursal determinarSiguienteSucursal(Paquete paquete, List<Sucursal> sucursales) {
+	            Sucursal siguienteSucursal = null;
+	            double distanciaMinima = Double.MAX_VALUE;
+	            //recorreos cada sucursal
+	            for (Sucursal sucursal : sucursales) {
+	                if (!sucursal.equals(this)) {
+	                    double distancia = calcularDistancia(this.latitud, this.longitud, sucursal.latitud, sucursal.longitud);
+	                    if (distancia < distanciaMinima) {
+	                        distanciaMinima = distancia;
+	                        siguienteSucursal = sucursal;
+	                    }
+	                }
+	            }
+
+	            return siguienteSucursal;
+	        }
+	
+	// Método para calcular las escalas del paquete según la membresía del cliente
+	    public String calcularEscalas(Producto producto, Membresia membresia, List<Sucursal> sucursales) {
+	        int cantidadEscalas = calcularCantidadEscalas(membresia);
+	        for (int i = 0; i < cantidadEscalas; i++) {
+	            Sucursal siguienteSucursal = determinarSiguienteSucursal(paquete, sucursales);
+	            if (siguienteSucursal != null) {
+	                return "Enviando el paquete a la sucursal " + siguienteSucursal.getNombre());
+	                paquete.agregarEscala(siguienteSucursal);
+	            }
+	        }
 }

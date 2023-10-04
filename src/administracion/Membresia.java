@@ -9,6 +9,8 @@ public class Membresia{
 	private int precio;
 	private Cliente cliente;
 	
+	/*KEVIN. ¿Podriamos colocar el caso en el que el cliente no tenga membresía? 
+			leer el método calcularCantidadEscalas en la línea 322 de la clase sucursal donde dice default.*/
 	private enum Tipo{
 		SILVER,
 		GOLD,

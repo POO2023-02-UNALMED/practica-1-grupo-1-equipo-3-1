@@ -1,6 +1,6 @@
 //Cabecera Archivo:
 // 
-package src;
+package administracion;
 //Cabecera Clase:
 // La finalidad de esta clase es saber el beneficio de entrega
 // y demas beneficios que incluye la membresia que cada cliente tiene.

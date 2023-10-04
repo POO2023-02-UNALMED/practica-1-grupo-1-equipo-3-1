@@ -1,4 +1,4 @@
-package src;
+package administracion;
 //Cabecera clase:
 // La finalidad de esta clase es darle un nombre, y varios atributos necesarios
 // para que las personas puedan acceder a las funcionalidades

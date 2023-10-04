@@ -1,11 +1,11 @@
-package productos;
+package administracion;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 //import (paquete).Producto
 //import (paquete).Guia
 
-import productos.Animal.tamanoAnimal;
+import productos.*;
 
 public class Sucursal {
 	enum Horario {

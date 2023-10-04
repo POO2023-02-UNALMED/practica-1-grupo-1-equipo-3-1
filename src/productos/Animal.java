@@ -10,7 +10,7 @@ public class Animal extends Producto {
     private tamanoAnimal tamano; /*Solo hay tres tamaños preestablecidos, si quieres enviar un gato la opcion es "PEQUENO",
     cada tamano tiene un volumen distinto que va a ocupar en la sucursal y en el camion.*/
 
-    enum tipoAnimal {
+    public enum tipoAnimal {
         PERRO,
         GATO,
         CABALLO,
@@ -19,7 +19,7 @@ public class Animal extends Producto {
         HAMSTER,
     }
 
-    enum tamanoAnimal {
+    public enum tamanoAnimal {
         PEQUENO,
         MEDIANO,
         GRANDE,

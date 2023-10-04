@@ -1,4 +1,4 @@
-package src;
+package administracion;
 
 public class CuentaBancaria{
   

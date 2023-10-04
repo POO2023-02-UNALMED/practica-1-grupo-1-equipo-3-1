@@ -11,6 +11,7 @@ public abstract class Producto {
     //El volumen y el peso es el espacio que ocupará el producto de cada transporte y sucursal
     
     public Producto() {
+        Producto.contadorProductos ++;
     }
     
     public abstract String toString();
@@ -39,16 +40,32 @@ public abstract class Producto {
         return costoDelPedido;
     }
 
+    public static int getContadorProductos() {
+        return contadorProductos;
+    }
+
     public void setPeso(double peso) {
         this.peso = peso;
     }
     
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
 
     public void setVolumen(double volumen) {
         this.volumen = volumen;
     }
 
+    public void setCostoDelPedido(double costoDelPedido) {
+        this.costoDelPedido = costoDelPedido;
+    }
+
     public void setCostoPedido(double costoDelPedido) {
         this.costoDelPedido = costoDelPedido;
     }
+
+    public static void setContadorProductos(int contadorProductos) {
+        Producto.contadorProductos = contadorProductos;
+    }
+
 }

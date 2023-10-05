@@ -26,7 +26,7 @@ public class Sucursal {
 	private int latitud; //TOMAS
 	private int longitud; //TOMAS
 	private ArrayList<Producto> inventario = new ArrayList<>(); //TOMAS
-	private static ArrayList<Sucursal> sucursales = new ArrayList<>(); //TOMAS
+	private static ArrayList<Sucursal> todasLasSucursales = new ArrayList<>(); //TOMAS
     private Map<Horario, String> horario;
 	private int cantidadMotosDisponibles;
     private int cantidadCamionesDisponibles;
@@ -111,7 +111,11 @@ public class Sucursal {
 	public int getLongitud() {
 		return longitud;
 	}
-	
+
+	public static ArrayList<Sucursal> getTodasLasSucursales() {
+		return todasLasSucursales;
+	}
+
 	
 	
 	// horario. IDEA: Dar una opción para conocer la disponibilidad de la sucursal
@@ -218,24 +222,26 @@ public class Sucursal {
 	            producto.getGuia().setVehiculo(tipoTransporte);
 				disponibilidad = true;
 			}
-        }else if (tipoTransporte instanceof Camion) {
+        } else if (tipoTransporte instanceof Camion) {
 			if (cantidadCamionesDisponibles > 0) {
 	        	producto.getGuia().setVehiculo(tipoTransporte);
 	        	cantidadCamionesDisponibles --;
 				disponibilidad = true;
 			}
-	    }else if (tipoTransporte instanceof Avion){ 
+	    } else if (tipoTransporte instanceof Avion){ 
 			if (cantidadAvionesDisponibles > 0) {
 	        	producto.getGuia().setVehiculo(tipoTransporte);
 	        	cantidadAvionesDisponibles --;
 				disponibilidad = true;
 			}
-	    }if (disponibilidad){
-	    	return "Tenemos disponibilidad."
-	    }else {
+	    }
+		
+		if (disponibilidad){
+	    	return "Tenemos disponibilidad.";
+	    } else {
 	    	return "Lo sentimos, paquete con código " + producto.getCodigo() + " no está en la sucursal.";
 	    }
-	    }
+	}
 	
 	
 
@@ -321,18 +327,7 @@ public class Sucursal {
 		 this.ciudadDestino = ciudadDestino;
 	 }
 	 
-	// Método para calcular la cantidad de escalas según la membresía del cliente
-	    private int calcularCantidadEscalas(Membresia membresia) {
-	        switch (membresia./*clase Membresia*/()) {
-	            case "silver":
-	                return 4; // Hace 5 escalas
-	            case "gold":
-	                return 2; // Hace la mitad de las escalas de Silver 
-	            case "platinum":
-	                return 0; // No hace ninguna escala
-	            default:
-	                return 5; // Valor predeterminado para el cliente sin membresía 
-	        }
+
 	
 	
 	// Método para calcular las escalas del paquete según la membresía del cliente

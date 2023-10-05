@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         Animal Perrito = new Animal("Toby", 10, 30, tipoAnimal.PERRO);
 
-        System.out.println(Perrito);
+        System.out.println(Perrito.getTipo());
     }
     
    

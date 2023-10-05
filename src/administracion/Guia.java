@@ -7,25 +7,23 @@ public class Guia {
 	// atributos de clase
 	private Transporte vehiculo;
 	private float tiempo;
-	private float velocidad;
 	private Producto producto;
 	private Sucursal ciudadDestino; //la clase sucursal debe tener método destino
 	private Sucursal ciudadEscala; //la clase sucursal debe tener método destino
 	// pago está en sucursal, ¿qué hacemos acá?
 	private String direccion;
+	private boolean pagoContraentrega;
+	private boolean entregaEnSucursal;
+	private double precioTotal;
 	
 	
 	//métodos
-	public String getVehiculo() {
+	public Transporte getVehiculo() {
 		return vehiculo;
 	}
 
 	public float getTiempo() {
 		return tiempo;
-	}
-
-	public float getVelocidad() {
-		return velocidad;
 	}
 
 	public Producto getProducto() {

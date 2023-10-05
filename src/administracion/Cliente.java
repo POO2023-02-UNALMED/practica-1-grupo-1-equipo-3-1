@@ -10,8 +10,7 @@ public class Cliente{
 	private int telefono;
 	private Membresia premium; //esta atributo premium es de tipo de membresia, la cual es aleatoria para cada usuario
 	
-	public Cliente(String nombre, int cedula, CuentaBancaria cuentaBancaria
-			int telefono, Membresia premium){
+	public Cliente(String nombre, int cedula, CuentaBancaria cuentaBancaria, int telefono, Membresia premium){
 		
 		this.nombre = nombre;
 		this.cedula = cedula;
@@ -24,13 +23,13 @@ public class Cliente{
 		return nombre;
 	}
 	public void setNombre(String nombre) {
-		this.nombre = nombre
+		this.nombre = nombre;
 	}
 	public int getCedula() {
 		return cedula;
 	}
 	public void setCedula(int cedula) {
-		this.cedula = cedula
+		this.cedula = cedula;
 	}	
 	public CuentaBancaria getCuentaBancaria() {
 		return cuentaBancaria;
@@ -42,12 +41,12 @@ public class Cliente{
 		return telefono;
 	}
 	public void setTelefono(int telefono) {
-		this.telefono = telefono
+		this.telefono = telefono;
 	}	
 	public Membresia getPremium() {
 		return premium;
 	}
 	public void setPremium(Membresia premium) {
-		this.premium = premium
+		this.premium = premium;
 	}	
 }

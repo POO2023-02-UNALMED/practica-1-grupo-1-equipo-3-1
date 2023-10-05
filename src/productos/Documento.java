@@ -1,11 +1,12 @@
 package productos;
 
 public class Documento extends Producto {
-    public Documento(int codigo) {
+    public Documento() {
+        super(generarCodigo());
+
         peso = 0.1;
         volumen = 0.1;
         
-        asignarCodigo();
         asignarCostoDelPedido();
     }
 

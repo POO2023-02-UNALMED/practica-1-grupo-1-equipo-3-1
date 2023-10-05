@@ -19,8 +19,8 @@ public class Sucursal {
 	}
 
 	private String ciudad;
-	private String ciudadDestino;
-	private int capacidad;
+	//private String ciudadDestino; Porque un objeto Sucursal tendría una ciudadDestino?
+	//private int capacidad; redundante
 	private int capacidadVolumen; //TOMAS alternativa a capacidad
 	private int capacidadPeso; //TOMAS Las sucursales van a estar limitadas por el peso?
 	private int latitud; //TOMAS
@@ -37,14 +37,17 @@ public class Sucursal {
 }
 	
 	//constructor
-	public Sucursal(String ciudad, String ciudadDestino, int capacidadVolumen,int capacidadPeso, int latitud, int longitud) {
+	public Sucursal(String ciudad, int latitud, int longitud, int capacidadVolumen, int capacidadPeso) {
 		//TOMASCorregí el tipo de horario e inventario
 		//TOMASAgregue los atributos latitud y longitud y los combié a enteros (plano cartesiano)
 		this.ciudad = ciudad;
-		this.horario = horario;
-		this.capacidad = capacidad;
 		this.latitud = latitud;
 		this.longitud = longitud;
+		this.capacidadVolumen = capacidadVolumen;
+		this.capacidadPeso = capacidadPeso;
+		this.horario = horario;
+
+
 		Sucursal.sucursales.add(this); //TOMAS
 		consultarHorario();
 		
@@ -101,12 +104,14 @@ public class Sucursal {
 		this.ciudad = ciudad;
 	}
 
-	public int getCapacidad() {
-		return this.capacidad;
+	public int getLatitud() {
+		return latitud;
 	}
-	public void setCapacidad(int capacidad) {
-		this.capacidad = capacidad;
+
+	public int getLongitud() {
+		return longitud;
 	}
+	
 	
 	
 	// horario. IDEA: Dar una opción para conocer la disponibilidad de la sucursal
@@ -328,29 +333,7 @@ public class Sucursal {
 	            default:
 	                return 5; // Valor predeterminado para el cliente sin membresía 
 	        }
-	// Método para calcular la distancia entre dos puntos 
-	    private double calcularDistancia(double latitud1, double longitud1, double latitud2, double longitud2) {
-	            // fórmula Haversine para calcular la distancia entre dos puntos 
-
-	            return distanciaCalculada;
-	        }
-	// Método para determinar la siguiente sucursal basada en la distancia geográfica
-	    public Sucursal determinarSiguienteSucursal(Paquete paquete, ArrayList<Sucursal> sucursales) {
-	            Sucursal siguienteSucursal = null;
-	            double distanciaMinima = Double.MAX_VALUE;
-	            //recorreos cada sucursal
-	            for (Sucursal sucursal : sucursales) {
-	                if (!sucursal.equals(this)) {
-	                    double distancia = calcularDistancia(this.latitud, this.longitud, sucursal.latitud, sucursal.longitud);
-	                    if (distancia < distanciaMinima) {
-	                        distanciaMinima = distancia;
-	                        siguienteSucursal = sucursal;
-	                    }
-	                }
-	            }
-
-	            return siguienteSucursal;
-	        }
+	
 	
 	// Método para calcular las escalas del paquete según la membresía del cliente
 	    public String calcularEscalas(Producto producto, Membresia membresia, ArrayList<Sucursal> sucursales) {

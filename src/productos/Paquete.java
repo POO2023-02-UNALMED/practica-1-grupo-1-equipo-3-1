@@ -9,8 +9,9 @@ public class Paquete extends Producto {
     private String instruccionesEspeciales; //Cualquier instrucción especial para el manejo del paquete, como "manejar con cuidado" o "almacenar en lugar fresco" 
     private boolean roto;
 
-    public Paquete(int codigo, double peso, double altura, double ancho, double largo, boolean fragil,  double valor_declarado, String instruccionesEspeciales) {
-        this.codigo = codigo;
+    public Paquete(double peso, double altura, double ancho, double largo, boolean fragil,  double valor_declarado, String instruccionesEspeciales) {
+        super(generarCodigo());
+
         this.valorDeclarado = valor_declarado;
         this.peso = peso;
         this.altura = altura;

@@ -26,6 +26,7 @@ public class Animal extends Producto {
     }
 
     public Animal(String nombre, int edad, double peso, tipoAnimal tipo) {
+        super(generarCodigo());
         this.nombre = nombre;
         this.edad = edad;
         this.peso = peso;
@@ -33,7 +34,6 @@ public class Animal extends Producto {
 
         vivo = true;
 
-        asignarCodigo();
         asignarPeligro();
         asignarTamano();
         asignarVolumen();

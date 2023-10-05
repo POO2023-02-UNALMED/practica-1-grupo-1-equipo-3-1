@@ -4,7 +4,7 @@ import administracion.*;
 
 public abstract class Producto {
     protected double peso;
-    protected int codigo;
+    protected final int codigo; //EL codigo de cada paquete es unico e inmutable
     protected double volumen;
     protected double costoDelPedido; /*Este no es el costo definitvo del producto,
     se le suma despues el del transporte y los descuentos de membresias*/
@@ -12,7 +12,9 @@ public abstract class Producto {
     //El volumen y el peso es el espacio que ocupará el producto de cada transporte y sucursal
     private Guia guia;
     
-    public Producto() {
+    public Producto(int codigo) {
+        this.codigo = codigo;
+
         Producto.contadorProductos ++;
     }
     
@@ -20,10 +22,10 @@ public abstract class Producto {
 
     public abstract void asignarCostoDelPedido();
 
-    public void asignarCodigo() { //Genera código de 5 digitos y lo asigna al atributo
+    public static int generarCodigo() { //Genera código de 5 digitos y lo asigna al atributo
         Random random = new Random();
         int codigoAleatorio = random.nextInt(90000) + 10000;
-        codigo = codigoAleatorio;
+        return codigoAleatorio;
     }
     
     public double getPeso() {
@@ -52,10 +54,6 @@ public abstract class Producto {
 
     public void setPeso(double peso) {
         this.peso = peso;
-    }
-    
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
     }
 
     public void setVolumen(double volumen) {

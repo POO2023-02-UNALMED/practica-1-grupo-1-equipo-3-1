@@ -3,7 +3,7 @@
 package administracion;
 
 import java.util.Random;
-
+import persona.*;
 
 //Cabecera Clase:
 // La finalidad de esta clase es saber el beneficio de entrega
@@ -42,7 +42,7 @@ public class Membresia{
 		// el codigo que haria que la membresia fuera aleatoria
 	}
 	
-	public crearMembresia() {
+	public tipo crearMembresia() {
         Random random = new Random();
         int probabilidadTotal = 100;
         int numeroAleatorio = random.nextInt(probabilidadTotal) + 1; // Genera un número entre 1 y 100
@@ -56,7 +56,7 @@ public class Membresia{
         }
         return tipo.DEFAULT;
      }
-	}
+
 	
 	public tipo getBeneficio() {
 		return beneficio;

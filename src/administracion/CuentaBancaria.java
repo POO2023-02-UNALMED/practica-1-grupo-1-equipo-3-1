@@ -7,6 +7,7 @@ package administracion;
 import java.util.Random; //Se importa esto ya que pues los datos seran random
 
 public class CuentaBancaria { //Los atributos de la clase (Viernes vemos si hay que agregar algun atributo)
+	private Persona titular; // Importa Nombre y al final debe imprimirlo (AVANZAR).
     private long numero;
     private int cvv;
     private String fechaExpiracion;

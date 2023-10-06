@@ -3,7 +3,7 @@ package administracion;
 import java.util.Random;
 
 public class EventosAleatorios {
-
+// PAQUETE FRAGIL PUEDE ROMPERSE Y PUEDE QUE NO; ANIMAL DERRUMBE A SOBREVIVIDO ; LLORONA DISCUTIENDO
     enum EventoPaquete {
         DERRUMBE(50),
         DILUVIO(50),

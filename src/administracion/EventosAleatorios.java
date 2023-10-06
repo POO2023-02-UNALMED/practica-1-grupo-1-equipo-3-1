@@ -101,3 +101,71 @@ public class EventosAleatorios {
         objeto.generarEventoAleatorio();
     }
 }
+
+//TOMAS MEMBRESIA
+
+package administracion;
+
+import java.util.Random;
+
+public class Membresia{
+
+	enum membresiatipos{
+		SILVER(40),
+		GOLD(20),
+		PLATINUM(10);
+		
+		private int probabilidad;
+		private membresiatipos (int probabilidad) {
+			this.probabilidad = probabilidad;
+		}
+		public int getProbabilidad() {
+			return probabilidad;
+		} 
+	}
+	
+	private int probabilidad;
+	private membresiatipos membresiaTipos;
+	
+	public Membresia() {
+		probabilidad = 0; //Probabilidad 
+		membresiaTipos = membresiatipos.values()[new Random().nextInt(membresiatipos.values().length)];
+	}
+    // Métodos para obtener y establecer la probabilidad
+    public int getProbabilidad() {
+        return probabilidad;
+    }
+
+    public void setProbabilidad(int probabilidad) {
+        this.probabilidad = probabilidad;
+    }
+
+    // Métodos para obtener y establecer eventoPaquete
+    public membresiatipos getmembresiatipos() {
+        return membresiaTipos;
+    }
+
+    public void setmembresiatipos(membresiatipos membresiaTipos) {
+        this.membresiaTipos = membresiaTipos;
+    }
+    
+    public void generarMembresia() {
+        Random random = new Random();
+        int numeroAleatorio = random.nextInt(100); // Rango entre 0 y 99
+
+        if (membresiaTipos == membresiatipos.PLATINUM) {
+            System.out.println("¡Has Ganado La Mejor Membresia, La Membresia " + membresiaTipos + "!");
+        } else if (numeroAleatorio < membresiaTipos.getProbabilidad()) {
+            System.out.println("¡Has Ganado Esta Membresia " + membresiaTipos + "!");
+        } else {
+            System.out.println("Has Ganado La Membresia DEFAULT");
+        }
+    }
+
+
+    public static void main(String[] args) {
+        Membresia objeto = new Membresia();
+        // Llamar al método para generar eventos aleatorios
+        objeto.generarMembresia();
+    }
+}

@@ -4,6 +4,7 @@ public class Avion extends Transporte {
     private static int cant_aviones = 0;
     private int matricula;
     private String ciudad_actual;
+    private int cantdadAvionesDisponibles = 0;
 
     private Guia guia;
     public Avion(String ciudad_registro, float capacidad_carga, int matricula, String fabricante){

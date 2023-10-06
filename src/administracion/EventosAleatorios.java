@@ -5,14 +5,14 @@ import java.util.Random;
 public class EventosAleatorios {
 
     enum EventoPaquete {
-        DERRUMBE(20),
-        DILUVIO(20),
-        TRAFICO(10),
-        GUERRILLA(10),
-        LLORONA(10),
-        ATENTADO(10),
-        ATRACO(10),
-        DAÑO_EN_VEHICULO(10);
+        DERRUMBE(50),
+        DILUVIO(50),
+        TRAFICO(50),
+        GUERRILLA(50),
+        LLORONA(50),
+        ATENTADO(50),
+        ATRACO(50),
+        DAÑO_EN_VEHICULO(50);
 
         private int probabilidad;
 
@@ -26,8 +26,8 @@ public class EventosAleatorios {
     }
 
     enum EventoAnimal {
-        ESCAPE(45),
-        MUERTO(25);
+        ESCAPE(35),
+        MUERTO(20);
 
         private int probabilidad;
 
@@ -47,7 +47,7 @@ public class EventosAleatorios {
 
     // Constructor con valor predeterminado para la probabilidad y eventos aleatorios
     public EventosAleatorios() {
-        probabilidad = 90;
+        probabilidad = 100;
         eventoPaquete = EventoPaquete.values()[new Random().nextInt(EventoPaquete.values().length)];
         eventoAnimal = EventoAnimal.values()[new Random().nextInt(EventoAnimal.values().length)];
     }

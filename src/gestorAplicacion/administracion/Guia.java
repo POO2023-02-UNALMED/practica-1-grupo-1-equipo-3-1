@@ -127,7 +127,7 @@ public class Guia {
 }
 
 //CODIGO DE Eventos Aleatorios
-
+/*
 package administracion;
 
 import java.util.Random;
@@ -233,3 +233,4 @@ public class EventosAleatorios {
 }
 
 // FIN CODIGO Eventos Aleatorios 
+*/

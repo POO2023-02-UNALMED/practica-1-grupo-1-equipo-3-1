@@ -30,4 +30,40 @@ public class CuentaBancaria { //Los atributos de la clase (Viernes vemos si hay 
         Random random = new Random();
         cvv = 100 + random.nextInt(999); //rango entre 0 y 999 
     }
-    // Continuacion más tarde
+    // Generar una fecha de expiración aleatoria (MM/YY)
+    private void generarFechaExpiracionAleatoria() {
+        Random random = new Random();
+        int mes = 1 + random.nextInt(12);
+        int año = 22 + random.nextInt(10);
+        fechaExpiracion = String.format("%02d/%02d", mes, año);
+    }
+    // Generar saldo aleatorio de hasta 7 cifras
+    private void generarSaldoAleatorio() {
+        Random random = new Random();
+        saldo = random.nextInt(10000000);
+    }
+    // Métodos públicos para obtener los atributos
+    public long getNumero() {
+        return numero;
+    }
+
+    public int getCVV() {
+        return cvv;
+    }
+
+    public String getFechaExpiracion() {
+        return fechaExpiracion;
+    }
+
+    public int getSaldo() {
+        return saldo;
+    }
+    // Método para imprimir la información de la cuenta
+    public void imprimirInformacion() {
+    	System.out.println("Los Datos De Tú Cuenta Bancaria Son Los Siguientes:");
+        System.out.println("Número De Cuenta: " + numero);
+        System.out.println("CVV: " + cvv);
+        System.out.println("Fecha De Expiración: " + fechaExpiracion);
+        System.out.println("Saldo: $" + saldo);
+    }
+}

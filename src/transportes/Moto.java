@@ -2,6 +2,7 @@ package transportes;
 
 public class Moto extends Transporte {
     private static int cant_motos;
+    private static int cantidadMotosDisponibles
     private int matricula;
 
     public Moto(string ciudad_registro, float capacidad_carga, string fabricante, int matricula){

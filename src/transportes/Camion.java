@@ -2,6 +2,7 @@ package transportes;
 
 public class Camion extends Transporte {
     private static int cant_camiones;
+    private static int cantidadCamionesDisponibles;
     private int matricula;
 
     public Camion(String ciudad_registro, float capacidad_carga, String fabricante, int matricula){

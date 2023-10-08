@@ -1,5 +1,8 @@
 package productos;
 
+import productos.Animal.tamanoAnimal;
+import productos.Animal.tipoAnimal;
+
 public class Animal extends Producto {
     private String nombre; /*Para que aparezca su nombre si se murió o ya llegó al lugar de destino a la hora de rastrear el paquete
     "Toby ya llegó" o "Toby falleció, lo sentimos" */
@@ -109,7 +112,7 @@ public class Animal extends Producto {
         }
     }
 
-    public void asignarCostoDelPedido() {
+    public double asignarCostoDelPedido() {
         switch (tamano) {
             case PEQUENO:
                 costoDelPedido = 200000;
@@ -125,6 +128,7 @@ public class Animal extends Producto {
         if (peligroso) {
             costoDelPedido *= 1.25; //Si el animal es peligroso, el valor del pedido aumenta en una cuarta parte
         }
+		return costoDelPedido;
     }
 
     public String getNombre() {

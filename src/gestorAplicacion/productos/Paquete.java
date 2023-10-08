@@ -8,6 +8,7 @@ public class Paquete extends Producto {
     private double largo;
     private String instruccionesEspeciales; //Cualquier instrucción especial para el manejo del paquete, como "manejar con cuidado" o "almacenar en lugar fresco" 
     private boolean roto;
+    
 
     public Paquete(double peso, double altura, double ancho, double largo, boolean fragil,  double valor_declarado, String instruccionesEspeciales) {
         super(generarCodigo());
@@ -37,16 +38,17 @@ public class Paquete extends Producto {
         "Instrucciones especiales: " + instruccionesEspeciales;
     }
 
-    public void asignarCostoDelPedido() {
+    public double asignarCostoDelPedido() {
         double tarifaBasePorKg = 10000;
         double tarfifaBasePorMetroCubico = 5000;
         double tarifaAdicionalFragil = 1.25;
-
-        costoDelPedido = (tarfifaBasePorMetroCubico * volumen) + (tarifaBasePorKg * peso);
-
-        if (fragil) {
-        costoDelPedido *= tarifaAdicionalFragil;
+        double costoDelPedido = (tarfifaBasePorMetroCubico * volumen) + (tarifaBasePorKg * peso);
+        if (!fragil) {
+        	this.costoDelPedido = costoDelPedido;
+        }else {
+        	costoDelPedido *= tarifaAdicionalFragil;
         }
+		return costoDelPedido;
     }
 
     public boolean isFragil() {

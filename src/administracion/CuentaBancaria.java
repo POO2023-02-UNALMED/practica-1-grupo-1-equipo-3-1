@@ -67,7 +67,7 @@ public class CuentaBancaria { //Los atributos de la clase (Viernes vemos si hay 
         System.out.println("Saldo: $" + saldo);
     }
     //Kevin - descontarSaldo
-	public void descontarSaldo(double montoAPagar, double saldo) {
+	public void descontarSaldo(double montoAPagar) {
 		if (saldo < montoAPagar) {
 		}else {
 			saldo = saldo-montoAPagar;

@@ -3,6 +3,7 @@ import java.util.Random;
 
 public class EventosAleatorios {
 	// PAQUETE FRAGIL PUEDE ROMPERSE Y PUEDE QUE NO; ANIMAL DERRUMBE A SOBREVIVIDO ; LLORONA DISCUTIENDO
+	// PEGAR A GUÍA
 	    enum EventoPaquete {
 	        DERRUMBE(50),
 	        DILUVIO(50),
@@ -93,13 +94,5 @@ public class EventosAleatorios {
 	            System.out.println("No ha ocurrido ningún evento.");
 	        }
 	    }
-
-	    public static void main(String[] args) {
-	        EventosAleatorios objeto = new EventosAleatorios();
-	        // Llamar al método para generar eventos aleatorios
-	        objeto.generarEventoAleatorio();
-	    }
-	
-
 }
 

@@ -10,6 +10,8 @@ public class Main {
         Animal Perrito = new Animal("Toby", 10, 30, tipoAnimal.PERRO);
 
         System.out.println(Perrito.getTipo());
+        Membresia membresia1 = new Membresia();
+        System.out.println(membresia1.getBeneficio());
     }
     
    

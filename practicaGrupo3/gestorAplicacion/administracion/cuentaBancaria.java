@@ -7,7 +7,7 @@ package administracion;
 import java.util.Random; //Se importa esto ya que pues los datos seran random
 
 import persona.*;
-public class cuentaBancaria { //Los atributos de la clase (Viernes vemos si hay que agregar algun atributo)
+public class CuentaBancaria { //Los atributos de la clase (Viernes vemos si hay que agregar algun atributo)
 	private Persona titular; // Importa Nombre y al final debe imprimirlo (AVANZAR).
     private long numero;
     private int cvv;
@@ -15,7 +15,7 @@ public class cuentaBancaria { //Los atributos de la clase (Viernes vemos si hay 
     private static double saldo;
     
     // Un constructor que genera aleatoriamente los atributos
-    public cuentaBancaria() {
+    public CuentaBancaria() {
         generarNumeroAleatorio();
         generarCVVAleatorio();
         generarFechaExpiracionAleatoria();

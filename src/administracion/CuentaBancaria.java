@@ -67,12 +67,10 @@ public class CuentaBancaria { //Los atributos de la clase (Viernes vemos si hay 
         System.out.println("Saldo: $" + saldo);
     }
     //Kevin - descontarSaldo
-	public String descontarSaldo(double montoAPagar, double saldo) {
+	public void descontarSaldo(double montoAPagar, double saldo) {
 		if (saldo < montoAPagar) {
-			return "Saldo insuficiente, no se puede realizar el pago";
 		}else {
 			saldo = saldo-montoAPagar;
-			return "Pago realizado con éxito";
 		}
 		
 	}

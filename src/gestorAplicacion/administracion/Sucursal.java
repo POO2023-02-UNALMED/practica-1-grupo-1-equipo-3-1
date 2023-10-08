@@ -2,10 +2,11 @@ package administracion;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-//import (paquete).Guia
 
+import persona.*;
 import productos.*;
 import transportes.*;
+
 
 public class Sucursal {
 	enum Horario {
@@ -19,14 +20,14 @@ public class Sucursal {
 	}
 
 	private String ciudad;
-	//private String ciudadDestino; Porque un objeto Sucursal tendría una ciudadDestino?
-	//private int capacidad; redundante
+	private String ciudadDestino;
+	private int capacidad;
 	private int capacidadVolumen; //TOMAS alternativa a capacidad
 	private int capacidadPeso; //TOMAS Las sucursales van a estar limitadas por el peso?
 	private int latitud; //TOMAS
 	private int longitud; //TOMAS
 	private ArrayList<Producto> inventario = new ArrayList<>(); //TOMAS
-	private static ArrayList<Sucursal> todasLasSucursales = new ArrayList<>(); //TOMAS
+	private static ArrayList<Sucursal> sucursales = new ArrayList<>(); //TOMAS
     private Map<Horario, String> horario;
 	private int cantidadMotosDisponibles;
     private int cantidadCamionesDisponibles;
@@ -34,22 +35,19 @@ public class Sucursal {
 	private int cantidadJaulasPequeñas;
 	private int cantidadJaulasMedianas;
 	private int cantidadJaulasGrandes;
-}
+
 	
 	//constructor
-	public Sucursal(String ciudad, int latitud, int longitud, int capacidadVolumen, int capacidadPeso) {
+	public Sucursal(String ciudad, String ciudadDestino, int capacidadVolumen,int capacidadPeso, int latitud, int longitud) {
 		//TOMASCorregí el tipo de horario e inventario
 		//TOMASAgregue los atributos latitud y longitud y los combié a enteros (plano cartesiano)
 		this.ciudad = ciudad;
+		this.horario = horario;
+		this.capacidad = capacidad;
 		this.latitud = latitud;
 		this.longitud = longitud;
-		this.capacidadVolumen = capacidadVolumen;
-		this.capacidadPeso = capacidadPeso;
-		this.horario = horario;
-
-
 		Sucursal.sucursales.add(this); //TOMAS
-		consultarHorario();
+		//consultarHorario();
 		
 	}
 	   
@@ -104,28 +102,23 @@ public class Sucursal {
 		this.ciudad = ciudad;
 	}
 
-	public int getLatitud() {
-		return latitud;
+	public int getCapacidad() {
+		return this.capacidad;
 	}
-
-	public int getLongitud() {
-		return longitud;
+	public void setCapacidad(int capacidad) {
+		this.capacidad = capacidad;
 	}
-
-	public static ArrayList<Sucursal> getTodasLasSucursales() {
-		return todasLasSucursales;
-	}
-
 	
 	
 	// horario. IDEA: Dar una opción para conocer la disponibilidad de la sucursal
-	 public String consultarHorario() {
+	/* public String consultarHorario() {
 		 String nombre = ciudad;
 	        return "Horario de la Sucursal " + nombre + ":";
 	        for (Horario dia : Horario.values()) {
-	            return dia + ": " + horario.get(dia);
+	            return horario.get(dia);
 	        }
-	    }
+	    }*/
+	 
 	
 
 	//TOMAS
@@ -222,26 +215,24 @@ public class Sucursal {
 	            producto.getGuia().setVehiculo(tipoTransporte);
 				disponibilidad = true;
 			}
-        } else if (tipoTransporte instanceof Camion) {
+        }else if (tipoTransporte instanceof Camion) {
 			if (cantidadCamionesDisponibles > 0) {
 	        	producto.getGuia().setVehiculo(tipoTransporte);
 	        	cantidadCamionesDisponibles --;
 				disponibilidad = true;
 			}
-	    } else if (tipoTransporte instanceof Avion){ 
+	    }else if (tipoTransporte instanceof Avion){ 
 			if (cantidadAvionesDisponibles > 0) {
 	        	producto.getGuia().setVehiculo(tipoTransporte);
 	        	cantidadAvionesDisponibles --;
 				disponibilidad = true;
 			}
-	    }
-		
-		if (disponibilidad){
+	    }if (disponibilidad){
 	    	return "Tenemos disponibilidad.";
-	    } else {
+	    }else {
 	    	return "Lo sentimos, paquete con código " + producto.getCodigo() + " no está en la sucursal.";
 	    }
-	}
+	    }
 	
 	
 
@@ -252,8 +243,8 @@ public class Sucursal {
 	 }
 
 	    // Método para verificar si un paquete está en la sucursal
-	 public String verificarPaquete(Producto producto) {
-	     String codigoPaquete = inventario.get(producto)
+	 public String verificarPaquete(int producto) {
+	     Producto codigoPaquete = inventario.get(producto);
 		 if (inventario.contains(producto)) {
 	            return "El paquete con código " + codigoPaquete + " se encuentra en la sucursal.";
 	      } else {
@@ -261,55 +252,56 @@ public class Sucursal {
 	        }
 	 }
 
+	 
+	
 
 		//recoger
-	 public String recoger(Producto producto, Cliente cedulaRemitente, Guia cedulaDestinatario) {
-	      // Verificar si el paquete se encuentra en la sucursal
-	      if (inventario.contains(producto)) {
-	          // Obtener la descripción del paquete
-	    	  String descripcion = inventario.get(codigoPaquete);
-	            return "El paquete con código " + descripcion + " se encuentra en la sucursal.";   
-	            // Validar las cédulas del remitente y destinatario	
-	            if esRemitente && esDestinatario {
-		     	// se entrega y se actualiza el inventario
-	            	return "Entregando el paquete con código " + descripcion + " a " + cedulaDestinario; //quiero colocar el nombre asociado a esa cedula
-		    
-	            } else {
-		            return "Las cédulas del remitente y/o destinatario no son válidas.";
-	            }	
-	            // Eliminar el paquete del inventario
-		        inventario.remove(descripcion);  
-		        return "El paquete se ha entregado y el inventario ha sido actualizado.";
-	                         
-
-	      } else {
-	            return "El paquete con código " + codigoPaquete + " no está en la sucursal.";
-	        }
-	    }
-	   
+	 public String recoger(Producto producto, int remitente, int destinatario) {
+		// Verificar si el paquete se encuentra en la sucursal
+		 if (inventario.contains(producto)) {
+			// Validar las cédulas del remitente y destinatario	
+			 boolean esRemitente = validarCedulaRemi1(remitente);
+			 boolean esDestinatario = validarCedulaDest(destinatario);
+			 
+			 /*entregar si se cumplen las condiciones anteriores*/
+			 if(esRemitente) {
+				 if(esDestinatario) {
+					 inventario.remove(producto);
+					 return "Se ha entregado el paquete con código" + producto.getCodigo()+" a "+destinatario;
+				 }
+			 }else {
+				 return "Las cédulas del remitente y/o destinatio no son validas.\n";
+			 }
+		 }else {
+			 return "El paquete no se encuentra en la Sucursal.";
+		 }
+	 }
 
 	    // Método para validar una cédula 
-	 public boolean validarCedulaRemi(int ceduladadaRemi) {
-		 boolean esRemitente = false;
-	        if (ceduladadaRemi != null) {
-	        	if (ceduladadaRemi.equals(Cliente.cedula)){
-	        		esRemitente = true;
-	        	}
-	        }
-	        	
-	    }
-	 public boolean validarCedulaDesti(int ceduladadaDesti) { //aquí se pide digitar la cc y con eso se verifica
-	     boolean esDestinatario = false;
-		 	if (ceduladadaDesti != null) {
-		 		if(ceduladadaDesti.equals(Cliente.cedulaDestinatario)){
-		 			esDestinatario = true;
-		 	}
-	        }
-	    }
+		 
+	 public boolean validarCedulaRemi1(int remitente) {
+		 int cedulaRemi = Cliente.getCedula();
+		 if (remitente == cedulaRemi) {
+			 return true;
+		 }else {
+			 return false;
+		 }
+	 }
+		 
+	 public boolean validarCedulaDest(int destinatario) { 
+	     int cedulaDesti = Destinatario.getCedula();
+	     if (destinatario == cedulaDesti) {
+	    	 return true;
+	     }else {
+	    	 return false;
+	     }  
+	 }
 	 
 
 	// Método para realizar el pago del envío
-	 public String realizarPagoEnvio(double montoPago, CuentaBancaria cuentaCliente) {
+	 public String realizarPagoEnvio(double montoAPagar, CuentaBancaria cuentaCliente) {
+		 	montoAPagar = Producto.costoDelPedido;
+	 
 	        if (cuentaCliente.getSaldo() >= montoAPagar) {
 	            // Realizar el pago descontando el monto de la cuenta del cliente
 	            cuentaCliente.descontarSaldo(montoAPagar);
@@ -327,17 +319,24 @@ public class Sucursal {
 		 this.ciudadDestino = ciudadDestino;
 	 }
 	 
+	// Método para calcular la cantidad de escalas según la membresía del cliente
+	 
+	 //necesito que Tomás M. haga el switch con los tipos de membresia
+	    private int calcularCantidadEscalas(Membresia membresia) {
+	        switch (Membresia.crearMembresia()) {
+	            case "silver":
+	                return 4; // Hace 5 escalas
+	            case "gold":
+	                return 2; // Hace la mitad de las escalas de Silver 
+	            case "platinum":
+	                return 0; // No hace ninguna escala
+	            default:
+	                return 5; // Valor predeterminado para el cliente sin membresía 
+	        }
+	    }
+}
+
+
 
 	
-	
-	// Método para calcular las escalas del paquete según la membresía del cliente
-	    public String calcularEscalas(Producto producto, Membresia membresia, ArrayList<Sucursal> sucursales) {
-	        int cantidadEscalas = calcularCantidadEscalas(membresia);
-	        for (int i = 0; i < cantidadEscalas; i++) {
-	            Sucursal siguienteSucursal = determinarSiguienteSucursal(paquete, sucursales);
-	            if (siguienteSucursal != null) {
-	                return "Enviando el paquete a la sucursal " + siguienteSucursal.getNombre());
-	                paquete.agregarEscala(siguienteSucursal);
-	            }
-	        }
-}
+

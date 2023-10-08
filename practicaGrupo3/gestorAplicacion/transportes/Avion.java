@@ -1,4 +1,5 @@
 package transportes;
+import administracion.*;
 
 public class Avion extends Transporte {
     private static int cant_aviones = 0;

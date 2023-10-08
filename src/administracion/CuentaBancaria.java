@@ -3,15 +3,14 @@ package administracion;
    * get.saldo() y descontarSaldo()
    * revise las lineas 304-313 para que pueda ver el uso que les voy a dar
    */
-}
-import java.util.Random; //Se importa esto ya que pues los datos seran random
 
+import java.util.Random; //Se importa esto ya que pues los datos seran random
 public class CuentaBancaria { //Los atributos de la clase (Viernes vemos si hay que agregar algun atributo)
 	private Persona titular; // Importa Nombre y al final debe imprimirlo (AVANZAR).
     private long numero;
     private int cvv;
     private String fechaExpiracion;
-    private int saldo;
+    private double saldo;
     
     // Un constructor que genera aleatoriamente los atributos
     public CuentaBancaria() {
@@ -56,7 +55,7 @@ public class CuentaBancaria { //Los atributos de la clase (Viernes vemos si hay 
         return fechaExpiracion;
     }
 
-    public int getSaldo() {
+    public double getSaldo() {
         return saldo;
     }
     // Método para imprimir la información de la cuenta
@@ -67,4 +66,15 @@ public class CuentaBancaria { //Los atributos de la clase (Viernes vemos si hay 
         System.out.println("Fecha De Expiración: " + fechaExpiracion);
         System.out.println("Saldo: $" + saldo);
     }
+    //Kevin - descontarSaldo
+	public String descontarSaldo(double montoAPagar, double saldo) {
+		if (saldo < montoAPagar) {
+			return "Saldo insuficiente, no se puede realizar el pago";
+		}else {
+			saldo = saldo-montoAPagar;
+			return "Pago realizado con éxito";
+		}
+		
+	}
+	
 }

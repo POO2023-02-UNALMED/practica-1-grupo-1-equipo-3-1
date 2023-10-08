@@ -13,4 +13,5 @@ public class Destinatario extends Persona{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 }

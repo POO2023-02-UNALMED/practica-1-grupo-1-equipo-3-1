@@ -1,11 +1,12 @@
-package gestorAplicacion;
+package administracion;
+
 	  /* KEVIN en esta clase deben de ir dos métodos que necesito para la parte de sucursal:
 	   * get.saldo() y descontarSaldo()
 	   * revise las lineas 304-313 para que pueda ver el uso que les voy a dar
 	   */
 
 	import java.util.Random; //Se importa esto ya que pues los datos seran random
-	public class CuentaBancaria { //Los atributos de la clase (Viernes vemos si hay que agregar algun atributo)
+	public class cuentaBancaria { //Los atributos de la clase (Viernes vemos si hay que agregar algun atributo)
 		private Persona titular; // Importa Nombre y al final debe imprimirlo (AVANZAR).
 	    private long numero;
 	    private int cvv;
@@ -13,7 +14,7 @@ package gestorAplicacion;
 	    private double saldo;
 	    
 	    // Un constructor que genera aleatoriamente los atributos
-	    public CuentaBancaria() {
+	    public cuentaBancaria() {
 	        generarNumeroAleatorio();
 	        generarCVVAleatorio();
 	        generarFechaExpiracionAleatoria();

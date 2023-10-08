@@ -1,8 +1,5 @@
 package persona;
 
-import administracion.CuentaBancaria;
-import administracion.Membresia;
-
 public abstract class Persona {
 	private String nombre;
 	private static int cedula;
@@ -51,4 +48,5 @@ public abstract class Persona {
 	}
 	protected abstract int getCedulaDestinatario();
 	
+
 }

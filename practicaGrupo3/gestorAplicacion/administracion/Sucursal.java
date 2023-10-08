@@ -1,4 +1,5 @@
 package administracion;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -334,9 +335,5 @@ public class Sucursal {
 	                return 5; // Valor predeterminado para el cliente sin membresía 
 	        }
 	    }
+
 }
-
-
-
-	
-

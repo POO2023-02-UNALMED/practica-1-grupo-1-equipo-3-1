@@ -1,6 +1,5 @@
-//Cabecera Archivo:
-// 
 package administracion;
+
 
 import java.util.Random;
 import persona.*;
@@ -78,4 +77,5 @@ public class Membresia{
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+
 }

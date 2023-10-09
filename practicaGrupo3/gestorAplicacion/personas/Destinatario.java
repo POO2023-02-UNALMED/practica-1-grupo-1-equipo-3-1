@@ -1,4 +1,4 @@
-package persona;
+package personas;
 
 //import tests.CuentaBancaria;
 import administracion.CuentaBancaria;

@@ -1,6 +1,4 @@
-package persona;
-import administracion.Membresia;
-import administracion.CuentaBancaria;
+package personas;
 
 //Cabecera clase:
 

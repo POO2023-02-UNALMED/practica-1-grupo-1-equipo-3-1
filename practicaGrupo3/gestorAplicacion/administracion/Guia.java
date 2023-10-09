@@ -1,8 +1,7 @@
 package administracion;
 import java.util.Random;
 
-import administracion.EventosAleatorios.EventoAnimal;
-import administracion.EventosAleatorios.EventoPaquete;
+import personas.*;
 
 //import sucursal.* No hace falta ya que estan en el mismo paquete
 

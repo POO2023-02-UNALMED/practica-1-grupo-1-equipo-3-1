@@ -1,4 +1,5 @@
 package administracion;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -93,23 +94,7 @@ public class Sucursal {
             horario.put(Horario.VIERNES, "11:00 AM - 8:00 PM");
 		}
 	}
-
-	public String getCiudad() {
-		return this.ciudad;
-	}
-
-	public void setCiudad(String ciudad) {
-		this.ciudad = ciudad;
-	}
-
-	public int getCapacidad() {
-		return this.capacidad;
-	}
-	public void setCapacidad(int capacidad) {
-		this.capacidad = capacidad;
-	}
-	
-	
+		
 	// horario. IDEA: Dar una opción para conocer la disponibilidad de la sucursal
 	/* public String consultarHorario() {
 		 String nombre = ciudad;
@@ -238,12 +223,12 @@ public class Sucursal {
 
 
 	    // Método para agregar un paquete al inventario de la sucursal
-	 public void agregarPaquete(Producto producto) {
+	public void agregarPaquete(Producto producto) {
 	      inventario.add(producto); 
 	 }
 
 	    // Método para verificar si un paquete está en la sucursal
-	 public String verificarPaquete(int producto) {
+	public String verificarPaquete(int producto) {
 	     Producto codigoPaquete = inventario.get(producto);
 		 if (inventario.contains(producto)) {
 	            return "El paquete con código " + codigoPaquete + " se encuentra en la sucursal.";
@@ -267,15 +252,14 @@ public class Sucursal {
 			 if(esRemitente) {
 				 if(esDestinatario) {
 					 inventario.remove(producto);
-					 return "Se ha entregado el paquete con código" + producto.getCodigo() + " a " + destinatario;
+					 return "Se ha entregado el paquete con código" + producto.getCodigo()+" a "+destinatario;
 				 }
 			 }else {
-				 return "Las cédulas del remitente y/o destinatio no son validas.";
+				 return "Las cédulas del remitente y/o destinatio no son validas.\n";
 			 }
 		 }else {
 			 return "El paquete no se encuentra en la Sucursal.";
 		 }
-		return null;
 	 }
 
 	    // Método para validar una cédula 
@@ -302,9 +286,10 @@ public class Sucursal {
 	// Método para realizar el pago del envío
 	 public String realizarPagoEnvio(double montoAPagar, CuentaBancaria cuentaCliente) {
 		 	montoAPagar = Producto.costoDelPedido;
-		 	boolean sepaga = CuentaBancaria.descontarSaldo(montoAPagar);
 	 
-	        if (sepaga){
+	        if (cuentaCliente.getSaldo() >= montoAPagar) {
+	            // Realizar el pago descontando el monto de la cuenta del cliente
+	            cuentaCliente.descontarSaldo(montoAPagar);
 	            return "Pago del envío realizado con éxito.";
 	        } else {
 	            // En caso de que no hayan los fondos suficientes en la cuenta
@@ -319,9 +304,33 @@ public class Sucursal {
 		 this.ciudadDestino = ciudadDestino;
 	 }
 	 
+	// Método para calcular la cantidad de escalas según la membresía del cliente
+	 
+	 //necesito que Tomás M. haga el switch con los tipos de membresia
+	    private int calcularCantidadEscalas(Membresia membresia) {
+	        switch (Membresia.crearMembresia()) {
+	            case SILVER:
+	                return 4; // Hace 5 escalas
+	            case GOLD:
+	                return 2; // Hace la mitad de las escalas de Silver 
+	            case PLATINUM:
+	                return 0; // No hace ninguna escala
+	            default:
+	                return 5; // Valor predeterminado para el cliente sin membresía 
+	        }
+	    }
+	public String getCiudad() {
+		return this.ciudad;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+
+	public int getCapacidad() {
+		return this.capacidad;
+	}
+	public void setCapacidad(int capacidad) {
+		this.capacidad = capacidad;
+	}
 }
-
-
-
-	
-

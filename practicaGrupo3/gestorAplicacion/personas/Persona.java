@@ -1,6 +1,4 @@
-package persona;
-import administracion.CuentaBancaria;
-
+package personas;
 
 public abstract class Persona {
 	protected String nombre;

@@ -1,4 +1,4 @@
-package persona;
+package personas;
 
 //Cabecera clase:
 //La finalidad de esta clase es darle un nombre, y varios atributos necesarios

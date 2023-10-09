@@ -1,4 +1,4 @@
-package persona;
+package personas;
 
 public abstract class Persona {
 	private String nombre;

@@ -20,7 +20,7 @@ import transportes.*;
 		private Sucursal sucursalOrigen; //la clase sucursal debe tener método destino
 		private Sucursal sucursalLlegada; //la clase sucursal debe tener método destino
 		private ArrayList<Sucursal> ruta = new ArrayList<>(); /*Lista de sucursales por las que va a pasar incluyendo
-		la ciudad de salida y la de destino*/[Medellin cali, pasto, florencia, bogota]
+		la ciudad de salida y la de destino*/
 		// pago está en sucursal, ¿qué hacemos acá?
 		private Cliente remitente;
 		private Destinatario destinatario; 

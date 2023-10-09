@@ -5,6 +5,7 @@ package administracion;
    */
 
 import java.util.Random; //Se importa esto ya que pues los datos seran random
+import java.util.ArrayList;
 import personas.*;
 
 public class CuentaBancaria { //Los atributos de la clase (Viernes vemos si hay que agregar algun atributo)
@@ -13,6 +14,7 @@ public class CuentaBancaria { //Los atributos de la clase (Viernes vemos si hay 
     private int cvv;
     private String fechaExpiracion;
     private static double saldo;
+    private static ArrayList<CuentaBancaria> todasLasCuentas = new ArrayList<>();
     
     // Un constructor que genera aleatoriamente los atributos
     public CuentaBancaria() {
@@ -20,6 +22,17 @@ public class CuentaBancaria { //Los atributos de la clase (Viernes vemos si hay 
         generarCVVAleatorio();
         generarFechaExpiracionAleatoria();
         generarSaldoAleatorio();
+
+        CuentaBancaria.todasLasCuentas.add(this);
+    }
+
+    public CuentaBancaria(Persona titular, long numero, int cvv, String fechaExpiracion) {
+        this.titular = titular;
+        this.numero = numero;
+        this.cvv = cvv;
+        this.fechaExpiracion = fechaExpiracion;
+
+        CuentaBancaria.todasLasCuentas.add(this);
     }
     
     // Generar un número aleatorio de 12 dígitos
@@ -45,6 +58,10 @@ public class CuentaBancaria { //Los atributos de la clase (Viernes vemos si hay 
         saldo = random.nextInt(10000000);
     }
     // Métodos públicos para obtener los atributos
+    public Persona getTitular() {
+        return titular;
+    }
+    
     public long getNumero() {
         return numero;
     }
@@ -60,6 +77,11 @@ public class CuentaBancaria { //Los atributos de la clase (Viernes vemos si hay 
     public double getSaldo() {
         return saldo;
     }
+
+    public static ArrayList<CuentaBancaria> getTodasLasCuentas() {
+        return CuentaBancaria.todasLasCuentas;
+    }
+
     // Método para imprimir la información de la cuenta
     public String imprimirInformacion() {
     	return "Los Datos De Tú Cuenta Bancaria Son Los Siguientes:\n"

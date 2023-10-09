@@ -243,42 +243,40 @@ public class Sucursal {
 
 		//recoger
 	public String recoger(int codigoPaquete, String nombreRemitente, int cedulaRemitente) {
-		boolean datosIncorrectos = false;
-		boolean entregaDireccion;
-		boolean pagoContraentrega;
-		boolean productoSeEncuentraEnSucursal;
-
+		Producto paquete = null;
 		for (Producto producto : Producto.getTodosLosProductos()) { //Revisa en todos los productos creados
 			if (producto.getCodigo() == codigoPaquete) { //Encuentra el producto que coincida con el codigo
-				if (producto.getGuia().getSucursalLlegada() == this) { //Verifica si esa si es la sucursal de destino final
-					if (producto.getGuia().getDestinatario().getNombre().equals(nombreRemitente)) { //Verifica el nombre del destinatario
-						if (producto.getGuia().getDestinatario().getCedula() == cedulaRemitente) { //Verifica la cedula del destinatario
-							if (producto.getGuia().isEntregaEnSucursal()) { //Creo que esto es redundante
-								if (producto.getGuia().getEstado() == estado.ENESPERA && inventario.contains(producto)) { //Tambien redundante
-									//if (producto.getGuia().)
-									if (producto.getGuia().isPagoContraentrega()) { //Verifica el pago contraentrega
-										pagoContraentrega = true;
-										return "Para retirar el producto tiene que cancelar el servicio por valor de $" +
-										producto.getGuia().getPrecioTotal();
-										//Pagar
-									} else {
-										inventario.remove(producto);
-										Random random = new Random();
-										return "Operación realizada con éxito, favor acercarce a la caja " + 
-										random.nextInt(5) + " para retirar su paquete, muchas gracias por usar nuestro servicio";
-									}
-								} else if (producto.getGuia().getEstado() == estado.ENTREGADO) {
-									return "El paquete fue entregado el dia# del mes #";
-								} else if (producto.getGuia().getEstado() == estado.ENTRANSITO) {
-									return "El paquete todavía no ha llegado";
-									//rastrear
+				paquete = producto;
+				break;
+			}
+		}
+
+		if (paquete != null) {
+			if (paquete.getGuia().getSucursalLlegada() == this) { //Verifica si esa si es la sucursal de destino final
+				if (paquete.getGuia().getDestinatario().getNombre().equals(nombreRemitente)) { //Verifica el nombre del destinatario
+					if (paquete.getGuia().getDestinatario().getCedula() == cedulaRemitente) { //Verifica la cedula del destinatario
+						if (paquete.getGuia().isEntregaEnSucursal()) { //Creo que esto es redundante
+							if (paquete.getGuia().getEstado() == estado.ENESPERA && inventario.contains(paquete)) { //Tambien redundante
+								//if (producto.getGuia().)
+								if (paquete.getGuia().isPagoContraentrega()) { //Verifica el pago contraentrega
+									return "Para retirar el producto tiene que cancelar el servicio por valor de $" +
+									paquete.getGuia().getPrecioTotal();
+									//Pagar
+								} else {
+									inventario.remove(paquete);
+									Random random = new Random();
+									return "Operación realizada con éxito, favor acercarce a la caja " + 
+									random.nextInt(5) + " para retirar su paquete, muchas gracias por usar nuestro servicio";
 								}
-							} else {
-								return "Lo sentimos, el paquete fue programado para tener como destino la siguiente dirección" + 
-								producto.getGuia().getDireccion();
+							} else if (paquete.getGuia().getEstado() == estado.ENTREGADO) {
+								return "El paquete fue entregado el dia# del mes #";
+							} else if (paquete.getGuia().getEstado() == estado.ENTRANSITO) {
+								return "El paquete todavía no ha llegado";
+								//rastrear
 							}
 						} else {
-							return "Datos incorrectos, intente nuevamente";
+							return "Lo sentimos, el paquete fue programado para tener como destino la siguiente dirección" + 
+							paquete.getGuia().getDireccion();
 						}
 					} else {
 						return "Datos incorrectos, intente nuevamente";
@@ -287,10 +285,12 @@ public class Sucursal {
 					return "Datos incorrectos, intente nuevamente";
 				}
 			} else {
-				return "Datos incorrectos, intente nuevamente";
+				return "El paquete tiene como destino la ciudad de " + paquete.getGuia().getSucursalLlegada().getCiudad();
 			}
+		} else {
+			return "Datos incorrectos, intente nuevamente";
 		}
-		return "";
+	return "";
 	}
 
 		public String recoger(Producto producto, int remitente, int destinatario) {
@@ -333,7 +333,42 @@ public class Sucursal {
 	     }  
 	 }
 	 
+	 //TOMAS
+	public String pagar() {
+		return "h";
+	}
 
+	public String pagarTarjeta(String titular, int numero, int cvv, String fechaExpiracion) {
+		CuentaBancaria cuentaCliente = null;
+		for (CuentaBancaria cuenta : CuentaBancaria.getTodasLasCuentas()) {
+			if (cuenta.getNumero() == numero) {
+				cuentaCliente = cuenta;
+				break;
+			}
+		}
+		if (cuentaCliente != null) {	
+			if (cuentaCliente.getTitular().getNombre().equals(titular)) {
+				if (cuentaCliente.getNumero() == numero) {
+					if (cuentaCliente.getCVV() == cvv) {
+						if (cuentaCliente.getFechaExpiracion() == fechaExpiracion) {
+						}
+					} else {
+						return "Datos incorrectos, intente nuevamente";
+					}
+				} else {
+					return "Datos incorrectos, intente nuevamente";
+				}
+			} else {
+				return "Datos incorrectos, intente nuevamente";
+			}
+		}
+	}
+
+	public String pagarEfectivo() {
+		Random random = new Random();
+		return "Acerquese a la caja #" + random.nextInt(5) +
+		" para cancelar";
+	}
 	// Método para realizar el pago del envío
 	 public String realizarPagoEnvio(double montoAPagar, CuentaBancaria cuentaCliente) {
 		 	montoAPagar = Producto.costoDelPedido;
@@ -347,29 +382,10 @@ public class Sucursal {
 	        	return "La cuenta bancaria del cliente no tiene fondos suficientes para el pago del envío.";
 	        }
 	    }
-	 // Método para obtener la ciudad destino del paquete
-	 public String getCiudadDestino() {
-		 return this.ciudadDestino;
-	 }
-	 public void setCiudadDestino(String ciudadDestino) {
-		 this.ciudadDestino = ciudadDestino;
-	 }
 	 
 	// Método para calcular la cantidad de escalas según la membresía del cliente
 	 
 	 //necesito que Tomás M. haga el switch con los tipos de membresia
-	    private int calcularCantidadEscalas(Membresia membresia) {
-	        switch (Membresia.crearMembresia()) {
-	            case SILVER:
-	                return 4; // Hace 5 escalas
-	            case GOLD:
-	                return 2; // Hace la mitad de las escalas de Silver 
-	            case PLATINUM:
-	                return 0; // No hace ninguna escala
-	            default:
-	                return 5; // Valor predeterminado para el cliente sin membresía 
-	        }
-	    }
 	public String getCiudad() {
 		return this.ciudad;
 	}

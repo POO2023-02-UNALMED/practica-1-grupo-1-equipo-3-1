@@ -12,7 +12,7 @@ public class Cliente extends Persona{
 	public Cliente() {
 	}
 	
-	public Cliente(String nombre, int cedula, CuentaBancaria cuentaBancaria, int telefono, Membresia membresia){
+	public Cliente(String nombre, int cedula, CuentaBancaria cuentaBancaria, long telefono, Membresia membresia){
 		
 		super(nombre, cedula, cuentaBancaria, telefono);
 		this.membresia = membresia;

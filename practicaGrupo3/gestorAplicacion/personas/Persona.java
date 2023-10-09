@@ -2,11 +2,10 @@ package personas;
 import administracion.*;
 
 public abstract class Persona {
-	private String nombre;
-	private static int cedula;
-	private CuentaBancaria cuentaBancaria;
-	private int telefono;
-	private Membresia membresia;
+	protected String nombre;
+	protected int cedula;
+	protected CuentaBancaria cuentaBancaria;
+	protected int telefono;
 	
 	protected Persona() {}
 	protected Persona(String nombre, int cedula, CuentaBancaria cuentaBancaria, int telefono){
@@ -21,7 +20,7 @@ public abstract class Persona {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public static int getCedula() {
+	public int getCedula() {
 		return cedula;
 	}
 	public void setCedula(int cedula) {
@@ -40,14 +39,5 @@ public abstract class Persona {
 		this.telefono = telefono;
 	}	
 
-	public Membresia getMembresia() {
-		return getMembresia();
-	}
-
-	public void setMembresia(Membresia membresia) {
-		this.membresia = membresia;
-	}
-	protected abstract int getCedulaDestinatario();
 	
-
 }

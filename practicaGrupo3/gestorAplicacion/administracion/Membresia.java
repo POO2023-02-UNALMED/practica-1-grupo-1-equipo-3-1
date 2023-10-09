@@ -31,14 +31,15 @@ public class Membresia {
 			}
 		}
 	
-
+// Aqui estan los constructoes, el atributo beneficio que es donde se guarda el tipo de beneficio que se obtuvo aleatoriamente,
+// por eso el metodo de crearMembresia que es precisamente el metodo que  hace el randomizer se llama en los constructores para cuando se cree de una se obtenga un tipo.
 	public Membresia() {
+		this.beneficio = crearMembresia();
 	}
 
 	public Membresia(Cliente cliente) {
 		this.cliente = cliente;
-		//Aqui en cada uno de los constructores estaria  
-		// el codigo que haria que la membresia fuera aleatoria
+		this.beneficio = crearMembresia();
 	}
 	
 	public tipo crearMembresia() {

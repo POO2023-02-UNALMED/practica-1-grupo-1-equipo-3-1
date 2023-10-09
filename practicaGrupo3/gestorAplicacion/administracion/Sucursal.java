@@ -94,23 +94,7 @@ public class Sucursal {
             horario.put(Horario.VIERNES, "11:00 AM - 8:00 PM");
 		}
 	}
-
-	public String getCiudad() {
-		return this.ciudad;
-	}
-
-	public void setCiudad(String ciudad) {
-		this.ciudad = ciudad;
-	}
-
-	public int getCapacidad() {
-		return this.capacidad;
-	}
-	public void setCapacidad(int capacidad) {
-		this.capacidad = capacidad;
-	}
-	
-	
+		
 	// horario. IDEA: Dar una opción para conocer la disponibilidad de la sucursal
 	/* public String consultarHorario() {
 		 String nombre = ciudad;
@@ -239,12 +223,12 @@ public class Sucursal {
 
 
 	    // Método para agregar un paquete al inventario de la sucursal
-	 public void agregarPaquete(Producto producto) {
+	public void agregarPaquete(Producto producto) {
 	      inventario.add(producto); 
 	 }
 
 	    // Método para verificar si un paquete está en la sucursal
-	 public String verificarPaquete(int producto) {
+	public String verificarPaquete(int producto) {
 	     Producto codigoPaquete = inventario.get(producto);
 		 if (inventario.contains(producto)) {
 	            return "El paquete con código " + codigoPaquete + " se encuentra en la sucursal.";
@@ -325,15 +309,28 @@ public class Sucursal {
 	 //necesito que Tomás M. haga el switch con los tipos de membresia
 	    private int calcularCantidadEscalas(Membresia membresia) {
 	        switch (Membresia.crearMembresia()) {
-	            case "silver":
+	            case SILVER:
 	                return 4; // Hace 5 escalas
-	            case "gold":
+	            case GOLD:
 	                return 2; // Hace la mitad de las escalas de Silver 
-	            case "platinum":
+	            case PLATINUM:
 	                return 0; // No hace ninguna escala
 	            default:
 	                return 5; // Valor predeterminado para el cliente sin membresía 
 	        }
 	    }
+	public String getCiudad() {
+		return this.ciudad;
+	}
 
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+
+	public int getCapacidad() {
+		return this.capacidad;
+	}
+	public void setCapacidad(int capacidad) {
+		this.capacidad = capacidad;
+	}
 }

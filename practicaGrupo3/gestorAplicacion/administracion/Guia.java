@@ -22,6 +22,8 @@ import transportes.*;
 		private ArrayList<Sucursal> ruta = new ArrayList<>(); /*Lista de sucursales por las que va a pasar incluyendo
 		la ciudad de salida y la de destino*/
 		// pago está en sucursal, ¿qué hacemos acá?
+		private Cliente remitente;
+		private Destinatario destinatario; 
 		private String direccion;
 		private boolean pagoContraentrega;
 		private boolean entregaEnSucursal;
@@ -36,13 +38,14 @@ import transportes.*;
 		} 
 
 		//Constructor
-		public Guia(Producto producto, LocalDateTime fechaDeEnvio, boolean pagoContraentrega, boolean entregaEnSucursal) {
+		public Guia(Producto producto, LocalDateTime fechaDeEnvio, boolean pagoContraentrega, boolean entregaEnSucursal, Cliente remitente) {
 			this.producto = producto;
 			this.fechaDeEnvio = fechaDeEnvio;
 			this.pagoContraentrega = pagoContraentrega;
 			this.entregaEnSucursal = entregaEnSucursal;
+			this.remitente = remitente;
 
-			asignarRuta();
+			asignarRuta(remitente);
 		}
 		
 		//métodos
@@ -61,9 +64,9 @@ import transportes.*;
 				case SILVER:
 					return 4; // Hace 4 escalas
 				case GOLD:
-					return 2; // Hace la mitad de las escalas de Silver 
+					return 3; // Hace la mitad de las escalas de Silver 
 				case PLATINUM:
-					return 0; // No hace ninguna escala
+					return 2; // No hace ninguna escala
 				default:
 					return 5; // Valor predeterminado para el cliente sin membresía 
 			}
@@ -88,14 +91,35 @@ import transportes.*;
 			}
 
 
-		public void asignarRuta() { //Falta terminar
+		public void asignarRuta(Cliente remitente) { //Falta terminar
+			switch (remitente.getMembresia().getBeneficio()) {
+				case PLATINUM:
+					ruta.add(sucursalOrigen);
+					ruta.add(sucursalLlegada);
+					break;
+				case GOLD:
+					ruta.add(sucursalOrigen);
+					if (determinarSiguienteSucursal(sucursalOrigen, ruta) == sucursalLlegada) {
+						ArrayList<Sucursal> rutaImprovisada = ruta;
+						
+
+					}
+					ruta.add(sucursalLlegada);
+				case SILVER:
+					ruta.add(sucursalOrigen);
+					ruta.add(sucursalLlegada);
+				case DEFAULT:
+					ruta.add(sucursalOrigen);
+					ruta.add(sucursalLlegada);				
+			}
+
 			ruta.add(sucursalOrigen);
 			ruta.add(determinarSiguienteSucursal(sucursalLlegada, Sucursal.getTodasLasSucursales()));
 			ruta.add(sucursalLlegada);
 
 		}
 
-
+		//Metodos get
 		public Transporte getVehiculo() {
 			return vehiculo;
 		}
@@ -116,9 +140,54 @@ import transportes.*;
 			return sucursalLlegada;
 		}
 
+        public ArrayList<Sucursal> getRuta() {
+            return ruta;
+        }
+
+        public Cliente getRemitente() {
+            return remitente;
+        }
+
+        public Destinatario getDestinatario() {
+            return destinatario;
+        }
+
+        public String getDireccion() {
+            return direccion;
+        }
+
+		public boolean isPagoContraentrega() {
+			return pagoContraentrega;
+		}
+		
+		public boolean isEntregaEnSucursal() {
+			return entregaEnSucursal;
+		}
+
+        public double getPrecioTotal() {
+            return precioTotal;
+        }
+
+        public LocalDateTime getFechaDeEnvio() {
+            return fechaDeEnvio;
+        }
+
+        public estado getEstado() {
+            return estado;
+        }
+
+		//Metodos set
 		public void setVehiculo(Transporte vehiculo) {
 			this.vehiculo = vehiculo;
 		}
+
+		public void setProducto(Producto producto) {
+            this.producto = producto;
+        }
+
+        public void setTiempo(float tiempo) {
+            this.tiempo = tiempo;
+        }
 
 		public void setSucursalOrigen(Sucursal sucursalOrigen) {
 			this.sucursalOrigen = sucursalOrigen;
@@ -127,6 +196,38 @@ import transportes.*;
 		public void setSucursalLlegada(Sucursal sucursalLlegada) {
 			this.sucursalLlegada = sucursalLlegada;
 		}
+
+        public void setRuta(ArrayList<Sucursal> ruta) {
+            this.ruta = ruta;
+        }
+
+        public void setRemitente(Cliente remitente) {
+            this.remitente = remitente;
+        }
+
+        public void setDestinatario(Destinatario destinatario) {
+            this.destinatario = destinatario;
+        }
+
+        public void setDireccion(String direccion) {
+            this.direccion = direccion;
+        }
+
+        public void setPagoContraentrega(boolean pagoContraentrega) {
+            this.pagoContraentrega = pagoContraentrega;
+        }
+
+        public void setEntregaEnSucursal(boolean entregaEnSucursal) {
+            this.entregaEnSucursal = entregaEnSucursal;
+        }
+
+        public void setPrecioTotal(double precioTotal) {
+            this.precioTotal = precioTotal;
+        }
+
+        public void setEstado(estado estado) {
+            this.estado = estado;
+        }
 
 }
 	class EventosAleatorios {

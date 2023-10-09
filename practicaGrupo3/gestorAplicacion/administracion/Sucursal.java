@@ -28,7 +28,7 @@ public class Sucursal {
 	private int latitud; //TOMAS
 	private int longitud; //TOMAS
 	private ArrayList<Producto> inventario = new ArrayList<>(); //TOMAS
-	private static ArrayList<Sucursal> sucursales = new ArrayList<>(); //TOMAS
+	private static ArrayList<Sucursal> todasLasSucursales = new ArrayList<>(); //TOMAS
     private Map<Horario, String> horario;
 	private int cantidadMotosDisponibles;
     private int cantidadCamionesDisponibles;
@@ -47,7 +47,7 @@ public class Sucursal {
 		this.capacidad = capacidad;
 		this.latitud = latitud;
 		this.longitud = longitud;
-		Sucursal.sucursales.add(this); //TOMAS
+		Sucursal.todasLasSucursales.add(this); //TOMAS
 		//consultarHorario();
 		
 	}
@@ -241,27 +241,26 @@ public class Sucursal {
 	
 
 		//recoger
-	 public String recoger(Producto producto, int remitente, int destinatario) {
-		// Verificar si el paquete se encuentra en la sucursal
-		 if (inventario.contains(producto)) {
-			// Validar las cédulas del remitente y destinatario	
-			 boolean esRemitente = validarCedulaRemi1(remitente);
-			 boolean esDestinatario = validarCedulaDest(destinatario);
-			 
-			 /*entregar si se cumplen las condiciones anteriores*/
-			 if(esRemitente) {
-				 if(esDestinatario) {
-					 inventario.remove(producto);
-					 return "Se ha entregado el paquete con código" + producto.getCodigo()+" a "+destinatario;
-				 }
-			 }else {
-				 return "Las cédulas del remitente y/o destinatio no son validas.\n";
-			 }
-		 }else {
-			 return "El paquete no se encuentra en la Sucursal.";
-		 }
-	 }
-
+	public String recoger(Producto producto, int remitente, int destinatario) {
+	// Verificar si el paquete se encuentra en la sucursal
+	 if (inventario.contains(producto)) {
+		// Validar las cédulas del remitente y destinatario	
+		boolean esRemitente = validarCedulaRemi1(remitente);
+		boolean esDestinatario = validarCedulaDest(destinatario);
+		 
+		 /*entregar si se cumplen las condiciones anteriores*/
+		if(esRemitente) {
+			 if(esDestinatario) {
+				 inventario.remove(producto);
+				 return "Se ha entregado el paquete con código" + producto.getCodigo()+" a "+destinatario;
+			}
+		} else {
+			 return "Las cédulas del remitente y/o destinatio no son validas.\n";
+		}
+		} else {
+			return "El paquete no se encuentra en la Sucursal.";
+		}
+	}
 	    // Método para validar una cédula 
 		 
 	 public boolean validarCedulaRemi1(int remitente) {
@@ -330,6 +329,19 @@ public class Sucursal {
 	public int getCapacidad() {
 		return this.capacidad;
 	}
+
+	public int getLatitud() {
+		return this.latitud;
+	}
+
+	public int getLongitud() {
+		return this.longitud;
+	}
+
+	public static ArrayList<Sucursal> getTodasLasSucursales() {
+		return todasLasSucursales;
+	}
+
 	public void setCapacidad(int capacidad) {
 		this.capacidad = capacidad;
 	}

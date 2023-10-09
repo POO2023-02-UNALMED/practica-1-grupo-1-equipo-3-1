@@ -1,5 +1,4 @@
 package administracion;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -268,14 +267,15 @@ public class Sucursal {
 			 if(esRemitente) {
 				 if(esDestinatario) {
 					 inventario.remove(producto);
-					 return "Se ha entregado el paquete con código" + producto.getCodigo()+" a "+destinatario;
+					 return "Se ha entregado el paquete con código" + producto.getCodigo() + " a " + destinatario;
 				 }
 			 }else {
-				 return "Las cédulas del remitente y/o destinatio no son validas.\n";
+				 return "Las cédulas del remitente y/o destinatio no son validas.";
 			 }
 		 }else {
 			 return "El paquete no se encuentra en la Sucursal.";
 		 }
+		return null;
 	 }
 
 	    // Método para validar una cédula 
@@ -302,10 +302,9 @@ public class Sucursal {
 	// Método para realizar el pago del envío
 	 public String realizarPagoEnvio(double montoAPagar, CuentaBancaria cuentaCliente) {
 		 	montoAPagar = Producto.costoDelPedido;
+		 	boolean sepaga = CuentaBancaria.descontarSaldo(montoAPagar);
 	 
-	        if (cuentaCliente.getSaldo() >= montoAPagar) {
-	            // Realizar el pago descontando el monto de la cuenta del cliente
-	            cuentaCliente.descontarSaldo(montoAPagar);
+	        if (sepaga){
 	            return "Pago del envío realizado con éxito.";
 	        } else {
 	            // En caso de que no hayan los fondos suficientes en la cuenta
@@ -320,20 +319,9 @@ public class Sucursal {
 		 this.ciudadDestino = ciudadDestino;
 	 }
 	 
-	// Método para calcular la cantidad de escalas según la membresía del cliente
-	 
-	 //necesito que Tomás M. haga el switch con los tipos de membresia
-	    private int calcularCantidadEscalas(Membresia membresia) {
-	        switch (Membresia.crearMembresia()) {
-	            case "silver":
-	                return 4; // Hace 5 escalas
-	            case "gold":
-	                return 2; // Hace la mitad de las escalas de Silver 
-	            case "platinum":
-	                return 0; // No hace ninguna escala
-	            default:
-	                return 5; // Valor predeterminado para el cliente sin membresía 
-	        }
-	    }
-
 }
+
+
+
+	
+

@@ -1,4 +1,5 @@
 package personas;
+import administracion.*;
 
 public abstract class Persona {
 	private String nombre;

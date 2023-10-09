@@ -129,7 +129,7 @@ import transportes.*;
 		}
 
 }
-	public class EventosAleatorios 
+	class EventosAleatorios {
 		// PAQUETE FRAGIL PUEDE ROMPERSE Y PUEDE QUE NO; ANIMAL DERRUMBE A SOBREVIVIDO ; LLORONA DISCUTIENDO
 		// PEGAR A GUÍA
 		    enum EventoPaquete {

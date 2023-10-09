@@ -2,12 +2,12 @@ package administracion;
 
 
 import java.util.Random;
-import persona.*;
+import personas.*;
 
 //Cabecera Clase:
 // La finalidad de esta clase es saber el beneficio de entrega
 // y demas beneficios que incluye la membresia que cada cliente tiene.
-public class Membresia{
+public class Membresia {
 	private tipo beneficio;
 	private int precio;
 	private Cliente cliente;

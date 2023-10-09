@@ -93,24 +93,40 @@ import transportes.*;
 
 		public void asignarRuta(Cliente remitente) { //Falta terminar
 			switch (remitente.getMembresia().getBeneficio()) {
-				case PLATINUM:
+				case PLATINUM: //No hace ninguna escala
 					ruta.add(sucursalOrigen);
 					ruta.add(sucursalLlegada);
 					break;
-				case GOLD:
+				case GOLD: //SOlo hace una escala
 					ruta.add(sucursalOrigen);
-					if (determinarSiguienteSucursal(sucursalOrigen, ruta) == sucursalLlegada) {
-						ArrayList<Sucursal> rutaImprovisada = ruta;
-						
-
+					if (determinarSiguienteSucursal(sucursalOrigen, ruta) == sucursalLlegada) {/*Verifica si la sucursal mas cercana
+						es la de destino */
+						/*Si es así, tiene que encontrar otra sucursal cercana */
+						ArrayList<Sucursal> rutaImprovisada = new ArrayList<>(ruta); /*Crea otra lista con la unica intencion de ser igual a ruta con la diferencia de que
+						se elimina la sucursal de llegada para aplicar otra vez la funcion determinarsiguientesucursal*/
+						rutaImprovisada.remove(rutaImprovisada.indexOf(sucursalLlegada));
+						ruta.add(determinarSiguienteSucursal(sucursalOrigen, rutaImprovisada));
+					} else {
+						ruta.add(determinarSiguienteSucursal(sucursalOrigen, ruta));
 					}
 					ruta.add(sucursalLlegada);
+					break;
 				case SILVER:
 					ruta.add(sucursalOrigen);
+					while (ruta.size() < 4) {
+						Sucursal siguienteSucursal = determinarSiguienteSucursal(ruta.get(ruta.size() - 1), ruta);
+						if (siguienteSucursal != sucursalLlegada) {
+							if (!ruta.contains(determinarSiguienteSucursal(siguienteSucursal, ruta))) {
+								ruta.add(siguienteSucursal);
+							}
+						}
+					}
 					ruta.add(sucursalLlegada);
+					break;
 				case DEFAULT:
 					ruta.add(sucursalOrigen);
-					ruta.add(sucursalLlegada);				
+					ruta.add(sucursalLlegada);		
+					break;		
 			}
 
 			ruta.add(sucursalOrigen);

@@ -1,7 +1,10 @@
 package administracion;
 
-
 import java.util.Random;
+<<<<<<< Updated upstream
+=======
+import personas.Cliente;
+>>>>>>> Stashed changes
 import personas.*;
 
 //Cabecera Clase:

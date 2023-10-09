@@ -1,4 +1,6 @@
 package personas;
+import administracion.Membresia;
+import administracion.CuentaBancaria;
 
 import administracion.Membresia;
 import administracion.CuentaBancaria;

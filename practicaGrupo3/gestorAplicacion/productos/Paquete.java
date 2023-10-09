@@ -38,17 +38,16 @@ public class Paquete extends Producto {
         "Instrucciones especiales: " + instruccionesEspeciales;
     }
 
-    public double asignarCostoDelPedido() {
+    public void asignarCostoDelPedido() {
         double tarifaBasePorKg = 10000;
         double tarfifaBasePorMetroCubico = 5000;
         double tarifaAdicionalFragil = 1.25;
         double costoDelPedido = (tarfifaBasePorMetroCubico * volumen) + (tarifaBasePorKg * peso);
         if (!fragil) {
         	this.costoDelPedido = costoDelPedido;
-        }else {
+        } else {
         	costoDelPedido *= tarifaAdicionalFragil;
         }
-		return costoDelPedido;
     }
 
     public boolean isFragil() {

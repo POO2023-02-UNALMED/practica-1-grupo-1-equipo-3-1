@@ -37,6 +37,7 @@ public class Sucursal {
 	private int cantidadJaulasMedianas;
 	private int cantidadJaulasGrandes;
 
+	
 	//constructor
 	public Sucursal(String ciudad, String ciudadDestino, int capacidadVolumen,int capacidadPeso, int latitud, int longitud) {
 		//TOMASCorregí el tipo de horario e inventario
@@ -107,14 +108,6 @@ public class Sucursal {
 	}
 	public void setCapacidad(int capacidad) {
 		this.capacidad = capacidad;
-	}
-
-	public int getLatitud() {
-		return this.latitud;
-	}
-
-	public int getLongitud() {
-		return this.longitud;
 	}
 	
 	
@@ -342,6 +335,5 @@ public class Sucursal {
 	                return 5; // Valor predeterminado para el cliente sin membresía 
 	        }
 	    }
-
 
 }

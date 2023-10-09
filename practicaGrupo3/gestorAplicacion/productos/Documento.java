@@ -1,4 +1,5 @@
 package productos;
+import administracion.*;
 
 public class Documento extends Producto {
     public Documento() {

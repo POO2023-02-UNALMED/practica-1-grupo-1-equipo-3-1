@@ -1,11 +1,11 @@
 package persona;
 
 //import tests.CuentaBancaria;
-import administracion.cuentaBancaria;
+import administracion.CuentaBancaria;
 
 public class Destinatario extends Persona{
 	public Destinatario() {}
-	public Destinatario(String nombre, int cedula, cuentaBancaria cuentaBancaria, int telefono) {
+	public Destinatario(String nombre, int cedula, CuentaBancaria cuentaBancaria, int telefono) {
 		super(nombre,cedula,cuentaBancaria,telefono);
 		
 	}

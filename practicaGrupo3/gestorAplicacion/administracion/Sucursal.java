@@ -3,8 +3,10 @@ package administracion;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
-import persona.*;
+import administracion.Guia.estado;
+import personas.*;
 import productos.*;
 import transportes.*;
 
@@ -21,8 +23,6 @@ public class Sucursal {
 	}
 
 	private String ciudad;
-	private String ciudadDestino;
-	private int capacidad;
 	private int capacidadVolumen; //TOMAS alternativa a capacidad
 	private int capacidadPeso; //TOMAS Las sucursales van a estar limitadas por el peso?
 	private int latitud; //TOMAS
@@ -39,12 +39,13 @@ public class Sucursal {
 
 	
 	//constructor
-	public Sucursal(String ciudad, String ciudadDestino, int capacidadVolumen,int capacidadPeso, int latitud, int longitud) {
+	public Sucursal(String ciudad, int capacidadVolumen,int capacidadPeso, int latitud, int longitud) {
 		//TOMASCorregí el tipo de horario e inventario
 		//TOMASAgregue los atributos latitud y longitud y los combié a enteros (plano cartesiano)
 		this.ciudad = ciudad;
-		this.horario = horario;
-		this.capacidad = capacidad;
+		this.capacidadVolumen = capacidadVolumen;
+		this.capacidadPeso = capacidadPeso;
+		//this.horario = horario;
 		this.latitud = latitud;
 		this.longitud = longitud;
 		Sucursal.todasLasSucursales.add(this); //TOMAS
@@ -241,27 +242,78 @@ public class Sucursal {
 	
 
 		//recoger
-	public String recoger(Producto producto, int remitente, int destinatario) {
-	// Verificar si el paquete se encuentra en la sucursal
-	 if (inventario.contains(producto)) {
-		// Validar las cédulas del remitente y destinatario	
-		boolean esRemitente = validarCedulaRemi1(remitente);
-		boolean esDestinatario = validarCedulaDest(destinatario);
-		 
-		 /*entregar si se cumplen las condiciones anteriores*/
-		if(esRemitente) {
-			 if(esDestinatario) {
-				 inventario.remove(producto);
-				 return "Se ha entregado el paquete con código" + producto.getCodigo()+" a "+destinatario;
+	public String recoger(int codigoPaquete, String nombreRemitente, int cedulaRemitente) {
+		boolean datosIncorrectos = false;
+		boolean entregaDireccion;
+		boolean pagoContraentrega;
+		boolean productoSeEncuentraEnSucursal;
+
+		for (Producto producto : Producto.getTodosLosProductos()) { //Revisa en todos los productos creados
+			if (producto.getCodigo() == codigoPaquete) { //Encuentra el producto que coincida con el codigo
+				if (producto.getGuia().getSucursalLlegada() == this) { //Verifica si esa si es la sucursal de destino final
+					if (producto.getGuia().getDestinatario().getNombre().equals(nombreRemitente)) { //Verifica el nombre del destinatario
+						if (producto.getGuia().getDestinatario().getCedula() == cedulaRemitente) { //Verifica la cedula del destinatario
+							if (producto.getGuia().isEntregaEnSucursal()) { //Creo que esto es redundante
+								if (producto.getGuia().getEstado() == estado.ENESPERA && inventario.contains(producto)) { //Tambien redundante
+									//if (producto.getGuia().)
+									if (producto.getGuia().isPagoContraentrega()) { //Verifica el pago contraentrega
+										pagoContraentrega = true;
+										return "Para retirar el producto tiene que cancelar el servicio por valor de $" +
+										producto.getGuia().getPrecioTotal();
+										//Pagar
+									} else {
+										inventario.remove(producto);
+										Random random = new Random();
+										return "Operación realizada con éxito, favor acercarce a la caja " + 
+										random.nextInt(5) + " para retirar su paquete, muchas gracias por usar nuestro servicio";
+									}
+								} else if (producto.getGuia().getEstado() == estado.ENTREGADO) {
+									return "El paquete fue entregado el dia# del mes #";
+								} else if (producto.getGuia().getEstado() == estado.ENTRANSITO) {
+									return "El paquete todavía no ha llegado";
+									//rastrear
+								}
+							} else {
+								return "Lo sentimos, el paquete fue programado para tener como destino la siguiente dirección" + 
+								producto.getGuia().getDireccion();
+							}
+						} else {
+							return "Datos incorrectos, intente nuevamente";
+						}
+					} else {
+						return "Datos incorrectos, intente nuevamente";
+					}
+				} else {
+					return "Datos incorrectos, intente nuevamente";
+				}
+			} else {
+				return "Datos incorrectos, intente nuevamente";
 			}
-		} else {
-			 return "Las cédulas del remitente y/o destinatio no son validas.\n";
 		}
-		} else {
-			return "El paquete no se encuentra en la Sucursal.";
-		}
+		return "";
 	}
-	    // Método para validar una cédula 
+
+		public String recoger(Producto producto, int remitente, int destinatario) {
+			// Verificar si el paquete se encuentra en la sucursal
+			 if (inventario.contains(producto)) {
+				// Validar las cédulas del remitente y destinatario	
+				boolean esRemitente = validarCedulaRemi1(remitente);
+				boolean esDestinatario = validarCedulaDest(destinatario);
+				 
+				 /*entregar si se cumplen las condiciones anteriores*/
+				if(esRemitente) {
+					 if(esDestinatario) {
+						 inventario.remove(producto);
+						 return "Se ha entregado el paquete con código" + producto.getCodigo()+" a "+destinatario;
+					}
+				} else {
+					 return "Las cédulas del remitente y/o destinatio no son validas.\n";
+				}
+				} else {
+					return "El paquete no se encuentra en la Sucursal.";
+				}
+			}
+				// Método para validar una cédula 
 		 
 	 public boolean validarCedulaRemi1(int remitente) {
 		 int cedulaRemi = Cliente.getCedula();
@@ -273,7 +325,7 @@ public class Sucursal {
 	 }
 		 
 	 public boolean validarCedulaDest(int destinatario) { 
-	     int cedulaDesti = Destinatario.getCedula();
+	     int cedulaDesti = .getCedula();
 	     if (destinatario == cedulaDesti) {
 	    	 return true;
 	     }else {
@@ -326,10 +378,6 @@ public class Sucursal {
 		this.ciudad = ciudad;
 	}
 
-	public int getCapacidad() {
-		return this.capacidad;
-	}
-
 	public int getLatitud() {
 		return this.latitud;
 	}
@@ -340,9 +388,5 @@ public class Sucursal {
 
 	public static ArrayList<Sucursal> getTodasLasSucursales() {
 		return todasLasSucursales;
-	}
-
-	public void setCapacidad(int capacidad) {
-		this.capacidad = capacidad;
 	}
 }

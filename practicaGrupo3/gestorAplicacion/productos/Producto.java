@@ -1,5 +1,6 @@
 package productos;
 import java.util.Random;
+import java.util.ArrayList;
 import administracion.*;
 
 public abstract class Producto {
@@ -11,10 +12,12 @@ public abstract class Producto {
     private static int contadorProductos;
     //El volumen y el peso es el espacio que ocupará el producto de cada transporte y sucursal
     private Guia guia;
+    private static ArrayList<Producto> todosLosProductos;
     
     public Producto(int codigo) {
         this.codigo = codigo;
 
+        Producto.todosLosProductos.add(this);
         Producto.contadorProductos ++;
     }
     
@@ -76,4 +79,7 @@ public abstract class Producto {
         this.guia = guia;
     }
 
+    public static ArrayList<Producto> getTodosLosProductos() {
+        return Producto.todosLosProductos;
+    }
 }

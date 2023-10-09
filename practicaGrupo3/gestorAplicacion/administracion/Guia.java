@@ -20,7 +20,7 @@ import transportes.*;
 		private Sucursal sucursalOrigen; //la clase sucursal debe tener método destino
 		private Sucursal sucursalLlegada; //la clase sucursal debe tener método destino
 		private ArrayList<Sucursal> ruta = new ArrayList<>(); /*Lista de sucursales por las que va a pasar incluyendo
-		la ciudad de salida y la de destino*/
+		la ciudad de salida y la de destino*/[Medellin cali, pasto, florencia, bogota]
 		// pago está en sucursal, ¿qué hacemos acá?
 		private Cliente remitente;
 		private Destinatario destinatario; 
@@ -28,7 +28,8 @@ import transportes.*;
 		private boolean pagoContraentrega;
 		private boolean entregaEnSucursal;
 		private double precioTotal;
-		private final LocalDateTime fechaDeEnvio;
+		private LocalDateTime fechaDeEnvio;
+		//private LocalDateTime fechaDeLlegada;
 		private estado estado;
 		
 		public enum estado{
@@ -44,6 +45,7 @@ import transportes.*;
 			this.pagoContraentrega = pagoContraentrega;
 			this.entregaEnSucursal = entregaEnSucursal;
 			this.remitente = remitente;
+			this.fechaDeEnvio = LocalDateTime.now();
 
 			asignarRuta(remitente);
 		}
@@ -73,22 +75,38 @@ import transportes.*;
 		}
 
 		// Método para determinar la siguiente sucursal basada en la distancia geográfica
-		public static Sucursal determinarSiguienteSucursal(Sucursal origen, ArrayList<Sucursal> sucursales) {
-				Sucursal siguienteSucursal = null;
-				double distanciaMinima = Double.MAX_VALUE;
-				//recorreos cada sucursal
-				for (Sucursal sucursal : sucursales) {
-					if (!sucursal.equals(origen)) {
-						double distancia = calcularDistancia(origen, sucursal);
-						if (distancia < distanciaMinima) {
-							distanciaMinima = distancia;
-							siguienteSucursal = sucursal;
-						}
+		public static Sucursal determinarSiguienteSucursal(Sucursal origen) {
+			Sucursal siguienteSucursal = null;
+			double distanciaMinima = Double.MAX_VALUE;
+			//recorreos cada sucursal
+			for (Sucursal sucursal : Sucursal.getTodasLasSucursales()) {
+				if (sucursal != origen) {
+					double distancia = calcularDistancia(origen, sucursal);
+					if (distancia < distanciaMinima) {
+						distanciaMinima = distancia;
+						siguienteSucursal = sucursal;
 					}
 				}
-
-				return siguienteSucursal;
 			}
+				return siguienteSucursal;
+		}
+
+		//Sobrecarga
+		public static Sucursal determinarSiguienteSucursal(Sucursal origen, ArrayList<Sucursal> sucursales) {
+			Sucursal siguienteSucursal = null;
+			double distanciaMinima = Double.MAX_VALUE;
+			//recorreos cada sucursal
+			for (Sucursal sucursal : sucursales) {
+				if (sucursal != origen) {
+					double distancia = calcularDistancia(origen, sucursal);
+					if (distancia < distanciaMinima) {
+						distanciaMinima = distancia;
+						siguienteSucursal = sucursal;
+					}
+				}
+			}
+				return siguienteSucursal;
+		}
 
 
 		public void asignarRuta(Cliente remitente) { //Falta terminar
@@ -97,9 +115,10 @@ import transportes.*;
 					ruta.add(sucursalOrigen);
 					ruta.add(sucursalLlegada);
 					break;
+
 				case GOLD: //SOlo hace una escala
 					ruta.add(sucursalOrigen);
-					if (determinarSiguienteSucursal(sucursalOrigen, ruta) == sucursalLlegada) {/*Verifica si la sucursal mas cercana
+					if (determinarSiguienteSucursal(sucursalOrigen) == sucursalLlegada) {/*Verifica si la sucursal mas cercana
 						es la de destino */
 						/*Si es así, tiene que encontrar otra sucursal cercana */
 						ArrayList<Sucursal> rutaImprovisada = new ArrayList<>(ruta); /*Crea otra lista con la unica intencion de ser igual a ruta con la diferencia de que
@@ -107,12 +126,26 @@ import transportes.*;
 						rutaImprovisada.remove(rutaImprovisada.indexOf(sucursalLlegada));
 						ruta.add(determinarSiguienteSucursal(sucursalOrigen, rutaImprovisada));
 					} else {
-						ruta.add(determinarSiguienteSucursal(sucursalOrigen, ruta));
+						ruta.add(determinarSiguienteSucursal(sucursalOrigen, Sucursal.getTodasLasSucursales()));
 					}
 					ruta.add(sucursalLlegada);
 					break;
+
 				case SILVER:
 					ruta.add(sucursalOrigen);
+
+					while (ruta.size() < 4) {
+						if (determinarSiguienteSucursal(sucursalOrigen) != sucursalLlegada) {
+							if (determinarSiguienteSucursal(sucursalOrigen) != ruta.get(ruta.size() - 1)) {
+
+							}
+						
+						}
+					}
+
+
+
+					ArrayList<Sucursal> rutaImprovisada = new ArrayList<>(ruta);
 					while (ruta.size() < 4) {
 						Sucursal siguienteSucursal = determinarSiguienteSucursal(ruta.get(ruta.size() - 1), ruta);
 						if (siguienteSucursal != sucursalLlegada) {

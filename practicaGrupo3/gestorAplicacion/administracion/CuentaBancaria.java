@@ -13,7 +13,7 @@ public class CuentaBancaria { //Los atributos de la clase (Viernes vemos si hay 
     private long numero;
     private int cvv;
     private String fechaExpiracion;
-    private static double saldo;
+    private double saldo;
     private static ArrayList<CuentaBancaria> todasLasCuentas = new ArrayList<>();
     
     // Un constructor que genera aleatoriamente los atributos
@@ -82,6 +82,10 @@ public class CuentaBancaria { //Los atributos de la clase (Viernes vemos si hay 
         return CuentaBancaria.todasLasCuentas;
     }
 
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+    
     // Método para imprimir la información de la cuenta
     public String imprimirInformacion() {
     	return "Los Datos De Tú Cuenta Bancaria Son Los Siguientes:\n"
@@ -91,7 +95,7 @@ public class CuentaBancaria { //Los atributos de la clase (Viernes vemos si hay 
         +"Saldo: $" + saldo+"\n";
     }
     //Kevin - descontarSaldo
-	public static boolean descontarSaldo(double montoAPagar) {
+	public boolean descontarSaldo(double montoAPagar) {
 		if (saldo < montoAPagar) {
 			return false;
 			

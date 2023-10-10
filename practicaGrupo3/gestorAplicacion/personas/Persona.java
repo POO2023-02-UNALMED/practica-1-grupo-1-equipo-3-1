@@ -37,7 +37,10 @@ public abstract class Persona {
 	}
 	public void setTelefono(int telefono) {
 		this.telefono = telefono;
-	}	
+	}
+	
+	public abstract String toString();
+
 
 	
 }

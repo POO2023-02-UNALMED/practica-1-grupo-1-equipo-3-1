@@ -22,5 +22,9 @@ public class Cliente extends Persona{
 	public Membresia getMembresia() {
 		return membresia;
 	}
-
+	
+	public String toString() {
+		String r = "El cliente identificado como " +  getNombre() + " con cedula " + getCedula() + " y con membresia " + getMembresia().getBeneficio();
+		return r;
+	}
 }

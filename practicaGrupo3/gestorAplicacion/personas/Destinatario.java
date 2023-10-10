@@ -14,5 +14,12 @@ public class Destinatario extends Persona{
 		// TODO Auto-generated method stub
 		return this.cedula;
 	}
+	
+	
+	public String toString() {
+		String r = "El destinatario identificado como " + getNombre() + " y cedula " + getCedula();
+		return r;
+		
+	}
 
 }

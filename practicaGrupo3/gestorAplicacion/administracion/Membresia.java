@@ -77,5 +77,15 @@ public class Membresia {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+	public String toString() {
+		String r;
+		if (cliente == null) {
+			r = "El cliente tiene el beneficio " + getBeneficio();
+		}
+		else {
+			r = "El cliente " + getCliente().getNombre() + " tiene el beneficio " + getBeneficio();
+		}
+		return r;
+	}
 
 }

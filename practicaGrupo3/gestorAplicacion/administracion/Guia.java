@@ -104,6 +104,36 @@ public class Guia {
 		}
 			return siguienteSucursal;
 	}
+	
+	//Antihoraria
+	public void asignarRuta() {
+		ArrayList<Sucursal> sucursales = Sucursal.getTodasLasSucursales(); //La lista sería [Medellin, Cali, Pasto, Florencia, Bogotá]
+		//Si quiero ir de Pasto a Bogotá el atributo ruta sería = [Pasto, Florencia, Bogotá]
+		//Si es de Cali a Medellin = [Cali, Pasto, Florencia, Bogota, Medellin]
+		//¿Como hacemos este Metodo?
+		for (int i = 0; i < sucursales.size(); i++) {
+			if (sucursales.get(i) == sucursalOrigen) {
+				if (i < sucursales.indexOf(sucursalLlegada)) { //Si la sucursal de llegada está después de la de origen en la lista 
+					//Ejemplo Pasto a Bogotá [Medellin, Cali, (Pasto), Florencia, (Bogotá)]
+					for (int j = i; j < sucursales.indexOf(sucursalLlegada) + 1; j++) {//Agrega a ruta desde la sucursal de origen hasta la de llegada
+						ruta.add(sucursales.get(j));
+					}
+					//Resultado esperado [Pasto, Florencia, Bogotá]
+				} else { //Si la sucursal de llegada está antes en la lista que la de origen (paila está más difícil)
+					//Ejemplo Cali a medellin [(Medellin), (Cali), Pasto, Florencia, Bogotá]
+					for (int j = i; j < sucursales.size(); j++) { //Se agregan la sucursal origen y las que le siguen en la lista ruta
+						ruta.add(sucursales.get(j)); //[Cali, Pasto, Florencia, Bogotá]
+					}
+
+					for (int k = 0; k < sucursales.indexOf(sucursalLlegada) + 1; k++) { //Termina agregando desde el comienzo de la lista sucursales hasta la sucursal de llegada (incluyendola)
+						ruta.add(sucursales.get(k)); //[Medellin]
+					}
+					//Resultado esperado [Cali, Pasto, Florencia, Bogota, Medellin]
+				}
+			}
+		}
+	} 
+
 	public void asignarRuta(Cliente remitente) { //Falta terminar
 		switch (remitente.getMembresia().getBeneficio()) {
 			case PLATINUM: //No hace ninguna escala

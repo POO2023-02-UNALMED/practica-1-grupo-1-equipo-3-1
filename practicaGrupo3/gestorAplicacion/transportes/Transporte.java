@@ -22,7 +22,7 @@ public abstract class Transporte {
 
     public abstract void mantenimiento();
 
-/* 
+/*  TOMAS Lo comenté para verificarlo más adelante 
     public String entregarPaquete(Guia guia){
         this.guia = guia;
         this.guia.lugar_actual = this.guia.destino;

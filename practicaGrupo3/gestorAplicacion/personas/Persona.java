@@ -5,10 +5,10 @@ public abstract class Persona {
 	protected String nombre;
 	protected int cedula;
 	protected CuentaBancaria cuentaBancaria;
-	protected int telefono;
+	protected long telefono;
 	
 	protected Persona() {}
-	protected Persona(String nombre, int cedula, CuentaBancaria cuentaBancaria, int telefono){
+	protected Persona(String nombre, int cedula, CuentaBancaria cuentaBancaria, long telefono){
 		this.nombre = nombre;
 		this.cedula = cedula;
 		this.cuentaBancaria = cuentaBancaria;
@@ -32,7 +32,7 @@ public abstract class Persona {
 	public void setCuentaBancaria(CuentaBancaria cuentaBancaria) {
 		this.cuentaBancaria = cuentaBancaria;
 	}
-	public int getTelefono() {
+	public long getTelefono() {
 		return telefono;
 	}
 	public void setTelefono(int telefono) {

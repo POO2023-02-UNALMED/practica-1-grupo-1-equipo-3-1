@@ -4,9 +4,12 @@ import productos.*;
 import personas.*;
 import productos.Animal.tipoAnimal;
 import administracion.*;
+import personas.Cliente;
 import transportes.*;
 import personas.Cliente;
 
+
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -27,6 +30,11 @@ public class Main {
         System.out.println(cliente1);
         System.out.println(destinatario1);
         
+
+        Cliente guzman = new Cliente("Jaime Guzman", 1033487678, null, 350562901, membresia1);
+
+        CuentaBancaria cuentaGuzman = new CuentaBancaria(guzman, 45068373, 123, "08/27");
+        guzman.setCuentaBancaria(cuentaGuzman);
     }
     
    

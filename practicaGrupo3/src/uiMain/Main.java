@@ -35,6 +35,14 @@ public class Main {
 
         CuentaBancaria cuentaGuzman = new CuentaBancaria(guzman, 45068373, 123, "08/27");
         guzman.setCuentaBancaria(cuentaGuzman);
+
+        //Ejemplos
+        Sucursal medellin = new Sucursal("Medellín", 500, 1000, -5, 5);
+        Sucursal cali = new Sucursal("Cali", 500, 1000, -5, -2);
+        Sucursal pasto = new Sucursal("Pasto", 500, 1000, -8, -5);
+        Sucursal florencia = new Sucursal("Florencia", 500, 1000, 4, -1);
+        Sucursal bogota = new Sucursal("Bogotá", 500, 1000, 5, 2);
+        System.out.println(Sucursal.getTodasLasSucursales());
     }
     
    

@@ -8,14 +8,14 @@ public class Avion extends Transporte {
     private int cantdadAvionesDisponibles = 0;
 
     private Guia guia;
-    public Avion(String ciudad_registro, float capacidad_carga, int matricula, String fabricante){
+    public Avion(String ciudad_registro, float capacidad_carga, int matricula, String fabricante, int estado){
         super(ciudad_registro, capacidad_carga, fabricante, estado);
         this.matricula = matricula;
     }
 
     @Override
     public void mantenimiento(){
-        this.estado = 30;
+        this.setEstado(30);
     }
 
     public int getMatricula() {

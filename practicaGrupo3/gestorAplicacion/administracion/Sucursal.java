@@ -39,7 +39,7 @@ public class Sucursal {
 
 	
 	//constructor
-	public Sucursal(String ciudad, int capacidadVolumen,int capacidadPeso, int latitud, int longitud) {
+	public Sucursal(String ciudad, int capacidadVolumen,int capacidadPeso, int longitud, int latitud) {
 		//TOMASCorregí el tipo de horario e inventario
 		//TOMASAgregue los atributos latitud y longitud y los combié a enteros (plano cartesiano)
 		this.ciudad = ciudad;
@@ -229,8 +229,8 @@ public class Sucursal {
 	 }
 
 	    // Método para verificar si un paquete está en la sucursal
-	public String verificarPaquete(int producto) {
-	     Producto codigoPaquete = inventario.get(producto);
+	public String verificarPaquete(Producto producto) {
+	     Producto codigoPaquete = inventario.get(inventario.indexOf(producto));
 		 if (inventario.contains(producto)) {
 	            return "El paquete con código " + codigoPaquete + " se encuentra en la sucursal.";
 	      } else {
@@ -292,7 +292,7 @@ public class Sucursal {
 		}
 	return "";
 	}
-
+/*
 		public String recoger(Producto producto, int remitente, int destinatario) {
 			// Verificar si el paquete se encuentra en la sucursal
 			 if (inventario.contains(producto)) {
@@ -300,7 +300,7 @@ public class Sucursal {
 				boolean esRemitente = validarCedulaRemi1(remitente);
 				boolean esDestinatario = validarCedulaDest(destinatario);
 				 
-				 /*entregar si se cumplen las condiciones anteriores*/
+				 /*entregar si se cumplen las condiciones anteriores
 				if(esRemitente) {
 					 if(esDestinatario) {
 						 inventario.remove(producto);
@@ -347,7 +347,7 @@ public class Sucursal {
 	        	return "La cuenta bancaria del cliente no tiene fondos suficientes para el pago del envío.";
 	        }
 	    }
-	 
+	*/
 	// Método para calcular la cantidad de escalas según la membresía del cliente
 	 
 	 //necesito que Tomás M. haga el switch con los tipos de membresia

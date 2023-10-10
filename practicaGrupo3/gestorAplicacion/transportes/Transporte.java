@@ -1,5 +1,9 @@
 package transportes;
 
+import java.util.ArrayList;
+import administracion.*;
+import productos.*;
+
 public abstract class Transporte {
     private static int cant_transporte = 0;
     private String ciudad_registro;
@@ -7,6 +11,7 @@ public abstract class Transporte {
     private float capacidad_carga;
     private String fabricante;
     private int estado;
+    private ArrayList<Producto> inventario = new ArrayList<>(); //TOMAS Cada vehiculo va a a tener su propio inventario
 
     public Transporte(String ciudad_registro, float capacidad_carga, String fabricante, int estado){
         this.ciudad_registro = ciudad_registro;
@@ -17,7 +22,7 @@ public abstract class Transporte {
 
     public abstract void mantenimiento();
 
-
+/* 
     public String entregarPaquete(Guia guia){
         this.guia = guia;
         this.guia.lugar_actual = this.guia.destino;
@@ -28,7 +33,7 @@ public abstract class Transporte {
         }
         return "Entregado con éxito";
     }
-
+*/
     public String getCiudad_registro() {
         return ciudad_registro;
     }

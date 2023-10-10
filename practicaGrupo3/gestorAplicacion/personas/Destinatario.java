@@ -5,7 +5,7 @@ import administracion.CuentaBancaria;
 
 public class Destinatario extends Persona{
 	public Destinatario() {}
-	public Destinatario(String nombre, int cedula, CuentaBancaria cuentaBancaria, int telefono) {
+	public Destinatario(String nombre, int cedula, CuentaBancaria cuentaBancaria, long telefono) {
 		super(nombre,cedula,cuentaBancaria,telefono);
 		
 	}

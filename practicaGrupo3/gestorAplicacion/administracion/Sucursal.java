@@ -315,7 +315,7 @@ public class Sucursal {
 			}
 				// Método para validar una cédula 
 		 
-	 public boolean validarCedulaRemi1(int remitente) {
+	 public boolean validarCedulaRemitente(int remitente) {//TOMAS
 		 int cedulaRemi = Cliente.getCedula();
 		 if (remitente == cedulaRemi) {
 			 return true;
@@ -333,42 +333,7 @@ public class Sucursal {
 	     }  
 	 }
 	 
-	 //TOMAS
-	public String pagar() {
-		return "h";
-	}
 
-	public String pagarTarjeta(String titular, int numero, int cvv, String fechaExpiracion) {
-		CuentaBancaria cuentaCliente = null;
-		for (CuentaBancaria cuenta : CuentaBancaria.getTodasLasCuentas()) {
-			if (cuenta.getNumero() == numero) {
-				cuentaCliente = cuenta;
-				break;
-			}
-		}
-		if (cuentaCliente != null) {	
-			if (cuentaCliente.getTitular().getNombre().equals(titular)) {
-				if (cuentaCliente.getNumero() == numero) {
-					if (cuentaCliente.getCVV() == cvv) {
-						if (cuentaCliente.getFechaExpiracion() == fechaExpiracion) {
-						}
-					} else {
-						return "Datos incorrectos, intente nuevamente";
-					}
-				} else {
-					return "Datos incorrectos, intente nuevamente";
-				}
-			} else {
-				return "Datos incorrectos, intente nuevamente";
-			}
-		}
-	}
-
-	public String pagarEfectivo() {
-		Random random = new Random();
-		return "Acerquese a la caja #" + random.nextInt(5) +
-		" para cancelar";
-	}
 	// Método para realizar el pago del envío
 	 public String realizarPagoEnvio(double montoAPagar, CuentaBancaria cuentaCliente) {
 		 	montoAPagar = Producto.costoDelPedido;

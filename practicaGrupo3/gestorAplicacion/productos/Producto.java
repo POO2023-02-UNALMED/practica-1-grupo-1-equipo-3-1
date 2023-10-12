@@ -12,7 +12,7 @@ public abstract class Producto {
     private static int contadorProductos;
     //El volumen y el peso es el espacio que ocupará el producto de cada transporte y sucursal
     private Guia guia;
-    private static ArrayList<Producto> todosLosProductos;
+    private static ArrayList<Producto> todosLosProductos = new ArrayList<>();
     
     public Producto(int codigo) {
         this.codigo = codigo;

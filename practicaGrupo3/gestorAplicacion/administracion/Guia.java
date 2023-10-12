@@ -40,72 +40,35 @@ public class Guia {
 		ENESPERA,
 		ENTREGADO
 	} 
+
 	//Constructor
-	public Guia(Producto producto, LocalDateTime fechaDeEnvio, boolean pagoContraentrega, boolean entregaEnSucursal, Cliente remitente) {
+	public Guia(Producto producto, boolean pagoContraentrega, boolean entregaEnSucursal, Cliente remitente, Sucursal sucursalOrigen, Sucursal sucursalLlegada) {
 		this.producto = producto;
 		this.fechaDeEnvio = fechaDeEnvio;
 		this.pagoContraentrega = pagoContraentrega;
 		this.entregaEnSucursal = entregaEnSucursal;
 		this.remitente = remitente;
 		this.fechaDeEnvio = LocalDateTime.now();
-		asignarRuta(remitente);
+		this.sucursalOrigen = sucursalOrigen;
+		this.sucursalLlegada = sucursalLlegada;
+		precioTotal = producto.getCostoDelPedido();
+
+		asignarRuta();
 	}
 	
 	//métodos
-	// Método para calcular la distancia entre dos puntos 
+	// Método para calcular la distancia entre dos puntos
+	//FUNCIONA
 	public static double calcularDistancia(Sucursal origen, Sucursal destino) {
 		double x = destino.getLongitud() - origen.getLongitud();
 		double y = destino.getLatitud() - origen.getLatitud();
 		double magnitud = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
 		return magnitud;
 	}
-	// Método para calcular la cantidad de escalas según la membresía del cliente
-	public static int calcularCantidadEscalas(Cliente remitente) {
-		switch (remitente.getMembresia().getBeneficio()) {
-			case SILVER:
-				return 4; // Hace 4 escalas
-			case GOLD:
-				return 3; // Hace la mitad de las escalas de Silver 
-			case PLATINUM:
-				return 2; // No hace ninguna escala
-			default:
-				return 5; // Valor predeterminado para el cliente sin membresía 
-		}
-	}
-	// Método para determinar la siguiente sucursal basada en la distancia geográfica
-	public static Sucursal determinarSiguienteSucursal(Sucursal origen) {
-		Sucursal siguienteSucursal = null;
-		double distanciaMinima = Double.MAX_VALUE;
-		//recorreos cada sucursal
-		for (Sucursal sucursal : Sucursal.getTodasLasSucursales()) {
-			if (sucursal != origen) {
-				double distancia = calcularDistancia(origen, sucursal);
-				if (distancia < distanciaMinima) {
-					distanciaMinima = distancia;
-					siguienteSucursal = sucursal;
-				}
-			}
-		}
-			return siguienteSucursal;
-	}
-	//Sobrecarga
-	public static Sucursal determinarSiguienteSucursal(Sucursal origen, ArrayList<Sucursal> sucursales) {
-		Sucursal siguienteSucursal = null;
-		double distanciaMinima = Double.MAX_VALUE;
-		//recorreos cada sucursal
-		for (Sucursal sucursal : sucursales) {
-			if (sucursal != origen) {
-				double distancia = calcularDistancia(origen, sucursal);
-				if (distancia < distanciaMinima) {
-					distanciaMinima = distancia;
-					siguienteSucursal = sucursal;
-				}
-			}
-		}
-			return siguienteSucursal;
-	}
+
 	
 	//Antihoraria
+	//FUNCIONA
 	public void asignarRuta() {
 		ArrayList<Sucursal> sucursales = Sucursal.getTodasLasSucursales(); //La lista sería [Medellin, Cali, Pasto, Florencia, Bogotá]
 		//Si quiero ir de Pasto a Bogotá el atributo ruta sería = [Pasto, Florencia, Bogotá]
@@ -134,56 +97,6 @@ public class Guia {
 		}
 	} 
 
-	//Esto está malisimo
-	public void asignarRuta(Cliente remitente) { //Falta terminar
-		switch (remitente.getMembresia().getBeneficio()) {
-			case PLATINUM: //No hace ninguna escala
-				ruta.add(sucursalOrigen);
-				ruta.add(sucursalLlegada);
-				break;
-			case GOLD: //SOlo hace una escala
-				ruta.add(sucursalOrigen);
-				if (determinarSiguienteSucursal(sucursalOrigen) == sucursalLlegada) {/*Verifica si la sucursal mas cercana
-					es la de destino */
-					/*Si es así, tiene que encontrar otra sucursal cercana */
-					ArrayList<Sucursal> rutaImprovisada = new ArrayList<>(ruta); /*Crea otra lista con la unica intencion de ser igual a ruta con la diferencia de que
-					se elimina la sucursal de llegada para aplicar otra vez la funcion determinarsiguientesucursal*/
-					rutaImprovisada.remove(rutaImprovisada.indexOf(sucursalLlegada));
-					ruta.add(determinarSiguienteSucursal(sucursalOrigen, rutaImprovisada));
-				} else {
-					ruta.add(determinarSiguienteSucursal(sucursalOrigen, Sucursal.getTodasLasSucursales()));
-				}
-				ruta.add(sucursalLlegada);
-				break;
-			case SILVER:
-				ruta.add(sucursalOrigen);
-				while (ruta.size() < 4) {
-					if (determinarSiguienteSucursal(sucursalOrigen) != sucursalLlegada) {
-						if (determinarSiguienteSucursal(sucursalOrigen) != ruta.get(ruta.size() - 1)) {
-						}
-					
-					}
-				}
-				ArrayList<Sucursal> rutaImprovisada = new ArrayList<>(ruta);
-				while (ruta.size() < 4) {
-					Sucursal siguienteSucursal = determinarSiguienteSucursal(ruta.get(ruta.size() - 1), ruta);
-					if (siguienteSucursal != sucursalLlegada) {
-						if (!ruta.contains(determinarSiguienteSucursal(siguienteSucursal, ruta))) {
-							ruta.add(siguienteSucursal);
-						}
-					}
-				}
-				ruta.add(sucursalLlegada);
-				break;
-			case DEFAULT:
-				ruta.add(sucursalOrigen);
-				ruta.add(sucursalLlegada);		
-				break;		
-		}
-		ruta.add(sucursalOrigen);
-		ruta.add(determinarSiguienteSucursal(sucursalLlegada, Sucursal.getTodasLasSucursales()));
-		ruta.add(sucursalLlegada);
-	}
 	public static boolean confirmarPago(int entrada) { //TOMAS REVISAR
 		switch (entrada) {
 			case 1:
@@ -195,6 +108,7 @@ public class Guia {
 		}
 	}
 	
+	//Revisar scanner
 	public String pagar(int entrada) {
 		switch (entrada) {
 			case 1:
@@ -216,6 +130,8 @@ public class Guia {
 		return "";
 	}
 	
+	//Revisar Scanner
+	//FUNCIONA
 	public String pagarTarjeta(String titular, long numero, int cvv, String fechaExpiracion) {
 		CuentaBancaria cuentaCliente = null;
 		for (CuentaBancaria cuenta : CuentaBancaria.getTodasLasCuentas()) {
@@ -262,9 +178,11 @@ public class Guia {
 		}
 	}
 
+	//FUNCIONA
 	public String pagarEfectivo() {
 		Random random = new Random();
-		return "Acerquese a la caja #" + random.nextInt(5) +
+		int numeroAleatorio = random.nextInt(5) + 1;
+		return "Acerquese a la caja #" + numeroAleatorio +
 		" para cancelar";
 	}
 
@@ -379,7 +297,7 @@ public class Guia {
     }
 
 }
-	class EventosAleatorios {
+	/*class EventosAleatorios {
 		// PAQUETE FRAGIL PUEDE ROMPERSE Y PUEDE QUE NO; ANIMAL DERRUMBE A SOBREVIVIDO ; LLORONA DISCUTIENDO
 		// PEGAR A GUÍA
 		    enum EventoPaquete {
@@ -472,4 +390,4 @@ public class Guia {
 		            System.out.println("No ha ocurrido ningún evento.");
 		        }
 		    }
-	}
+	}*/

@@ -30,6 +30,10 @@ public class Sucursal {
 	private ArrayList<Producto> inventario = new ArrayList<>(); //TOMAS
 	private static ArrayList<Sucursal> todasLasSucursales = new ArrayList<>(); //TOMAS
     private Map<Horario, String> horario;
+	private ArrayList<Moto> motosEnSucursal = new ArrayList<>();
+	private ArrayList<Camion> camionesEnSucursal = new ArrayList<>();
+	private ArrayList<Avion> avionesEnSucursal = new ArrayList<>();
+
 	private int cantidadMotosDisponibles;
     private int cantidadCamionesDisponibles;
     private int cantidadAvionesDisponibles;
@@ -136,6 +140,14 @@ public class Sucursal {
 		return disponibilidad;
 	}
 
+	public void agregarCamion(Camion camion) {
+        camionesEnSucursal.add(camion);
+    }
+
+    public void removerCamion(Camion camion) {
+        camionesEnSucursal.remove(camion);
+    }
+
 	public String agregarProducto(Producto nuevoProducto) { //Se usa este metodo cuando se hace el envío o llega un paquete de otra sucursal
 		boolean seAgrega = false;
 
@@ -238,10 +250,61 @@ public class Sucursal {
 	        }
 	 }
 
-	 
+	//Revisar
+	//Rastrear
+	public static void rastrear(int codigo) {
+		Producto producto = null;
+		for (Producto producto1 : Producto.getTodosLosProductos()) {
+			if (producto1.getCodigo() == codigo) {
+				producto = producto1;
+				break;
+				}
+			}
+		
+		if (producto != null) {
+			switch (producto.getGuia().getEstado()) {
+				case ENTRANSITO:
+					String lugarActual;
+					boolean estaEnSucursal;
+					for (Sucursal sucursal : producto.getGuia().getRuta()) {
+						if (sucursal.verificarProducto(producto)) {
+							estaEnSucursal = true;
+							lugarActual = sucursal.getCiudad();
+							break;
+						}
+					}
+
+					//if (estaEnSucursal) {}
+					
+			}
+
+		} else {
+
+		}
+	}
 	
 
-		//recoger
+	//Revisar
+	//Ubicar paquete
+	public String ubicar(Producto producto) {
+		Sucursal sucursal = null;
+		boolean estaEnSucursal = false;
+		for (Sucursal sucursal1 : producto.getGuia().getRuta()) {
+			if (sucursal1.verificarProducto(producto)) {
+				estaEnSucursal = true;
+				sucursal = sucursal1;
+				break;
+			}
+		}
+
+		if (estaEnSucursal) {
+			return sucursal.getCiudad();
+		} else {
+			return "El producto está en reparto, se encuentra entre " + producto.getGuia().getVehiculo();
+		}
+		
+	}
+	//recoger
 	public String recoger(int codigoPaquete, String nombreRemitente, int cedulaRemitente) {
 		Producto paquete = null;
 		for (Producto producto : Producto.getTodosLosProductos()) { //Revisa en todos los productos creados
@@ -368,6 +431,10 @@ public class Sucursal {
 	}
 
 	public static ArrayList<Sucursal> getTodasLasSucursales() {
-		return todasLasSucursales;
+		return Sucursal.todasLasSucursales;
+	}
+
+	public ArrayList<Producto> getInventario() {
+		return inventario;
 	}
 }

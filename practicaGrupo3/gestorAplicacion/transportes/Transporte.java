@@ -12,12 +12,15 @@ public abstract class Transporte {
     private String fabricante;
     private int estado;
     private ArrayList<Producto> inventario = new ArrayList<>(); //TOMAS Cada vehiculo va a a tener su propio inventario
+    private static ArrayList<Transporte> todosLosTransportes = new ArrayList<>();
+    private Sucursal sucursal; //Sucursal a la que pertenece el transporte
 
     public Transporte(String ciudad_registro, float capacidad_carga, String fabricante, int estado){
         this.ciudad_registro = ciudad_registro;
         this.capacidad_carga = capacidad_carga;
         this.estado = estado;
         Transporte.cant_transporte++;
+        Transporte.todosLosTransportes.add(this);
     }
 
     public abstract void mantenimiento();
@@ -62,6 +65,10 @@ public abstract class Transporte {
         return fabricante;
     }
 
+    public ArrayList<Transporte> getTodosLosTransportes() {
+        return Transporte.todosLosTransportes;
+    } 
+
     public void setFabricante(String fabricante) {
         this.fabricante = fabricante;
     }
@@ -70,7 +77,12 @@ public abstract class Transporte {
         return estado;
     }
 
+    public Sucursal getSucursal() {
+        return sucursal;
+    }
+    
     public void setEstado(int estado) {
         this.estado = estado;
     }
+
 }

@@ -111,8 +111,8 @@ public class Guia {
 		//Si quiero ir de Pasto a Bogotá el atributo ruta sería = [Pasto, Florencia, Bogotá]
 		//Si es de Cali a Medellin = [Cali, Pasto, Florencia, Bogota, Medellin]
 		//¿Como hacemos este Metodo?
-		for (int i = 0; i < sucursales.size(); i++) {
-			if (sucursales.get(i) == sucursalOrigen) {
+		for (int i = 0; i < sucursales.size(); i++) { //Recorre la lista de sucursales
+			if (sucursales.get(i) == sucursalOrigen) { //Para en la sucursal que es igual a la de origen
 				if (i < sucursales.indexOf(sucursalLlegada)) { //Si la sucursal de llegada está después de la de origen en la lista 
 					//Ejemplo Pasto a Bogotá [Medellin, Cali, (Pasto), Florencia, (Bogotá)]
 					for (int j = i; j < sucursales.indexOf(sucursalLlegada) + 1; j++) {//Agrega a ruta desde la sucursal de origen hasta la de llegada
@@ -134,6 +134,7 @@ public class Guia {
 		}
 	} 
 
+	//Esto está malisimo
 	public void asignarRuta(Cliente remitente) { //Falta terminar
 		switch (remitente.getMembresia().getBeneficio()) {
 			case PLATINUM: //No hace ninguna escala
@@ -194,18 +195,15 @@ public class Guia {
 		}
 	}
 	
-	public String pagar() {
-		Scanner scanner = new Scanner(System.in);
-		int entrada = scanner.nextInt();
-		scanner.close();
+	public String pagar(int entrada) {
 		switch (entrada) {
 			case 1:
 				Scanner scanner1 = new Scanner(System.in);
 				String titular = scanner1.nextLine();
 				long numero = scanner1.nextLong();
-				int cvv = scanner.nextInt();
+				int cvv = scanner1.nextInt();
 				scanner1.nextLine();
-				String fechaExpiracion = scanner.nextLine();
+				String fechaExpiracion = scanner1.nextLine();
 				scanner1.close();
 				pagarTarjeta(titular, numero, cvv, fechaExpiracion);
 				break;
@@ -260,7 +258,7 @@ public class Guia {
 				return "Datos incorrectos, intente nuevamente";
 			}
 		} else {
-		return "Lo sentimos, esta cuenta no existe";
+			return "Lo sentimos, esta cuenta no existe";
 		}
 	}
 

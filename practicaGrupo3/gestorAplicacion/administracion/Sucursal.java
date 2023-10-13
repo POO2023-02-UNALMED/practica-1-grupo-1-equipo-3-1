@@ -41,7 +41,7 @@ public class Sucursal {
 	private int cantidadJaulasMedianas;
 	private int cantidadJaulasGrandes;
 
-	
+	private Opinion opinionSucursal;
 	//constructor
 	public Sucursal(String ciudad, int capacidadVolumen,int capacidadPeso, int longitud, int latitud) {
 		//TOMASCorregí el tipo de horario e inventario

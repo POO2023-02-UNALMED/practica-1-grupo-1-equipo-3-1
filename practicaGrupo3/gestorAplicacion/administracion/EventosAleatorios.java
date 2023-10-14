@@ -5,13 +5,13 @@ import java.util.Random;
 public class EventosAleatorios {
 
     enum EventoPaquete {
-        DERRUMBE(50, new String[]{"¡Ha ocurrido un DERRUMBE, tu paquete se ha roto!", "¡Ha ocurrido un DERRUMBE pero tu paquete se encuentra en buen estado!"}),
-        DILUVIO(50, new String[]{"¡Ha ocurrido un DILUVIO, tu paquete se ha perdido!", "¡Ha ocurrido un DILUVIO pero tu paquete se encuentra en buen estado!"}),
-        TRAFICO(50, new String[]{"¡El conductor se ha quedado en un TACO, tu paquete podría tardar un poco!", "¡El conductor se ha quedado en un TACO, tu paquete podría demorarse un poco!"}),
-        GUERRILLA(50, new String[]{"¡La GUERRILLA ha aparecido y ha robado tu paquete!", "¡La GUERRILLA ha aparecido y ha destrozado tu paquete!"}),
-        ATENTADO(50, new String[]{"¡Ha ocurrido un ATENTADO en nuestra sede, tu paquete ha sido explotado!", "¡Ha ocurrido un ATENTADO pero tu paquete sorprendentemente esta intacto!"}),
-        ATRACO(50, new String[]{"¡Ha ocurrido un ATRACO en nuestra sede, tu paquete ha sido robado!", "¡Ha ocurrido un ATRACO en nuestra sede, tu paquete ha pasado desapercibido!"}),
-        DAÑO_EN_VEHICULO(50, new String[]{"¡Nuestro medio de transporte se ha CHOCADO, tu paquete se ha roto!", "¡Nuestro medio de transporte se ha quedado sin GASOLINA ,tu paquete podría tardar un poco!", "¡Nuestro medio de transporte ha sufrido un daño pero tu paquete se encuentra en buen estado!"});
+        DERRUMBE(80, new String[]{"¡Ha ocurrido un DERRUMBE, tu paquete se ha roto!", "¡Ha ocurrido un DERRUMBE pero tu paquete se encuentra en buen estado!"}),
+        DILUVIO(80, new String[]{"¡Ha ocurrido un DILUVIO, tu paquete se ha perdido!", "¡Ha ocurrido un DILUVIO pero tu paquete se encuentra en buen estado!"}),
+        TRAFICO(80, new String[]{"¡El conductor se ha quedado en un TACO, tu paquete podría tardar un poco!", "¡El conductor se ha quedado en un TACO, tu paquete podría demorarse un poco!"}),
+        GUERRILLA(80, new String[]{"¡La GUERRILLA ha aparecido y ha robado tu paquete!", "¡La GUERRILLA ha aparecido y ha destrozado tu paquete!"}),
+        ATENTADO(80, new String[]{"¡Ha ocurrido un ATENTADO en nuestra sede, tu paquete ha sido explotado!", "¡Ha ocurrido un ATENTADO pero tu paquete sorprendentemente esta intacto!"}),
+        ATRACO(80, new String[]{"¡Ha ocurrido un ATRACO en nuestra sede, tu paquete ha sido robado!", "¡Ha ocurrido un ATRACO en nuestra sede, tu paquete ha pasado desapercibido!"}),
+        DAÑO_EN_VEHICULO(80, new String[]{"¡Nuestro medio de transporte se ha CHOCADO, tu paquete se ha roto!", "¡Nuestro medio de transporte se ha quedado sin GASOLINA ,tu paquete podría tardar un poco!", "¡Nuestro medio de transporte ha sufrido un daño pero tu paquete se encuentra en buen estado!"});
 
         private int probabilidad;
         private String[] mensajes;
@@ -32,8 +32,8 @@ public class EventosAleatorios {
     }
 
     enum EventoAnimal {
-        ESCAPE(35, new String[]{"¡Tu animal ha ESCAPADO!", "¡Tu animal ha ESCAPADO pero pudimos recuperarlo!"}),
-        MUERTO(20, new String[]{"¡Tu animal ha MUERTO!", "¡Tu animal ha MUERTO, lo sentimos!"});
+        ESCAPE(45, new String[]{"¡Tu animal ha ESCAPADO.!", "¡Tu animal ha ESCAPADO pero pudimos recuperarlo!"}),
+        MUERTO(25, new String[]{"¡Tu animal ha MUERTO!", "¡Tu animal ha MUERTO, lo sentimos!"});
 
         private int probabilidad;
         private String[] mensajes;
@@ -99,3 +99,4 @@ public class EventosAleatorios {
         }
     }
 }
+

@@ -4,6 +4,7 @@ import productos.*;
 import personas.*;
 import productos.Animal.tipoAnimal;
 import administracion.*;
+import administracion.EventosAleatorios;
 import personas.Cliente;
 import transportes.*;
 import personas.Cliente;
@@ -92,6 +93,7 @@ import java.util.Scanner;
 public class Main {
 	static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
+    	
     
     	//Deserializador.deserializar();
     	
@@ -295,10 +297,34 @@ public class Main {
 		
 		
     // Mi idea es que esta funcionalidad una vez terminada, imprima una especie de factura con todos los datos digitados
+	
+	
+	
+}
+/* EventosAleatorios
+public class Main {
+	static Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) {
+        EventosAleatorios eventos = new EventosAleatorios();
+        String mensajeEvento = eventos.generarEventoAleatorio();
 
-
+        if (mensajeEvento.contains("se ha roto") || mensajeEvento.contains("ha sido robado") || mensajeEvento.contains("se ha perdido") 
+        		|| mensajeEvento.contains("La GUERRILLA") || mensajeEvento.contains("ha sido explotado") 
+        		|| mensajeEvento.contains("se ha roto!") || mensajeEvento.contains("ha ESCAPADO.")
+        		|| mensajeEvento.contains("ha MUERTO")) {
+            System.out.println(mensajeEvento);
+            System.out.println("¿Deseas presentar un reclamo?");
+            System.out.println("1) Sí");
+            System.out.println("2) No");
+        } else {
+            System.out.println(mensajeEvento);
+        }
     }
+}
+*/
+
     
+	
 
 
 

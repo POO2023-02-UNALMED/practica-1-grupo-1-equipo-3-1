@@ -28,12 +28,19 @@ public class Guia {
 	private Destinatario destinatario; 
 	private String direccion;
 	private boolean pagoContraentrega;
+	private boolean pagoMitad;
 	private boolean entregaEnSucursal;
 	private double precioTotal;
 	private LocalDateTime fechaDeEnvio;
 	//private LocalDateTime fechaDeLlegada;
 	private estado estado;
-	
+	private tipoDePago tipoDePago;
+
+	public enum tipoDePago {
+		REMITENTE,
+		FRACCIONADO,
+		DESTINATARIO
+	}
 
 	public enum estado{
 		ENTRANSITO,
@@ -42,12 +49,11 @@ public class Guia {
 	} 
 
 	//Constructor
-	public Guia(Producto producto, boolean pagoContraentrega, boolean entregaEnSucursal, Cliente remitente, Sucursal sucursalOrigen, Sucursal sucursalLlegada) {
+	public Guia(Producto producto,  Cliente remitente, Destinatario destinatario,  Sucursal sucursalOrigen, Sucursal sucursalLlegada, tipoDePago tipoDePago, boolean entregaEnSucursal) {
 		this.producto = producto;
-		this.fechaDeEnvio = fechaDeEnvio;
-		this.pagoContraentrega = pagoContraentrega;
-		this.entregaEnSucursal = entregaEnSucursal;
 		this.remitente = remitente;
+		this.destinatario = destinatario;
+		this.entregaEnSucursal = entregaEnSucursal;
 		this.fechaDeEnvio = LocalDateTime.now();
 		this.sucursalOrigen = sucursalOrigen;
 		this.sucursalLlegada = sucursalLlegada;
@@ -186,6 +192,17 @@ public class Guia {
 		" para cancelar";
 	}
 
+	public String toString() {
+		String format = "| %-16s | %-17s | %-15s | %-16s | %-14s |\n";
+		StringBuilder tabla = new StringBuilder();
+		tabla.append("+------------------+-------------------+-----------------+------------------+----------------+\n");
+		tabla.append("|  Código Paquete  |  Tipo de Paquete  |  Ciudad Origen  |  Ciudad Destino  |  Precio Total  |\n");
+		tabla.append("+------------------+-------------------+-----------------+------------------+----------------+\n");
+		tabla.append(String.format(format, String.valueOf(producto.getCodigo()), String.valueOf(producto.getClass().getName()), String.valueOf(sucursalOrigen.getCiudad()), String.valueOf(sucursalLlegada.getCiudad()), String.valueOf(precioTotal) + "$"));
+		tabla.append("+------------------+-------------------+-----------------+------------------+----------------+\n");
+		return tabla.toString();
+	}
+
 	//Metodos get
 	public Transporte getVehiculo() {
 		return vehiculo;
@@ -226,7 +243,8 @@ public class Guia {
 	public boolean isPagoContraentrega() {
 		return pagoContraentrega;
 	}
-	
+
+
 	public boolean isEntregaEnSucursal() {
 		return entregaEnSucursal;
 	}
@@ -242,6 +260,10 @@ public class Guia {
     public estado getEstado() {
         return estado;
     }
+
+	public Guia.tipoDePago getTipoDePago() {
+		return tipoDePago;
+	}
 
 	//Metodos set
 	public void setVehiculo(Transporte vehiculo) {
@@ -296,4 +318,7 @@ public class Guia {
         this.estado = estado;
     }
 
+	public void setTipoDePago(tipoDePago tipoDePago) {
+		this.tipoDePago = tipoDePago;
+	}
 }

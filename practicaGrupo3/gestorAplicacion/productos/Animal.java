@@ -42,12 +42,14 @@ public class Animal extends Producto {
     }
 
     public String toString() {
-        return "Tipo de producto: Animal\n" +
-        "Codigo de pedido: " + codigo + "\n" +
-        "Nombre: " + nombre + "\n" +
-        "Edad: " + edad + "\n" +
-        "Peso: " + peso + "\n" +
-        "Tamaño: " + tamano.toString().toLowerCase() + "\n";
+        return "--------------------------------\n" +
+                "Tipo de producto: Animal\n" +
+                "Codigo de pedido: " + codigo + "\n" +
+                "Nombre: " + nombre + "\n" +
+                "Edad: " + edad + "\n" +
+                "Peso: " + peso + "\n" +
+                "Tamaño: " + tamano.toString().toLowerCase() + "\n" +
+                "--------------------------------";
     }
 
     public void asignarPeligro() {
@@ -175,4 +177,6 @@ public class Animal extends Producto {
     public void setTamano(tamanoAnimal tamano) {
         this.tamano = tamano;
     }
+
+
 }

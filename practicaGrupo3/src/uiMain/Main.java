@@ -93,12 +93,19 @@ import java.util.Scanner;
 public class Main {
 	static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
-    	
+		Sucursal medellin = new Sucursal("Medellin", 100, 100, 10, 10);
+		Sucursal cali = new Sucursal("Cali", 400, 200, -1, -3);
+		Sucursal pasto = new Sucursal("Pasto", 200, 700, -3, -1);
+		Sucursal bogota = new Sucursal("Bogotá", 1000, 500, 4, 3);
+		Sucursal.enviarPaquete(medellin);
+	}
+}
+    	/*
     
     	//Deserializador.deserializar();
     	
     	//Menu principal
-    	
+
     	int opcion;
     	do {
     		System.out.println("--- BIENVENIDO AL SISTEMA DE ENVIOS CORREMINAS ---");
@@ -294,13 +301,13 @@ public class Main {
 	static double readDouble() {
 		return sc.nextDouble();
 	}
-		
+
 		
     // Mi idea es que esta funcionalidad una vez terminada, imprima una especie de factura con todos los datos digitados
 	
+
 	
-	
-}
+}*/
 /* EventosAleatorios
 public class Main {
 	static Scanner sc = new Scanner(System.in);

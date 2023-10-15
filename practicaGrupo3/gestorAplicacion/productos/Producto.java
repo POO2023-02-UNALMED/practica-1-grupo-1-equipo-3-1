@@ -39,6 +39,7 @@ public abstract class Producto {
         return codigo;
     }
 
+    // Métodos get
     public double getVolumen() {
         return volumen;
     }
@@ -55,6 +56,11 @@ public abstract class Producto {
         return guia;
     }
 
+    public static ArrayList<Producto> getTodosLosProductos() {
+        return Producto.todosLosProductos;
+    }
+
+    // Métodos set
     public void setPeso(double peso) {
         this.peso = peso;
     }
@@ -79,7 +85,4 @@ public abstract class Producto {
         this.guia = guia;
     }
 
-    public static ArrayList<Producto> getTodosLosProductos() {
-        return Producto.todosLosProductos;
-    }
 }

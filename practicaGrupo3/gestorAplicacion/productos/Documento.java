@@ -11,8 +11,10 @@ public class Documento extends Producto {
     }
 
     public String toString() {
-        return "Tipo de producto: Documento\n" +
-        "Codigo de pedido: " + codigo + "\n";
+        return "--------------------------------\n" +
+                "Tipo de producto: Documento\n" +
+                "Codigo de pedido: " + codigo + "\n" +
+                "--------------------------------";
     }
 
     public void asignarCostoDelPedido() {

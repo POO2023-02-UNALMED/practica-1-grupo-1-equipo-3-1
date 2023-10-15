@@ -94,11 +94,14 @@ public class CuentaBancaria {
 		if (saldo < montoAPagar) {
 			return false;
 			
-		}else {
+		} else {
 			saldo = saldo-montoAPagar;
 			return true;
 		}
-		
 	}
+
+    public void aumentarSaldo(double montoAPagar) {
+        saldo += montoAPagar;
+    }
 	
 }

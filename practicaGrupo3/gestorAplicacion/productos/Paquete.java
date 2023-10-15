@@ -9,16 +9,16 @@ public class Paquete extends Producto {
     private boolean roto;
     
 
-    public Paquete(double peso, double altura, double ancho, double largo, boolean fragil,  double valorDeclarado) {
+    public Paquete(double peso, double alto, double ancho, double largo, boolean fragil,  double valorDeclarado) {
         super(generarCodigo());
 
         this.valorDeclarado = valorDeclarado;
         this.peso = peso;
-        this.alto = altura;
+        this.alto = alto;
         this.ancho = ancho;
         this.largo = largo;
         this.fragil = fragil;
-        this.volumen = altura * largo * ancho;
+        this.volumen = alto * largo * ancho;
         roto = false;
 
         asignarCostoDelPedido();
@@ -42,11 +42,11 @@ public class Paquete extends Producto {
         double tarifaBasePorKg = 10000;
         double tarfifaBasePorMetroCubico = 5000;
         double tarifaAdicionalFragil = 1.25;
-        double costoDelPedido = (tarfifaBasePorMetroCubico * volumen) + (tarifaBasePorKg * peso);
+        double costoPedido = (tarfifaBasePorMetroCubico * volumen) + (tarifaBasePorKg * peso) + valorDeclarado * 0.3;
         if (!fragil) {
-        	this.costoDelPedido = costoDelPedido;
+        	this.costoDelPedido = costoPedido;
         } else {
-        	costoDelPedido *= tarifaAdicionalFragil;
+        	this.costoDelPedido = costoPedido * tarifaAdicionalFragil;
         }
     }
 

@@ -13,7 +13,7 @@ public class Membresia {
 	
 	/*KEVIN. ¿Podriamos colocar el caso en el que el cliente no tenga membresía? 
 			leer el método calcularCantidadEscalas en la línea 322 de la clase sucursal donde dice default.*/
-	enum tipo{
+	public enum tipo{
 		DEFAULT(50),
 		SILVER(40),
 		GOLD(30),

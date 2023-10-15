@@ -53,10 +53,12 @@ public class Guia {
 		this.producto = producto;
 		this.remitente = remitente;
 		this.destinatario = destinatario;
-		this.entregaEnSucursal = entregaEnSucursal;
-		this.fechaDeEnvio = LocalDateTime.now();
 		this.sucursalOrigen = sucursalOrigen;
 		this.sucursalLlegada = sucursalLlegada;
+		this.tipoDePago = tipoDePago;
+		this.entregaEnSucursal = entregaEnSucursal;
+		this.fechaDeEnvio = LocalDateTime.now();
+
 		precioTotal = producto.getCostoDelPedido();
 
 		asignarRuta();
@@ -193,13 +195,13 @@ public class Guia {
 	}
 
 	public String toString() {
-		String format = "| %-16s | %-17s | %-15s | %-16s | %-14s |\n";
+		String format = "| %-16s | %-18s | %-15s | %-16s | %-14s |\n";
 		StringBuilder tabla = new StringBuilder();
-		tabla.append("+------------------+-------------------+-----------------+------------------+----------------+\n");
-		tabla.append("|  Código Paquete  |  Tipo de Paquete  |  Ciudad Origen  |  Ciudad Destino  |  Precio Total  |\n");
-		tabla.append("+------------------+-------------------+-----------------+------------------+----------------+\n");
-		tabla.append(String.format(format, String.valueOf(producto.getCodigo()), String.valueOf(producto.getClass().getName()), String.valueOf(sucursalOrigen.getCiudad()), String.valueOf(sucursalLlegada.getCiudad()), String.valueOf(precioTotal) + "$"));
-		tabla.append("+------------------+-------------------+-----------------+------------------+----------------+\n");
+		tabla.append("+------------------+--------------------+-----------------+------------------+----------------+\n");
+		tabla.append("|  Código Paquete  |  Tipo de Producto  |  Ciudad Origen  |  Ciudad Destino  |  Precio Total  |\n");
+		tabla.append("+------------------+--------------------+-----------------+------------------+----------------+\n");
+		tabla.append(String.format(format, String.valueOf(producto.getCodigo()), String.valueOf(producto.getClass().getSimpleName()), String.valueOf(sucursalOrigen.getCiudad()), String.valueOf(sucursalLlegada.getCiudad()), String.valueOf(precioTotal) + "$"));
+		tabla.append("+------------------+--------------------+-----------------+------------------+----------------+\n");
 		return tabla.toString();
 	}
 

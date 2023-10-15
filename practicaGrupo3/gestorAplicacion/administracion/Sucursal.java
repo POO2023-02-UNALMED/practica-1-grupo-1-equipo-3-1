@@ -35,7 +35,7 @@ public class Sucursal {
     private int cantidadMotosDisponibles;
     private int cantidadCamionesDisponibles;
     private int cantidadAvionesDisponibles;
-    private int cantidadJaulasPequeñas;
+    private int cantidadJaulasPequenas;
     private int cantidadJaulasMedianas;
     private int cantidadJaulasGrandes;
 
@@ -116,8 +116,8 @@ public class Sucursal {
 
         switch (animal.getTamano()) {
             case PEQUENO:
-                if (cantidadJaulasPequeñas > 0) {
-                    cantidadJaulasPequeñas--;
+                if (cantidadJaulasPequenas > 0) {
+                    cantidadJaulasPequenas--;
                     disponibilidad = true;
                     break;
                 }
@@ -247,222 +247,21 @@ public class Sucursal {
         }
     }
 
-    public static void print(Object objeto) {
-        System.out.print(objeto);
-    }
-
-    public static void println(Object objeto) {
-        System.out.println(objeto);
-    }
-
-	public static void enviarPaquete(Sucursal origen) {
-        Scanner scanner = new Scanner(System.in);
-
-        println("-------DATOS DEL PRODUCTO--------");
-        println("Ingrese el tipo de producto: \n" +
-                "1) Paquete\n" +
-                "2) Animal\n" +
-                "3) Documento");
-        println("---------------------------------");
-
-        boolean numeroValido = false;
-        Producto producto;
-
-        while (!numeroValido) {
-            int tipoDeProducto = scanner.nextInt();
-            scanner.nextLine();
-            switch (tipoDeProducto) {
-                case 1: //Paquete
-                    println("---------------------------------");
-                    print("Peso del paquete: ");
-                    double peso = scanner.nextDouble();
-                    print("Alto del paquete: ");
-                    double alto = scanner.nextDouble();
-                    print("Alto del paquete: ");
-                    double ancho = scanner.nextDouble();
-                    print("Largo del paquete: ");
-                    double largo = scanner.nextDouble();
-
-                    println("---------------------------------");
-                    println("¿El paquete es fragil?\n" +
-                            "1) Sí\n" +
-                            "2) No");
-                    println("---------------------------------");
-
-                    boolean numeroValido2 = false;
-                    boolean fragil = false;
 
 
-                    while (!numeroValido2) {
-                        int fragilEntrada = scanner.nextInt();
-                        switch (fragilEntrada) {
-                            case 1:
-                                fragil = true;
-                                numeroValido2 = true;
-                                break;
-                            case 2:
-                                fragil = false;
-                                numeroValido2 = true;
-                                break;
-                            default:
-                                println("Número no válido. Inténtalo de nuevo.");
-                        }
-                    }
-                    println("---------------------------------");
-                    print("Valor declarado: ");
-                    double valorDeclarado = scanner.nextDouble();
-                    scanner.nextLine();
-                    println("---------------------------------");
 
 
-                    producto = new Paquete(peso, alto, ancho, largo, fragil, valorDeclarado);
-                    Paquete paquete = (Paquete) producto;
-                    println(paquete);
-                    numeroValido = true;
-                    break;
-
-                case 2: //Animal
-                    println("---------------------------------");
-                    print("Nombre del animal: ");
-                    String nombre = scanner.nextLine();
-                    print("Edad del animal: ");
-                    int edad = scanner.nextInt();
-                    print("Peso del animal: ");
-                    double peso1 = scanner.nextDouble();
-                    Animal.tipoAnimal tipoAnimal = null;
-
-                    println("--------------------------------");
-                    println("Ingrese el tipo del animal: \n" +
-                            "1) Perro\n" +
-                            "2) Gato\n" +
-                            "3) Hamster\n" +
-                            "4) Loro\n" +
-                            "5) Caballo\n" +
-                            "6) Vaca");
-                    println("---------------------------------");
-
-                    boolean numeroValido3 = false;
-
-                    while (!numeroValido3) {
-                        int tipoAnimalEntrada = scanner.nextInt();
-
-                        switch (tipoAnimalEntrada) {
-                            case 1: //Perro
-                                tipoAnimal = Animal.tipoAnimal.PERRO;
-                                numeroValido3 = true;
-                                break;
-                            case 2:
-                                tipoAnimal = Animal.tipoAnimal.GATO;
-                                numeroValido3 = true;
-                                break;
-                            case 3:
-                                tipoAnimal = Animal.tipoAnimal.HAMSTER;
-                                numeroValido3 = true;
-                                break;
-                            case 4:
-                                tipoAnimal = Animal.tipoAnimal.LORO;
-                                numeroValido3 = true;
-                                break;
-                            case 5:
-                                tipoAnimal = Animal.tipoAnimal.CABALLO;
-                                numeroValido3 = true;
-                                break;
-                            case 6:
-                                tipoAnimal = Animal.tipoAnimal.VACA;
-                                numeroValido3 = true;
-                                break;
-                            default:
-                                println("Número no válido. Inténtalo de nuevo");
-                        }
-                    }
-
-                    producto = new Animal(nombre, edad, peso1, tipoAnimal);
-                    Animal animal = (Animal) producto;
-                    println(animal);
-                    numeroValido = true;
-                    break;
-                case 3:
-                    producto = new Documento();
-                    Documento documento = (Documento) producto;
-                    numeroValido = true;
-                    break;
-                default:
-                    println("Número no válido. Inténtalo de nuevo.");
-            }
-
-        }
-
-        println("--------DATOS DEL USUARIO--------");
-        print("Nombre del remitente: ");
-        String nombreRemitente = scanner.nextLine();
-        print("Cédula del remitente: ");
-        long cedulaRemitente = scanner.nextLong();
-        print("Telefono del remitente: ");
-        long telefonoRemitente = scanner.nextLong();
-        scanner.nextLine();
-
-        Cliente remitente = new Cliente(nombreRemitente, cedulaRemitente, null, telefonoRemitente);
-        println(remitente);
-
-        println("---------------------------------");
-        print("Nombre del destinatario: ");
-        String nombreDestinatario = scanner.nextLine();
-        print("Cédula del destinatario: ");
-        long cedulaDestinatario = scanner.nextLong();
-        print("Telefono del remitente: ");
-        long telefonoDestinatario = scanner.nextLong();
-
-        Destinatario destinatario = new Destinatario(nombreDestinatario, cedulaDestinatario, null, telefonoDestinatario);
-
-        println("--------------------------------");
-        println("Ciudad de origen: " + origen.getCiudad());
-
-        ArrayList<Sucursal> sucursalesDestino = new ArrayList<>();
-
-        for (Sucursal sucursal : Sucursal.getTodasLasSucursales()) {
-            if (sucursal !=  origen) {
-                sucursalesDestino.add(sucursal);
+    public boolean verificarDisponibilidad(Producto producto) {
+        if (capacidadVolumen > producto.getVolumen()) {
+            if (capacidadPeso > producto.getPeso()) {
+                return true;
             }
         }
-
-        String destinos = String.format("Ingrese ciudad de destino: \n" +
-                "1) %s\n" +
-                "2) %s\n" +
-                "3) %s", sucursalesDestino.get(0).getCiudad(), sucursalesDestino.get(1).getCiudad(), sucursalesDestino.get(2).getCiudad());
-
-        println("--------------------------------");
-        println(destinos);
-        println("---------------------------------");
-
-        Sucursal sucursalDestino = null;
-
-        boolean numeroValido4 = false;
-        while (!numeroValido4) {
-            int destinoEntrada = scanner.nextInt();
-
-            switch (destinoEntrada) {
-                case 1:
-                    sucursalDestino = sucursalesDestino.get(0);
-                    numeroValido4 = true;
-                    break;
-                case 2:
-                    sucursalDestino = sucursalesDestino.get(1);
-                    numeroValido4 = true;
-                    break;
-                case 3:
-                    sucursalDestino = sucursalesDestino.get(2);
-                    numeroValido4 = true;
-                    break;
-                default:
-                    println("Número no válido. Inténtalo de nuevo.");
-            }
-        }
-        Guia guia = new Guia(producto, true, true, remitente, )
-
-
-        scanner.close();
-
+        return false;
     }
+
+
+
     //Revisar
     //Rastrear
     public static void rastrear(int codigo) {
@@ -655,4 +454,29 @@ public class Sucursal {
     public static CuentaBancaria getCorreminas() {
         return correminas;
     }
+
+    public ArrayList<Camion> getCamionesEnSucursal() {
+        return camionesEnSucursal;
+    }
+
+    public ArrayList<Moto> getMotosEnSucursal() {
+        return motosEnSucursal;
+    }
+
+    public ArrayList<Avion> getAvionesEnSucursal() {
+        return avionesEnSucursal;
+    }
+
+    public int getCantidadCamionesDisponibles() {
+        return cantidadCamionesDisponibles;
+    }
+
+    public int getCantidadMotosDisponibles() {
+        return cantidadMotosDisponibles;
+    }
+
+    public int getCantidadAvionesDisponibles() {
+        return cantidadAvionesDisponibles;
+    }
+
 }

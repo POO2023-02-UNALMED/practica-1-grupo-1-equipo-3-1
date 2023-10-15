@@ -46,9 +46,10 @@ public class Animal extends Producto {
                 "Tipo de producto: Animal\n" +
                 "Codigo de pedido: " + codigo + "\n" +
                 "Nombre: " + nombre + "\n" +
-                "Edad: " + edad + "\n" +
-                "Peso: " + peso + "\n" +
+                "Edad: " + edad + " años\n" +
+                "Peso: " + peso + "kg\n" +
                 "Tamaño: " + tamano.toString().toLowerCase() + "\n" +
+                "Peligroso: " + (peligroso ? "Sí" : "No") + "\n" +
                 "--------------------------------";
     }
 

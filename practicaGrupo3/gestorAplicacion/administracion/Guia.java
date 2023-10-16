@@ -194,7 +194,7 @@ public class Guia {
 		" para cancelar";
 	}
 
-	public String toString() {
+	/*public String toString() {
 		String format = "| %-16s | %-18s | %-15s | %-16s | %-14s |\n";
 		StringBuilder tabla = new StringBuilder();
 		tabla.append("+------------------+--------------------+-----------------+------------------+----------------+\n");
@@ -203,6 +203,15 @@ public class Guia {
 		tabla.append(String.format(format, String.valueOf(producto.getCodigo()), String.valueOf(producto.getClass().getSimpleName()), String.valueOf(sucursalOrigen.getNombre()), String.valueOf(sucursalLlegada.getNombre()), String.valueOf(precioTotal) + "$"));
 		tabla.append("+------------------+--------------------+-----------------+------------------+----------------+\n");
 		return tabla.toString();
+	}
+
+	 */
+	public String toString() {
+		String format = "| %-18 | %-18 |\n";
+		StringBuilder tabla = new StringBuilder();
+		tabla.append("+--------------------+--------------------+");
+		tabla.append(String.format(format, "Código Paquete"))
+		tabla.append("+--------------------+--------------------+");
 	}
 
 	//Metodos get

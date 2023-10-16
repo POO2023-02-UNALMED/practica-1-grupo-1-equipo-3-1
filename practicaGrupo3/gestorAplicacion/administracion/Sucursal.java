@@ -36,16 +36,16 @@ public class Sucursal {
     private int cantidadMotosDisponibles;
     private int cantidadCamionesDisponibles;
     private int cantidadAvionesDisponibles;
+
     private int cantidadJaulasPequenas;
     private int cantidadJaulasMedianas;
     private int cantidadJaulasGrandes;
 
     private Opinion opinionSucursal;
+    private int capacidadStockSucursales = 30; // Esto es para la funcionalidad de opinion
 
     //constructor
     public Sucursal(String nombre, int capacidadVolumen, int capacidadPeso, int longitud, int latitud, ArrayList<Camion> camionesEnSucursal, ArrayList<Moto> motosEnSucursal, ArrayList<Avion> avionesEnSucursal) {
-        //TOMASCorregí el tipo de horario e inventario
-        //TOMASAgregue los atributos latitud y longitud y los combié a enteros (plano cartesiano)
         this.nombre = nombre;
         String[] palabra = nombre.split(" ");
         ciudad = palabra[0];
@@ -58,6 +58,10 @@ public class Sucursal {
         this.camionesEnSucursal = camionesEnSucursal;
         this.motosEnSucursal = motosEnSucursal;
         this.avionesEnSucursal = avionesEnSucursal;
+
+        cantidadJaulasPequenas = 5;
+        cantidadJaulasMedianas = 3;
+        cantidadJaulasGrandes = 2;
 
         Sucursal.todasLasSucursales.add(this); //TOMAS
         //consultarHorario();
@@ -167,12 +171,22 @@ public class Sucursal {
 
                         capacidadVolumen -= nuevoAnimal.getVolumen();
                         capacidadPeso -= nuevoAnimal.getPeso();
-
                         seAgrega = true; //Para arrojar el mensaje al final
+
+                        switch (nuevoAnimal.getTamano()) {
+                            case PEQUENO:
+                                cantidadJaulasPequenas--;
+                                break;
+                            case MEDIANO:
+                                cantidadJaulasMedianas--;
+                                break;
+                            case GRANDE:
+                                cantidadJaulasGrandes--;
+                                break;
+                        }
                     }
                 }
             }
-
         } else { //Sino es animal, no verifica las jaulas sino los otros dos parametros
 
             if (capacidadVolumen > nuevoProducto.getVolumen()) {
@@ -181,15 +195,17 @@ public class Sucursal {
 
                     capacidadVolumen -= nuevoProducto.getVolumen();
                     capacidadPeso -= nuevoProducto.getPeso();
-                    seAgrega = true;
+                    seAgrega = true; //Para arrojar el mensaje al final
+
                 }
             }
         }
 
         if (seAgrega) {
-            return "Tenemos disponibilidad";
+            Random random = new Random();
+            return "Envío programado con exíto, acercate a la caja #" + random.nextInt(5) + 1;
         } else {
-            return "Lo sentimos, nuestra sucursal no tiene disponibilidad en este momento";
+            return "Ocurrió un error";
         }
     }
 
@@ -239,12 +255,15 @@ public class Sucursal {
         }
     }
 
+<<<<<<< HEAD
+=======
 
     // Método para agregar un paquete al inventario de la sucursal
-    public void agregarPaquete(Producto producto) {
-        inventario.add(producto);
-    }
+    //public void agregarPaquete(Producto producto) {
+        //inventario.add(producto);
+    //}
 
+>>>>>>> 56d7bcbd9f82b10392b05699a1c0cbab941c4855
     // Método para verificar si un paquete está en la sucursal
     public String verificarPaquete(Producto producto) {
         Producto codigoPaquete = inventario.get(inventario.indexOf(producto));
@@ -255,7 +274,19 @@ public class Sucursal {
         }
     }
 
-
+    // Metodo para la capcidad de stock
+    public void agregarPaquete(Producto producto) {
+    	if (inventario.size() < capacidadStockSucursales) {
+    		inventario.add(producto);
+    	}
+  
+    }
+    public int getCapacidadStockSucursales() {
+    	return capacidadStockSucursales;
+    }
+    public void setCapacidadStockSucursales(int a) {
+    	this.capacidadStockSucursales = a;
+    }
 
 
 
@@ -475,6 +506,14 @@ public class Sucursal {
 
     public ArrayList<Avion> getAvionesEnSucursal() {
         return avionesEnSucursal;
+    }
+
+    public int getCapacidadVolumen() {
+        return capacidadVolumen;
+    }
+
+    public int getCapacidadPeso() {
+        return capacidadPeso;
     }
 
     public int getCantidadCamionesDisponibles() {

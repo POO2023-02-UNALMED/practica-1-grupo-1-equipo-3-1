@@ -1,5 +1,6 @@
 package administracion;
-import java.util.Random;
+
+
 
 import personas.*;
 
@@ -8,7 +9,8 @@ import personas.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.lang.Math;
-import java.util.Scanner;
+import java.util.Random;
+import java.time.format.DateTimeFormatter;
 
 
 import productos.*;
@@ -29,7 +31,9 @@ public class Guia {
 	private String direccion;
 	private boolean entregaEnSucursal;
 	private double precioTotal;
-	private LocalDateTime fechaDeEnvio;
+	private LocalDateTime fecha;
+	private String fechaDeEnvio;
+
 	//private LocalDateTime fechaDeLlegada;
 	private estado estado;
 	private tipoDePago tipoDePago;
@@ -55,7 +59,11 @@ public class Guia {
 		this.sucursalLlegada = sucursalLlegada;
 		this.tipoDePago = tipoDePago;
 		this.entregaEnSucursal = entregaEnSucursal;
-		this.fechaDeEnvio = LocalDateTime.now();
+
+		fecha = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+
+		fechaDeEnvio = fecha.format(formatter);
 
 		precioTotal = producto.getCostoDelPedido();
 
@@ -118,25 +126,25 @@ public class Guia {
 
 	 */
 	public String toString() {
-		String format = "| %-18 | %-18 |\n";
+		String format = "| %-18s | %-18s |\n";
 		StringBuilder tabla = new StringBuilder();
-		tabla.append("+--------------------+--------------------+");
+		tabla.append("+--------------------+--------------------+\n");
 		tabla.append(String.format(format, "Tipo de Producto", String.valueOf(producto.getClass().getSimpleName())));
-		tabla.append("+--------------------+--------------------+");
+		tabla.append("+--------------------+--------------------+\n");
 		tabla.append(String.format(format, "Código Paquete",  String.valueOf(producto.getCodigo())));
-		tabla.append("+--------------------+--------------------+");
+		tabla.append("+--------------------+--------------------+\n");
 		tabla.append(String.format(format, "Ciudad Origen", String.valueOf(sucursalOrigen.getNombre())));
-		tabla.append("+--------------------+--------------------+");
+		tabla.append("+--------------------+--------------------+\n");
 		tabla.append(String.format(format, "Ciudad Destino", String.valueOf(sucursalLlegada.getNombre())));
-		tabla.append("+--------------------+--------------------+");
+		tabla.append("+--------------------+--------------------+\n");
 		tabla.append(String.format(format, "Tipo de Pago", String.valueOf(tipoDePago)));
-		tabla.append("+--------------------+--------------------+");
+		tabla.append("+--------------------+--------------------+\n");
 		tabla.append(String.format(format, "Precio Total", String.valueOf(precioTotal) + "$"));
-		tabla.append("+--------------------+--------------------+");
+		tabla.append("+--------------------+--------------------+\n");
 		tabla.append(String.format(format, "Dirección", "direccion"));
-		tabla.append("+--------------------+--------------------+");
-		tabla.append(String.format(format, "Fecha de envío", String.valueOf(fechaDeEnvio)));
-		tabla.append("+--------------------+--------------------+");
+		tabla.append("+--------------------+--------------------+\n");
+		tabla.append(String.format(format, "Fecha de envío", fechaDeEnvio));
+		tabla.append("+--------------------+--------------------+\n");
 		return  tabla.toString();
 	}
 
@@ -187,11 +195,15 @@ public class Guia {
         return precioTotal;
     }
 
-    public LocalDateTime getFechaDeEnvio() {
-        return fechaDeEnvio;
+    public LocalDateTime getFecha() {
+        return fecha;
     }
 
-    public estado getEstado() {
+	public String getFechaDeEnvio() {
+		return fechaDeEnvio;
+	}
+
+	public estado getEstado() {
         return estado;
     }
 

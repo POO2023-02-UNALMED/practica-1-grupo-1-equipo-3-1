@@ -13,9 +13,11 @@ public abstract class Persona {
     protected long telefono;
 	protected Producto producto;
 	private static ArrayList<Persona> todasLasPersonas = new ArrayList<>();
+    private int reputacion;
 
 
-	protected Persona() {
+
+    protected Persona() {
     }
 
     protected Persona(String nombre, long cedula, CuentaBancaria cuentaBancaria, long telefono) {
@@ -25,6 +27,10 @@ public abstract class Persona {
         this.telefono = telefono;
 
 		todasLasPersonas.add(this);
+    }
+
+    public void subirReputacion() {
+        reputacion++;
     }
 
     public String getNombre() {
@@ -37,6 +43,14 @@ public abstract class Persona {
 
     public long getCedula() {
         return cedula;
+    }
+
+    public int getReputacion() {
+        return reputacion;
+    }
+
+    public void setReputacion(int reputacion) {
+        this.reputacion = reputacion;
     }
 
     public void setCedula(int cedula) {

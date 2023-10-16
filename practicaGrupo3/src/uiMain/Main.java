@@ -22,6 +22,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
+
 		ArrayList<Camion> camionesMN = new ArrayList<>();
 		camionesMN.add(new Camion("Medellín", 27, 300, "ABC109"));
 
@@ -47,15 +48,19 @@ public class Main {
 		//Deserializador.deserializar();
 
 		//Menu principal
+		Main.menuPrincipal(medellinNorte);
+
+	}
+	public static void menuPrincipal(Sucursal sucursal) {
 		println("--- BIENVENIDO AL SISTEMA DE ENVIOS CORREMINAS ---");
 		println("¿Qué operación deseas realizar?");
-		println(" 1) Enviar paquete.");
-		println(" 2) Pagar servicio.");
-		println(" 3) Verificar paquete.");
-		println(" 4) Rastrear paquete.");
-		println(" 5) Recoger paquete.");
-		println(" 6) Reclamos.");
-		println(" 7) Terminar.");
+		println("1) Enviar paquete.");
+		println("2) Pagar servicio.");
+		println("3) Verificar paquete.");
+		println("4) Rastrear paquete.");
+		println("5) Recoger paquete.");
+		println("6) Reclamos.");
+		println("7) Terminar.");
 		print("Elige una opcion: ");
 
 		boolean numeroValido = false;
@@ -66,7 +71,7 @@ public class Main {
 
 			switch (opcion) {
 				case 1:
-					enviarPaquete(medellinNorte);
+					enviarPaquete(sucursal);
 					break;
 				case 2:
 					//pagarServicio();
@@ -89,6 +94,7 @@ public class Main {
 			}
 		}
 	}
+
 	public static void print(Object objeto) {
 		System.out.print(objeto);
 	}
@@ -402,7 +408,7 @@ public class Main {
 			Transporte vehiculo = null;
 
 			if (remitente.getMembresia().getBeneficio() == Membresia.tipo.PLATINUM || remitente.getMembresia().getBeneficio() == Membresia.tipo.GOLD) {
-				println("--------------DATOS DE TRANSPORTE--------------");
+				println("---------------DATOS DE TRANSPORTE---------------");
 				println("Ingrese el tipo de tranporte de su preferencia:");
 				println("1) Camión");
 				println("2) Avión (Envío directo y más rápido)");
@@ -505,10 +511,10 @@ public class Main {
 		Scanner scanner = new Scanner(System.in);
 
 		println("-----------------MÉTODO DE PAGO------------------");
-		println("Ingrese el método de pago: \n" +
-				"1) Tarjeta Crédito o Débito\n" +
-				"2) Efectivo");
-		println("-------------------------------------------------");
+		println("Ingrese el método de pago:");
+		println("1) Tarjeta Crédito o Débito\n");
+		println("2) Efectivo");
+		print("Elige una opción: ");
 
 		boolean numeroValido = false;
 
@@ -530,9 +536,56 @@ public class Main {
 		scanner.close();
 	}
 
+	public static void pagarServicio() {
+		Scanner scanner = new Scanner(System.in);
+		println("----------------------PAGAR----------------------");
+		print("Ingrese el código de la guía a pagar: ");
+		int codigo = scanner.nextInt();
+
+		Guia guia = null;
+		for (Producto producto : Producto.getTodosLosProductos())
+			if (producto.getCodigo() == codigo) {
+				guia = producto.getGuia();
+				break;
+			}
+
+		if (guia != null) {
+			println("-----------------MÉTODO DE PAGO------------------");
+			println("Ingrese el método de pago:");
+			println("1) Tarjeta Crédito o Débito\n");
+			println("2) Efectivo");
+			print("Elige una opción: ");
+
+			println("-------------------------------------------------");
+
+			boolean numeroValido = false;
+
+			while (!numeroValido) {
+				int metodoDePagoEntrada = scanner.nextInt();
+				switch (metodoDePagoEntrada) {
+					case 1:
+						pagarTarjeta(guia);
+						numeroValido = true;
+						break;
+					case 2:
+						pagarEfectivo();
+						numeroValido = true;
+						break;
+					default:
+						println("Número no válido. Inténtalo de nuevo.");
+				}
+			}
+		} else {
+			println("Lo sentimos, el código de la guía no coincide, intentalo de nuevo");
+		}
+
+
+		scanner.close();
+	}
+
 	//Revisar Scanner
 	//FUNCIONA
-	public static String pagarTarjeta(Guia guia) {
+	public static void pagarTarjeta(Guia guia) {
 		Scanner scanner = new Scanner(System.in);
 
 		println("-----------------PAGO POR TARJETA----------------");
@@ -564,33 +617,25 @@ public class Main {
 								int entrada = scanner.nextInt();
 								scanner.close();
 
-								if (confirmarPago(entrada)) {
-									if (cuentaCliente.descontarSaldo(guia.getPrecioTotal())) {
-										return "Transacción exitosa";
+								confirmarPago(guia, cuentaCliente);
 
-									} else {
-										return "Lo sentimos, no hay suficiente dinero en la cuenta";
-									}
-								} else {
-									return "Servicio cancelado, vuelve pronto";
-								}
 							} else {
-								return "Descuento membresia";
+								println("Descuento membresia");
 							}
 						} else {
-							return "Datos incorrectos, intente nuevamente";
+							println("Datos incorrectos, intente nuevamente");
 						}
 					} else {
-						return "Datos incorrectos, intente nuevamente";
+						println("Datos incorrectos, intente nuevamente");
 					}
 				} else {
-					return "Datos incorrectos, intente nuevamente";
+					println("Datos incorrectos, intente nuevamente");
 				}
 			} else {
-				return "Datos incorrectos, intente nuevamente";
+				println("Datos incorrectos, intente nuevamente");
 			}
 		} else {
-			return "Lo sentimos, esta cuenta no existe";
+			println("Lo sentimos, esta cuenta no existe");
 		}
 	}
 
@@ -602,15 +647,40 @@ public class Main {
 				" para cancelar";
 	}
 
-	public static boolean confirmarPago(int entrada) { //TOMAS REVISAR
-		switch (entrada) {
-			case 1:
-				return true;
-			case 2:
-				return false;
-			default:
-				return false;
+	public static void confirmarPago(Guia guia, CuentaBancaria cuentaCliente) { //TOMAS REVISAR
+		Scanner scanner = new Scanner(System.in);
+
+		println("-----------------CONFIRMAR PAGO------------------");
+
+		println("¿Desea confirmar el pago por " + guia.getPrecioTotal() + "$?");
+		println("1) Sí");
+		println("2) No");
+		print("Elige una opción: ");
+
+		boolean numeroValido = false;
+		while (!numeroValido) {
+			int entrada = scanner.nextInt();
+			switch (entrada) {
+				case 1:
+					if (cuentaCliente.descontarSaldo(guia.getPrecioTotal())) {
+						println("Transacción exitosa");
+						cuentaCliente.getTitular().subirReputacion();
+
+					} else {
+						println("Lo sentimos, no hay suficiente dinero en la cuenta");
+					}
+					numeroValido = true;
+					break;
+				case 2:
+					println("Servicio cancelado, vuelve pronto");
+					numeroValido = true;
+					break;
+				default:
+					println("Número no válido. Inténtalo de nuevo.");
+
+			}
 		}
+
 	}
 	public static void salirDelSistema() {
 		// TODO Auto-generated method stub

@@ -8,8 +8,7 @@ import administracion.CuentaBancaria;
 
 public class Cliente extends Persona{
 	private Membresia membresia;
-	private int reputacion;
-	
+
 	public Cliente() {
 	}
 	
@@ -20,14 +19,6 @@ public class Cliente extends Persona{
 	
 	public Membresia getMembresia() {
 		return membresia;
-	}
-
-	public int getReputacion() {
-		return reputacion;
-	}
-
-	public void setReputacion(int reputacion) {
-		this.reputacion = reputacion;
 	}
 
 	public String toString() {

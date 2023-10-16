@@ -17,10 +17,28 @@ public class Opinion {
 		opinionPuntualidad.add(opinionPunt);
 	}
 	
-	public void agregarPuntuacionOpinion(int opinion) {
+	public Double promedioPuntualidad() {
+		int suma = 0;
+		for (int nota: opinionPuntualidad) {
+			suma += nota;
+			
+		}
+		return (double) (suma/ opinionPuntualidad.size());
+	}
+	public Double promedioIntegridad() {
+		int suma = 0;
+		for (int nota: opinionIntegridad) {
+			suma += nota;
+			
+		}
+		return (double) (suma/ opinionIntegridad.size());
+	}
+	public void agregarOpinionPunt(int opinion) {
 		
-		
-		
+		opinionPuntualidad.add(opinion);
+	}
+	public void agregarOpinionInt(int opinion) {
+		opinionIntegridad.add(opinion);
 	}
 	// Este metodo todavia no se como va hacer pero este va mirar cuales son
 	// el promedio de las opiniones y si es menor que 2, en el caso
@@ -28,7 +46,10 @@ public class Opinion {
 	// modo para mejorar la puntualidad de la sucursal y como medida
 	// se le restringue a esa sucursal el inventario que puede almacenar
 	// y la mas grave seria integridad que si es por debajo de 2 se cierra la sucursal
-	public void Analisis() {
+	public String Analisis() {
+		if (promedioPuntualidad() < 2) {
+			
+		}
 	}
 	
 	

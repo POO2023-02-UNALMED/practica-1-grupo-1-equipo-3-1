@@ -41,6 +41,7 @@ public class Sucursal {
     private int cantidadJaulasGrandes;
 
     private Opinion opinionSucursal;
+    private int capacidadStockSucursales = 30; // Esto es para la funcionalidad de opinion
 
     //constructor
     public Sucursal(String nombre, int capacidadVolumen, int capacidadPeso, int longitud, int latitud, ArrayList<Camion> camionesEnSucursal, ArrayList<Moto> motosEnSucursal, ArrayList<Avion> avionesEnSucursal) {
@@ -241,9 +242,9 @@ public class Sucursal {
 
 
     // Método para agregar un paquete al inventario de la sucursal
-    public void agregarPaquete(Producto producto) {
-        inventario.add(producto);
-    }
+    //public void agregarPaquete(Producto producto) {
+        //inventario.add(producto);
+    //}
 
     // Método para verificar si un paquete está en la sucursal
     public String verificarPaquete(Producto producto) {
@@ -255,7 +256,19 @@ public class Sucursal {
         }
     }
 
-
+    // Metodo para la capcidad de stock
+    public void agregarPaquete(Producto producto) {
+    	if (inventario.size() < capacidadStockSucursales) {
+    		inventario.add(producto);
+    	}
+  
+    }
+    public int getCapacidadStockSucursales() {
+    	return capacidadStockSucursales;
+    }
+    public void setCapacidadStockSucursales(int a) {
+    	this.capacidadStockSucursales = a;
+    }
 
 
 

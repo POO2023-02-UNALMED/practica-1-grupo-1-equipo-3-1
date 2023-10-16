@@ -19,6 +19,7 @@ public class Sucursal {
         DOMINGO,
     }
 
+    private String nombre;
     private String ciudad;
     private int capacidadVolumen; //TOMAS alternativa a capacidad
     private int capacidadPeso; //TOMAS Las sucursales van a estar limitadas por el peso?
@@ -42,15 +43,22 @@ public class Sucursal {
     private Opinion opinionSucursal;
 
     //constructor
-    public Sucursal(String ciudad, int capacidadVolumen, int capacidadPeso, int longitud, int latitud) {
+    public Sucursal(String nombre, int capacidadVolumen, int capacidadPeso, int longitud, int latitud, ArrayList<Camion> camionesEnSucursal, ArrayList<Moto> motosEnSucursal, ArrayList<Avion> avionesEnSucursal) {
         //TOMASCorregí el tipo de horario e inventario
         //TOMASAgregue los atributos latitud y longitud y los combié a enteros (plano cartesiano)
-        this.ciudad = ciudad;
+        this.nombre = nombre;
+        String[] palabra = nombre.split(" ");
+        ciudad = palabra[0];
+
         this.capacidadVolumen = capacidadVolumen;
         this.capacidadPeso = capacidadPeso;
         //this.horario = horario;
-        this.latitud = latitud;
         this.longitud = longitud;
+        this.latitud = latitud;
+        this.camionesEnSucursal = camionesEnSucursal;
+        this.motosEnSucursal = motosEnSucursal;
+        this.avionesEnSucursal = avionesEnSucursal;
+
         Sucursal.todasLasSucursales.add(this); //TOMAS
         //consultarHorario();
 
@@ -61,35 +69,35 @@ public class Sucursal {
         //  horarios específicos para cada sucursal,
         //en este caso solo se especificaron 3 ciudadades
         //podemos modificar las horas a gusto
-        if ("Medellin".equals(ciudad)) {
+        if ("Medellin".equals(nombre)) {
             // Horario para Medellin
             horario.put(Horario.LUNES, "9:00 AM - 6:00 PM");
             horario.put(Horario.MARTES, "9:00 AM - 6:00 PM");
             horario.put(Horario.MIERCOLES, "9:00 AM - 6:00 PM");
             horario.put(Horario.JUEVES, "9:00 AM - 6:00 PM");
             horario.put(Horario.VIERNES, "9:00 AM - 6:00 PM");
-        } else if ("Bogota".equals(ciudad)) {
+        } else if ("Bogota".equals(nombre)) {
             // Horario para Bogotá
             horario.put(Horario.LUNES, "8:00 AM - 7:00 PM");
             horario.put(Horario.MARTES, "8:00 AM - 7:00 PM");
             horario.put(Horario.MIERCOLES, "8:00 AM - 7:00 PM");
             horario.put(Horario.JUEVES, "8:00 AM - 7:00 PM");
             horario.put(Horario.VIERNES, "8:00 AM - 7:00 PM");
-        } else if ("Cali".equals(ciudad)) {
+        } else if ("Cali".equals(nombre)) {
             // Horario para Cali
             horario.put(Horario.LUNES, "10:00 AM - 5:00 PM");
             horario.put(Horario.MARTES, "10:00 AM - 5:00 PM");
             horario.put(Horario.MIERCOLES, "10:00 AM - 5:00 PM");
             horario.put(Horario.JUEVES, "10:00 AM - 5:00 PM");
             horario.put(Horario.VIERNES, "10:00 AM - 5:00 PM");
-        } else if ("Pasto".equals(ciudad)) {
+        } else if ("Pasto".equals(nombre)) {
             // Horario para Pasto
             horario.put(Horario.LUNES, "7:30 AM - 4:00 PM");
             horario.put(Horario.MARTES, "7:30 AM - 4:00 PM");
             horario.put(Horario.MIERCOLES, "7:30 AM - 4:00 PM");
             horario.put(Horario.JUEVES, "7:30 AM - 4:00 PM");
             horario.put(Horario.VIERNES, "7:30 AM - 4:00 PM");
-        } else if ("Florencia".equals(ciudad)) {
+        } else if ("Florencia".equals(nombre)) {
             // Horario para Florencia
             horario.put(Horario.LUNES, "11:00 AM - 8:00 PM");
             horario.put(Horario.MARTES, "11:00 AM - 8:00 PM");
@@ -281,7 +289,7 @@ public class Sucursal {
                     for (Sucursal sucursal : producto.getGuia().getRuta()) {
                         if (sucursal.verificarProducto(producto)) {
                             estaEnSucursal = true;
-                            lugarActual = sucursal.getCiudad();
+                            lugarActual = sucursal.getNombre();
                             break;
                         }
                     }
@@ -310,7 +318,7 @@ public class Sucursal {
         }
 
         if (estaEnSucursal) {
-            return sucursal.getCiudad();
+            return sucursal.getNombre();
         } else {
             return "El producto está en reparto, se encuentra entre " + producto.getGuia().getVehiculo();
         }
@@ -361,7 +369,7 @@ public class Sucursal {
                     return "Datos incorrectos, intente nuevamente";
                 }
             } else {
-                return "El paquete tiene como destino la ciudad de " + paquete.getGuia().getSucursalLlegada().getCiudad();
+                return "El paquete tiene como destino la ciudad de " + paquete.getGuia().getSucursalLlegada().getNombre();
             }
         } else {
             return "Datos incorrectos, intente nuevamente";
@@ -427,12 +435,14 @@ public class Sucursal {
     // Método para calcular la cantidad de escalas según la membresía del cliente
 
     //necesito que Tomás M. haga el switch con los tipos de membresia
-    public String getCiudad() {
-        return this.ciudad;
+
+
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
+    public String getCiudad() {
+        return ciudad;
     }
 
     public int getLatitud() {
@@ -479,4 +489,7 @@ public class Sucursal {
         return cantidadAvionesDisponibles;
     }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 }

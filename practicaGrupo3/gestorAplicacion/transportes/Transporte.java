@@ -6,18 +6,21 @@ import productos.*;
 
 public abstract class Transporte {
     private static int cant_transporte = 0;
-    private String ciudad_registro;
-    private String ciudad_actual;
-    private float capacidad_carga;
-    private String fabricante;
+    private String ciudadRegistro;
+    private String ciudadActual;
+    private int capacidadVolumen;
+    private int capacidadPeso;
+    private String matricula;
     private int estado;
     private ArrayList<Producto> inventario = new ArrayList<>(); //TOMAS Cada vehiculo va a a tener su propio inventario
     private static ArrayList<Transporte> todosLosTransportes = new ArrayList<>();
     private Sucursal sucursal; //Sucursal a la que pertenece el transporte
 
-    public Transporte(String ciudad_registro, float capacidad_carga, String fabricante, int estado){
-        this.ciudad_registro = ciudad_registro;
-        this.capacidad_carga = capacidad_carga;
+    public Transporte(String ciudadRegistro, int capacidadVolumen, int capacidadPeso, String matricula, int estado){
+        this.ciudadRegistro = ciudadRegistro;
+        this.capacidadVolumen = capacidadVolumen;
+        this.capacidadPeso = capacidadPeso;
+        this.matricula = matricula;
         this.estado = estado;
         Transporte.cant_transporte++;
         Transporte.todosLosTransportes.add(this);
@@ -38,40 +41,36 @@ public abstract class Transporte {
     }
 */
     public String getCiudad_registro() {
-        return ciudad_registro;
+        return ciudadRegistro;
     }
 
     public void setCiudad_registro(String ciudad_registro) {
-        this.ciudad_registro = ciudad_registro;
+        this.ciudadRegistro = ciudad_registro;
     }
 
     public String getCiudad_actual() {
-        return ciudad_actual;
+        return ciudadActual;
     }
 
     public void setCiudad_actual(String ciudad_actual) {
-        this.ciudad_actual = ciudad_actual;
+        this.ciudadActual = ciudad_actual;
     }
 
-    public float getCapacidad_carga() {
-        return capacidad_carga;
+    public ArrayList<Producto> getInventario() {
+        return inventario;
     }
 
-    public void setCapacidad_carga(float capacidad_carga) {
-        this.capacidad_carga = capacidad_carga;
+    public int getCapacidadPeso() {
+        return capacidadPeso;
     }
 
-    public String getFabricante() {
-        return fabricante;
+    public int getCapacidadVolumen() {
+        return capacidadVolumen;
     }
 
     public ArrayList<Transporte> getTodosLosTransportes() {
         return Transporte.todosLosTransportes;
     } 
-
-    public void setFabricante(String fabricante) {
-        this.fabricante = fabricante;
-    }
 
     public int getEstado() {
         return estado;

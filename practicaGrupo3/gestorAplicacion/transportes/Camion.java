@@ -6,7 +6,6 @@ import java.util.ArrayList;
 public class Camion extends Transporte {
     private static int cant_camiones;
     private static int cantidadCamionesDisponibles;
-    private int matricula;
     private ArrayList<Sucursal> ruta = new ArrayList<>();
     private Sucursal ubicacionActual;
     private Sucursal ubicacionAnterior;
@@ -14,9 +13,8 @@ public class Camion extends Transporte {
     private boolean enSucursal;
     
 
-    public Camion(String ciudad_registro, float capacidad_carga, String fabricante, int matricula){
-        super(ciudad_registro, capacidad_carga, fabricante, 20);
-        this.matricula = matricula;
+    public Camion(String ciudadRegistro,  int capacidadVolumen, int capacidadPeso, String matricula){
+        super(ciudadRegistro, capacidadVolumen, capacidadPeso, matricula, 20);
         Camion.cant_camiones++;
 
         asignarRuta(); //Sucursales por las que va a pasar el transporte
@@ -68,9 +66,9 @@ public class Camion extends Transporte {
     public String ubicarTransporte() {
         //Cómo lo hacemos?
         if (enSucursal == true) {
-            return ubicacionActual.getCiudad();
+            return ubicacionActual.getNombre();
         } else {
-            return "Entre la ciudad de " + ubicacionAnterior.getCiudad() + " y la ciudad de " + ubicacionSiguiente.getCiudad();
+            return "Entre la ciudad de " + ubicacionAnterior.getNombre() + " y la ciudad de " + ubicacionSiguiente.getNombre();
         }
     }
 

@@ -11,94 +11,35 @@ import personas.Cliente;
 
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
-/*
-public class Main {
-
-    public static void print(Object objeto) {
-        System.out.println(objeto);
-    }
-
-    public static void main(String[] args) {
-
-        
-        Animal Perrito = new Animal("Toby", 10, 30, tipoAnimal.PERRO);
-
-        //System.out.println(Perrito.getTipo());
-        Membresia membresia1 = new Membresia();
-        //System.out.println(membresia1.getBeneficio());
-        /*Destinatario destinatario1 = new Destinatario("Tomas",123456, new CuentaBancaria(), 316555 );
-        Cliente cliente1 = new Cliente("Tomas",123456, new CuentaBancaria(), 316555, membresia1 );
-        
-        System.out.println(destinatario1.getNombre());
-        System.out.println(destinatario1.getCedula());
-        System.out.println(destinatario1.getCuentaBancaria());
-        System.out.println(destinatario1.getTelefono());
-        membresia1.setCliente(cliente1);
-        System.out.println(membresia1);
-        System.out.println(cliente1);
-        System.out.println(destinatario1);
-            }´ñ        */
-
-      /*  Cliente guzman = new Cliente("Jaime Guzman", 1033487678, null, 350562901, membresia1);
-
-        CuentaBancaria cuentaGuzman = new CuentaBancaria(guzman, 45068373, 123, "08/27");
-        guzman.setCuentaBancaria(cuentaGuzman);
-
-        //Ejemplos
-        Sucursal medellin = new Sucursal("Medellín", 500, 1000, -5, 5);
-        Sucursal cali = new Sucursal("Cali", 500, 1000, -5, -2);
-        Sucursal pasto = new Sucursal("Pasto", 500, 1000, -8, -5);
-        Sucursal florencia = new Sucursal("Florencia", 500, 1000, 4, -1);
-        Sucursal bogota = new Sucursal("Bogotá", 500, 1000, 5, 2);
-        //System.out.println(Sucursal.getTodasLasSucursales());
-        //System.out.println(new Paquete(20, 3, 4, 3, false, 3000, "Nada"));
-
-        /*for (Sucursal sucursal : Sucursal.getTodasLasSucursales()) {
-            System.out.println(sucursal.getCiudad());
-        }*/
-
-     /*   Guia guiaToby = new Guia(Perrito, true, false, guzman, bogota, florencia);
-        /*for (Sucursal sucursal : guiaToby.getRuta()) {
-            print(sucursal.getCiudad());
-        }*/
-
-        //print(Guia.calcularDistancia(florencia, bogota));
-        //print(guiaToby.pagarEfectivo());
-      //  guzman.getCuentaBancaria().setSaldo(10000000);
-       // print(guiaToby.pagarTarjeta("Jaime Guzman", 45068373, 123, "08/27"));
-        //print(guzman.getCuentaBancaria().getSaldo());
-        //print(guiaToby.getPrecioTotal());
-        //}
-    
-   
-
-//}
-
-//Kevin 
-
-import java.util.Scanner;
-import productos.*;
-import personas.*;
-import productos.Animal.tipoAnimal;
-import administracion.*;
-import personas.Cliente;
-import transportes.*;
-import personas.Cliente;
-
-
-import java.util.Scanner;
-
 
 // Menu principal
 public class Main {
 	public static void main(String[] args) {
 
-		Sucursal medellin = new Sucursal("Medellin", 100, 100, 10, 10);
-		Sucursal cali = new Sucursal("Cali", 400, 200, -1, -3);
-		Sucursal pasto = new Sucursal("Pasto", 200, 700, -3, -1);
-		Sucursal bogota = new Sucursal("Bogotá", 1000, 500, 4, 3);
-		//enviarPaquete(medellin);
+		ArrayList<Camion> camionesMN = new ArrayList<>();
+		camionesMN.add(new Camion("Medellín", 27, 300, "ABC109"));
+
+		ArrayList<Moto> motosMN = new ArrayList<>();
+		motosMN.add(new Moto("Medellín", 1, 30, "ABC123"));
+
+		ArrayList<Avion> avionesMN = new ArrayList<>();
+		avionesMN.add(new Avion("Medellín", 200, 2000, "asdfg"));
+
+		Sucursal medellinNorte = new Sucursal("Medellin Norte", 100, 100, -6, 8, camionesMN, motosMN, avionesMN);
+		Sucursal medellinSur = new Sucursal("Medellin Sur", 100, 100, -6, 6, camionesMN, motosMN, avionesMN);
+
+		Sucursal caliNorte = new Sucursal("Cali Norte", 400, 200, -8, -4, camionesMN, motosMN, avionesMN);
+		Sucursal caliSur = new Sucursal("Cali Sur", 400, 200, -8, -6, camionesMN, motosMN, avionesMN);
+
+		Sucursal pastoNorte = new Sucursal("Pasto Norte", 200, 700, -12, -10, camionesMN, motosMN, avionesMN);
+		Sucursal pastoSur = new Sucursal("Pasto Sur", 200, 700, -12, -12, camionesMN, motosMN, avionesMN);
+
+		Sucursal bogotaNorte = new Sucursal("Bogotá Norte", 1000, 500, 4, 2, camionesMN, motosMN, avionesMN);
+		Sucursal bogotaSur = new Sucursal("Bogotá Sur", 1000, 500, 4, 2, camionesMN, motosMN, avionesMN);
+
+		enviarPaquete(medellinNorte);
 
 
 		//Deserializador.deserializar();
@@ -231,7 +172,7 @@ public class Main {
 					int edad = scanner.nextInt();
 					print("Peso del animal: ");
 					double peso1 = scanner.nextDouble();
-					Animal.tipoAnimal tipoAnimal = null;
+					tipoAnimal tipoAnimal = null;
 
 					println("--------------------------------");
 					println("Ingrese el tipo del animal: \n" +
@@ -318,23 +259,23 @@ public class Main {
 		Destinatario destinatario = new Destinatario(nombreDestinatario, cedulaDestinatario, null, telefonoDestinatario);
 
 		println("---------DATOS DE ENVÍO---------");
-		println("Ciudad de origen: " + sucursalOrigen.getCiudad());
+		println("Ciudad de origen: " + sucursalOrigen.getNombre());
 
-		ArrayList<Sucursal> sucursalesDestino = new ArrayList<>();
+		ArrayList<Sucursal> ciudadesDestino = new ArrayList<>();
 
 		for (Sucursal sucursal : Sucursal.getTodasLasSucursales()) {
-			if (sucursal != sucursalOrigen) {
-				sucursalesDestino.add(sucursal);
+			if (!Objects.equals(sucursal.getCiudad(), sucursalOrigen.getCiudad())) {
+				ciudadesDestino.add(sucursal);
 			}
 		}
 
-		String destinos = String.format("Ingrese ciudad de destino: \n" +
+		String ciudades = String.format("Seleccione la ciudad de destino: \n" +
 				"1) %s\n" +
 				"2) %s\n" +
-				"3) %s", sucursalesDestino.get(0).getCiudad(), sucursalesDestino.get(1).getCiudad(), sucursalesDestino.get(2).getCiudad());
+				"3) %s", ciudadesDestino.get(0).getCiudad(), ciudadesDestino.get(2).getCiudad(), ciudadesDestino.get(4).getCiudad());
 
 		println("--------------------------------");
-		println(destinos);
+		println(ciudades);
 		println("---------------------------------");
 
 		Sucursal sucursalDestino = null;
@@ -346,15 +287,90 @@ public class Main {
 
 			switch (destinoEntrada) {
 				case 1:
-					sucursalDestino = sucursalesDestino.get(0);
+					String sucursales = String.format("Seleccione la Sucursal de preferencia:\n" +
+							"1) %s\n" +
+							"2) %s", ciudadesDestino.get(0).getNombre(), ciudadesDestino.get(1).getNombre());
+
+					println("--------------------------------");
+					println(sucursales);
+					println("--------------------------------");
+
+					boolean numeroValido5 = false;
+
+					while (!numeroValido5) {
+						int sucursalEntrada = scanner.nextInt();
+
+						switch (sucursalEntrada) {
+							case 1:
+								sucursalDestino = ciudadesDestino.get(0);
+								numeroValido5 = true;
+								break;
+							case 2:
+								sucursalDestino = ciudadesDestino.get(1);
+								numeroValido5 = true;
+								break;
+							default:
+								println("Número no válido. Inténtalo de nuevo.");
+						}
+					}
 					numeroValido4 = true;
 					break;
 				case 2:
-					sucursalDestino = sucursalesDestino.get(1);
+					String sucursales1 = String.format("Seleccione la Sucursal de preferencia:\n" +
+							"1) %s\n" +
+							"2) %s", ciudadesDestino.get(2).getNombre(), ciudadesDestino.get(3).getNombre());
+
+					println("--------------------------------");
+					println(sucursales1);
+					println("--------------------------------");
+
+					boolean numeroValido6 = false;
+
+					while (!numeroValido6) {
+						int sucursalEntrada = scanner.nextInt();
+
+						switch (sucursalEntrada) {
+							case 1:
+								sucursalDestino = ciudadesDestino.get(2);
+								numeroValido6 = true;
+								break;
+							case 2:
+								sucursalDestino = ciudadesDestino.get(3);
+								numeroValido6 = true;
+								break;
+							default:
+								println("Número no válido. Inténtalo de nuevo.");
+						}
+					}
 					numeroValido4 = true;
 					break;
 				case 3:
-					sucursalDestino = sucursalesDestino.get(2);
+					String sucursales2 = String.format("Seleccione la Sucursal de preferencia:\n" +
+							"1) %s\n" +
+							"2) %s", ciudadesDestino.get(4).getNombre(), ciudadesDestino.get(5).getNombre());
+
+					println("--------------------------------");
+					println(sucursales2);
+					println("--------------------------------");
+
+					boolean numeroValido7 = false;
+
+					while (!numeroValido7) {
+						int sucursalEntrada = scanner.nextInt();
+
+						switch (sucursalEntrada) {
+							case 1:
+								sucursalDestino = ciudadesDestino.get(4);
+								numeroValido7 = true;
+								break;
+							case 2:
+								sucursalDestino = ciudadesDestino.get(5);
+								numeroValido7 = true;
+								break;
+							default:
+								println("Número no válido. Inténtalo de nuevo.");
+						}
+					}
 					numeroValido4 = true;
 					break;
 				default:
@@ -362,30 +378,30 @@ public class Main {
 			}
 		}
 
-		boolean disponibilidad = false;
+		boolean disponibilidadSucursal = false;
 
 		if (producto instanceof Paquete || producto instanceof Documento) {
 			if (sucursalOrigen.verificarDisponibilidad(producto)) {
-				disponibilidad = true;
+				disponibilidadSucursal = true;
 			}
 		} else if (producto instanceof Animal) {
 			if (sucursalOrigen.verificarDisponibilidad(producto)) {
 				if (sucursalOrigen.disponibilidadJaulas((Animal) producto)) {
-					disponibilidad = true;
+					disponibilidadSucursal = true;
 				}
 			}
 		}
 
 
-		if (disponibilidad) {
-			if (remitente.getMembresia().getBeneficio() == Membresia.tipo.PLATINUM) {
+		if (disponibilidadSucursal) {
+			Transporte vehiculo = null;
+
+			if (remitente.getMembresia().getBeneficio() == Membresia.tipo.PLATINUM || remitente.getMembresia().getBeneficio() == Membresia.tipo.GOLD) {
 				println("-------DATOS DE TRANSPORTE------");
 				println("Ingrese el tipo de tranporte de su preferencia:\n");
 				println("1) Camión");
 				println("2) Avión (Envío directo y más rápido)");
 				println("--------------------------------");
-
-				Transporte vehiculo = null;
 
 				boolean numeroValido5 = false;
 
@@ -418,12 +434,21 @@ public class Main {
 					}
 				}
 
+			} else {
+				println("Verificando camiones disponibles");
+				if (!sucursalOrigen.getCamionesEnSucursal().isEmpty()) {
+					Guia guia = new Guia(producto, remitente, destinatario, sucursalOrigen, sucursalDestino, Guia.tipoDePago.REMITENTE, true);
+					println(guia);
+					vehiculo = sucursalOrigen.getCamionesEnSucursal().get(0);
+				} else {
+					println("Lo sentimos no tenemos disponibilidad de camiones en este momento");
+				}
+
 			}
 		} else {
 			println("Lo sentimos, no tenemos disponibilidad en la sucursal");
 		}
-		Guia guia = new Guia(producto, remitente, destinatario, sucursalOrigen, sucursalDestino, Guia.tipoDePago.REMITENTE, true);
-		println(guia);
+
 
 		scanner.close();
 

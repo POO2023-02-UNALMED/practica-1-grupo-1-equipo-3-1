@@ -200,7 +200,7 @@ public class Guia {
 		tabla.append("+------------------+--------------------+-----------------+------------------+----------------+\n");
 		tabla.append("|  Código Paquete  |  Tipo de Producto  |  Ciudad Origen  |  Ciudad Destino  |  Precio Total  |\n");
 		tabla.append("+------------------+--------------------+-----------------+------------------+----------------+\n");
-		tabla.append(String.format(format, String.valueOf(producto.getCodigo()), String.valueOf(producto.getClass().getSimpleName()), String.valueOf(sucursalOrigen.getCiudad()), String.valueOf(sucursalLlegada.getCiudad()), String.valueOf(precioTotal) + "$"));
+		tabla.append(String.format(format, String.valueOf(producto.getCodigo()), String.valueOf(producto.getClass().getSimpleName()), String.valueOf(sucursalOrigen.getNombre()), String.valueOf(sucursalLlegada.getNombre()), String.valueOf(precioTotal) + "$"));
 		tabla.append("+------------------+--------------------+-----------------+------------------+----------------+\n");
 		return tabla.toString();
 	}

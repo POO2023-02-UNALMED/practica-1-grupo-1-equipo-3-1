@@ -46,11 +46,11 @@ public class Opinion {
 	// modo para mejorar la puntualidad de la sucursal y como medida
 	// se le restringue a esa sucursal el inventario que puede almacenar
 	// y la mas grave seria integridad que si es por debajo de 2 se cierra la sucursal
-	public String Analisis() {
+	/*public String Analisis() {
 		if (promedioPuntualidad() < 2) {
 			
 		}
-	}
+	}*/
 	
 	
 	

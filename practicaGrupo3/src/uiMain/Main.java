@@ -13,10 +13,13 @@ import personas.Cliente;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Random;
 import java.util.Scanner;
 
 // Menu principal
 public class Main {
+	static Scanner scanner = new Scanner(System.in);
+
 	public static void main(String[] args) {
 
 		ArrayList<Camion> camionesMN = new ArrayList<>();
@@ -40,34 +43,33 @@ public class Main {
 		Sucursal bogotaNorte = new Sucursal("Bogotá Norte", 1000, 500, 4, 2, camionesMN, motosMN, avionesMN);
 		Sucursal bogotaSur = new Sucursal("Bogotá Sur", 1000, 500, 4, 2, camionesMN, motosMN, avionesMN);
 
-		enviarPaquete(medellinNorte);
-
 
 		//Deserializador.deserializar();
 
 		//Menu principal
+		println("--- BIENVENIDO AL SISTEMA DE ENVIOS CORREMINAS ---");
+		println("¿Qué operación deseas realizar?");
+		println(" 1) Enviar paquete.");
+		println(" 2) Pagar servicio.");
+		println(" 3) Verificar paquete.");
+		println(" 4) Rastrear paquete.");
+		println(" 5) Recoger paquete.");
+		println(" 6) Reclamos.");
+		println(" 7) Terminar.");
+		print("Elige una opcion: ");
 
-		/*
-		int opcion;
-		do {
-			System.out.println("--- BIENVENIDO AL SISTEMA DE ENVIOS CORREMINAS ---");
-			System.out.println("¿Qué operación deseas realizar?");
-			System.out.println(" 1) Enviar paquete.");
-			System.out.println(" 2) Pagar servicio.");
-			System.out.println(" 3) Verificar paquete.");
-			System.out.println(" 4) Rastrear paquete.");
-			System.out.println(" 5) Recoger paquete.");
-			System.out.println(" 6) Reclamos.");
-			System.out.println(" 7) Terminar.");
-			System.out.println("Elige una opcion: ");
-			opcion = (int) sc.nextInt();
+		boolean numeroValido = false;
+
+		while(!numeroValido) {
+
+			int opcion = scanner.nextInt();
 
 			switch (opcion) {
 				case 1:
-					enviarPaquete(medellin);
+					enviarPaquete(medellinNorte);
 					break;
 				case 2:
-					pagarServicio();
+					//pagarServicio();
 					break;
 				case 3:
 					verificarPaquete();
@@ -85,11 +87,7 @@ public class Main {
 					salirDelSistema();
 					break;
 			}
-		} while (opcion != 7);
-
-
-
-		 */
+		}
 	}
 	public static void print(Object objeto) {
 		System.out.print(objeto);
@@ -99,17 +97,16 @@ public class Main {
 		System.out.println(objeto);
 	}
 
-	static Scanner sc = new Scanner(System.in);
 
 	public static void enviarPaquete(Sucursal sucursalOrigen) {
 		Scanner scanner = new Scanner(System.in);
 
 		println("---------------DATOS DEL PRODUCTO----------------");
-		println("Ingrese el tipo de producto: \n" +
-				"1) Paquete\n" +
-				"2) Animal\n" +
-				"3) Documento");
-		println("-------------------------------------------------");
+		println("Ingrese el tipo de producto:");
+		println("1) Paquete");
+		println("2) Animal");
+		println("3) Documento");
+		print("Elige una opción: ");
 
 		boolean numeroValido = false;
 		Producto producto = null;
@@ -130,10 +127,11 @@ public class Main {
 					double largo = scanner.nextDouble();
 
 					println("-------------------------------------------------");
-					println("¿El paquete es fragil?\n" +
-							"1) Sí\n" +
-							"2) No");
-					println("-------------------------------------------------");
+					println("¿El paquete es fragil?");
+					println("1) Sí");
+					println("2) No");
+					print("Elige una opcion: ");
+
 
 					boolean numeroValido2 = false;
 					boolean fragil = false;
@@ -175,14 +173,14 @@ public class Main {
 					double peso1 = scanner.nextDouble();
 
 					println("-------------------------------------------------");
-					println("Ingrese el tipo del animal: \n" +
-							"1) Perro\n" +
-							"2) Gato\n" +
-							"3) Hamster\n" +
-							"4) Loro\n" +
-							"5) Caballo\n" +
-							"6) Vaca");
-					println("-------------------------------------------------");
+					println("Ingrese el tipo del animal:");
+					println("1) Perro");
+					println("2) Gato");
+					println("3) Hamster");
+					println("4) Loro");
+					println("5) Caballo");
+					println("6) Vaca");
+					print("Elige una opción: ");
 
 					tipoAnimal tipoAnimal = null;
 					boolean numeroValido3 = false;
@@ -283,7 +281,7 @@ public class Main {
 
 		println("-------------------------------------------------");
 		println(ciudades);
-		println("-------------------------------------------------");
+		print("Elige una opción: ");
 
 		Sucursal sucursalDestino = null;
 		boolean numeroValido4 = false;
@@ -299,7 +297,7 @@ public class Main {
 
 					println("-------------------------------------------------");
 					println(sucursales);
-					println("-------------------------------------------------");
+					print("Elige una opción: ");
 
 					boolean numeroValido5 = false;
 
@@ -328,7 +326,7 @@ public class Main {
 
 					println("-------------------------------------------------");
 					println(sucursales1);
-					println("-------------------------------------------------");
+					print("Elige una opción: ");
 
 					boolean numeroValido6 = false;
 
@@ -357,7 +355,7 @@ public class Main {
 
 					println("--------------------------------");
 					println(sucursales2);
-					println("--------------------------------");
+					print("Elige una opción: ");
 
 					boolean numeroValido7 = false;
 
@@ -408,7 +406,7 @@ public class Main {
 				println("Ingrese el tipo de tranporte de su preferencia:");
 				println("1) Camión");
 				println("2) Avión (Envío directo y más rápido)");
-				println("-------------------------------------------------");
+				print("Elige una opción: ");
 
 				boolean numeroValido5 = false;
 
@@ -464,7 +462,7 @@ public class Main {
 			println("1) Pago total");
 			println("2) Pago fraccionado");
 			println("3) Pago contraentrega");
-			println("-------------------------------------------------");
+			print("Elige una opción: ");
 
 			boolean numeroValido6 = false;
 
@@ -501,30 +499,143 @@ public class Main {
 		}
 		scanner.close();
 	}
+
+	//Revisar scanner
+	public static void pagarServicio(Guia guia) {
+		Scanner scanner = new Scanner(System.in);
+
+		println("-----------------MÉTODO DE PAGO------------------");
+		println("Ingrese el método de pago: \n" +
+				"1) Tarjeta Crédito o Débito\n" +
+				"2) Efectivo");
+		println("-------------------------------------------------");
+
+		boolean numeroValido = false;
+
+		while (!numeroValido) {
+			int metodoDePagoEntrada = scanner.nextInt();
+			switch (metodoDePagoEntrada) {
+				case 1:
+					pagarTarjeta(guia);
+					numeroValido = true;
+					break;
+				case 2:
+					pagarEfectivo();
+					numeroValido = true;
+					break;
+				default:
+					println("Número no válido. Inténtalo de nuevo.");
+			}
+		}
+		scanner.close();
+	}
+
+	//Revisar Scanner
+	//FUNCIONA
+	public static String pagarTarjeta(Guia guia) {
+		Scanner scanner = new Scanner(System.in);
+
+		println("-----------------PAGO POR TARJETA----------------");
+		print("Nombre del Titular: ");
+		String titular = scanner.nextLine();
+		print("Número: ");
+		long numero = scanner.nextLong();
+		print("Teléfono del remitente: ");
+		int cvv = scanner.nextInt();
+		scanner.nextLine();
+		print("Fecha de expiración: ");
+		String fechaExpiracion = scanner.nextLine();
+
+		println("-------------------------------------------------");
+
+		CuentaBancaria cuentaCliente = null;
+		for (CuentaBancaria cuenta : CuentaBancaria.getTodasLasCuentas()) {
+			if (cuenta.getNumero() == numero) {
+				cuentaCliente = cuenta;
+				break;
+			}
+		}
+		if (cuentaCliente != null) {
+			if (cuentaCliente.getTitular().getNombre().equals(titular)) {
+				if (cuentaCliente.getNumero() == numero) {
+					if (cuentaCliente.getCVV() == cvv) {
+						if (cuentaCliente.getFechaExpiracion().equals(fechaExpiracion)) {
+							if (guia.getTipoDePago() == tipoDePago.DESTINATARIO) {
+								int entrada = scanner.nextInt();
+								scanner.close();
+
+								if (confirmarPago(entrada)) {
+									if (cuentaCliente.descontarSaldo(guia.getPrecioTotal())) {
+										return "Transacción exitosa";
+
+									} else {
+										return "Lo sentimos, no hay suficiente dinero en la cuenta";
+									}
+								} else {
+									return "Servicio cancelado, vuelve pronto";
+								}
+							} else {
+								return "Descuento membresia";
+							}
+						} else {
+							return "Datos incorrectos, intente nuevamente";
+						}
+					} else {
+						return "Datos incorrectos, intente nuevamente";
+					}
+				} else {
+					return "Datos incorrectos, intente nuevamente";
+				}
+			} else {
+				return "Datos incorrectos, intente nuevamente";
+			}
+		} else {
+			return "Lo sentimos, esta cuenta no existe";
+		}
+	}
+
+	//FUNCIONA
+	public static String pagarEfectivo() {
+		Random random = new Random();
+		int numeroAleatorio = random.nextInt(5) + 1;
+		return "Acerquese a la caja #" + numeroAleatorio +
+				" para cancelar";
+	}
+
+	public static boolean confirmarPago(int entrada) { //TOMAS REVISAR
+		switch (entrada) {
+			case 1:
+				return true;
+			case 2:
+				return false;
+			default:
+				return false;
+		}
+	}
+	public static void salirDelSistema() {
+		// TODO Auto-generated method stub
+
+	}
+	public static void opcionesReclamo() {
+		// TODO Auto-generated method stub
+
+	}
+	public static void recogerPaquete() {
+		// TODO Auto-generated method stub
+
+	}
+	public static void rastrearPaquete() {
+		// TODO Auto-generated method stub
+
+	}
+	public static void verificarPaquete() {
+		// TODO Auto-generated method stub
+	}
 }
 
-	/*
-    private static void salirDelSistema() {
-		// TODO Auto-generated method stub
 
-	}
-	private static void opcionesReclamo() {
-		// TODO Auto-generated method stub
 
-	}
-	private static void recogerPaquete() {
-		// TODO Auto-generated method stub
-
-	}
-	private static void rastrearPaquete() {
-		// TODO Auto-generated method stub
-
-	}
-	private static void verificarPaquete() {
-		// TODO Auto-generated method stub
-
-	}
-
+/*
 	//case 2 - solicitamos el código del paquete para así mostrar la factura asociada a dicho paquete
 	private static void pagarServicio() {
 

@@ -129,19 +129,16 @@ public class Sucursal {
         switch (animal.getTamano()) {
             case PEQUENO:
                 if (cantidadJaulasPequenas > 0) {
-                    cantidadJaulasPequenas--;
                     disponibilidad = true;
                     break;
                 }
             case MEDIANO:
                 if (cantidadJaulasMedianas > 0) {
-                    cantidadJaulasMedianas--;
                     disponibilidad = true;
                     break;
                 }
             case GRANDE:
                 if (cantidadJaulasGrandes > 0) {
-                    cantidadJaulasGrandes--;
                     disponibilidad = true;
                     break;
                 }
@@ -255,41 +252,45 @@ public class Sucursal {
         }
     }
 
-<<<<<<< HEAD
-=======
+    /*
+    <<<<<<< HEAD
+    =======
 
-    // Método para agregar un paquete al inventario de la sucursal
-    //public void agregarPaquete(Producto producto) {
-        //inventario.add(producto);
-    //}
+        // Método para agregar un paquete al inventario de la sucursal
+        //public void agregarPaquete(Producto producto) {
+            //inventario.add(producto);
+        //}
 
->>>>>>> 56d7bcbd9f82b10392b05699a1c0cbab941c4855
-    // Método para verificar si un paquete está en la sucursal
-    public String verificarPaquete(Producto producto) {
-        Producto codigoPaquete = inventario.get(inventario.indexOf(producto));
-        if (inventario.contains(producto)) {
-            return "El paquete con código " + codigoPaquete + " se encuentra en la sucursal.";
-        } else {
-            return "El paquete con código " + codigoPaquete + " no está en la sucursal.";
+    >>>>>>> 56d7bcbd9f82b10392b05699a1c0cbab941c4855
+        // Método para verificar si un paquete está en la sucursal
+        public String verificarPaquete(Producto producto) {
+            Producto codigoPaquete = inventario.get(inventario.indexOf(producto));
+            if (inventario.contains(producto)) {
+                return "El paquete con código " + codigoPaquete + " se encuentra en la sucursal.";
+            } else {
+                return "El paquete con código " + codigoPaquete + " no está en la sucursal.";
+            }
         }
-    }
 
-    // Metodo para la capcidad de stock
-    public void agregarPaquete(Producto producto) {
-    	if (inventario.size() < capacidadStockSucursales) {
-    		inventario.add(producto);
-    	}
-  
-    }
-    public int getCapacidadStockSucursales() {
-    	return capacidadStockSucursales;
-    }
-    public void setCapacidadStockSucursales(int a) {
-    	this.capacidadStockSucursales = a;
-    }
+        // Metodo para la capcidad de stock
+        public void agregarPaquete(Producto producto) {
+            if (inventario.size() < capacidadStockSucursales) {
+                inventario.add(producto);
+            }
 
+        }
+        public int getCapacidadStockSucursales() {
+            return capacidadStockSucursales;
+        }
+        public void setCapacidadStockSucursales(int a) {
+            this.capacidadStockSucursales = a;
+        }
 
 
+
+
+
+    */
     public boolean verificarDisponibilidad(Producto producto) {
         if (capacidadVolumen > producto.getVolumen()) {
             if (capacidadPeso > producto.getPeso()) {
@@ -298,8 +299,6 @@ public class Sucursal {
         }
         return false;
     }
-
-
 
     //Revisar
     //Rastrear
@@ -373,7 +372,7 @@ public class Sucursal {
                         if (paquete.getGuia().isEntregaEnSucursal()) { //Creo que esto es redundante
                             if (paquete.getGuia().getEstado() == estado.ENESPERA && inventario.contains(paquete)) { //Tambien redundante
                                 //if (producto.getGuia().)
-                                if (paquete.getGuia().isPagoContraentrega()) { //Verifica el pago contraentrega
+                                if (paquete.getGuia().getTipoDePago() == Guia.tipoDePago.DESTINATARIO) { //Verifica el pago contraentrega
                                     return "Para retirar el producto tiene que cancelar el servicio por valor de $" +
                                             paquete.getGuia().getPrecioTotal();
                                     //Pagar
@@ -464,8 +463,6 @@ public class Sucursal {
 	    }
 	*/
     // Método para calcular la cantidad de escalas según la membresía del cliente
-
-    //necesito que Tomás M. haga el switch con los tipos de membresia
 
 
     public String getNombre() {

@@ -27,8 +27,6 @@ public class Guia {
 	private Cliente remitente;
 	private Destinatario destinatario; 
 	private String direccion;
-	private boolean pagoContraentrega;
-	private boolean pagoMitad;
 	private boolean entregaEnSucursal;
 	private double precioTotal;
 	private LocalDateTime fechaDeEnvio;
@@ -105,100 +103,13 @@ public class Guia {
 		}
 	} 
 
-	public static boolean confirmarPago(int entrada) { //TOMAS REVISAR
-		switch (entrada) {
-			case 1:
-				return true;
-			case 2:
-				return false;
-			default:
-				return false;
-		}
-	}
-	
-	//Revisar scanner
-	public String pagar(int entrada) {
-		switch (entrada) {
-			case 1:
-				Scanner scanner1 = new Scanner(System.in);
-				String titular = scanner1.nextLine();
-				long numero = scanner1.nextLong();
-				int cvv = scanner1.nextInt();
-				scanner1.nextLine();
-				String fechaExpiracion = scanner1.nextLine();
-				scanner1.close();
-				pagarTarjeta(titular, numero, cvv, fechaExpiracion);
-				break;
-			case 2:
-				pagarEfectivo();
-				break;
-			default:
-				return "Opción no válida. Introduce un número válido";
-		}
-		return "";
-	}
-	
-	//Revisar Scanner
-	//FUNCIONA
-	public String pagarTarjeta(String titular, long numero, int cvv, String fechaExpiracion) {
-		CuentaBancaria cuentaCliente = null;
-		for (CuentaBancaria cuenta : CuentaBancaria.getTodasLasCuentas()) {
-			if (cuenta.getNumero() == numero) {
-				cuentaCliente = cuenta;
-				break;
-			}
-		}
-		if (cuentaCliente != null) {	
-			if (cuentaCliente.getTitular().getNombre().equals(titular)) {
-				if (cuentaCliente.getNumero() == numero) {
-					if (cuentaCliente.getCVV() == cvv) {
-						if (cuentaCliente.getFechaExpiracion().equals(fechaExpiracion)) {
-							if (this.isPagoContraentrega()) {
-								Scanner scanner = new Scanner(System.in);
-								int entrada = scanner.nextInt();
-								scanner.close();
-								if (confirmarPago(entrada)) {
-									if (cuentaCliente.descontarSaldo(this.getPrecioTotal())) {
-										return "Transacción exitosa";
-									} else {
-										return "Lo sentimos, no hay suficiente dinero en la cuenta";
-									}
-								} else {
-									return "Servicio cancelado, vuelve pronto";
-								}
-							} else {
-								return "Descuento membresia";
-							}
-						} else {
-							return "Datos incorrectos, intente nuevamente";
-						}
-					} else {
-						return "Datos incorrectos, intente nuevamente";
-					}
-				} else {
-					return "Datos incorrectos, intente nuevamente";
-				}
-			} else {
-				return "Datos incorrectos, intente nuevamente";
-			}
-		} else {
-			return "Lo sentimos, esta cuenta no existe";
-		}
-	}
 
-	//FUNCIONA
-	public String pagarEfectivo() {
-		Random random = new Random();
-		int numeroAleatorio = random.nextInt(5) + 1;
-		return "Acerquese a la caja #" + numeroAleatorio +
-		" para cancelar";
-	}
 
 	/*public String toString() {
 		String format = "| %-16s | %-18s | %-15s | %-16s | %-14s |\n";
 		StringBuilder tabla = new StringBuilder();
 		tabla.append("+------------------+--------------------+-----------------+------------------+----------------+\n");
-		tabla.append("|  Código Paquete  |  Tipo de Producto  |  Ciudad Origen  |  Ciudad Destino  |  Precio Total  |\n");
+		tabla.append("|  Código Paquete  |  Tipo de Producto  |    |  Ciudad Destino  |  Precio Total  |\n");
 		tabla.append("+------------------+--------------------+-----------------+------------------+----------------+\n");
 		tabla.append(String.format(format, String.valueOf(producto.getCodigo()), String.valueOf(producto.getClass().getSimpleName()), String.valueOf(sucursalOrigen.getNombre()), String.valueOf(sucursalLlegada.getNombre()), String.valueOf(precioTotal) + "$"));
 		tabla.append("+------------------+--------------------+-----------------+------------------+----------------+\n");
@@ -210,8 +121,23 @@ public class Guia {
 		String format = "| %-18 | %-18 |\n";
 		StringBuilder tabla = new StringBuilder();
 		tabla.append("+--------------------+--------------------+");
-		tabla.append(String.format(format, "Código Paquete"))
+		tabla.append(String.format(format, "Tipo de Producto", String.valueOf(producto.getClass().getSimpleName())));
 		tabla.append("+--------------------+--------------------+");
+		tabla.append(String.format(format, "Código Paquete",  String.valueOf(producto.getCodigo())));
+		tabla.append("+--------------------+--------------------+");
+		tabla.append(String.format(format, "Ciudad Origen", String.valueOf(sucursalOrigen.getNombre())));
+		tabla.append("+--------------------+--------------------+");
+		tabla.append(String.format(format, "Ciudad Destino", String.valueOf(sucursalLlegada.getNombre())));
+		tabla.append("+--------------------+--------------------+");
+		tabla.append(String.format(format, "Tipo de Pago", String.valueOf(tipoDePago)));
+		tabla.append("+--------------------+--------------------+");
+		tabla.append(String.format(format, "Precio Total", String.valueOf(precioTotal) + "$"));
+		tabla.append("+--------------------+--------------------+");
+		tabla.append(String.format(format, "Dirección", "direccion"));
+		tabla.append("+--------------------+--------------------+");
+		tabla.append(String.format(format, "Fecha de envío", String.valueOf(fechaDeEnvio)));
+		tabla.append("+--------------------+--------------------+");
+		return  tabla.toString();
 	}
 
 	//Metodos get
@@ -251,9 +177,6 @@ public class Guia {
         return direccion;
     }
 
-	public boolean isPagoContraentrega() {
-		return pagoContraentrega;
-	}
 
 
 	public boolean isEntregaEnSucursal() {
@@ -311,10 +234,6 @@ public class Guia {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
-    }
-
-    public void setPagoContraentrega(boolean pagoContraentrega) {
-        this.pagoContraentrega = pagoContraentrega;
     }
 
     public void setEntregaEnSucursal(boolean entregaEnSucursal) {

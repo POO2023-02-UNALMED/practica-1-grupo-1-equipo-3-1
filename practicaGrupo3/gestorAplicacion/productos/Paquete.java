@@ -39,8 +39,8 @@ public class Paquete extends Producto {
     }
 
     public void asignarCostoDelPedido() {
-        double tarifaBasePorKg = 10000;
-        double tarfifaBasePorMetroCubico = 5000;
+        double tarifaBasePorKg = 1000;
+        double tarfifaBasePorMetroCubico = 4000;
         double tarifaAdicionalFragil = 1.25;
         double costoPedido = (tarfifaBasePorMetroCubico * volumen) + (tarifaBasePorKg * peso) + valorDeclarado * 0.3;
         if (!fragil) {

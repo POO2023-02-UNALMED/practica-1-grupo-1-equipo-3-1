@@ -13,7 +13,7 @@ public class Camion extends Transporte {
     private boolean enSucursal;
     
 
-    public Camion(String ciudadRegistro,  int capacidadVolumen, int capacidadPeso, String matricula){
+    public Camion(Sucursal ciudadRegistro,  int capacidadVolumen, int capacidadPeso, String matricula){
         super(ciudadRegistro, capacidadVolumen, capacidadPeso, matricula, 20);
         Camion.cant_camiones++;
 
@@ -29,8 +29,9 @@ public class Camion extends Transporte {
 
     public void asignarRuta() {
         ArrayList<Sucursal> sucursales = Sucursal.getTodasLasSucursales();
+
         for (int i = 0; i < sucursales.size(); i++) {
-            if (sucursales.get(i) == getSucursal()) {
+            if (sucursales.get(i) == getSucursalOrigen()) {
                 for (int j = i; j < sucursales.size(); j++) {
                     ruta.add(sucursales.get(j));
                 }

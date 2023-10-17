@@ -15,14 +15,15 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
-
+import basedatos.Serializador;
+import basedatos.Deserializador;
 // Menu principal
 public class Main {
 	static Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args) {
 
-
+/*
 		ArrayList<Camion> camionesMN = new ArrayList<>();
 		camionesMN.add(new Camion("Medellín", 27, 300, "ABC109"));
 
@@ -43,12 +44,17 @@ public class Main {
 
 		Sucursal bogotaNorte = new Sucursal("Bogotá Norte", 1000, 500, 4, 2, camionesMN, motosMN, avionesMN);
 		Sucursal bogotaSur = new Sucursal("Bogotá Sur", 1000, 500, 4, 2, camionesMN, motosMN, avionesMN);
-
-
-		//Deserializador.deserializar();
-
+*/
+		//Serializador.serializar();
+		
+		Deserializador.deserializar();
+		/*
+		for (Sucursal obj: Sucursal.getTodasLasSucursales()) {
+			System.out.println(obj.getNombre());
+		}
+		*/
 		//Menu principal
-		Main.menuPrincipal(medellinNorte);
+		//Main.menuPrincipal(medellinNorte);
 
 	}
 	public static void menuPrincipal(Sucursal sucursal) {
@@ -701,6 +707,7 @@ public class Main {
 	public static void verificarPaquete() {
 		// TODO Auto-generated method stub
 	}
+
 }
 
 
@@ -877,7 +884,7 @@ public class Main {
 }
 */
 
-    
+   
 	
 
 

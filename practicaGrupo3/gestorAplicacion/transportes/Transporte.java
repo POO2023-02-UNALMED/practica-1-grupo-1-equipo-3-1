@@ -1,10 +1,11 @@
 package transportes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import administracion.*;
 import productos.*;
 
-public abstract class Transporte {
+public abstract class Transporte implements Serializable{
     private static int cant_transporte = 0;
     private String ciudadRegistro;
     private String ciudadActual;
@@ -15,6 +16,7 @@ public abstract class Transporte {
     private ArrayList<Producto> inventario = new ArrayList<>(); //TOMAS Cada vehiculo va a a tener su propio inventario
     private static ArrayList<Transporte> todosLosTransportes = new ArrayList<>();
     private Sucursal sucursal; //Sucursal a la que pertenece el transporte
+    private static final long serialVersionUID = 1L;
 
     public Transporte(String ciudadRegistro, int capacidadVolumen, int capacidadPeso, String matricula, int estado){
         this.ciudadRegistro = ciudadRegistro;
@@ -68,10 +70,12 @@ public abstract class Transporte {
         return capacidadVolumen;
     }
 
-    public ArrayList<Transporte> getTodosLosTransportes() {
+    public static ArrayList<Transporte> getTodosLosTransportes() {
         return Transporte.todosLosTransportes;
     } 
-
+    public static void setTodosLosTransportes(ArrayList<Transporte> lista) {
+    	todosLosTransportes = lista;
+    }
     public int getEstado() {
         return estado;
     }

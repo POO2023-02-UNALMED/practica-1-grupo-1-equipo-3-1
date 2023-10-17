@@ -685,7 +685,7 @@ public class Main {
             int entrada = scanner.nextInt();
             switch (entrada) {
                 case 1:
-                    if (guia.getSucursalLlegada() == sucursal) { //¿El metodo ha sido accedido desde la sucursal de origen?
+                    if (guia.getSucursalLlegada() == sucursal) { //¿El metodo ha sido accedido desde la sucursal de origen? Eso quiere decir que el que está pagando es el remitente
                         if (guia.getTipoDePago() == tipoDePago.REMITENTE) {
                             if (cuentaCliente.descontarSaldo(guia.getPagoPendiente())) {
                                 println("Transacción exitosa");
@@ -703,6 +703,14 @@ public class Main {
 
                             } else {
                                 println("Lo sentimos, no hay suficiente dinero en la cuenta");
+                            }
+                        }
+                    } else { //Está pagando el destinatario
+                        if (guia.getTipoDePago() == tipoDePago.DESTINATARIO) {
+                            if (cuentaCliente.descontarSaldo(guia.getPagoPendiente())) {
+                                println("Transacción exitosa");
+                                guia.setPagoPendiente(guia.getPagoPendiente() * 0);
+                                cuentaCliente.getTitular().subirReputacion();
                             }
                         }
                     }

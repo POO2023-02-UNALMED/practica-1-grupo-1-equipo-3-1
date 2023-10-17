@@ -31,6 +31,7 @@ public class Guia {
 	private String direccion;
 	private boolean entregaEnSucursal;
 	private double precioTotal;
+	private double pagoPendiente;
 	private LocalDateTime fecha;
 	private String fechaDeEnvio;
 
@@ -60,6 +61,7 @@ public class Guia {
 		this.tipoDePago = tipoDePago;
 		this.entregaEnSucursal = entregaEnSucursal;
 		this.vehiculo = vehiculo;
+		this.producto.setGuia(this);
 
 		fecha = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
@@ -68,6 +70,7 @@ public class Guia {
 
 		precioTotal = producto.getCostoDelPedido();
 
+		pagoPendiente = precioTotal;
 		asignarRuta();
 	}
 	
@@ -209,7 +212,9 @@ public class Guia {
         return direccion;
     }
 
-
+	public double getPagoPendiente() {
+		return pagoPendiente;
+	}
 
 	public boolean isEntregaEnSucursal() {
 		return entregaEnSucursal;
@@ -280,7 +285,11 @@ public class Guia {
         this.precioTotal = precioTotal;
     }
 
-    public void setEstado(estado estado) {
+	public void setPagoPendiente(double pagoPendiente) {
+		this.pagoPendiente = pagoPendiente;
+	}
+
+	public void setEstado(estado estado) {
         this.estado = estado;
     }
 

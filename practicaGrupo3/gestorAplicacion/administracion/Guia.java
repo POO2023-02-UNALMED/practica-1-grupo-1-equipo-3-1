@@ -51,7 +51,7 @@ public class Guia {
 	} 
 
 	//Constructor
-	public Guia(Producto producto,  Cliente remitente, Destinatario destinatario,  Sucursal sucursalOrigen, Sucursal sucursalLlegada, tipoDePago tipoDePago, boolean entregaEnSucursal) {
+	public Guia(Producto producto,  Cliente remitente, Destinatario destinatario,  Sucursal sucursalOrigen, Sucursal sucursalLlegada, tipoDePago tipoDePago, boolean entregaEnSucursal, Transporte vehiculo) {
 		this.producto = producto;
 		this.remitente = remitente;
 		this.destinatario = destinatario;
@@ -59,6 +59,7 @@ public class Guia {
 		this.sucursalLlegada = sucursalLlegada;
 		this.tipoDePago = tipoDePago;
 		this.entregaEnSucursal = entregaEnSucursal;
+		this.vehiculo = vehiculo;
 
 		fecha = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
@@ -80,35 +81,56 @@ public class Guia {
 		return magnitud;
 	}
 
+	public void asignarPrecio() {
+		int transportePrecio = 0;
+		if (vehiculo instanceof Camion) {
+			transportePrecio = 5000;
+		} else if (vehiculo instanceof Avion){
+			transportePrecio = 10000;
+		}
+
+		int cantidadDeSucursales = ruta.size();
+
+		precioTotal = producto.costoDelPedido + cantidadDeSucursales * transportePrecio;
+	}
+	public void aplicarDescuento() {
+
+	}
 	
 	//Antihoraria
 	//FUNCIONA
 	public void asignarRuta() {
-		ArrayList<Sucursal> sucursales = Sucursal.getTodasLasSucursales(); //La lista sería [Medellin, Cali, Pasto, Florencia, Bogotá]
-		//Si quiero ir de Pasto a Bogotá el atributo ruta sería = [Pasto, Florencia, Bogotá]
-		//Si es de Cali a Medellin = [Cali, Pasto, Florencia, Bogota, Medellin]
-		//¿Como hacemos este Metodo?
-		for (int i = 0; i < sucursales.size(); i++) { //Recorre la lista de sucursales
-			if (sucursales.get(i) == sucursalOrigen) { //Para en la sucursal que es igual a la de origen
-				if (i < sucursales.indexOf(sucursalLlegada)) { //Si la sucursal de llegada está después de la de origen en la lista 
-					//Ejemplo Pasto a Bogotá [Medellin, Cali, (Pasto), Florencia, (Bogotá)]
-					for (int j = i; j < sucursales.indexOf(sucursalLlegada) + 1; j++) {//Agrega a ruta desde la sucursal de origen hasta la de llegada
-						ruta.add(sucursales.get(j));
-					}
-					//Resultado esperado [Pasto, Florencia, Bogotá]
-				} else { //Si la sucursal de llegada está antes en la lista que la de origen (paila está más difícil)
-					//Ejemplo Cali a medellin [(Medellin), (Cali), Pasto, Florencia, Bogotá]
-					for (int j = i; j < sucursales.size(); j++) { //Se agregan la sucursal origen y las que le siguen en la lista ruta
-						ruta.add(sucursales.get(j)); //[Cali, Pasto, Florencia, Bogotá]
-					}
+		if (vehiculo instanceof Camion) {
+			ArrayList<Sucursal> sucursales = Sucursal.getTodasLasSucursales(); //La lista sería [Medellin, Cali, Pasto, Florencia, Bogotá]
+			//Si quiero ir de Pasto a Bogotá el atributo ruta sería = [Pasto, Florencia, Bogotá]
+			//Si es de Cali a Medellin = [Cali, Pasto, Florencia, Bogota, Medellin]
+			//¿Como hacemos este Metodo?
+			for (int i = 0; i < sucursales.size(); i++) { //Recorre la lista de sucursales
+				if (sucursales.get(i) == sucursalOrigen) { //Para en la sucursal que es igual a la de origen
+					if (i < sucursales.indexOf(sucursalLlegada)) { //Si la sucursal de llegada está después de la de origen en la lista
+						//Ejemplo Pasto a Bogotá [Medellin, Cali, (Pasto), Florencia, (Bogotá)]
+						for (int j = i; j < sucursales.indexOf(sucursalLlegada) + 1; j++) {//Agrega a ruta desde la sucursal de origen hasta la de llegada
+							ruta.add(sucursales.get(j));
+						}
+						//Resultado esperado [Pasto, Florencia, Bogotá]
+					} else { //Si la sucursal de llegada está antes en la lista que la de origen (paila está más difícil)
+						//Ejemplo Cali a medellin [(Medellin), (Cali), Pasto, Florencia, Bogotá]
+						for (int j = i; j < sucursales.size(); j++) { //Se agregan la sucursal origen y las que le siguen en la lista ruta
+							ruta.add(sucursales.get(j)); //[Cali, Pasto, Florencia, Bogotá]
+						}
 
-					for (int k = 0; k < sucursales.indexOf(sucursalLlegada) + 1; k++) { //Termina agregando desde el comienzo de la lista sucursales hasta la sucursal de llegada (incluyendola)
-						ruta.add(sucursales.get(k)); //[Medellin]
+						for (int k = 0; k < sucursales.indexOf(sucursalLlegada) + 1; k++) { //Termina agregando desde el comienzo de la lista sucursales hasta la sucursal de llegada (incluyendola)
+							ruta.add(sucursales.get(k)); //[Medellin]
+						}
+						//Resultado esperado [Cali, Pasto, Florencia, Bogota, Medellin]
 					}
-					//Resultado esperado [Cali, Pasto, Florencia, Bogota, Medellin]
 				}
 			}
+		} else if (vehiculo instanceof Avion) {
+			ruta.add(sucursalOrigen);
+			ruta.add(sucursalLlegada);
 		}
+
 	} 
 
 
@@ -142,6 +164,8 @@ public class Guia {
 		tabla.append(String.format(format, "Precio Total", String.valueOf(precioTotal) + "$"));
 		tabla.append("+--------------------+--------------------+\n");
 		tabla.append(String.format(format, "Dirección", "direccion"));
+		tabla.append("+--------------------+--------------------+\n");
+		tabla.append(String.format(format, "Vehículo", String.valueOf(vehiculo.getClass().getSimpleName())));
 		tabla.append("+--------------------+--------------------+\n");
 		tabla.append(String.format(format, "Fecha de envío", fechaDeEnvio));
 		tabla.append("+--------------------+--------------------+\n");

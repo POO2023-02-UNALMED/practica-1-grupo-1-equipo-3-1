@@ -6,18 +6,16 @@ import productos.*;
 
 public abstract class Transporte {
     private static int cant_transporte = 0;
-    private String ciudadRegistro;
-    private String ciudadActual;
-    private int capacidadVolumen;
-    private int capacidadPeso;
-    private String matricula;
-    private int estado;
-    private ArrayList<Producto> inventario = new ArrayList<>(); //TOMAS Cada vehiculo va a a tener su propio inventario
+    protected Sucursal sucursalOrigen;
+    protected int capacidadVolumen;
+    protected int capacidadPeso;
+    protected String matricula;
+    protected int estado;
+    protected ArrayList<Producto> inventario = new ArrayList<>(); //TOMAS Cada vehiculo va a a tener su propio inventario
     private static ArrayList<Transporte> todosLosTransportes = new ArrayList<>();
-    private Sucursal sucursal; //Sucursal a la que pertenece el transporte
 
-    public Transporte(String ciudadRegistro, int capacidadVolumen, int capacidadPeso, String matricula, int estado){
-        this.ciudadRegistro = ciudadRegistro;
+    public Transporte(Sucursal sucursalOrigen, int capacidadVolumen, int capacidadPeso, String matricula, int estado){
+        this.sucursalOrigen = sucursalOrigen;
         this.capacidadVolumen = capacidadVolumen;
         this.capacidadPeso = capacidadPeso;
         this.matricula = matricula;
@@ -40,20 +38,12 @@ public abstract class Transporte {
         return "Entregado con éxito";
     }
 */
-    public String getCiudad_registro() {
-        return ciudadRegistro;
+    public Sucursal getSucursalOrigen() {
+        return sucursalOrigen;
     }
 
-    public void setCiudad_registro(String ciudad_registro) {
-        this.ciudadRegistro = ciudad_registro;
-    }
-
-    public String getCiudad_actual() {
-        return ciudadActual;
-    }
-
-    public void setCiudad_actual(String ciudad_actual) {
-        this.ciudadActual = ciudad_actual;
+    public void setCiudad_registro(Sucursal ciudadRegistro) {
+        this.sucursalOrigen = ciudadRegistro;
     }
 
     public ArrayList<Producto> getInventario() {
@@ -76,10 +66,7 @@ public abstract class Transporte {
         return estado;
     }
 
-    public Sucursal getSucursal() {
-        return sucursal;
-    }
-    
+
     public void setEstado(int estado) {
         this.estado = estado;
     }

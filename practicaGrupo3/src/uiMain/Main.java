@@ -24,13 +24,11 @@ public class Main {
 
 
 		ArrayList<Camion> camionesMN = new ArrayList<>();
-		camionesMN.add(new Camion("Medellín", 27, 300, "ABC109"));
 
 		ArrayList<Moto> motosMN = new ArrayList<>();
-		motosMN.add(new Moto("Medellín", 1, 30, "ABC123"));
+
 
 		ArrayList<Avion> avionesMN = new ArrayList<>();
-		avionesMN.add(new Avion("Medellín", 200, 2000, "asdfg"));
 
 		Sucursal medellinNorte = new Sucursal("Medellin Norte", 100, 100, -6, 8, camionesMN, motosMN, avionesMN);
 		Sucursal medellinSur = new Sucursal("Medellin Sur", 100, 100, -6, 6, camionesMN, motosMN, avionesMN);
@@ -44,6 +42,10 @@ public class Main {
 		Sucursal bogotaNorte = new Sucursal("Bogotá Norte", 1000, 500, 4, 2, camionesMN, motosMN, avionesMN);
 		Sucursal bogotaSur = new Sucursal("Bogotá Sur", 1000, 500, 4, 2, camionesMN, motosMN, avionesMN);
 
+
+		camionesMN.add(new Camion(medellinNorte, 27, 300, "ABC109"));
+		motosMN.add(new Moto(medellinNorte, 1, 30, "ABC123"));
+		avionesMN.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "asdfg"));
 
 		//Deserializador.deserializar();
 
@@ -66,31 +68,39 @@ public class Main {
 		boolean numeroValido = false;
 
 		while(!numeroValido) {
-
 			int opcion = scanner.nextInt();
 
 			switch (opcion) {
 				case 1:
 					enviarPaquete(sucursal);
+					numeroValido = true;
 					break;
 				case 2:
-					//pagarServicio();
+					pagarServicio();
+					numeroValido = true;
 					break;
 				case 3:
 					verificarPaquete();
+					numeroValido = true;
 					break;
 				case 4:
 					rastrearPaquete();
+					numeroValido = true;
 					break;
 				case 5:
 					recogerPaquete();
+					numeroValido = true;
 					break;
 				case 6:
 					opcionesReclamo();
+					numeroValido = true;
 					break;
 				case 7:
 					salirDelSistema();
+					numeroValido = true;
 					break;
+				default:
+					println("Número no válido. Inténtalo de nuevo.");
 			}
 		}
 	}
@@ -138,10 +148,8 @@ public class Main {
 					println("2) No");
 					print("Elige una opcion: ");
 
-
 					boolean numeroValido2 = false;
 					boolean fragil = false;
-
 
 					while (!numeroValido2) {
 						int fragilEntrada = scanner.nextInt();
@@ -267,7 +275,6 @@ public class Main {
 
 		String[] palabra = sucursalOrigen.getNombre().split(" ");
 		println("------------------DATOS DE ENVÍO-----------------");
-		println("-------------------------------------------------");
 
 		println("Ciudad de origen: " + sucursalOrigen.getCiudad());
 		println("Sucursal: " + palabra[1]);
@@ -403,9 +410,9 @@ public class Main {
 			}
 		}
 
+		Transporte vehiculo = null;
 
 		if (disponibilidadSucursal) {
-			Transporte vehiculo = null;
 
 			if (remitente.getMembresia().getBeneficio() == Membresia.tipo.PLATINUM || remitente.getMembresia().getBeneficio() == Membresia.tipo.GOLD) {
 				println("---------------DATOS DE TRANSPORTE---------------");
@@ -433,9 +440,17 @@ public class Main {
 							}
 						case 2:
 							if (!sucursalOrigen.getAvionesEnSucursal().isEmpty()) {
-								vehiculo = sucursalOrigen.getAvionesEnSucursal().get(0);
+								for (Avion aviones : sucursalOrigen.getAvionesEnSucursal()) {
+									if (aviones.getSucursalDestino() == sucursalDestino) {
+										vehiculo = aviones;
+										disponibilidadTransporte = true;
+										break;
+									}
+									 if (vehiculo == null) {
+										 println("Lo sentimos no tenemos disponibilidad de aviones que se dirigen a esa sucursal en este momento");
+									 }
+								}
 								numeroValido5 = true;
-								disponibilidadTransporte = true;
 								break;
 							} else {
 								println("Lo sentimos no tenemos disponibilidad de aviones en este momento");
@@ -499,7 +514,7 @@ public class Main {
 			}
 
 			sucursalOrigen.agregarProducto(producto);
-			Guia guia = new Guia(producto, remitente, destinatario, sucursalOrigen, sucursalDestino, tipoDePago, true);
+			Guia guia = new Guia(producto, remitente, destinatario, sucursalOrigen, sucursalDestino, tipoDePago, true, vehiculo);
 			println(guia);
 
 		}

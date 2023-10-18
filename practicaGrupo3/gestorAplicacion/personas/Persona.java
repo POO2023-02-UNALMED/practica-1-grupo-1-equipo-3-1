@@ -1,11 +1,17 @@
 package personas;
-
+// HEHCA POR: TOMAS MURILLO ARISTIZABAL
 import administracion.*;
+
 import productos.Producto;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+// CLASE PERSONA
+// EN ESTA CLASE SE ALAMACENA TODA LA INFORMACION RECORRIDA DE LAS PERSONAS QUE INTERACTUAN EN EL PROGRAMA
+// YA SEAN DESTINATRIO O EL CLIENTE, Y SUS RESPECTIVOS METODOS PARA ACCEDER ESA INFORMACION Y SOBREESCRIBIRLA
 
+
+// CLASE ABSTRACTA
 public abstract class Persona {
     protected String nombre;
     protected long cedula;
@@ -72,7 +78,7 @@ public abstract class Persona {
     public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
-
+    // METODO ABSTRACTO QUE TODAS LAS SUBCLASES TIENEN QUE HERDAR
     public abstract String toString();
 /*
 	public String pagar(int entrada) {

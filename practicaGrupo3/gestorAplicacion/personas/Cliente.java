@@ -1,10 +1,13 @@
 package personas;
+// HECHA POR: TOMAS MURILLO ARISTIZABAL
 import administracion.Membresia;
 import administracion.CuentaBancaria;
 
 import administracion.Membresia;
 import administracion.CuentaBancaria;
-//Cabecera clase:
+// CLASE CLIENTE
+// EN ESTA CLASE SE ALMACENA TODA LA INFORMACION DEL CLIENTE O REMITENTE, QUE ES LA PERSONA QUE ENVIA EL PAQUETE
+// EN ESTA CLASE ADEMAS DE HEREDAR DE PERSONA TIENE UN ATRIBUTO SUYO PROPIO QUE ES MEMBRESIA
 
 public class Cliente extends Persona{
 	private Membresia membresia;

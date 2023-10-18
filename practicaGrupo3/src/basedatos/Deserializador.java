@@ -30,16 +30,16 @@ public class Deserializador {
 		//RECORREMOS LOS ARCHIVOS QUE ESTAN EN LA LISTA ficheros
 		for (File file : ficheros) {
 			
-			//VERIFICA SI LA RUTA DEL ARCHIVO CONTIENE LA PALABRA Aerolineas(DE DONDE EXTRAEREMOS LA LISTA  DE AEROLINEAS Y TODA SU INFO)
+			//VERIFICA SI LA RUTA DEL ARCHIVO CONTIENE LA PALABRA SUCURSALES (DE DONDE EXTRAEREMOS LA LISTA  DE SUCURSALES Y TODA SU INFO)
 			if (file.getAbsolutePath().contains("Sucursales")) {
 				try {
-					//SE LEE EL ARCHIVO Aerolineas.txt DE LA LISTA ficheros
+					//SE LEE EL ARCHIVO sucursales.txt DE LA LISTA ficheros
 					archivo = new FileInputStream(file);
 					//PROCESA LOS DATOS CONTENIDOS EN EL OBJETO archivo Y SE VINCULA A EL
 					guardado = new ObjectInputStream(archivo);
 					//SE LEEN LOS OBJETOS EN EL MISMO ORDEN EN QUE HABIAN SIDO ESCRITOS Y 
-					//SE HACE EL CASTEO DEL APUNTADOR OBJECT A ArrayList<Aerolinea>
-					//ESTE ArrayList DE AEROLINEAS SE ASIGNA AL ATRIBUTO DE CLASE Aerolineas DE LA CLASE Aerolinea
+					//SE HACE EL CASTEO DEL APUNTADOR OBJECT A ArrayList<Sucursal>
+					//ESTE ArrayList DE Sucursales SE ASIGNA AL ATRIBUTO DE CLASE TodasLasSucursales DE LA CLASE Sucursal
 					Sucursal.setTodasLasSucursales((ArrayList<Sucursal>) guardado.readObject());
 				}catch(FileNotFoundException e) {
 					e.printStackTrace();
@@ -49,8 +49,8 @@ public class Deserializador {
 					e.printStackTrace();;
 				}
 				
-			//VERIFICA SI LA RUTA DEL ARCHIVO CONTIENE LA PALABRA Alojamientos(DE DONDE EXTRAEREMOS LA LISTA DE ALOJAMIENTOS Y TODA SU INFO)
-			//SE COMPORTA DE IGUAL FORMA QUE EL ANTERIOR, PERO DESERIALIZANDO UNA LISTA DE ALOJAMIENTOS
+			//VERIFICA SI LA RUTA DEL ARCHIVO CONTIENE LA PALABRA TRANSPORTES(DE DONDE EXTRAEREMOS LA LISTA DE TRANSPORTES Y TODA SU INFO)
+			//SE COMPORTA DE IGUAL FORMA QUE EL ANTERIOR, PERO DESERIALIZANDO UNA LISTA DE TRANSPORTES
 			}else if (file.getAbsolutePath().contains("Transportes")) {
 				try {
 				archivo = new FileInputStream(file);

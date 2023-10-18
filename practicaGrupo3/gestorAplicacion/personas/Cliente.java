@@ -22,7 +22,7 @@ public class Cliente extends Persona{
 	}
 
 	public String toString() {
-		String r = "El cliente identificado como " +  getNombre() + " con cedula " + getCedula() + " y con membresia " + getMembresia().getBeneficio();
+		String r = "El cliente identificado como " +  getNombre() + " con cedula " + getCedula() + " y\ncon membresia " + getMembresia().getBeneficio();
 		return r;
 	}
 }

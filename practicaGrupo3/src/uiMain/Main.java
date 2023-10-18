@@ -55,6 +55,7 @@ public class Main {
     }
 
     public static void menuPrincipal(Sucursal sucursal) {
+
         println("--- BIENVENIDO AL SISTEMA DE ENVIOS CORREMINAS ---");
         println("¿Qué operación deseas realizar?");
         println("1) Enviar paquete.");

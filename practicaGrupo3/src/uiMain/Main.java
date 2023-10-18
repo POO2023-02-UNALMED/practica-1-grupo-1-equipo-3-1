@@ -679,7 +679,7 @@ public class Main {
 
         println("-----------------CONFIRMAR PAGO------------------");
 
-        println("¿Desea confirmar el pago por " + guia.getPrecioTotal() + "$?");
+        println("¿Desea confirmar el pago por $" + guia.getPrecioTotal() + "?");
         println("1) Sí");
         println("2) No");
         print("Elige una opción: ");
@@ -750,8 +750,84 @@ public class Main {
     //Estaba en la clase Sucursal y no esta terminado, hayq eu cambiarle MUCHAS cosas
     // :(
 
+    
+    public static void recogerPaquete(Sucursal sucursal) {
+        Scanner scanner = new Scanner(System.in);
+        boolean datosValidos = false;
+        
+        while (!datosValidos) {
+            try {
+                println("-----------------RECOGER PRODUCTO----------------");
+                print("Ingrese el código de la guía: ");
+                int codigoPaquete = scanner.nextInt();
+                
+                scanner.nextLine(); // Limpia el buffer del scanner
+                print("Ingrese su nombre completo: ");
+                String nombreRemitente = scanner.nextLine();
+                print("Ingrese su cédula: ");
+                int cedulaRemitente = scanner.nextInt();
+                
+                // Encuentra el producto por código
+                Producto producto = encontrarProductoPorCodigo(codigoPaquete);
 
-    public static void recogerPaquete(Sucursal sucursal) { //Sucursal desde la cual se está recogiendo el paquete
+                if (producto != null && verificarDatos(producto, nombreRemitente, cedulaRemitente, sucursal)) {
+                    realizarEntrega(producto, sucursal);
+                    datosValidos = true;
+                } else {
+                    println("Datos incorrectos, intente nuevamente");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Ha ingresado un valor incorrecto. Por favor, ingrese un valor válido.");
+                scanner.nextLine();
+            }
+        }
+    }
+
+    private static Producto encontrarProductoPorCodigo(int codigo) {
+        for (Producto producto : Producto.getTodosLosProductos()) {
+            if (producto.getCodigo() == codigo) {
+                return producto;
+            }
+        }
+        return null; // Producto no encontrado
+    }
+
+    private static boolean verificarDatos(Producto producto, String nombreRemitente, int cedulaRemitente, Sucursal sucursal) {
+        return producto.getGuia().getSucursalLlegada() == sucursal &&
+               producto.getGuia().getDestinatario().getNombre().equals(nombreRemitente) &&
+               producto.getGuia().getDestinatario().getCedula() == cedulaRemitente;
+    }
+
+    private static void realizarEntrega(Producto producto, Sucursal sucursal) {
+        Guia guia = producto.getGuia();
+        
+        if (guia.isEntregaEnSucursal()) {
+            if (guia.getEstado() == Guia.estado.ENESPERA && sucursal.getInventario().contains(producto)) {
+                if (guia.getTipoDePago() == Guia.tipoDePago.DESTINATARIO) {
+                    println("Para retirar el producto tiene que cancelar el servicio por valor de $" + guia.getPrecioTotal());
+                    // Agregar lógica de pago
+                } else {
+                    sucursal.getInventario().remove(producto);
+                    Random random = new Random();
+                    println("Operación realizada con éxito, favor acercarse a la caja " +
+                            random.nextInt(5) + " para retirar su paquete, muchas gracias por usar nuestro servicio");
+                }
+            } else if (guia.getEstado() == Guia.estado.ENTREGADO) {
+                println("El paquete fue entregado el día " + guia.getFecha().getDayOfWeek() + " del mes " + guia.getFecha().getMonth());
+            } else if (guia.getEstado() == Guia.estado.ENTRANSITO) {
+                println("El paquete todavía no ha llegado");
+                // Agregar lógica de rastreo si es necesario
+            }
+        } else {
+            println("Lo sentimos, el paquete fue programado para tener como destino la siguiente dirección: " +
+                    guia.getDireccion());
+        }
+    }
+
+    
+    
+
+   /* public static void recogerPaquete(Sucursal sucursal) { //Sucursal desde la cual se está recogiendo el paquete
     Scanner scanner = new Scanner(System.in);
     boolean datosValidos = false;
     while (!datosValidos) {
@@ -823,7 +899,7 @@ public class Main {
         }
     }
 
-    }
+    }*/
     
     
     

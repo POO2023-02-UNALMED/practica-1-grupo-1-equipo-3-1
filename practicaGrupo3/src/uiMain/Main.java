@@ -675,6 +675,9 @@ public class Main {
 					} else {
 						println("Lo sentimos, no hay suficiente dinero en la cuenta");
 					}
+					
+		// SE REPITE EL MAIN			
+					
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {

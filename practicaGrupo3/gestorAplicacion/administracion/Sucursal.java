@@ -42,10 +42,10 @@ public class Sucursal implements Serializable{
     private int cantidadJaulasMedianas;
     private int cantidadJaulasGrandes;
 
-    private Opinion opinionSucursal;
+    private Opinion opinionSucursal; // FALTA PONER EL ATRIBUTO EN EL CONSTRUCTOR
     private int capacidadStockSucursales = 30; // Esto es para la funcionalidad de opinion
-    
-    private static final long serialVersionUID = 1L;
+     //EL IDENTIFICADOR PARA EL DESERIALIZADOR
+    private static final long serialVersionUID = 1L; //
     //constructor
     public Sucursal(String nombre, int capacidadVolumen, int capacidadPeso, int longitud, int latitud, ArrayList<Camion> camionesEnSucursal, ArrayList<Moto> motosEnSucursal, ArrayList<Avion> avionesEnSucursal) {
         this.nombre = nombre;

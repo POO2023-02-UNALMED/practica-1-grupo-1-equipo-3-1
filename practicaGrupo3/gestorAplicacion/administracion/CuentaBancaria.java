@@ -6,10 +6,10 @@ import personas.*;
 
 public class CuentaBancaria { 
 	private Persona titular; 
-    private long numero;
-    private int cvv;
-    private String fechaExpiracion;
-    private double saldo;
+    private static long numero;
+    private static int cvv;
+    private static String fechaExpiracion;
+    private static double saldo;
     private static ArrayList<CuentaBancaria> todasLasCuentas = new ArrayList<>();
     
     public CuentaBancaria() {
@@ -82,7 +82,7 @@ public class CuentaBancaria {
     }
     
 
-    public String imprimirInformacion() {
+    public static String imprimirInformacion() {
     	return "Los Datos De Tú Cuenta Bancaria Son Los Siguientes:\n"
          +"Número De Cuenta: " + numero +"\n"
          +"CVV: " + cvv +"\n"

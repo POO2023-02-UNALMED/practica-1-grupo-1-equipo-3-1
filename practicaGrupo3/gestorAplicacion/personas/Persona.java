@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 // CLASE ABSTRACTA
 public abstract class Persona {
-    protected String nombre;
+    protected static String nombre;
     protected long cedula;
     protected CuentaBancaria cuentaBancaria;
     protected long telefono;
@@ -39,7 +39,7 @@ public abstract class Persona {
         reputacion++;
     }
 
-    public String getNombre() {
+    public static String getNombre() {
         return nombre;
     }
 

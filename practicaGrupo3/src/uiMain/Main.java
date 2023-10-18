@@ -76,7 +76,8 @@ public class Main {
         println("4) Rastrear paquete.");
         println("5) Recoger paquete.");
         println("6) Reclamos.");
-        println("7) Terminar.");
+        println("7) Reclamos.");
+        println("8) Terminar.");
         print("Elige una opcion: ");
 
         boolean numeroValido = false;
@@ -110,6 +111,10 @@ public class Main {
                     numeroValido = true;
                     break;
                 case 7:
+                    credencialesUsuario();
+                    numeroValido = true;
+                    break;
+                case 8:
                     salirDelSistema();
                     numeroValido = true;
                     break;
@@ -119,16 +124,27 @@ public class Main {
         }
     }
 
-    public static void enviarPaquete(Sucursal sucursalOrigen) {
+
+
+	public static void enviarPaquete(Sucursal sucursalOrigen) {
         Scanner scanner = new Scanner(System.in);
-
-        println("---------------DATOS DEL PRODUCTO----------------");
-        println("Ingrese el tipo de producto:");
-        println("1) Paquete");
-        println("2) Animal");
-        println("3) Documento");
-        print("Elige una opción: ");
-
+        boolean datosValidos = false;
+        while (!datosValidos) {
+            try {
+            	println("---------------DATOS DEL PRODUCTO----------------");
+            	println("Ingrese el tipo de producto:");
+            	println("1) Paquete");
+            	println("2) Animal");
+            	println("3) Documento");
+            	print("Elige una opción: ");
+            	datosValidos = true;
+            }catch (InputMismatchException e) {
+            	System.out.println("Error: Ha ingresado un valor incorrecto. Por favor, ingrese un valor válido.");
+                scanner.nextLine();
+            }
+            	
+            	
+            	
         boolean numeroValido = false;
         Producto producto = null;
 
@@ -532,6 +548,7 @@ public class Main {
 
         }
         scanner.close();
+        }
     }
 
     //Revisar scanner
@@ -913,10 +930,40 @@ public class Main {
     public static void verificarPaquete() {
         // TODO Auto-generated method stub
     }
+
+
+//kevin terminar
+private static void credencialesUsuario() {
+	Scanner scanner = new Scanner(System.in);
+    boolean datosCorrectos = false;
+    while (!datosCorrectos) {
+        try {
+        	println("---------------CREDENCIALES DEL USUARIO----------------");
+        	println("Hola "+Cliente.getNombre()+"\n¿qué deseas conocer respecto a tu perfil?");
+        	println("1) Cuenta Bancaria");
+        	println("2) Membresía");
+        	println("3) Volver al menú");
+        	print("Elige una opción: ");
+        	datosCorrectos = true;
+
+        }catch (InputMismatchException e) {
+        	System.out.println("Error: Ha ingresado un valor incorrecto. Por favor, ingrese un valor válido.");
+            scanner.nextLine();
+        	int opcionCliente = scanner.nextInt();
+        	scanner.nextLine();
+        switch (opcionCliente) {
+        	case 1: // cuenta Bancaria
+        		 println("-------------------------------------------------");
+        		 println(CuentaBancaria.imprimirInformacion());
+        		
+        
+        }
+        
+	
 }
-
-
-
+}
+}
+}
 /*
 	//case 2 - solicitamos el código del paquete para así mostrar la factura asociada a dicho paquete
 	private static void pagarServicio() {

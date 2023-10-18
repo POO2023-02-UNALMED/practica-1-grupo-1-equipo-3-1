@@ -25,7 +25,7 @@ public class Serializador {
 		// CON PRINTWRITER BORRAMOS EL CONTENIDO PARA EVITAR SOBREESCRITURAS 
 				for (File archivo : ficheros) { 
 					try {
-						//BORRA LO QUE HAY EN EL ARCHIVO QUE LE PASAMOS COMO PARAMETRO (SEGUN LOS VISTO EN CLASE)
+						//BORRA LO QUE HAY EN EL ARCHIVO QUE LE PASAMOS COMO PARAMETRO 
 						pw = new PrintWriter(archivo);
 					} catch (FileNotFoundException e) {
 						e.printStackTrace();
@@ -35,14 +35,14 @@ public class Serializador {
 				//RECORREMOS LOS ARCHIVOS QUE ESTAN EN LA LISTA ficheros
 				for (File archivo1 : ficheros) {
 
-					//VERIFICA SI LA RUTA DEL ARCHIVO CONTIENE LA PALABRA Aerolineas(DONDE ALMACENAREMOS LA LISTA DE SUCURSALES Y TODA SU INFO)
+					//VERIFICA SI LA RUTA DEL ARCHIVO CONTIENE LA PALABRA SUCURSALES(DONDE ALMACENAREMOS LA LISTA DE SUCURSALES Y TODA SU INFO)
 					if (archivo1.getAbsolutePath().contains("Sucursales")) { 
 						try {
 							//APORTA LA INFORMACION PARA IDENTIFICAR EL FICHERO 
 							rutaArchivo = new FileOutputStream(archivo1);
 							//PROCESA OBJETOS JAVA Y SE VINCULA A UN OBJETO DE LA CLASE FileOutputStream 
 							fichero_objeto = new ObjectOutputStream(rutaArchivo);
-							//CODIFICA LA LISTA QUE CONTIENE LAS AEROLINEAS Y LAS GUARDA EN EL ARCHIVO AL QUE ESTA VINCULADO fichero_objeto
+							//CODIFICA LA LISTA QUE CONTIENE LAS SUCURSALES Y LAS GUARDA EN EL ARCHIVO AL QUE ESTA VINCULADO fichero_objeto
 							fichero_objeto.writeObject(Sucursal.getTodasLasSucursales()); 
 						} catch (FileNotFoundException e) {
 							// TODO Auto-generated catch block
@@ -52,8 +52,8 @@ public class Serializador {
 							e.printStackTrace(); 
 						}
 					
-					//VERIFICA SI LA RUTA DEL ARCHIVO CONTIENE LA PALABRA Alojamientos(DONDE ALMACENAREMOS LA LISTA DE ALOJAMIENTOS Y TODA SU INFO)
-					//SE COMPORTA DE IGUAL FORMA QUE EL ANTERIOR, PERO SERIALIZANDO UNA LISTA DE ALOJAMIENTOS	
+					//VERIFICA SI LA RUTA DEL ARCHIVO CONTIENE LA PALABRA TRANSPORTES(DONDE ALMACENAREMOS LA LISTA DE TRANSPORTES Y TODA SU INFO)
+					//SE COMPORTA DE IGUAL FORMA QUE EL ANTERIOR, PERO SERIALIZANDO UNA LISTA DE TRANSPORTES	
 					}else if(archivo1.getAbsolutePath().contains("Transportes")) { 
 						try {
 							rutaArchivo = new FileOutputStream(archivo1); 

@@ -1,1 +1,0 @@
-Aqi irian los archivos de bits de los objetos que se usan en el serializador.

@@ -10,6 +10,7 @@ import transportes.*;
 
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
@@ -101,7 +102,7 @@ public class Main {
                     numeroValido = true;
                     break;
                 case 5:
-                    recogerPaquete();
+                    recogerPaquete(sucursal);
                     numeroValido = true;
                     break;
                 case 6:
@@ -747,22 +748,33 @@ public class Main {
     //Revisar
     //Recoger
     //Estaba en la clase Sucursal y no esta terminado, hayq eu cambiarle MUCHAS cosas
+    // :(
 
 
     public static void recogerPaquete(Sucursal sucursal) { //Sucursal desde la cual se está recogiendo el paquete
     Scanner scanner = new Scanner(System.in);
-        println("-----------------RECOGER PRODUCTO----------------");
-        print("Ingrese el código de la guía: ");
-        int codigoPaquete = scanner.nextInt();
-        scanner.nextLine();
-        print("Ingrese su nombre completo: ");
-        String nombreRemitente = scanner.nextLine();
-        print("Ingrese su cédula: ");
-        int cedulaRemitente = scanner.nextInt();
-
+    boolean datosValidos = false;
+    while (!datosValidos) {
+        try {
+        	println("-----------------RECOGER PRODUCTO----------------");
+        	print("Ingrese el código de la guía: ");
+        	int codigoPaquete = scanner.nextInt();
+        	
+        	scanner.nextLine();
+        	print("Ingrese su nombre completo: ");
+        	String nombreRemitente = scanner.nextLine();
+        	print("Ingrese su cédula: ");
+        	int cedulaRemitente = scanner.nextInt();
+        
+        	datosValidos = true;
+        } catch (InputMismatchException e) {
+        	System.out.println("Error: Ha ingresado un valor incorrecto. Por favor, ingrese un valor válido.");
+            scanner.nextLine(); 
+        }
         Producto producto = null;
         for (Producto productos : Producto.getTodosLosProductos()) { //Revisa en todos los productos creados
-            if (producto.getCodigo() == codigoPaquete) { //Encuentra el producto que coincida con el codigo
+            int codigoPaquete;
+			if (producto.getCodigo() == codigoPaquete) { //Encuentra el producto que coincida con el codigo
                 producto = productos;
                 break;
             }
@@ -770,8 +782,10 @@ public class Main {
 
         if (producto != null) {
             if (producto.getGuia().getSucursalLlegada() == sucursal) { //Verifica si esa si es la sucursal de destino final
-                if (producto.getGuia().getDestinatario().getNombre().equals(nombreRemitente)) { //Verifica el nombre del destinatario
-                    if (producto.getGuia().getDestinatario().getCedula() == cedulaRemitente) { //Verifica la cedula del destinatario
+                String nombreRemitente;
+				if (producto.getGuia().getDestinatario().getNombre().equals(nombreRemitente)) { //Verifica el nombre del destinatario
+                    long cedulaRemitente;
+					if (producto.getGuia().getDestinatario().getCedula() == cedulaRemitente) { //Verifica la cedula del destinatario
                         if (producto.getGuia().isEntregaEnSucursal()) { //Creo que esto es redundante
                             if (producto.getGuia().getEstado() == Guia.estado.ENESPERA && sucursal.getInventario().contains(producto)) { //Tambien redundante
                                 //if (producto.getGuia().)
@@ -807,8 +821,13 @@ public class Main {
         } else {
             println("Datos incorrectos, intente nuevamente");
         }
+    }
 
     }
+    
+    
+    
+    
 
     //Revisar
     //Rastrear

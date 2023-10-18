@@ -302,39 +302,6 @@ public class Sucursal implements Serializable{
         return false;
     }
 
-    //Revisar
-    //Rastrear
-    public static void rastrear(int codigo) {
-        Producto producto = null;
-        for (Producto producto1 : Producto.getTodosLosProductos()) {
-            if (producto1.getCodigo() == codigo) {
-                producto = producto1;
-                break;
-            }
-        }
-
-        if (producto != null) {
-            switch (producto.getGuia().getEstado()) {
-                case ENTRANSITO:
-                    String lugarActual;
-                    boolean estaEnSucursal;
-                    for (Sucursal sucursal : producto.getGuia().getRuta()) {
-                        if (sucursal.verificarProducto(producto)) {
-                            estaEnSucursal = true;
-                            lugarActual = sucursal.getNombre();
-                            break;
-                        }
-                    }
-
-                    //if (estaEnSucursal) {}
-
-            }
-
-        } else {
-
-        }
-    }
-
 
     //Revisar
     //Ubicar paquete
@@ -355,58 +322,6 @@ public class Sucursal implements Serializable{
             return "El producto está en reparto, se encuentra entre " + producto.getGuia().getVehiculo();
         }
 
-    }
-
-    //recoger
-    public String recoger(int codigoPaquete, String nombreRemitente, int cedulaRemitente) {
-        Producto paquete = null;
-        for (Producto producto : Producto.getTodosLosProductos()) { //Revisa en todos los productos creados
-            if (producto.getCodigo() == codigoPaquete) { //Encuentra el producto que coincida con el codigo
-                paquete = producto;
-                break;
-            }
-        }
-
-        if (paquete != null) {
-            if (paquete.getGuia().getSucursalLlegada() == this) { //Verifica si esa si es la sucursal de destino final
-                if (paquete.getGuia().getDestinatario().getNombre().equals(nombreRemitente)) { //Verifica el nombre del destinatario
-                    if (paquete.getGuia().getDestinatario().getCedula() == cedulaRemitente) { //Verifica la cedula del destinatario
-                        if (paquete.getGuia().isEntregaEnSucursal()) { //Creo que esto es redundante
-                            if (paquete.getGuia().getEstado() == estado.ENESPERA && inventario.contains(paquete)) { //Tambien redundante
-                                //if (producto.getGuia().)
-                                if (paquete.getGuia().getTipoDePago() == Guia.tipoDePago.DESTINATARIO) { //Verifica el pago contraentrega
-                                    return "Para retirar el producto tiene que cancelar el servicio por valor de $" +
-                                            paquete.getGuia().getPrecioTotal();
-                                    //Pagar
-                                } else {
-                                    inventario.remove(paquete);
-                                    Random random = new Random();
-                                    return "Operación realizada con éxito, favor acercarce a la caja " +
-                                            random.nextInt(5) + " para retirar su paquete, muchas gracias por usar nuestro servicio";
-                                }
-                            } else if (paquete.getGuia().getEstado() == estado.ENTREGADO) {
-                                return "El paquete fue entregado el dia# del mes #";
-                            } else if (paquete.getGuia().getEstado() == estado.ENTRANSITO) {
-                                return "El paquete todavía no ha llegado";
-                                //rastrear
-                            }
-                        } else {
-                            return "Lo sentimos, el paquete fue programado para tener como destino la siguiente dirección" +
-                                    paquete.getGuia().getDireccion();
-                        }
-                    } else {
-                        return "Datos incorrectos, intente nuevamente";
-                    }
-                } else {
-                    return "Datos incorrectos, intente nuevamente";
-                }
-            } else {
-                return "El paquete tiene como destino la ciudad de " + paquete.getGuia().getSucursalLlegada().getNombre();
-            }
-        } else {
-            return "Datos incorrectos, intente nuevamente";
-        }
-        return "";
     }
 /*
 		public String recoger(Producto producto, int remitente, int destinatario) {

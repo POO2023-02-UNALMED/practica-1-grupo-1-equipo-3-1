@@ -5,17 +5,15 @@ import personas.*;
 import productos.Animal.tipoAnimal;
 import administracion.Guia.tipoDePago;
 import administracion.*;
-import administracion.EventosAleatorios;
 import personas.Cliente;
 import transportes.*;
-import personas.Cliente;
 
 
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
-import basedatos.Serializador;
+
 import basedatos.Deserializador;
 // Menu principal
 public class Main {
@@ -99,7 +97,7 @@ public class Main {
                     numeroValido = true;
                     break;
                 case 4:
-                    rastrearPaquete();
+                    rastrearPaquete(1);
                     numeroValido = true;
                     break;
                 case 5:
@@ -746,12 +744,104 @@ public class Main {
 
     }
 
-    public static void recogerPaquete() {
-        // TODO Auto-generated method stub
+    //Revisar
+    //Recoger
+    //Estaba en la clase Sucursal y no esta terminado, hayq eu cambiarle MUCHAS cosas
+
+
+    public static void recogerPaquete(Sucursal sucursal) { //Sucursal desde la cual se está recogiendo el paquete
+    Scanner scanner = new Scanner(System.in);
+        println("-----------------RECOGER PRODUCTO----------------");
+        print("Ingrese el código de la guía: ");
+        int codigoPaquete = scanner.nextInt();
+        scanner.nextLine();
+        print("Ingrese su nombre completo: ");
+        String nombreRemitente = scanner.nextLine();
+        print("Ingrese su cédula: ");
+        int cedulaRemitente = scanner.nextInt();
+
+        Producto producto = null;
+        for (Producto productos : Producto.getTodosLosProductos()) { //Revisa en todos los productos creados
+            if (producto.getCodigo() == codigoPaquete) { //Encuentra el producto que coincida con el codigo
+                producto = productos;
+                break;
+            }
+        }
+
+        if (producto != null) {
+            if (producto.getGuia().getSucursalLlegada() == sucursal) { //Verifica si esa si es la sucursal de destino final
+                if (producto.getGuia().getDestinatario().getNombre().equals(nombreRemitente)) { //Verifica el nombre del destinatario
+                    if (producto.getGuia().getDestinatario().getCedula() == cedulaRemitente) { //Verifica la cedula del destinatario
+                        if (producto.getGuia().isEntregaEnSucursal()) { //Creo que esto es redundante
+                            if (producto.getGuia().getEstado() == Guia.estado.ENESPERA && sucursal.getInventario().contains(producto)) { //Tambien redundante
+                                //if (producto.getGuia().)
+                                if (producto.getGuia().getTipoDePago() == Guia.tipoDePago.DESTINATARIO) { //Verifica el pago contraentrega
+                                    println("Para retirar el producto tiene que cancelar el servicio por valor de $" +
+                                            producto.getGuia().getPrecioTotal());
+                                    //Pagar
+                                } else {
+                                    sucursal.getInventario().remove(producto);
+                                    Random random = new Random();
+                                    println("Operación realizada con éxito, favor acercarce a la caja " +
+                                            random.nextInt(5) + " para retirar su paquete, muchas gracias por usar nuestro servicio");
+                                }
+                            } else if (producto.getGuia().getEstado() == Guia.estado.ENTREGADO) {
+                                println("El paquete fue entregado el dia# del mes #");
+                            } else if (producto.getGuia().getEstado() == Guia.estado.ENTRANSITO) {
+                                println("El paquete todavía no ha llegado");
+                                //rastrear
+                            }
+                        } else {
+                            println("Lo sentimos, el paquete fue programado para tener como destino la siguiente dirección" +
+                                    producto.getGuia().getDireccion());
+                        }
+                    } else {
+                        println("Datos incorrectos, intente nuevamente");
+                    }
+                } else {
+                    println("Datos incorrectos, intente nuevamente");
+                }
+            } else {
+                println("El paquete tiene como destino la ciudad de " + producto.getGuia().getSucursalLlegada().getNombre());
+            }
+        } else {
+            println("Datos incorrectos, intente nuevamente");
+        }
 
     }
 
-    public static void rastrearPaquete() {
+    //Revisar
+    //Rastrear
+    public static void rastrearPaquete(int codigo) {
+
+        Producto producto = null;
+        for (Producto producto1 : Producto.getTodosLosProductos()) {
+            if (producto1.getCodigo() == codigo) {
+                producto = producto1;
+                break;
+            }
+        }
+
+        if (producto != null) {
+            switch (producto.getGuia().getEstado()) {
+                case ENTRANSITO:
+                    String lugarActual;
+                    boolean estaEnSucursal;
+                    for (Sucursal sucursal : producto.getGuia().getRuta()) {
+                        if (sucursal.verificarProducto(producto)) {
+                            estaEnSucursal = true;
+                            lugarActual = sucursal.getNombre();
+                            break;
+                        }
+                    }
+
+                    //if (estaEnSucursal) {}
+
+            }
+
+        } else {
+
+        }
         // TODO Auto-generated method stub
 
     }

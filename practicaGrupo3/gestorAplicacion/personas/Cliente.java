@@ -10,7 +10,7 @@ import administracion.CuentaBancaria;
 // EN ESTA CLASE ADEMAS DE HEREDAR DE PERSONA TIENE UN ATRIBUTO SUYO PROPIO QUE ES MEMBRESIA
 
 public class Cliente extends Persona{
-	private Membresia membresia;
+	private static Membresia membresia;
 
 	public Cliente() {
 	}
@@ -20,12 +20,15 @@ public class Cliente extends Persona{
 		membresia = new Membresia();
 	}
 	
-	public Membresia getMembresia() {
+	public static Membresia getMembresia() {
 		return membresia;
 	}
 
 	public String toString() {
-		String r = "El cliente identificado como " +  getNombre() + " con cedula " + getCedula() + " y\ncon membresia " + getMembresia().getBeneficio();
+		String r = "El cliente identificado como " +  getNombre() + "\ncon cedula " + getCedula() + " cuenta con membresia " + getMembresia().getBeneficio();
 		return r;
+	}
+	public static String informacionMembresia() {
+		return "El cliente identificado como " +  getNombre() + "\ncon cedula " + getCedula() + " cuenta con membresia " + getMembresia().getBeneficio();
 	}
 }

@@ -83,11 +83,19 @@ public class CuentaBancaria {
     
 
     public static String imprimirInformacion() {
-    	return "Los Datos De Tú Cuenta Bancaria Son Los Siguientes:\n"
+    	return "--------------------------------\n" +
+    			"Número De Cuenta: " + numero +"\n" +
+    			"CVV: " + cvv +"\n"+
+    			"Fecha De Expiración: " + fechaExpiracion +"\n"+
+                "Saldo: $" + saldo+"\n"+
+                "--------------------------------";
+    			
+    			
+    	/*"Los Datos De Tú Cuenta Bancaria Son Los Siguientes:\n"
          +"Número De Cuenta: " + numero +"\n"
          +"CVV: " + cvv +"\n"
         +"Fecha De Expiración: " + fechaExpiracion +"\n"
-        +"Saldo: $" + saldo+"\n";
+        +"Saldo: $" + saldo+"\n";*/
     }
     
 	public boolean descontarSaldo(double montoAPagar) {

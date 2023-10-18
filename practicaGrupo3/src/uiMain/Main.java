@@ -949,14 +949,21 @@ private static void credencialesUsuario() {
         }catch (InputMismatchException e) {
         	System.out.println("Error: Ha ingresado un valor incorrecto. Por favor, ingrese un valor válido.");
             scanner.nextLine();
+            
         	int opcionCliente = scanner.nextInt();
         	scanner.nextLine();
         switch (opcionCliente) {
-        	case 1: // cuenta Bancaria
-        		 println("-------------------------------------------------");
-        		 println(CuentaBancaria.imprimirInformacion());
-        		
         
+        	case 1: // cuenta Bancaria
+        		 println(CuentaBancaria.imprimirInformacion());
+        		 
+        	case 2: //membresía
+        		println(Cliente.informacionMembresia());
+        		
+        	case 3: //volver al menu
+        		break;
+   
+ 
         }
         
 	

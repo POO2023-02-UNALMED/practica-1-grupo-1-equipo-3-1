@@ -751,83 +751,9 @@ public class Main {
     // :(
 
     
-    public static void recogerPaquete(Sucursal sucursal) {
-        Scanner scanner = new Scanner(System.in);
-        boolean datosValidos = false;
-        
-        while (!datosValidos) {
-            try {
-                println("-----------------RECOGER PRODUCTO----------------");
-                print("Ingrese el código de la guía: ");
-                int codigoPaquete = scanner.nextInt();
-                
-                scanner.nextLine(); // Limpia el buffer del scanner
-                print("Ingrese su nombre completo: ");
-                String nombreRemitente = scanner.nextLine();
-                print("Ingrese su cédula: ");
-                int cedulaRemitente = scanner.nextInt();
-                
-                // Encuentra el producto por código
-                Producto producto = encontrarProductoPorCodigo(codigoPaquete);
+   
 
-                if (producto != null && verificarDatos(producto, nombreRemitente, cedulaRemitente, sucursal)) {
-                    realizarEntrega(producto, sucursal);
-                    datosValidos = true;
-                } else {
-                    println("Datos incorrectos, intente nuevamente");
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Error: Ha ingresado un valor incorrecto. Por favor, ingrese un valor válido.");
-                scanner.nextLine();
-            }
-        }
-    }
-
-    private static Producto encontrarProductoPorCodigo(int codigo) {
-        for (Producto producto : Producto.getTodosLosProductos()) {
-            if (producto.getCodigo() == codigo) {
-                return producto;
-            }
-        }
-        return null; // Producto no encontrado
-    }
-
-    private static boolean verificarDatos(Producto producto, String nombreRemitente, int cedulaRemitente, Sucursal sucursal) {
-        return producto.getGuia().getSucursalLlegada() == sucursal &&
-               producto.getGuia().getDestinatario().getNombre().equals(nombreRemitente) &&
-               producto.getGuia().getDestinatario().getCedula() == cedulaRemitente;
-    }
-
-    private static void realizarEntrega(Producto producto, Sucursal sucursal) {
-        Guia guia = producto.getGuia();
-        
-        if (guia.isEntregaEnSucursal()) {
-            if (guia.getEstado() == Guia.estado.ENESPERA && sucursal.getInventario().contains(producto)) {
-                if (guia.getTipoDePago() == Guia.tipoDePago.DESTINATARIO) {
-                    println("Para retirar el producto tiene que cancelar el servicio por valor de $" + guia.getPrecioTotal());
-                    // Agregar lógica de pago
-                } else {
-                    sucursal.getInventario().remove(producto);
-                    Random random = new Random();
-                    println("Operación realizada con éxito, favor acercarse a la caja " +
-                            random.nextInt(5) + " para retirar su paquete, muchas gracias por usar nuestro servicio");
-                }
-            } else if (guia.getEstado() == Guia.estado.ENTREGADO) {
-                println("El paquete fue entregado el día " + guia.getFecha().getDayOfWeek() + " del mes " + guia.getFecha().getMonth());
-            } else if (guia.getEstado() == Guia.estado.ENTRANSITO) {
-                println("El paquete todavía no ha llegado");
-                // Agregar lógica de rastreo si es necesario
-            }
-        } else {
-            println("Lo sentimos, el paquete fue programado para tener como destino la siguiente dirección: " +
-                    guia.getDireccion());
-        }
-    }
-
-    
-    
-
-   /* public static void recogerPaquete(Sucursal sucursal) { //Sucursal desde la cual se está recogiendo el paquete
+   public static void recogerPaquete(Sucursal sucursal) { //Sucursal desde la cual se está recogiendo el paquete
     Scanner scanner = new Scanner(System.in);
     boolean datosValidos = false;
     while (!datosValidos) {
@@ -847,9 +773,52 @@ public class Main {
         	System.out.println("Error: Ha ingresado un valor incorrecto. Por favor, ingrese un valor válido.");
             scanner.nextLine(); 
         }
-        Producto producto = null;
+    }
+   }
+        //esto verificar con prints
+        private static Producto encontrarProductoPorCodigo(int codigo) {
+            for (Producto producto : Producto.getTodosLosProductos()) {
+                if (producto.getCodigo() == codigo) {
+                    return producto;
+                }
+            }
+            return null; // Producto no encontrado
+        }
+
+        private static boolean verificarDatos(Producto producto, String nombreRemitente, int cedulaRemitente, Sucursal sucursal) {
+            return producto.getGuia().getSucursalLlegada() == sucursal &&
+                   producto.getGuia().getDestinatario().getNombre().equals(nombreRemitente) &&
+                   producto.getGuia().getDestinatario().getCedula() == cedulaRemitente;
+        }
+
+        private static void realizarEntrega(Producto producto, Sucursal sucursal) {
+            Guia guia = producto.getGuia();
+            
+            if (guia.isEntregaEnSucursal()) {
+                if (guia.getEstado() == Guia.estado.ENESPERA && sucursal.getInventario().contains(producto)) {
+                    if (guia.getTipoDePago() == Guia.tipoDePago.DESTINATARIO) {
+                        println("Para retirar el producto tiene que cancelar el servicio por valor de $" + guia.getPrecioTotal());
+                        // Agregar lógica de pago
+                    } else {
+                        sucursal.getInventario().remove(producto);
+                        Random random = new Random();
+                        println("Operación realizada con éxito, favor acercarse a la caja0\n" +
+                                random.nextInt(5) + " para retirar su paquete, muchas gracias por usar nuestro servicio");
+                    }
+                } else if (guia.getEstado() == Guia.estado.ENTREGADO) {
+                    println("El paquete fue entregado el día " + guia.getFecha().getDayOfWeek() + " del mes " + guia.getFecha().getMonth());
+                } else if (guia.getEstado() == Guia.estado.ENTRANSITO) {
+                    println("El paquete todavía no ha llegado");
+                   
+                }
+            } else {
+                println("Lo sentimos, el paquete fue programado para tener como destino la siguiente dirección: " +
+                        guia.getDireccion());
+            }
+        }
+        /*Producto producto = null;
         for (Producto productos : Producto.getTodosLosProductos()) { //Revisa en todos los productos creados
-            int codigoPaquete;
+            int codigoPaquete = Producto.codigo;
 			if (producto.getCodigo() == codigoPaquete) { //Encuentra el producto que coincida con el codigo
                 producto = productos;
                 break;
@@ -858,9 +827,9 @@ public class Main {
 
         if (producto != null) {
             if (producto.getGuia().getSucursalLlegada() == sucursal) { //Verifica si esa si es la sucursal de destino final
-                String nombreRemitente;
+                String nombreRemitente = null;
 				if (producto.getGuia().getDestinatario().getNombre().equals(nombreRemitente)) { //Verifica el nombre del destinatario
-                    long cedulaRemitente;
+                    long cedulaRemitente = 0;
 					if (producto.getGuia().getDestinatario().getCedula() == cedulaRemitente) { //Verifica la cedula del destinatario
                         if (producto.getGuia().isEntregaEnSucursal()) { //Creo que esto es redundante
                             if (producto.getGuia().getEstado() == Guia.estado.ENESPERA && sucursal.getInventario().contains(producto)) { //Tambien redundante

@@ -23,7 +23,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-/*
+
 		ArrayList<Camion> camionesMN = new ArrayList<>();
 
 		ArrayList<Moto> motosMN = new ArrayList<>();
@@ -48,15 +48,17 @@ public class Main {
 
         Sucursal bogotaSur = new Sucursal("Bogotá Sur", 1000, 500, 4, 2, camionesMN, motosMN, avionesMN);
 
-fhajfdhjf
- */
-		//Serializador.serializar();
+
+
+		Serializador.serializar();
 		
-		Deserializador.deserializar();
+		//Deserializador.deserializar();
 	
-		for (Sucursal obj: Sucursal.getTodasLasSucursales()) {
+		/*for (Sucursal obj: Sucursal.getTodasLasSucursales()) {
 			System.out.println(obj.getNombre());
 		}
+
+		 */
 		
 		//Menu principal
 		//Main.menuPrincipal(medellinNorte);
@@ -82,7 +84,7 @@ fhajfdhjf
         println("4) Rastrear paquete.");
         println("5) Recoger paquete.");
         println("6) Reclamos.");
-        println("7) Reclamos.");
+        println("7) Credenciales usuario.");
         println("8) Terminar.");
         print("Elige una opcion: ");
 

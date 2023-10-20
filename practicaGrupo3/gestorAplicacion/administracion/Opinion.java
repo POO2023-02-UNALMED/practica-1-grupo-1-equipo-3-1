@@ -44,17 +44,17 @@ public class Opinion {
 	}
 
 	
-	public String Analisis() {
+/*	public String Analisis() {
 		if (promedioPuntualidad() < 2) {
 			
 		}
 		if (promedioIntegridad() < 2 ) {
 			for (Producto producto: getSucursal().getInventario()) {
-				if (producto.getGuia().getSucursalLlegada() == /* SI ES IGUAL A LA SIGIENTE TERMINAL EN LA RUTA*/){
+				if (producto.getGuia().getSucursalLlegada() == /* SI ES IGUAL A LA SIGIENTE TERMINAL EN LA RUTA){
 					//PREPARAR UNOS O LOS TRANSPORTES QUE SEAN NECEARIO PARA LLEVAR LOS PAQUETES Y ENVIARLOS
 						}
 				else {
-					if (/* SI EN LA CIUDAD DE LA SUCURSAL SE ENCUENTRA TODAVIA ABIERTA LA OTRA SUCURSAL SE ENVIA EL RESTO DE LOS PAQUETES ALLA */) {
+					if (/* SI EN LA CIUDAD DE LA SUCURSAL SE ENCUENTRA TODAVIA ABIERTA LA OTRA SUCURSAL SE ENVIA EL RESTO DE LOS PAQUETES ALLA ) {
 						
 					}
 					else {
@@ -68,7 +68,7 @@ public class Opinion {
 		}
 	}
 
-	
+	*/
 	
 	
 	

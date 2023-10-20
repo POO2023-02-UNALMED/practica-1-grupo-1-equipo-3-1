@@ -15,6 +15,7 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
+import basedatos.Serializador;
 import basedatos.Deserializador;
 // Menu principal
 public class Main {
@@ -49,14 +50,14 @@ public class Main {
 
 
  */
-		basedatos.Serializador.serializar();
+		//Serializador.serializar();
 		
 		Deserializador.deserializar();
-		/*
+	
 		for (Sucursal obj: Sucursal.getTodasLasSucursales()) {
 			System.out.println(obj.getNombre());
 		}
-		*/
+		
 		//Menu principal
 		//Main.menuPrincipal(medellinNorte);
 

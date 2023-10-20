@@ -48,18 +48,18 @@ public class Main {
 
         Sucursal bogotaSur = new Sucursal("Bogotá Sur", 1000, 500, 4, 2, camionesMN, motosMN, avionesMN);
 
-fhajfdhjf
+
  */
 		//Serializador.serializar();
 		
 		Deserializador.deserializar();
-	
+	/*
 		for (Sucursal obj: Sucursal.getTodasLasSucursales()) {
 			System.out.println(obj.getNombre());
 		}
-		
+		*/
 		//Menu principal
-		//Main.menuPrincipal(medellinNorte);
+		Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
 
 	}
 

@@ -50,7 +50,7 @@ public class Opinion {
 		}
 		if (promedioIntegridad() < 2 ) {
 			for (Producto producto: getSucursal().getInventario()) {
-				if (producto.getGuia().getSucursaLlegada() == /* SI ES IGUAL A LA SIGIENTE TERMINAL EN LA RUTA*/){
+				if (producto.getGuia().getSucursalLlegada() == /* SI ES IGUAL A LA SIGIENTE TERMINAL EN LA RUTA*/){
 					//PREPARAR UNOS O LOS TRANSPORTES QUE SEAN NECEARIO PARA LLEVAR LOS PAQUETES Y ENVIARLOS
 						}
 				else {
@@ -67,6 +67,7 @@ public class Opinion {
 			// LO ELIMINAMOS AUNQUE TODAVIA NO SE COMO
 		}
 	}
+
 	
 	
 	

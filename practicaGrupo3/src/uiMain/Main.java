@@ -24,16 +24,17 @@ public class Main {
 
 /*
 		ArrayList<Camion> camionesMN = new ArrayList<>();
-		camionesMN.add(new Camion("Medellín", 27, 300, "ABC109"));
 
 		ArrayList<Moto> motosMN = new ArrayList<>();
-		motosMN.add(new Moto("Medellín", 1, 30, "ABC123"));
 
 		ArrayList<Avion> avionesMN = new ArrayList<>();
-		avionesMN.add(new Avion("Medellín", 200, 2000, "asdfg"));
 
 		Sucursal medellinNorte = new Sucursal("Medellin Norte", 100, 100, -6, 8, camionesMN, motosMN, avionesMN);
-		Sucursal medellinSur = new Sucursal("Medellin Sur", 100, 100, -6, 6, camionesMN, motosMN, avionesMN);
+        camionesMN.add(new Camion(medellinNorte, 27, 300, "ABC109"));
+        motosMN.add(new Moto(medellinNorte, 1, 30, "ABC123"));
+
+
+        Sucursal medellinSur = new Sucursal("Medellin Sur", 100, 100, -6, 6, camionesMN, motosMN, avionesMN);
 
 		Sucursal caliNorte = new Sucursal("Cali Norte", 400, 200, -8, -4, camionesMN, motosMN, avionesMN);
 		Sucursal caliSur = new Sucursal("Cali Sur", 400, 200, -8, -6, camionesMN, motosMN, avionesMN);
@@ -42,9 +43,13 @@ public class Main {
 		Sucursal pastoSur = new Sucursal("Pasto Sur", 200, 700, -12, -12, camionesMN, motosMN, avionesMN);
 
 		Sucursal bogotaNorte = new Sucursal("Bogotá Norte", 1000, 500, 4, 2, camionesMN, motosMN, avionesMN);
-		Sucursal bogotaSur = new Sucursal("Bogotá Sur", 1000, 500, 4, 2, camionesMN, motosMN, avionesMN);
-*/
-		//Serializador.serializar();
+        avionesMN.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "asdfg"));
+
+        Sucursal bogotaSur = new Sucursal("Bogotá Sur", 1000, 500, 4, 2, camionesMN, motosMN, avionesMN);
+
+
+ */
+		basedatos.Serializador.serializar();
 		
 		Deserializador.deserializar();
 		/*

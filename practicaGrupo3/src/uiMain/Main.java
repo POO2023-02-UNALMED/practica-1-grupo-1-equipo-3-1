@@ -48,8 +48,8 @@ public class Main {
 
         Sucursal bogotaSur = new Sucursal("Bogotá Sur", 1000, 500, 4, 2, camionesMN, motosMN, avionesMN);
 
+*/
 
- */
 		//Serializador.serializar();
 		
 		Deserializador.deserializar();

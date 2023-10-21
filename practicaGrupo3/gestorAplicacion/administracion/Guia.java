@@ -67,11 +67,14 @@ public class Guia {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
 
 		fechaDeEnvio = fecha.format(formatter);
-
-		precioTotal = producto.getCostoDelPedido();
-
 		pagoPendiente = precioTotal;
 		asignarRuta();
+		if (vehiculo instanceof Camion) {
+			precioTotal = producto.costoDelPedido + ruta.size() * 2000;
+		} else if (vehiculo instanceof Avion){
+			precioTotal = producto.costoDelPedido + ruta.size() * 5000;
+		}
+
 	}
 	
 	//métodos
@@ -85,19 +88,21 @@ public class Guia {
 	}
 
 	public void asignarPrecio() {
-		int transportePrecio = 0;
-		if (vehiculo instanceof Camion) {
-			transportePrecio = 5000;
-		} else if (vehiculo instanceof Avion){
-			transportePrecio = 10000;
-		}
-
 		int cantidadDeSucursales = ruta.size();
 
-		precioTotal = producto.costoDelPedido + cantidadDeSucursales * transportePrecio;
 	}
-	public void aplicarDescuento() {
 
+	public void aplicarDescuento() {
+		switch (getRemitente().getMembresia().getBeneficio()) {
+			case PLATINUM:
+				precioTotal = precioTotal * 0.5; //Descuento del 50%
+			case GOLD:
+				precioTotal = precioTotal * 0.75;; //Descuento del 25%
+			case SILVER:
+				precioTotal = precioTotal * 0.9;; //Descuento del 10%
+			case DEFAULT:
+				precioTotal = precioTotal * 1;
+		}
 	}
 	
 	//Antihoraria
@@ -137,22 +142,10 @@ public class Guia {
 	} 
 
 
-
-	/*public String toString() {
-		String format = "| %-16s | %-18s | %-15s | %-16s | %-14s |\n";
-		StringBuilder tabla = new StringBuilder();
-		tabla.append("+------------------+--------------------+-----------------+------------------+----------------+\n");
-		tabla.append("|  Código Paquete  |  Tipo de Producto  |    |  Ciudad Destino  |  Precio Total  |\n");
-		tabla.append("+------------------+--------------------+-----------------+------------------+----------------+\n");
-		tabla.append(String.format(format, String.valueOf(producto.getCodigo()), String.valueOf(producto.getClass().getSimpleName()), String.valueOf(sucursalOrigen.getNombre()), String.valueOf(sucursalLlegada.getNombre()), String.valueOf(precioTotal) + "$"));
-		tabla.append("+------------------+--------------------+-----------------+------------------+----------------+\n");
-		return tabla.toString();
-	}
-
-	 */
 	public String toString() {
 		String format = "| %-18s | %-18s |\n";
 		StringBuilder tabla = new StringBuilder();
+		tabla.append("+--------------------GUIA-----------------+\n");
 		tabla.append("+--------------------+--------------------+\n");
 		tabla.append(String.format(format, "Tipo de Producto", String.valueOf(producto.getClass().getSimpleName())));
 		tabla.append("+--------------------+--------------------+\n");
@@ -162,11 +155,9 @@ public class Guia {
 		tabla.append("+--------------------+--------------------+\n");
 		tabla.append(String.format(format, "Ciudad Destino", String.valueOf(sucursalLlegada.getNombre())));
 		tabla.append("+--------------------+--------------------+\n");
-		tabla.append(String.format(format, "Tipo de Pago", String.valueOf(tipoDePago)));
+		tabla.append(String.format(format, "Tipo de Pago", String.valueOf(tipoDePago).toLowerCase()));
 		tabla.append("+--------------------+--------------------+\n");
 		tabla.append(String.format(format, "Precio Total", String.valueOf(precioTotal) + "$"));
-		tabla.append("+--------------------+--------------------+\n");
-		tabla.append(String.format(format, "Dirección", "direccion"));
 		tabla.append("+--------------------+--------------------+\n");
 		tabla.append(String.format(format, "Vehículo", String.valueOf(vehiculo.getClass().getSimpleName())));
 		tabla.append("+--------------------+--------------------+\n");

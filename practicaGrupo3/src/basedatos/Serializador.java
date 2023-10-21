@@ -9,6 +9,8 @@ import java.io.PrintWriter;
 
 import administracion.Sucursal;
 import transportes.Transporte;
+import personas.Persona;
+import administracion.CuentaBancaria;
 
 public class Serializador {
 	private static File rutaTemp = new File("src\\basedatos\\temp");
@@ -66,10 +68,36 @@ public class Serializador {
 							// TODO Auto-generated catch block e.printStackTrace();
 							e.printStackTrace();
 						}
+
+					}else if(archivo1.getAbsolutePath().contains("Personas")) {
+						try {
+							rutaArchivo = new FileOutputStream(archivo1);
+							fichero_objeto = new ObjectOutputStream(rutaArchivo);
+							fichero_objeto.writeObject(Persona.getTodasLasPersonas());
+						}catch (FileNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block e.printStackTrace();
+							e.printStackTrace();
+
+						}
+					}else if(archivo1.getAbsolutePath().contains("CuentasBancarias")) {
+						try {
+							rutaArchivo = new FileOutputStream(archivo1);
+							fichero_objeto = new ObjectOutputStream(rutaArchivo);
+							fichero_objeto.writeObject(CuentaBancaria.getTodasLasCuentas());
+						}catch (FileNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block e.printStackTrace();
+							e.printStackTrace();
+
+						}
 					}
 				}
-			}
-
+	}
 }
 
 

@@ -525,6 +525,16 @@ public class Main {
                             guia = new Guia(producto, remitente, destinatario, sucursalOrigen, sucursalDestino, tipoDePago, true, vehiculo);
                             sucursalOrigen.agregarProducto(producto);
                             println(guia);
+                            println(guia.getRuta());
+                            println(guia.getPrecioTotal());
+                            guia.aplicarDescuento();
+                            println(guia.getPrecioTotal());
+                            println(guia.getRemitente().getMembresia().getBeneficio());
+
+                            if (guia.getVehiculo() instanceof Camion) {
+                                println("Es camion");
+                            }
+
                             Main.menuPrincipal(sucursalOrigen);
                             numeroValido6 = true;
                             break;
@@ -647,8 +657,6 @@ public class Main {
         print("Fecha de expiración: ");
         String fechaExpiracion = scanner.nextLine();
 
-        println("-------------------------------------------------");
-
         CuentaBancaria cuentaCliente = null;
         for (CuentaBancaria cuenta : CuentaBancaria.getTodasLasCuentas()) {
             if (cuenta.getNumero() == numero) {
@@ -661,25 +669,7 @@ public class Main {
                 if (cuentaCliente.getNumero() == numero) {
                     if (cuentaCliente.getCVV() == cvv) {
                         if (cuentaCliente.getFechaExpiracion().equals(fechaExpiracion)) {
-                            if (guia.getTipoDePago() == tipoDePago.DESTINATARIO) {
-                                println(String.format("-----------------BIENVENIDO %s------------------", cuentaCliente.getTitular().getNombre().toUpperCase()));
-
-
-                                confirmarPago(guia, cuentaCliente, sucursal);
-
-                            } else {
-                                switch (guia.getRemitente().getMembresia().getBeneficio()) {
-                                    case PLATINUM:
-                                        guia.setPrecioTotal(guia.getPrecioTotal() * 0.5); //Descuento del 50%
-                                    case GOLD:
-                                        guia.setPrecioTotal(guia.getPrecioTotal() * 0.75); //Descuento del 25%
-                                    case SILVER:
-                                        guia.setPrecioTotal(guia.getPrecioTotal() * 0.9); //Descuento del 10%
-                                }
-                                println(String.format("-----------------BIENVENIDO %s------------------", cuentaCliente.getTitular().getNombre().toUpperCase()));
-
-                                confirmarPago(guia, cuentaCliente, sucursal);
-                            }
+                            confirmarPago(guia, cuentaCliente, sucursal);
                         } else {
                             println("Datos incorrectos, intente nuevamente");
                         }
@@ -721,7 +711,9 @@ public class Main {
             int entrada = scanner.nextInt();
             switch (entrada) {
                 case 1:
-                    if (guia.getSucursalLlegada() == sucursal) { //¿El metodo ha sido accedido desde la sucursal de origen? Eso quiere decir que el que está pagando es el remitente
+                    println(guia.getSucursalLlegada().getNombre());
+                    println(sucursal.getNombre());
+                    if (guia.getSucursalOrigen() == sucursal) { //¿El metodo ha sido accedido desde la sucursal de origen? Eso quiere decir que el que está pagando es el remitente
                         if (guia.getTipoDePago() == tipoDePago.REMITENTE) {
                             if (cuentaCliente.descontarSaldo(guia.getPagoPendiente())) {
                                 println("Transacción exitosa");

@@ -8,10 +8,10 @@ public class Documento extends Producto {
 
     @Override
     public String toString() {
-        return "--------------------------------\n" +
+        return  "-------------------------------------------------\n" +
                 "Tipo de producto: Documento\n" +
                 "Codigo de pedido: " + codigo + "\n" +
-                "--------------------------------";
+                "-------------------------------------------------";
     }
 
     @Override

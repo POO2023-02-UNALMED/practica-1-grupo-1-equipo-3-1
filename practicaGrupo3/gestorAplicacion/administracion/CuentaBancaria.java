@@ -13,6 +13,7 @@ public class CuentaBancaria implements Serializable {
     private String fechaExpiracion;
     private double saldo;
     private static ArrayList<CuentaBancaria> todasLasCuentas = new ArrayList<>();
+    private static final long serialVersionUID = 1L;
     
     public CuentaBancaria() {
         generarNumeroAleatorio();

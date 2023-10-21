@@ -21,6 +21,7 @@ public abstract class Persona implements Serializable {
 	protected Producto producto;
 	private static ArrayList<Persona> todasLasPersonas = new ArrayList<>();
     private int reputacion;
+    private static final long serialVersionUID = 1L;
 
 
 

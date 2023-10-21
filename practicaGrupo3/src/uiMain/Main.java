@@ -70,7 +70,8 @@ public class Main {
          */
 
         CuentaBancaria guzmanCuenta = new CuentaBancaria(Persona.getTodasLasPersonas().get(0), 1010101010, 666, "09/27", 1000000);
-
+        Persona guzman = new Cliente("Jaime Guzman", 123456789, 987654321);
+        
         //Menu principal
         Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
 
@@ -648,7 +649,7 @@ public class Main {
                                 numeroValido = true;
                                 break;
                             case 2:
-                                pagarEfectivo();
+                                pagarEfectivo(guia, sucursal);
                                 numeroValido = true;
                                 break;
                             default:
@@ -919,7 +920,7 @@ public class Main {
 
             switch (entrada1) {
                 case 1:
-                    pagarEfectivo();
+                    pagarEfectivo(null, null);
 
                     numeroValido = true;
                     break;
@@ -1028,6 +1029,8 @@ public class Main {
     // :(
 
 
+    
+   // Sirve a medias jasjasj ya lo corrijo KEVIN
     public static void recogerPaquete(Sucursal sucursal) { //Sucursal desde la cual se está recogiendo el paquete
         Scanner scanner = new Scanner(System.in);
         boolean datosValidos = false;
@@ -1036,18 +1039,36 @@ public class Main {
                 println("-----------------RECOGER PRODUCTO----------------");
                 print("Ingrese el código de la guía: ");
                 int codigoPaquete = scanner.nextInt();
-
                 scanner.nextLine();
-                print("Ingrese su nombre completo: ");
-                String nombreRemitente = scanner.nextLine();
+                
+                print("Ingrese su nombre: ");
+                String nombreDestinatario = scanner.nextLine();
+                
                 print("Ingrese su cédula: ");
-                int cedulaRemitente = scanner.nextInt();
+                int cedulaDestinatario = scanner.nextInt();
 
                 datosValidos = true;
+                
+                //Encuentra el producto por el código de la guia
+                Producto producto = encontrarProductoPorCodigo(codigoPaquete);
+                
+                //aas
+                if(producto != null) {
+                	//se verifican los datos del destinatario
+                	if(verificarDatos(producto, nombreDestinatario, cedulaDestinatario, sucursal)) {
+                		realizarEntrega(producto, sucursal);
+                	}else {
+                		System.out.println("Los datos que proporcionó no coinciden con los datos del destinatario.");
+                	}
+                }else {
+                	System.out.println("Lo sentimos pero no se encontró un paquete asignado al código que proporcionó.");
+                }
+                
             } catch (InputMismatchException e) {
-                System.out.println("Error: Ha ingresado un valor incorrecto. Por favor, ingrese un valor válido.");
+                System.out.println("Entrada no válida. Por favor intentelo de nuevo: ");
                 scanner.nextLine();
             }
+        
         }
     }
 
@@ -1061,10 +1082,10 @@ public class Main {
         return null; // Producto no encontrado
     }
 
-    private static boolean verificarDatos(Producto producto, String nombreRemitente, int cedulaRemitente, Sucursal sucursal) {
+    private static boolean verificarDatos(Producto producto, String nombreDestinatario, int cedulaDestinatario, Sucursal sucursal) {
         return producto.getGuia().getSucursalLlegada() == sucursal &&
-                producto.getGuia().getDestinatario().getNombre().equals(nombreRemitente) &&
-                producto.getGuia().getDestinatario().getCedula() == cedulaRemitente;
+                producto.getGuia().getDestinatario().getNombre().equals(nombreDestinatario) &&
+                producto.getGuia().getDestinatario().getCedula() == cedulaDestinatario;
     }
 
     private static void realizarEntrega(Producto producto, Sucursal sucursal) {

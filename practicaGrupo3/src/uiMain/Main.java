@@ -72,63 +72,68 @@ public class Main {
 	}
 
 
-    public static void menuPrincipal(Sucursal sucursal) {
+	public static void menuPrincipal(Sucursal sucursal) {
+	    Scanner scanner = new Scanner(System.in);
+	    boolean numeroValido = false;
 
-        println("--- BIENVENIDO AL SISTEMA DE ENVIOS CORREMINAS ---");
-        println("¿Qué operación deseas realizar?");
-        println("1) Enviar paquete.");
-        println("2) Pagar servicio.");
-        println("3) Verificar paquete.");
-        println("4) Rastrear paquete.");
-        println("5) Recoger paquete.");
-        println("6) Reclamos.");
-        println("7) Reclamos.");
-        println("8) Terminar.");
-        print("Elige una opcion: ");
+	    while (!numeroValido) {
+	        println("--- BIENVENIDO AL SISTEMA DE ENVIOS CORREMINAS ---");
+	        println("¿Qué operación deseas realizar?");
+	        println("1) Enviar paquete.");
+	        println("2) Pagar servicio.");
+	        println("3) Verificar paquete.");
+	        println("4) Rastrear paquete.");
+	        println("5) Recoger paquete.");
+	        println("6) Reclamos.");
+	        println("7) Consultar credenciales.");
+	        println("8) Terminar.");
+	        print("Elige una opcion: ");
 
-        boolean numeroValido = false;
-
-        while (!numeroValido) {
-            int opcion = scanner.nextInt();
-
-            switch (opcion) {
-                case 1:
-                    enviarPaquete(sucursal);
-                    numeroValido = true;
-                    break;
-                case 2:
-                    pagarServicio(sucursal);
-                    numeroValido = true;
-                    break;
-                case 3:
-                    verificarPaquete();
-                    numeroValido = true;
-                    break;
-                case 4:
-                    rastrearPaquete(1);
-                    numeroValido = true;
-                    break;
-                case 5:
-                    recogerPaquete(sucursal);
-                    numeroValido = true;
-                    break;
-                case 6:
-                    opcionesReclamo();
-                    numeroValido = true;
-                    break;
-                case 7:
-                    credencialesUsuario();
-                    numeroValido = true;
-                    break;
-                case 8:
-                    salirDelSistema();
-                    numeroValido = true;
-                    break;
-                default:
-                    println("Número no válido. Inténtalo de nuevo.");
-            }
-        }
-    }
+	        try {
+	            int opcion = scanner.nextInt();
+	            
+	            switch (opcion) {
+	                case 1:
+	                    enviarPaquete(sucursal);
+	                    numeroValido = true;
+	                    break;
+	                case 2:
+	                    pagarServicio(sucursal);
+	                    numeroValido = true;
+	                    break;
+	                case 3:
+	                    verificarPaquete();
+	                    numeroValido = true;
+	                    break;
+	                case 4:
+	                    rastrearPaquete(1);
+	                    numeroValido = true;
+	                    break;
+	                case 5:
+	                    recogerPaquete(sucursal);
+	                    numeroValido = true;
+	                    break;
+	                case 6:
+	                    opcionesReclamo();
+	                    numeroValido = true;
+	                    break;
+	                case 7:
+	                    credencialesUsuario();
+	                    numeroValido = true;
+	                    break;
+	                case 8:
+	                    salirDelSistema();
+	                    numeroValido = true;
+	                    break;
+	                default:
+	                    println("Número no válido. Inténtalo de nuevo.");
+	            }
+	        } catch (InputMismatchException e) {
+	            System.out.println("Error: Debes ingresar un número válido. Inténtalo de nuevo.");
+	            scanner.nextLine(); // Limpia el buffer del scanner
+	        }
+	    }
+	}
 
 
 

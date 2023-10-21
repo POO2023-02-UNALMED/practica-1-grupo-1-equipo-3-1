@@ -69,12 +69,8 @@ public class Guia {
 		fechaDeEnvio = fecha.format(formatter);
 		pagoPendiente = precioTotal;
 		asignarRuta();
-		if (vehiculo instanceof Camion) {
-			precioTotal = producto.costoDelPedido + ruta.size() * 2000;
-		} else if (vehiculo instanceof Avion){
-			precioTotal = producto.costoDelPedido + ruta.size() * 5000;
-		}
-
+		asignarPrecio();
+		aplicarDescuento();
 	}
 	
 	//métodos
@@ -88,21 +84,34 @@ public class Guia {
 	}
 
 	public void asignarPrecio() {
-		int cantidadDeSucursales = ruta.size();
+		int cantidadDeSucursales = ruta.size() - 1;
+		int costoTransporte = 0;
+		if (vehiculo instanceof Camion) {
+			costoTransporte =  3000;
+		} else if (vehiculo instanceof Avion){
+			costoTransporte = 7000;
+		}
 
+		precioTotal = producto.costoDelPedido + cantidadDeSucursales * costoTransporte;
 	}
 
 	public void aplicarDescuento() {
 		switch (getRemitente().getMembresia().getBeneficio()) {
 			case PLATINUM:
 				precioTotal = precioTotal * 0.5; //Descuento del 50%
+				break;
 			case GOLD:
 				precioTotal = precioTotal * 0.75;; //Descuento del 25%
+				break;
 			case SILVER:
 				precioTotal = precioTotal * 0.9;; //Descuento del 10%
+				break;
 			case DEFAULT:
 				precioTotal = precioTotal * 1;
+				break;
 		}
+
+
 	}
 	
 	//Antihoraria
@@ -145,7 +154,7 @@ public class Guia {
 	public String toString() {
 		String format = "| %-18s | %-18s |\n";
 		StringBuilder tabla = new StringBuilder();
-		tabla.append("+--------------------GUIA-----------------+\n");
+		tabla.append("+-------------------GUIA------------------+\n");
 		tabla.append("+--------------------+--------------------+\n");
 		tabla.append(String.format(format, "Tipo de Producto", String.valueOf(producto.getClass().getSimpleName())));
 		tabla.append("+--------------------+--------------------+\n");

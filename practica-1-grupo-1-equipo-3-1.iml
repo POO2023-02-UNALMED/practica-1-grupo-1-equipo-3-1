@@ -6,7 +6,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/practicaGrupo3/gestorAplicacion" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/practicaGrupo3/src/uiMain" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/practicaGrupo3/src/basedatos" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/practicaGrupo3/src" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="20" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />

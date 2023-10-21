@@ -2,9 +2,11 @@ package administracion;
 
 import java.util.Random; 
 import java.util.ArrayList;
+import java.io.Serializable;
+
 import personas.*;
 
-public class CuentaBancaria { 
+public class CuentaBancaria implements Serializable {
 	private Persona titular; 
     private long numero;
     private int cvv;

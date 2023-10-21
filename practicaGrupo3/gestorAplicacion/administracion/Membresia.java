@@ -1,12 +1,13 @@
 package administracion;
 
 import java.util.Random;
+import java.io.Serializable;
 import personas.*;
 
 //Cabecera Clase:
 // La finalidad de esta clase es saber el beneficio de entrega
 // y demas beneficios que incluye la membresia que cada cliente tiene.
-public class Membresia {
+public class Membresia implements Serializable {
 	private tipo beneficio;
 	private int precio;
 	private Cliente cliente;

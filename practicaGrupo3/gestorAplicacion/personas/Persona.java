@@ -4,6 +4,7 @@ import administracion.*;
 
 import productos.Producto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 // CLASE PERSONA
@@ -12,7 +13,7 @@ import java.util.Scanner;
 
 
 // CLASE ABSTRACTA
-public abstract class Persona {
+public abstract class Persona implements Serializable {
     protected String nombre;
     protected long cedula;
     protected CuentaBancaria cuentaBancaria;

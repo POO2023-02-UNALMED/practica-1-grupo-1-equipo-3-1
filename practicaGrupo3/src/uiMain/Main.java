@@ -49,18 +49,24 @@ public class Main {
 
         Sucursal bogotaSur = new Sucursal("Bogotá Sur", 1000, 500, 4, 2, camionesMN, motosMN, avionesMN);
 
-*/
-
-
-        //Serializador.serializar();
-
-        Deserializador.deserializar();
         Persona guzman = new Cliente("Jaime Guzman", 123456789, 987654321);
         CuentaBancaria guzmanCuenta = new CuentaBancaria(guzman, 1010101010, 666, "09/27", 1000000);
+        Serializador.serializar();
+*/
+
+        Deserializador.deserializar();
+        for (Sucursal sucursal : Sucursal.getTodasLasSucursales()) {
+            println(sucursal.getNombre());
+        }
+
+        for (CuentaBancaria cuenta : CuentaBancaria.getTodasLasCuentas()) {
+            println(cuenta.getTitular().getNombre());
+        }
+
         //QUIERO SERIALIZAR ESTO PROVISIONALMENTE
 
         //Menu principal
-        Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
+        //Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
 
     }
 

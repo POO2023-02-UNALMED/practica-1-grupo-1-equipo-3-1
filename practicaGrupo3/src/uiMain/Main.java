@@ -86,207 +86,201 @@ public class Main {
 
     public static void menuPrincipal(Sucursal sucursal) {
         Scanner scanner = new Scanner(System.in);
-        println("--- BIENVENIDO AL SISTEMA DE ENVIOS CORREMINAS ---");
-        println("¿Qué operación deseas realizar?");
-        println("1) Enviar paquete.");
-        println("2) Pagar servicio.");
-        println("3) Verificar paquete.");
-        println("4) Rastrear paquete.");
-        println("5) Recoger paquete.");
-        println("6) Reclamos.");
-        println("7) Terminar.");
-        print("Elige una opcion: ");
-
-        boolean numeroValido = false;
-
-        while (!numeroValido) {
-
-
+        
+        while(true) {
+            println("--- BIENVENIDO AL SISTEMA DE ENVIOS CORREMINAS ---");
+            println("¿Qué operación deseas realizar?");
+            println("1) Enviar paquete.");
+            println("2) Pagar servicio.");
+            println("3) Verificar paquete.");
+            println("4) Rastrear paquete.");
+            println("5) Recoger paquete.");
+            println("6) Reclamos.");
+            println("7) Terminar.");
+            print("Elige una opcion: ");
+            
             try {
-                int opcion = scanner.nextInt();
+            	int opcion = scanner.nextInt(); 
+            	
+            	 switch (opcion) {
+                 case 1:
+                     enviarPaquete(sucursal);
 
-                switch (opcion) {
-                    case 1:
-                        enviarPaquete(sucursal);
-                        numeroValido = true;
-                        break;
-                    case 2:
-                        pagarServicio(sucursal);
-                        numeroValido = true;
-                        break;
-                    case 3:
-                        verificarPaquete();
-                        numeroValido = true;
-                        break;
-                    case 4:
-                        rastrearPaquete(1);
-                        numeroValido = true;
-                        break;
-                    case 5:
-                        recogerPaquete(sucursal);
-                        numeroValido = true;
-                        break;
-                    case 6:
-                        opcionesReclamo();
-                        numeroValido = true;
-                        break;
-                    case 7:
-                        salirDelSistema();
-                        numeroValido = true;
-                        break;
-                    default:
-                        print("Número no válido. Inténtalo de nuevo: ");
-                }
-            } catch (InputMismatchException e) {
-                print("Entrada no válida. Inténtalo de nuevo: ");
-                scanner.nextLine();
+                     break;
+                 case 2:
+                     pagarServicio(sucursal);
+
+                     break;
+                 case 3:
+                     verificarPaquete();
+
+                     break;
+                 case 4:
+                     rastrearPaquete(1);
+
+                     break;
+                 case 5:
+                     recogerPaquete(sucursal);
+
+                     break;
+                 case 6:
+                     opcionesReclamo();
+
+                     break;
+                 case 7:
+                     salirDelSistema();
+
+                     break;
+                 default:
+                     print("Número no válido. Inténtalo de nuevo: ");
             }
+        } catch(InputMismatchException e) {
+                System.out.println("Dato no válido. Por favor inténtelo de nuevo: ");
+                scanner.nextLine(); 
+        }
         }
     }
+    
+    
 
 
     public static void enviarPaquete(Sucursal sucursalOrigen) {
         Scanner scanner = new Scanner(System.in);
-        boolean datosValidos = false;
-        while (!datosValidos) {
-            try {
-                println("---------------DATOS DEL PRODUCTO----------------");
+        boolean exit = false;
+        
+        do {
+        	try {
+        		println("---------------DATOS DEL PRODUCTO----------------");
                 println("Ingrese el tipo de producto:");
                 println("1) Paquete");
                 println("2) Animal");
                 println("3) Documento");
                 print("Elige una opción: ");
-                datosValidos = true;
-            } catch (InputMismatchException e) {
-                System.out.println("Error: Ha ingresado un valor incorrecto. Por favor, ingrese un valor válido.");
-                scanner.nextLine();
-            }
-
-
-            boolean numeroValido = false;
-            Producto producto = null;
-
-            while (!numeroValido) {
+                
                 int tipoDeProducto = scanner.nextInt();
                 scanner.nextLine();
+                Producto producto = null;
+                boolean numeroValido = false;
+                
                 switch (tipoDeProducto) {
-                    case 1: //Paquete
-                        println("-------------------------------------------------");
-                        print("Peso del paquete: ");
-                        double peso = scanner.nextDouble();
-                        print("Alto del paquete: ");
-                        double alto = scanner.nextDouble();
-                        print("Ancho del paquete: ");
-                        double ancho = scanner.nextDouble();
-                        print("Largo del paquete: ");
-                        double largo = scanner.nextDouble();
+                case 1: //Paquete
+                    println("-------------------------------------------------");
+                    print("Peso del paquete: ");
+                    double peso = scanner.nextDouble();
+                    print("Alto del paquete: ");
+                    double alto = scanner.nextDouble();
+                    print("Ancho del paquete: ");
+                    double ancho = scanner.nextDouble();
+                    print("Largo del paquete: ");
+                    double largo = scanner.nextDouble();
 
-                        println("-------------------------------------------------");
-                        println("¿El paquete es fragil?");
-                        println("1) Sí");
-                        println("2) No");
-                        print("Elige una opcion: ");
+                    println("-------------------------------------------------");
+                    println("¿El paquete es fragil?");
+                    println("1) Sí");
+                    println("2) No");
+                    print("Elige una opcion: ");
 
-                        boolean numeroValido2 = false;
-                        boolean fragil = false;
+                    boolean numeroValido2 = false;
+                    boolean fragil = false;
 
-                        while (!numeroValido2) {
-                            int fragilEntrada = scanner.nextInt();
-                            switch (fragilEntrada) {
-                                case 1:
-                                    fragil = true;
-                                    numeroValido2 = true;
-                                    break;
-                                case 2:
-                                    fragil = false;
-                                    numeroValido2 = true;
-                                    break;
-                                default:
-                                    print("Número no válido. Inténtalo de nuevo: ");
-                            }
+                    while (!numeroValido2) {
+                        int fragilEntrada = scanner.nextInt();
+                        switch (fragilEntrada) {
+                            case 1:
+                                fragil = true;
+                                numeroValido2 = true;
+                                break;
+                            case 2:
+                                fragil = false;
+                                numeroValido2 = true;
+                                break;
+                            default:
+                                print("Número no válido. Inténtalo de nuevo: ");
                         }
-                        println("-------------------------------------------------");
-                        print("Valor declarado: ");
-                        double valorDeclarado = scanner.nextDouble();
+                    }
+                    println("-------------------------------------------------");
+                    print("Valor declarado: ");
+                    double valorDeclarado = scanner.nextDouble();
+                    scanner.nextLine();
+
+                    producto = new Paquete(peso, alto, ancho, largo, fragil, valorDeclarado);
+                    Paquete paquete = (Paquete) producto;
+                    println(producto);
+                    numeroValido = true;
+                    break;
+
+                case 2: //Animal
+                    println("-------------------------------------------------");
+                    print("Nombre del animal: ");
+                    String nombre = scanner.nextLine();
+                    print("Edad del animal: ");
+                    int edad = scanner.nextInt();
+                    print("Peso del animal: ");
+                    double peso1 = scanner.nextDouble();
+
+                    println("-------------------------------------------------");
+                    println("Ingrese el tipo del animal:");
+                    println("1) Perro");
+                    println("2) Gato");
+                    println("3) Hamster");
+                    println("4) Loro");
+                    println("5) Caballo");
+                    println("6) Vaca");
+                    print("Elige una opción: ");
+
+                    tipoAnimal tipoAnimal = null;
+                    boolean numeroValido3 = false;
+
+                    while (!numeroValido3) {
+                        int tipoAnimalEntrada = scanner.nextInt();
                         scanner.nextLine();
 
-                        producto = new Paquete(peso, alto, ancho, largo, fragil, valorDeclarado);
-                        Paquete paquete = (Paquete) producto;
-                        println(producto);
-                        numeroValido = true;
-                        break;
-
-                    case 2: //Animal
-                        println("-------------------------------------------------");
-                        print("Nombre del animal: ");
-                        String nombre = scanner.nextLine();
-                        print("Edad del animal: ");
-                        int edad = scanner.nextInt();
-                        print("Peso del animal: ");
-                        double peso1 = scanner.nextDouble();
-
-                        println("-------------------------------------------------");
-                        println("Ingrese el tipo del animal:");
-                        println("1) Perro");
-                        println("2) Gato");
-                        println("3) Hamster");
-                        println("4) Loro");
-                        println("5) Caballo");
-                        println("6) Vaca");
-                        print("Elige una opción: ");
-
-                        tipoAnimal tipoAnimal = null;
-                        boolean numeroValido3 = false;
-
-                        while (!numeroValido3) {
-                            int tipoAnimalEntrada = scanner.nextInt();
-                            scanner.nextLine();
-
-                            switch (tipoAnimalEntrada) {
-                                case 1: //Perro
-                                    tipoAnimal = Animal.tipoAnimal.PERRO;
-                                    numeroValido3 = true;
-                                    break;
-                                case 2:
-                                    tipoAnimal = Animal.tipoAnimal.GATO;
-                                    numeroValido3 = true;
-                                    break;
-                                case 3:
-                                    tipoAnimal = Animal.tipoAnimal.HAMSTER;
-                                    numeroValido3 = true;
-                                    break;
-                                case 4:
-                                    tipoAnimal = Animal.tipoAnimal.LORO;
-                                    numeroValido3 = true;
-                                    break;
-                                case 5:
-                                    tipoAnimal = Animal.tipoAnimal.CABALLO;
-                                    numeroValido3 = true;
-                                    break;
-                                case 6:
-                                    tipoAnimal = Animal.tipoAnimal.VACA;
-                                    numeroValido3 = true;
-                                    break;
-                                default:
-                                    print("Número no válido. Inténtalo de nuevo: ");
-                            }
+                        switch (tipoAnimalEntrada) {
+                            case 1: //Perro
+                                tipoAnimal = Animal.tipoAnimal.PERRO;
+                                numeroValido3 = true;
+                                break;
+                            case 2:
+                                tipoAnimal = Animal.tipoAnimal.GATO;
+                                numeroValido3 = true;
+                                break;
+                            case 3:
+                                tipoAnimal = Animal.tipoAnimal.HAMSTER;
+                                numeroValido3 = true;
+                                break;
+                            case 4:
+                                tipoAnimal = Animal.tipoAnimal.LORO;
+                                numeroValido3 = true;
+                                break;
+                            case 5:
+                                tipoAnimal = Animal.tipoAnimal.CABALLO;
+                                numeroValido3 = true;
+                                break;
+                            case 6:
+                                tipoAnimal = Animal.tipoAnimal.VACA;
+                                numeroValido3 = true;
+                                break;
+                            default:
+                                print("Número no válido. Inténtalo de nuevo: ");
                         }
+                    }
 
-                        producto = new Animal(nombre, edad, peso1, tipoAnimal);
-                        Animal animal = (Animal) producto;
-                        println(animal);
-                        numeroValido = true;
-                        break;
-                    case 3:
-                        producto = new Documento();
-                        Documento documento = (Documento) producto;
-                        numeroValido = true;
-                        break;
-                    default:
-                        print("Número no válido. Inténtalo de nuevo: ");
-                }
-
+                    producto = new Animal(nombre, edad, peso1, tipoAnimal);
+                    Animal animal = (Animal) producto;
+                    println(animal);
+                    numeroValido = true;
+                    break;
+                case 3:
+                    producto = new Documento();
+                    Documento documento = (Documento) producto;
+                    numeroValido = true;
+                    break;
+                default:
+                    print("Número no válido. Inténtalo de nuevo: ");
+                    break;
             }
+                
+               
 
             println("----------------DATOS DEL USUARIO----------------");
 
@@ -599,11 +593,28 @@ public class Main {
                             print("Número no válido. Inténtalo de nuevo: ");
                     }
                 }
-
             }
-            scanner.close();
-        }
-    }
+        	}
+                    catch (InputMismatchException e) {
+                        System.out.println("Error: Ha ingresado un valor incorrecto. Por favor, ingrese un valor válido.");
+                        scanner.nextLine(); 
+                    } catch (Exception e) {
+                        System.out.println("Error: " + e.getMessage());
+                        scanner.nextLine(); 
+                    }
+
+                    System.out.println("¿Desea continuar (1 para continuar, cualquier otra tecla para cancelar)?: ");
+                    int choice = scanner.nextInt();
+                    if (choice != 1) {
+                        exit = true; // Salir del proceso de enviar paquetes
+                    }
+                } while (!exit);
+
+                scanner.close();
+            }
+        	
+
+    
 
     public static void pagarServicio(Sucursal sucursal) {
         Scanner scanner = new Scanner(System.in);

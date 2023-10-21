@@ -13,14 +13,24 @@ public abstract class Producto {
     //El volumen y el peso es el espacio que ocupará el producto de cada transporte y sucursal
     private Guia guia;
     private static ArrayList<Producto> todosLosProductos = new ArrayList<>();
-    
-    public Producto(int codigo) {
+
+    public Producto(int codigo, double volumen, double peso) {
         this.codigo = codigo;
+        this.volumen = volumen;
+        this.peso = peso;
 
         Producto.todosLosProductos.add(this);
         Producto.contadorProductos ++;
     }
-    
+
+    public Producto(int codigo, double peso) {
+        this.codigo = codigo;
+        this.peso = peso;
+
+        Producto.todosLosProductos.add(this);
+        Producto.contadorProductos ++;
+    }
+
     public abstract String toString();
 
     public abstract void asignarCostoDelPedido();

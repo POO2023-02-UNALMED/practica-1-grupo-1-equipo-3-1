@@ -24,6 +24,7 @@ public class Main {
 	public static void main(String[] args) {
 
 
+        /*
 		ArrayList<Camion> camionesMN = new ArrayList<>();
 
 		ArrayList<Moto> motosMN = new ArrayList<>();
@@ -51,17 +52,19 @@ public class Main {
 
 
 		Serializador.serializar();
-		
-		//Deserializador.deserializar();
+
+
+         */
+		Deserializador.deserializar();
 	
 		/*for (Sucursal obj: Sucursal.getTodasLasSucursales()) {
 			System.out.println(obj.getNombre());
-		}
+		}*/
 
-		 */
+
 		
 		//Menu principal
-		//Main.menuPrincipal(medellinNorte);
+		Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
 
 	}
 
@@ -924,10 +927,8 @@ public class Main {
                         }
                     }
 
-                    //if (estaEnSucursal) {}
-
+                    //if (estaEnSucursal) {
             }
-
         } else {
 
         }

@@ -10,7 +10,7 @@ public class Paquete extends Producto {
     
 
     public Paquete(double peso, double alto, double ancho, double largo, boolean fragil,  double valorDeclarado) {
-        super(generarCodigo());
+        super(generarCodigo(), alto * largo * ancho, peso);
 
         this.valorDeclarado = valorDeclarado;
         this.peso = peso;

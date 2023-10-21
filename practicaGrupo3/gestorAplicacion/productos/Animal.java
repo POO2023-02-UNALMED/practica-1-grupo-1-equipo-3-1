@@ -38,7 +38,6 @@ public class Animal extends Producto {
         asignarPeligro();
         asignarTamano();
         asignarVolumen();
-        asignarCostoDelPedido();
     }
 
     @Override

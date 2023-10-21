@@ -154,7 +154,7 @@ public class Guia {
 	public String toString() {
 		String format = "| %-18s | %-18s |\n";
 		StringBuilder tabla = new StringBuilder();
-		tabla.append("+-------------------GUIA------------------+\n");
+		tabla.append("--------------------GUIA-------------------\n");
 		tabla.append("+--------------------+--------------------+\n");
 		tabla.append(String.format(format, "Tipo de Producto", String.valueOf(producto.getClass().getSimpleName())));
 		tabla.append("+--------------------+--------------------+\n");

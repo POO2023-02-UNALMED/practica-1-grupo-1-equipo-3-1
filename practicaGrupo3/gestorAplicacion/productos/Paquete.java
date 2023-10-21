@@ -26,7 +26,7 @@ public class Paquete extends Producto {
 
     @Override
     public String toString() {
-        return "--------------------------------\n" +
+        return  "---------------------PRODUCTO--------------------\n" +
                 "Tipo de producto: Paquete\n" +
                 "Código de pedido: " + codigo + "\n" +
                 "Peso: " + peso + "kg\n" +
@@ -35,8 +35,7 @@ public class Paquete extends Producto {
                 "Largo: " + largo + "m\n" +
                 "Volumen: " + alto * ancho * largo + "m3\n" +
                 "Fragil: " + (fragil ? "Sí" : "No") + "\n" +
-                "Valor declarado: " + valorDeclarado + "\n" +
-                "--------------------------------";
+                "Valor declarado: " + valorDeclarado;
     }
 
     @Override

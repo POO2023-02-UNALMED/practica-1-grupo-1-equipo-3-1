@@ -299,8 +299,6 @@ public class Main {
             scanner.nextLine();
 
             Cliente remitente = new Cliente(nombreRemitente, cedulaRemitente, telefonoRemitente);
-            remitente.getMembresia().setBeneficio(Membresia.tipo.PLATINUM);
-            println(remitente);
 
             println("-------------------------------------------------");
             print("Nombre del destinatario: ");
@@ -537,32 +535,37 @@ public class Main {
                         case 1:
                             tipoDePago = Guia.tipoDePago.REMITENTE;
                             guia = new Guia(producto, remitente, destinatario, sucursalOrigen, sucursalDestino, tipoDePago, true, vehiculo);
-                            println(guia);
+                            println(guia.toString());
+
                             println("Diríjase a la pestaña principal para pagar su servicio.");
-                            println("1) Volver al menú principal");
+                            println("");
+
+                            print("1) Volver al menú principal: ");
 
                             boolean numerovalido7 = false;
 
-                             while (!numerovalido7) {
-                                 int menuPrincipalEntrada = scanner.nextInt();
-                                 switch (menuPrincipalEntrada) {
-                                     case 1:
-                                         Main.menuPrincipal(sucursalOrigen);
-                                         numerovalido7 = true;
-                                         break;
-                                     default:
-                                         print("Número no válido. Inténtalo de nuevo: ");
-                                 }
-                             }
+                            while (!numerovalido7) {
+                                int menuPrincipalEntrada = scanner.nextInt();
+                                switch (menuPrincipalEntrada) {
+                                    case 1:
+                                        Main.menuPrincipal(sucursalOrigen);
+                                        numerovalido7 = true;
+                                        break;
+                                    default:
+                                        print("Número no válido. Inténtalo de nuevo: ");
+                                }
+                            }
 
                             numeroValido6 = true;
                             break;
                         case 2:
                             tipoDePago = Guia.tipoDePago.FRACCIONADO;
                             guia = new Guia(producto, remitente, destinatario, sucursalOrigen, sucursalDestino, tipoDePago, true, vehiculo);
-                            println(guia);
-                            println("Diríjase a la pestaña principal para pagar su servicio.\n");
-                            println("1) Volver al menú principal");
+                            println(guia.toString());
+
+                            println("Diríjase a la pestaña principal para pagar su servicio.");
+                            println("");
+                            print("1) Volver al menú principal: ");
 
                             boolean numerovalido8 = false;
 
@@ -583,6 +586,7 @@ public class Main {
                         case 3:
                             tipoDePago = Guia.tipoDePago.DESTINATARIO;
                             guia = new Guia(producto, remitente, destinatario, sucursalOrigen, sucursalDestino, tipoDePago, true, vehiculo);
+                            println(guia.toString());
 
                             sucursalOrigen.agregarProducto(producto);
 
@@ -738,13 +742,27 @@ public class Main {
                                 String format = "%-39s";
                                 Random random = new Random();
                                 println(String.format(format, "¡¡Transacción exitosa!!"));
-                                println("Muchas gracias por usar nuestro servicio, favor acerquese a la caja #" + random.nextInt(5) + 1 + " para despachar el " + guia.getProducto().getClass().getSimpleName());
+                                println("Muchas gracias por usar nuestro servicio,\n favor acerquese a la caja #" + random.nextInt(5) + 1 + " para despachar el " + guia.getProducto().getClass().getSimpleName());
+                                println("");
+                                print("1) Volver al menú principal: ");
 
-                                println("-------------------------------------------------");
+                                boolean numerovalido3 = false;
 
+                                while (!numerovalido3) {
+                                    int menuPrincipalEntrada = scanner.nextInt();
+                                    switch (menuPrincipalEntrada) {
+                                        case 1:
+                                            Main.menuPrincipal(sucursal);
+                                            numerovalido3 = true;
+                                            break;
+                                        default:
+                                            print("Número no válido. Inténtalo de nuevo: ");
+                                    }
+                                }
 
                             } else {
                                 println("Lo sentimos, no hay suficiente dinero en la cuenta");
+                                alternativa();
                             }
                         } else if (guia.getTipoDePago() == tipoDePago.FRACCIONADO) {
                             if (cuentaCliente.descontarSaldo(guia.getPagoPendiente() / 2)) {
@@ -762,29 +780,7 @@ public class Main {
                                 println("-------------------------------------------------");
                             } else {
                                 println("Lo sentimos, no hay suficiente dinero en la cuenta");
-                                println("¿Quieres pagar en efectivo?");
-                                println("1) Sí");
-                                println("2) No, cancelar compra");
-                                print("Elige una opción: ");
-
-                                boolean numeroValido2 = false;
-
-                                while (!numeroValido2) {
-                                    int entrada1 = scanner.nextInt();
-
-                                    switch (entrada1) {
-                                        case 1:
-                                            pagarEfectivo();
-
-                                            numeroValido2 = true;
-                                            break;
-                                        case 2:
-                                            println("Servicio cancelado, vuelve pronto");
-                                            menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
-                                            numeroValido = true;
-                                            break;
-                                    }
-                                }
+                                alternativa();
                             }
                         }
                     } else { //Está pagando el destinatario
@@ -811,6 +807,32 @@ public class Main {
                     break;
                 default:
                     print("Número no válido. Inténtalo de nuevo: ");
+            }
+        }
+    }
+
+    public static void alternativa() { //Si no tiene suficiente dinero en la cuenta puede pagar eefectivo
+        println("¿Quieres pagar en efectivo?");
+        println("1) Sí");
+        println("2) No, cancelar compra");
+        print("Elige una opción: ");
+
+        boolean numeroValido = false;
+
+        while (!numeroValido) {
+            int entrada1 = scanner.nextInt();
+
+            switch (entrada1) {
+                case 1:
+                    pagarEfectivo();
+
+                    numeroValido = true;
+                    break;
+                case 2:
+                    println("Servicio cancelado, vuelve pronto");
+                    menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
+                    numeroValido = true;
+                    break;
             }
         }
     }

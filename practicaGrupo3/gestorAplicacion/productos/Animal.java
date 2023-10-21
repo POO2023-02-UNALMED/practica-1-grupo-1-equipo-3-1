@@ -43,15 +43,14 @@ public class Animal extends Producto {
 
     @Override
     public String toString() {
-        return "--------------------------------\n" +
+        return  "---------------------PRODUCTO--------------------\n" +
                 "Tipo de producto: Animal\n" +
                 "Codigo de pedido: " + codigo + "\n" +
                 "Nombre: " + nombre + "\n" +
                 "Edad: " + edad + " años\n" +
                 "Peso: " + peso + "kg\n" +
                 "Tamaño: " + tamano.toString().toLowerCase() + "\n" +
-                "Peligroso: " + (peligroso ? "Sí" : "No") + "\n" +
-                "--------------------------------";
+                "Peligroso: " + (peligroso ? "Sí" : "No");
     }
 
     public void asignarPeligro() {

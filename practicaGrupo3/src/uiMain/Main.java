@@ -24,8 +24,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-/*
+		/*
 		ArrayList<Camion> camionesMN = new ArrayList<>();
+
 
 		ArrayList<Moto> motosMN = new ArrayList<>();
 
@@ -34,7 +35,6 @@ public class Main {
 		Sucursal medellinNorte = new Sucursal("Medellin Norte", 100, 100, -6, 8, camionesMN, motosMN, avionesMN);
         camionesMN.add(new Camion(medellinNorte, 27, 300, "ABC109"));
         motosMN.add(new Moto(medellinNorte, 1, 30, "ABC123"));
-
 
         Sucursal medellinSur = new Sucursal("Medellin Sur", 100, 100, -6, 6, camionesMN, motosMN, avionesMN);
 
@@ -52,17 +52,20 @@ public class Main {
         Persona guzman = new Cliente("Jaime Guzman", 123456789, 987654321);
         CuentaBancaria guzmanCuenta = new CuentaBancaria(guzman, 1010101010, 666, "09/27", 1000000);
         Serializador.serializar();
-*/
 
+		 */
         Deserializador.deserializar();
         for (Sucursal sucursal : Sucursal.getTodasLasSucursales()) {
             println(sucursal.getNombre());
         }
 
-        for (CuentaBancaria cuenta : CuentaBancaria.getTodasLasCuentas()) {
-            println(cuenta.getTitular().getNombre());
+        for (Persona persona : Persona.getTodasLasPersonas()) {
+            println(persona.getNombre());
         }
 
+        for (CuentaBancaria cuenta : CuentaBancaria.getTodasLasCuentas()) {
+            println(cuenta);
+        }
         //QUIERO SERIALIZAR ESTO PROVISIONALMENTE
 
         //Menu principal

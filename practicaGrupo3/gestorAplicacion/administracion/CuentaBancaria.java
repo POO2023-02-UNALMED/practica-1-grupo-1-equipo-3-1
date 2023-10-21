@@ -20,7 +20,7 @@ public class CuentaBancaria implements Serializable {
         generarFechaExpiracionAleatoria();
         generarSaldoAleatorio();
 
-        CuentaBancaria.todasLasCuentas.add(this);
+        todasLasCuentas.add(this);
     }
 
     public CuentaBancaria(Persona titular, long numero, int cvv, String fechaExpiracion, double saldo) {
@@ -79,7 +79,7 @@ public class CuentaBancaria implements Serializable {
     }
 
     public static ArrayList<CuentaBancaria> getTodasLasCuentas() {
-        return CuentaBancaria.todasLasCuentas;
+        return todasLasCuentas;
     }
     public static void setTodasLasCuentas(ArrayList<CuentaBancaria> list) {
     	todasLasCuentas = list;

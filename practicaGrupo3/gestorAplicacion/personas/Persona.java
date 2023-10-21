@@ -38,6 +38,7 @@ public abstract class Persona implements Serializable {
     public static ArrayList<Persona> getTodasLasPersonas(){
     	return todasLasPersonas;
     }
+
     public static void setTodasLasPersonas(ArrayList<Persona> list) {
     	todasLasPersonas = list;
     }

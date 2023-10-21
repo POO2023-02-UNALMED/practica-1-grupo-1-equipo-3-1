@@ -2,14 +2,11 @@ package productos;
 
 public class Documento extends Producto {
     public Documento() {
-        super(generarCodigo());
-
-        peso = 0.1;
-        volumen = 0.1;
-        
+        super(generarCodigo(), 0.1, 0.1);
         asignarCostoDelPedido();
     }
 
+    @Override
     public String toString() {
         return "--------------------------------\n" +
                 "Tipo de producto: Documento\n" +
@@ -17,6 +14,7 @@ public class Documento extends Producto {
                 "--------------------------------";
     }
 
+    @Override
     public void asignarCostoDelPedido() {
         costoDelPedido = 10000;
     }

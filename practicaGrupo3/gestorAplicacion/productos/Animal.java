@@ -27,7 +27,7 @@ public class Animal extends Producto {
     }
 
     public Animal(String nombre, int edad, double peso, tipoAnimal tipo) {
-        super(generarCodigo());
+        super(generarCodigo(), peso);
         this.nombre = nombre;
         this.edad = edad;
         this.peso = peso;
@@ -41,6 +41,7 @@ public class Animal extends Producto {
         asignarCostoDelPedido();
     }
 
+    @Override
     public String toString() {
         return "--------------------------------\n" +
                 "Tipo de producto: Animal\n" +
@@ -113,6 +114,7 @@ public class Animal extends Producto {
         }
     }
 
+    @Override
     public void asignarCostoDelPedido() {
         switch (tamano) {
             case PEQUENO:

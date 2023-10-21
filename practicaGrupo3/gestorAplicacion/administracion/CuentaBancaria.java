@@ -78,6 +78,9 @@ public class CuentaBancaria {
     public static ArrayList<CuentaBancaria> getTodasLasCuentas() {
         return CuentaBancaria.todasLasCuentas;
     }
+    public static void setTodasLasCuentas(ArrayList<CuentaBancaria> list) {
+    	todasLasCuentas = list;
+    }
 
     public void setSaldo(double saldo) {
         this.saldo = saldo;

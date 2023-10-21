@@ -15,6 +15,8 @@ import java.io.PrintWriter;
 // CLASES DE IMPORTACION PARA DESERIALIZAR
 import administracion.Sucursal;
 import transportes.Transporte;
+import personas.Persona;
+import administracion.CuentaBancaria;
 
 public class Deserializador {
 
@@ -63,12 +65,34 @@ public class Deserializador {
 				}catch(ClassNotFoundException e) {
 					e.printStackTrace();;
 				}
-			}
-		}		
-		
-		
-		
-		
+				
+			}else if (file.getAbsolutePath().contains("Personas")) {
+				try {
+				archivo = new FileInputStream(file);
+				guardado = new ObjectInputStream(archivo);
+				Persona.setTodasLasPersonas((ArrayList<Persona>) guardado.readObject());
+				}catch(FileNotFoundException e) {
+					e.printStackTrace();
+				}catch(IOException e) {
+					e.printStackTrace();
+				}catch(ClassNotFoundException e) {
+					e.printStackTrace();;
+				}
+				
+			}else if (file.getAbsolutePath().contains("CuentasBancarias")) {
+				try {
+				archivo = new FileInputStream(file);
+				guardado = new ObjectInputStream(archivo);
+				CuentaBancaria.setTodasLasCuentas((ArrayList<CuentaBancaria>) guardado.readObject());
+				}catch(FileNotFoundException e) {
+					e.printStackTrace();
+				}catch(IOException e) {
+					e.printStackTrace();
+				}catch(ClassNotFoundException e) {
+					e.printStackTrace();;
+				}		
+	
+			}	
+		}
 	}
 }
-

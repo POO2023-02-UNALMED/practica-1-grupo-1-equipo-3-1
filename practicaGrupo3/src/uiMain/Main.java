@@ -670,9 +670,15 @@ public class Main {
                             } else {
                                 switch (guia.getRemitente().getMembresia().getBeneficio()) {
                                     case PLATINUM:
-
+                                        guia.setPrecioTotal(guia.getPrecioTotal() * 0.5); //Descuento del 50%
+                                    case GOLD:
+                                        guia.setPrecioTotal(guia.getPrecioTotal() * 0.75); //Descuento del 25%
+                                    case SILVER:
+                                        guia.setPrecioTotal(guia.getPrecioTotal() * 0.9); //Descuento del 10%
                                 }
-                                println("Descuento membresia");
+                                println(String.format("-----------------BIENVENIDO %s------------------", cuentaCliente.getTitular().getNombre().toUpperCase()));
+
+                                confirmarPago(guia, cuentaCliente, sucursal);
                             }
                         } else {
                             println("Datos incorrectos, intente nuevamente");

@@ -16,6 +16,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import basedatos.Deserializador;
+import basedatos.Serializador;
 
 // Menu principal
 public class Main {
@@ -51,10 +52,10 @@ public class Main {
         Persona guzman = new Cliente("Jaime Guzman", 123456789, 987654321);
         CuentaBancaria guzmanCuenta = new CuentaBancaria(guzman, 1010101010, 666, "09/27", 1000000);
         Serializador.serializar();
+		*/
+		 
 
-		 */
-
-
+    	
         Deserializador.deserializar();
         /*for (Sucursal sucursal : Sucursal.getTodasLasSucursales()) {
             println(sucursal.getNombre());
@@ -68,9 +69,9 @@ public class Main {
             println(cuenta);
         }
          */
-
-        CuentaBancaria guzmanCuenta = new CuentaBancaria(Persona.getTodasLasPersonas().get(0), 1010101010, 666, "09/27", 1000000);
-        Persona guzman = new Cliente("Jaime Guzman", 123456789, 987654321);
+    	//Persona guzman = new Cliente("Jaime Guzman", 123456789, 987654321);
+        //CuentaBancaria guzmanCuenta = new CuentaBancaria(guzman, 1010101010, 666, "09/27", 1000000);
+        
         
         //Menu principal
         Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
@@ -1014,6 +1015,10 @@ public class Main {
     }
 
     public static void salirDelSistema() {
+    	System.out.println("Muchas gracias por usar nuestro servicio, Hasta la proxima...");
+    	Serializador.serializar();
+    	System.exit(0);
+    	
         // TODO Auto-generated method stub
 
     }

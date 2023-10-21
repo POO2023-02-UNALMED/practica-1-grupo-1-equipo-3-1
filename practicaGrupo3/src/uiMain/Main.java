@@ -102,11 +102,10 @@ public class Main {
             println("¿Qué operación deseas realizar?");
             println("1) Enviar paquete.");
             println("2) Pagar servicio.");
-            println("3) Verificar paquete.");
-            println("4) Rastrear paquete.");
-            println("5) Recoger paquete.");
-            println("6) Reclamos.");
-            println("7) Terminar.");
+            println("3) Rastrear paquete.");
+            println("4) Recoger paquete.");
+            println("5) Reclamos.");
+            println("6) Terminar.");
             print("Elige una opcion: ");
             
             try {
@@ -122,22 +121,18 @@ public class Main {
 
                      break;
                  case 3:
-                     verificarPaquete();
-
-                     break;
-                 case 4:
                      rastrearPaquete(1);
 
                      break;
-                 case 5:
+                 case 4:
                      recogerPaquete(sucursal);
 
                      break;
-                 case 6:
+                 case 5:
                      opcionesReclamo();
 
                      break;
-                 case 7:
+                 case 6:
                      salirDelSistema();
 
                      break;

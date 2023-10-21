@@ -6,10 +6,10 @@ import personas.*;
 
 public class CuentaBancaria { 
 	private Persona titular; 
-    private static long numero;
-    private static int cvv;
-    private static String fechaExpiracion;
-    private static double saldo;
+    private long numero;
+    private int cvv;
+    private String fechaExpiracion;
+    private double saldo;
     private static ArrayList<CuentaBancaria> todasLasCuentas = new ArrayList<>();
     
     public CuentaBancaria() {
@@ -21,11 +21,12 @@ public class CuentaBancaria {
         CuentaBancaria.todasLasCuentas.add(this);
     }
 
-    public CuentaBancaria(Persona titular, long numero, int cvv, String fechaExpiracion) {
+    public CuentaBancaria(Persona titular, long numero, int cvv, String fechaExpiracion, double saldo) {
         this.titular = titular;
         this.numero = numero;
         this.cvv = cvv;
         this.fechaExpiracion = fechaExpiracion;
+        this.saldo = saldo;
 
         this.titular.setCuentaBancaria(this); //Le asigna el atributo cuenta al titular
 
@@ -85,10 +86,11 @@ public class CuentaBancaria {
     public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
-    
 
-    public static String imprimirInformacion() {
+    @Override
+    public String toString() {
     	return "--------------------------------\n" +
+                "Titular: " + this.getTitular().getNombre()+"\n" +
     			"Número De Cuenta: " + numero +"\n" +
     			"CVV: " + cvv +"\n"+
     			"Fecha De Expiración: " + fechaExpiracion +"\n"+

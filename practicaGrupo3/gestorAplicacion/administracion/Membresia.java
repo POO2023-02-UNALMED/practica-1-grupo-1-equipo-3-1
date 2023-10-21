@@ -63,6 +63,7 @@ public class Membresia {
 	public void setBeneficio(tipo beneficio) {
 		this.beneficio = beneficio;
 	}
+
 	public int getPrecio() {
 		return precio;
 	}
@@ -71,13 +72,20 @@ public class Membresia {
 	public void setPrecio(int precio) {
 		this.precio = precio;
 	}
+
 	public Cliente getCliente() {
 		return cliente;
 	}
+
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+
 	public String toString() {
+		return "El cliente tiene el beneficio " + String.valueOf(getBeneficio()).toLowerCase();
+	}
+
+	/*public String toString() {
 		String r;
 		if (cliente == null) {
 			r = "El cliente tiene el beneficio " + getBeneficio();
@@ -87,5 +95,7 @@ public class Membresia {
 		}
 		return r;
 	}
+
+	 */
 
 }

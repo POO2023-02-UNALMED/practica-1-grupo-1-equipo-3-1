@@ -10,7 +10,7 @@ import administracion.CuentaBancaria;
 // EN ESTA CLASE ADEMAS DE HEREDAR DE PERSONA TIENE UN ATRIBUTO SUYO PROPIO QUE ES MEMBRESIA
 
 public class Cliente extends Persona{
-	private static Membresia membresia;
+	private Membresia membresia;
 
 	public Cliente() {
 	}

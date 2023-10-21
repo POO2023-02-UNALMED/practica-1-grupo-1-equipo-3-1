@@ -24,6 +24,7 @@ public class Paquete extends Producto {
         asignarCostoDelPedido();
     }
 
+    @Override
     public String toString() {
         return "--------------------------------\n" +
                 "Tipo de producto: Paquete\n" +
@@ -38,6 +39,7 @@ public class Paquete extends Producto {
                 "--------------------------------";
     }
 
+    @Override
     public void asignarCostoDelPedido() {
         double tarifaBasePorKg = 1000;
         double tarfifaBasePorMetroCubico = 4000;

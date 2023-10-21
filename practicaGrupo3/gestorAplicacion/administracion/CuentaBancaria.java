@@ -27,6 +27,8 @@ public class CuentaBancaria {
         this.cvv = cvv;
         this.fechaExpiracion = fechaExpiracion;
 
+        this.titular.setCuentaBancaria(this); //Le asigna el atributo cuenta al titular
+
         CuentaBancaria.todasLasCuentas.add(this);
     }
     

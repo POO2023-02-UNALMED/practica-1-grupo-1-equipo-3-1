@@ -49,17 +49,20 @@ public class Main {
         Sucursal bogotaSur = new Sucursal("Bogotá Sur", 1000, 500, 4, 2, camionesMN, motosMN, avionesMN);
 
 */
+        Persona guzman = new Cliente("Jaime Guzman", 123456789, 987654321);
+        CuentaBancaria guzmanCuenta = new CuentaBancaria(guzman, 1010101010, 666, "09/27");
+        //VOY A SERIALIZAR ESTO PROVISIONALMENTE
 
-		//Serializador.serializar();
+		Serializador.serializar();
 		
-		Deserializador.deserializar();
+		//Deserializador.deserializar();
 	/*
 		for (Sucursal obj: Sucursal.getTodasLasSucursales()) {
 			System.out.println(obj.getNombre());
 		}
 		*/
 		//Menu principal
-		Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
+		//Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
 
 	}
 
@@ -664,12 +667,16 @@ public class Main {
                     if (cuentaCliente.getCVV() == cvv) {
                         if (cuentaCliente.getFechaExpiracion().equals(fechaExpiracion)) {
                             if (guia.getTipoDePago() == tipoDePago.DESTINATARIO) {
-                                int entrada = scanner.nextInt();
-                                scanner.close();
+                                println(String.format("-----------------BIENVENIDO %s------------------", cuentaCliente.getTitular().getNombre().toUpperCase()));
+
 
                                 confirmarPago(guia, cuentaCliente, sucursal);
 
                             } else {
+                                switch (guia.getRemitente().getMembresia().getBeneficio()) {
+                                    case PLATINUM:
+
+                                }
                                 println("Descuento membresia");
                             }
                         } else {
@@ -705,6 +712,7 @@ public class Main {
         println("¿Desea confirmar el pago por $" + guia.getPrecioTotal() + "?");
         println("1) Sí");
         println("2) No");
+        println("3) Ver credenciales de la cuenta");
         print("Elige una opción: ");
 
         boolean numeroValido = false;

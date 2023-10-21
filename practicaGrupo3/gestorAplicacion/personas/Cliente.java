@@ -15,20 +15,22 @@ public class Cliente extends Persona{
 	public Cliente() {
 	}
 	
-	public Cliente(String nombre, long cedula, CuentaBancaria cuentaBancaria, long telefono){
-		super(nombre, cedula, cuentaBancaria, telefono);
+	public Cliente(String nombre, long cedula, long telefono){
+		super(nombre, cedula, telefono);
 		membresia = new Membresia();
 	}
 	
-	public static Membresia getMembresia() {
+	public Membresia getMembresia() {
 		return membresia;
 	}
 
+	@Override
 	public String toString() {
 		String r = "El cliente identificado como " +  getNombre() + "\ncon cedula " + getCedula() + " cuenta con membresia " + getMembresia().getBeneficio();
 		return r;
 	}
-	public static String informacionMembresia() {
+
+	public String informacionMembresia() {
 		return "El cliente identificado como " +  getNombre() + "\ncon cedula " + getCedula() + " cuenta con membresia " + getMembresia().getBeneficio();
 	}
 }

@@ -13,8 +13,8 @@ import java.util.Scanner;
 
 // CLASE ABSTRACTA
 public abstract class Persona {
-    protected static String nombre;
-    protected static long cedula;
+    protected String nombre;
+    protected long cedula;
     protected CuentaBancaria cuentaBancaria;
     protected long telefono;
 	protected Producto producto;
@@ -26,10 +26,9 @@ public abstract class Persona {
     protected Persona() {
     }
 
-    protected Persona(String nombre, long cedula, CuentaBancaria cuentaBancaria, long telefono) {
+    protected Persona(String nombre, long cedula, long telefono) {
         this.nombre = nombre;
         this.cedula = cedula;
-        this.cuentaBancaria = cuentaBancaria;
         this.telefono = telefono;
 
 		todasLasPersonas.add(this);
@@ -39,7 +38,7 @@ public abstract class Persona {
         reputacion++;
     }
 
-    public static String getNombre() {
+    public String getNombre() {
         return nombre;
     }
 
@@ -47,7 +46,7 @@ public abstract class Persona {
         this.nombre = nombre;
     }
 
-    public static long getCedula() {
+    public long getCedula() {
         return cedula;
     }
 

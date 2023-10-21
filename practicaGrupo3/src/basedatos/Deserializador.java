@@ -17,7 +17,7 @@ import administracion.Sucursal;
 import transportes.Transporte;
 
 public class Deserializador {
-	
+
 	private static File rutaTemp = new File("src\\basedatos\\temp");
 	
 	public static void deserializar() {

@@ -30,14 +30,13 @@ public class Animal extends Producto {
         super(generarCodigo(), peso);
         this.nombre = nombre;
         this.edad = edad;
-        this.peso = peso;
         this.tipo = tipo;
-
         vivo = true;
 
-        asignarPeligro();
         asignarTamano();
+        asignarPeligro();
         asignarVolumen();
+        asignarCostoDelPedido();
     }
 
     @Override

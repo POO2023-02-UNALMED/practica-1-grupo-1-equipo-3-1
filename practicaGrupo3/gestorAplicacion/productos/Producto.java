@@ -26,8 +26,6 @@ public abstract class Producto {
         this.codigo = codigo;
         this.peso = peso;
 
-        asignarCostoDelPedido();
-
         Producto.todosLosProductos.add(this);
         Producto.contadorProductos ++;
     }

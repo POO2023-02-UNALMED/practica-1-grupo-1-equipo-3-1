@@ -859,7 +859,7 @@ public class Main {
 
                             } else {
                                 println("Lo sentimos, no hay suficiente dinero en la cuenta");
-                                alternativa();
+                                alternativa(guia, sucursal);
                             }
                         } else if (guia.getTipoDePago() == tipoDePago.FRACCIONADO) {
                             if (cuentaCliente.descontarSaldo(guia.getPagoPendiente() / 2)) {
@@ -877,7 +877,7 @@ public class Main {
                                 println("-------------------------------------------------");
                             } else {
                                 println("Lo sentimos, no hay suficiente dinero en la cuenta");
-                                alternativa();
+                                alternativa(guia, sucursal);
                             }
                         }
                     } else { //Está pagando el destinatario
@@ -908,7 +908,7 @@ public class Main {
         }
     }
 
-    public static void alternativa() { //Si no tiene suficiente dinero en la cuenta puede pagar eefectivo
+    public static void alternativa(Guia guia, Sucursal sucursal) { //Si no tiene suficiente dinero en la cuenta puede pagar eefectivo
         println("¿Quieres pagar en efectivo?");
         println("1) Sí");
         println("2) No, cancelar compra");
@@ -921,7 +921,7 @@ public class Main {
 
             switch (entrada1) {
                 case 1:
-                    pagarEfectivo(null, null);
+                    pagarEfectivo(guia, sucursal);
 
                     numeroValido = true;
                     break;

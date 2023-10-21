@@ -129,8 +129,8 @@ public class Main {
 	                    println("Número no válido. Inténtalo de nuevo.");
 	            }
 	        } catch (InputMismatchException e) {
-	            System.out.println("Error: Debes ingresar un número válido. Inténtalo de nuevo.");
-	            scanner.nextLine(); // Limpia el buffer del scanner
+	            System.out.println("Entrada no válida. Inténtalo de nuevo.");
+	            scanner.nextLine(); 
 	        }
 	    }
 	}

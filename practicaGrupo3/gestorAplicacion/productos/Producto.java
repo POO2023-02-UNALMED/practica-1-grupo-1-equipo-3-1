@@ -15,9 +15,8 @@ public abstract class Producto {
     private static ArrayList<Producto> todosLosProductos = new ArrayList<>();
 
     public Producto(int codigo, double volumen, double peso) {
-        this.codigo = codigo;
+        this(codigo, peso);
         this.volumen = volumen;
-        this.peso = peso;
 
         Producto.todosLosProductos.add(this);
         Producto.contadorProductos ++;
@@ -26,6 +25,8 @@ public abstract class Producto {
     public Producto(int codigo, double peso) {
         this.codigo = codigo;
         this.peso = peso;
+
+        asignarCostoDelPedido();
 
         Producto.todosLosProductos.add(this);
         Producto.contadorProductos ++;

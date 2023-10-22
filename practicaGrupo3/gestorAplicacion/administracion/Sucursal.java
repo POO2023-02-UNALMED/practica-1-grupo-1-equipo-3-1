@@ -9,7 +9,7 @@ import productos.*;
 import transportes.*;
 
 
-public class Sucursal implements Serializable{
+public class Sucursal implements Serializable {
     enum Horario {
         LUNES,
         MARTES,
@@ -42,10 +42,11 @@ public class Sucursal implements Serializable{
     private int cantidadJaulasMedianas;
     private int cantidadJaulasGrandes;
 
-    private Opinion opinionSucursal; 
+    private Opinion opinionSucursal;
     private int capacidadStockSucursales = 30; // Esto es para la funcionalidad de opinion
-     //EL IDENTIFICADOR PARA EL DESERIALIZADOR
+    //EL IDENTIFICADOR PARA EL DESERIALIZADOR
     private static final long serialVersionUID = 1L; //
+
     //constructor
     public Sucursal(String nombre, int capacidadVolumen, int capacidadPeso, int longitud, int latitud, ArrayList<Camion> camionesEnSucursal, ArrayList<Moto> motosEnSucursal, ArrayList<Avion> avionesEnSucursal) {
         this.nombre = nombre;
@@ -401,8 +402,9 @@ public class Sucursal implements Serializable{
     public static ArrayList<Sucursal> getTodasLasSucursales() {
         return Sucursal.todasLasSucursales;
     }
+
     public static void setTodasLasSucursales(ArrayList<Sucursal> lista) {
-    	todasLasSucursales = lista;
+        todasLasSucursales = lista;
     }
 
     public ArrayList<Producto> getInventario() {

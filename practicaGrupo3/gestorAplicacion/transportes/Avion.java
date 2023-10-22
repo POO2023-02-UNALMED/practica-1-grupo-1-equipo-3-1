@@ -1,14 +1,15 @@
 package transportes;
 import administracion.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Avion extends Transporte {
+public class Avion extends Transporte implements Serializable{
     private static int cantAviones = 0;
     private int cantdadAvionesDisponibles = 0;
     private Sucursal sucursalDestino;
     private ArrayList<Sucursal> ruta = new ArrayList<>();
-
+    private static final long serialVersionUID = 1L;
 
     private Guia guia;
     public Avion(Sucursal ciudadRegistro, Sucursal sucursalDestino, int capacidadVolumen, int capacidadPeso, String matricula) {

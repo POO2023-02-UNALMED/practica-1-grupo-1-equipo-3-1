@@ -62,14 +62,14 @@ public class Main {
         camionmn.agregarProductos();
         camionmn.iniciarRecorrido();
 
-        //Serializador.serializar();
+        Serializador.serializar();
 
 
 
         //Deserializador.deserializar();
 
 
-        
+        /*
 
         for (Persona persona : Persona.getTodasLasPersonas()) {
             println(persona.getNombre());
@@ -98,6 +98,8 @@ public class Main {
 
 
         */
+    	Deserializador.deserializar();
+    	
         //Menu principal
         Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
 

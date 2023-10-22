@@ -4,9 +4,10 @@ import administracion.Guia;
 import administracion.Sucursal;
 import productos.Producto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Camion extends Transporte {
+public class Camion extends Transporte implements Serializable{
     private static int cant_camiones;
     private static int cantidadCamionesDisponibles;
     private ArrayList<Sucursal> ruta = new ArrayList<>();
@@ -15,7 +16,7 @@ public class Camion extends Transporte {
     private Sucursal ubicacionSiguiente;
     private String ubicacion;
     private boolean enSucursal;
-
+    private static final long serialVersionUID = 1L;
 
     public Camion(Sucursal ciudadRegistro, int capacidadVolumen, int capacidadPeso, String matricula) {
         super(ciudadRegistro, capacidadVolumen, capacidadPeso, matricula, 20);

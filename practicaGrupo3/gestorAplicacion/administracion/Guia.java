@@ -29,8 +29,6 @@ public class Guia implements Serializable{
 	// pago está en sucursal, ¿qué hacemos acá?
 	private Cliente remitente;
 	private Destinatario destinatario; 
-	private String direccion;
-	private boolean entregaEnSucursal;
 	private double precioTotal;
 	private double pagoPendiente;
 	private LocalDateTime fecha;
@@ -55,14 +53,13 @@ public class Guia implements Serializable{
 	} 
 
 	//Constructor
-	public Guia(Producto producto,  Cliente remitente, Destinatario destinatario,  Sucursal sucursalOrigen, Sucursal sucursalLlegada, tipoDePago tipoDePago, boolean entregaEnSucursal, Transporte vehiculo) {
+	public Guia(Producto producto,  Cliente remitente, Destinatario destinatario,  Sucursal sucursalOrigen, Sucursal sucursalLlegada, tipoDePago tipoDePago, Transporte vehiculo) {
 		this.producto = producto;
 		this.remitente = remitente;
 		this.destinatario = destinatario;
 		this.sucursalOrigen = sucursalOrigen;
 		this.sucursalLlegada = sucursalLlegada;
 		this.tipoDePago = tipoDePago;
-		this.entregaEnSucursal = entregaEnSucursal;
 		this.vehiculo = vehiculo;
 		this.producto.setGuia(this);
 
@@ -211,16 +208,8 @@ public class Guia implements Serializable{
         return destinatario;
     }
 
-    public String getDireccion() {
-        return direccion;
-    }
-
 	public double getPagoPendiente() {
 		return pagoPendiente;
-	}
-
-	public boolean isEntregaEnSucursal() {
-		return entregaEnSucursal;
 	}
 
     public double getPrecioTotal() {
@@ -274,14 +263,6 @@ public class Guia implements Serializable{
 
     public void setDestinatario(Destinatario destinatario) {
         this.destinatario = destinatario;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public void setEntregaEnSucursal(boolean entregaEnSucursal) {
-        this.entregaEnSucursal = entregaEnSucursal;
     }
 
     public void setPrecioTotal(double precioTotal) {

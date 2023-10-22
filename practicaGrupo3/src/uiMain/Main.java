@@ -25,44 +25,49 @@ public class Main {
     public static void main(String[] args) {
 
 /*
-		ArrayList<Camion> camionesMN = new ArrayList<>();
+        ArrayList<Camion> camionesMN = new ArrayList<>();
 
-		ArrayList<Moto> motosMN = new ArrayList<>();
+        ArrayList<Moto> motosMN = new ArrayList<>();
 
-		ArrayList<Avion> avionesMN = new ArrayList<>();
+        ArrayList<Avion> avionesMN = new ArrayList<>();
 
-		Sucursal medellinNorte = new Sucursal("Medellin Norte", 100, 100, -6, 8, camionesMN, motosMN, avionesMN);
+        Sucursal medellinNorte = new Sucursal("Medellin Norte", 100, 100, -6, 8, camionesMN, motosMN, avionesMN);
         camionesMN.add(new Camion(medellinNorte, 27, 300, "ABC109"));
         motosMN.add(new Moto(medellinNorte, 1, 30, "ABC123"));
 
         Sucursal medellinSur = new Sucursal("Medellin Sur", 100, 100, -6, 6, camionesMN, motosMN, avionesMN);
 
-		Sucursal caliNorte = new Sucursal("Cali Norte", 400, 200, -8, -4, camionesMN, motosMN, avionesMN);
-		Sucursal caliSur = new Sucursal("Cali Sur", 400, 200, -8, -6, camionesMN, motosMN, avionesMN);
+        Sucursal caliNorte = new Sucursal("Cali Norte", 400, 200, -8, -4, camionesMN, motosMN, avionesMN);
+        Sucursal caliSur = new Sucursal("Cali Sur", 400, 200, -8, -6, camionesMN, motosMN, avionesMN);
 
-		Sucursal pastoNorte = new Sucursal("Pasto Norte", 200, 700, -12, -10, camionesMN, motosMN, avionesMN);
-		Sucursal pastoSur = new Sucursal("Pasto Sur", 200, 700, -12, -12, camionesMN, motosMN, avionesMN);
+        Sucursal pastoNorte = new Sucursal("Pasto Norte", 200, 700, -12, -10, camionesMN, motosMN, avionesMN);
+        Sucursal pastoSur = new Sucursal("Pasto Sur", 200, 700, -12, -12, camionesMN, motosMN, avionesMN);
 
-		Sucursal bogotaNorte = new Sucursal("Bogotá Norte", 1000, 500, 4, 2, camionesMN, motosMN, avionesMN);
+        Sucursal bogotaNorte = new Sucursal("Bogotá Norte", 1000, 500, 4, 2, camionesMN, motosMN, avionesMN);
         avionesMN.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "asdfg"));
 
         Sucursal bogotaSur = new Sucursal("Bogotá Sur", 1000, 500, 4, 2, camionesMN, motosMN, avionesMN);
 
-        Persona guzman = new Cliente("Jaime Guzman", 123456789, 987654321);
+        Cliente guzman = new Cliente("Jaime Guzman", 123456789, 987654321);
         CuentaBancaria guzmanCuenta = new CuentaBancaria(guzman, 1010101010, 666, "09/27", 1000000);
-       
-        
+
+        Destinatario david = new Destinatario("David", 55555, 666666);
+        Producto documento = new Documento();
+        Guia guiaDoc = new Guia(documento, guzman, david, medellinNorte, pastoSur, tipoDePago.REMITENTE, camionesMN.get(0));
+
+
+ */
 
     	
- 
-        Serializador.serializar();
-*/
+
+        //Serializador.serializar();
 
 
-       Deserializador.deserializar();
-        /*for (Sucursal sucursal : Sucursal.getTodasLasSucursales()) {
-            println(sucursal.getNombre());
-        }
+
+        Deserializador.deserializar();
+
+
+        /*FALLA
 
         for (Persona persona : Persona.getTodasLasPersonas()) {
             println(persona.getNombre());
@@ -70,14 +75,20 @@ public class Main {
          for (CuentaBancaria cuenta : CuentaBancaria.getTodasLasCuentas()) {
             println(cuenta.getNumero());
             println("----");
+        }
 
+        for (Guia guia : Guia.getTodasLasGuias()) {
+            println(guia);
+        }
 
+        println(Transporte.getTodosLosTransportes());
 */
 
-        //println(CuentaBancaria.getTodasLasCuentas());
-        
+
+
         //Menu principal
-        Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
+        //Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
+
 
     }
 
@@ -91,8 +102,8 @@ public class Main {
 
     public static void menuPrincipal(Sucursal sucursal) {
         Scanner scanner = new Scanner(System.in);
-        
-        while(true) {
+
+        while (true) {
             println("--- BIENVENIDO AL SISTEMA DE ENVIOS CORREMINAS ---");
             println("¿Qué operación deseas realizar?");
             println("1) Enviar paquete.");
@@ -102,534 +113,528 @@ public class Main {
             println("5) Reclamos.");
             println("6) Terminar.");
             print("Elige una opcion: ");
-            
+
             try {
-            	int opcion = scanner.nextInt(); 
-            	
-            	 switch (opcion) {
-                 case 1:
-                     enviarPaquete(sucursal);
+                int opcion = scanner.nextInt();
 
-                     break;
-                 case 2:
-                     pagarServicio(sucursal);
+                switch (opcion) {
+                    case 1:
+                        enviarPaquete(sucursal);
 
-                     break;
-                 case 3:
-                     rastrearPaquete(1);
+                        break;
+                    case 2:
+                        pagarServicio(sucursal);
 
-                     break;
-                 case 4:
-                     recogerPaquete(sucursal);
+                        break;
+                    case 3:
+                        rastrearPaquete(1);
 
-                     break;
-                 case 5:
-                     opcionesReclamo();
+                        break;
+                    case 4:
+                        recogerPaquete(sucursal);
 
-                     break;
-                 case 6:
-                     salirDelSistema();
+                        break;
+                    case 5:
+                        opcionesReclamo();
 
-                     break;
-                 default:
-                     print("Número no válido. Inténtalo de nuevo: ");
-            }
-        } catch(InputMismatchException e) {
+                        break;
+                    case 6:
+                        salirDelSistema();
+
+                        break;
+                    default:
+                        print("Número no válido. Inténtalo de nuevo: ");
+                }
+            } catch (InputMismatchException e) {
                 System.out.println("Dato no válido. Por favor inténtelo de nuevo: ");
-                scanner.nextLine(); 
-        }
+                scanner.nextLine();
+            }
         }
     }
-    
-    
 
 
     public static void enviarPaquete(Sucursal sucursalOrigen) {
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
-        
+
         do {
-        	try {
-        		println("---------------DATOS DEL PRODUCTO----------------");
+            try {
+                println("---------------DATOS DEL PRODUCTO----------------");
                 println("Ingrese el tipo de producto:");
                 println("1) Paquete");
                 println("2) Animal");
                 println("3) Documento");
                 print("Elige una opción: ");
-                
+
                 int tipoDeProducto = scanner.nextInt();
                 scanner.nextLine();
                 Producto producto = null;
                 boolean numeroValido = false;
-                
+
                 switch (tipoDeProducto) {
-                case 1: //Paquete
-                    println("-------------------------------------------------");
-                    print("Peso del paquete: ");
-                    double peso = scanner.nextDouble();
-                    print("Alto del paquete: ");
-                    double alto = scanner.nextDouble();
-                    print("Ancho del paquete: ");
-                    double ancho = scanner.nextDouble();
-                    print("Largo del paquete: ");
-                    double largo = scanner.nextDouble();
+                    case 1: //Paquete
+                        println("-------------------------------------------------");
+                        print("Peso del paquete: ");
+                        double peso = scanner.nextDouble();
+                        print("Alto del paquete: ");
+                        double alto = scanner.nextDouble();
+                        print("Ancho del paquete: ");
+                        double ancho = scanner.nextDouble();
+                        print("Largo del paquete: ");
+                        double largo = scanner.nextDouble();
 
-                    println("-------------------------------------------------");
-                    println("¿El paquete es fragil?");
-                    println("1) Sí");
-                    println("2) No");
-                    print("Elige una opcion: ");
+                        println("-------------------------------------------------");
+                        println("¿El paquete es fragil?");
+                        println("1) Sí");
+                        println("2) No");
+                        print("Elige una opcion: ");
 
-                    boolean numeroValido2 = false;
-                    boolean fragil = false;
+                        boolean numeroValido2 = false;
+                        boolean fragil = false;
 
-                    while (!numeroValido2) {
-                        int fragilEntrada = scanner.nextInt();
-                        switch (fragilEntrada) {
-                            case 1:
-                                fragil = true;
-                                numeroValido2 = true;
-                                break;
-                            case 2:
-                                fragil = false;
-                                numeroValido2 = true;
-                                break;
-                            default:
-                                print("Número no válido. Inténtalo de nuevo: ");
+                        while (!numeroValido2) {
+                            int fragilEntrada = scanner.nextInt();
+                            switch (fragilEntrada) {
+                                case 1:
+                                    fragil = true;
+                                    numeroValido2 = true;
+                                    break;
+                                case 2:
+                                    fragil = false;
+                                    numeroValido2 = true;
+                                    break;
+                                default:
+                                    print("Número no válido. Inténtalo de nuevo: ");
+                            }
                         }
-                    }
-                    println("-------------------------------------------------");
-                    print("Valor declarado: ");
-                    double valorDeclarado = scanner.nextDouble();
-                    scanner.nextLine();
-
-                    producto = new Paquete(peso, alto, ancho, largo, fragil, valorDeclarado);
-                    Paquete paquete = (Paquete) producto;
-                    println(producto);
-                    numeroValido = true;
-                    break;
-
-                case 2: //Animal
-                    println("-------------------------------------------------");
-                    print("Nombre del animal: ");
-                    String nombre = scanner.nextLine();
-                    print("Edad del animal: ");
-                    int edad = scanner.nextInt();
-                    print("Peso del animal: ");
-                    double peso1 = scanner.nextDouble();
-
-                    println("-------------------------------------------------");
-                    println("Ingrese el tipo del animal:");
-                    println("1) Perro");
-                    println("2) Gato");
-                    println("3) Hamster");
-                    println("4) Loro");
-                    println("5) Caballo");
-                    println("6) Vaca");
-                    print("Elige una opción: ");
-
-                    tipoAnimal tipoAnimal = null;
-                    boolean numeroValido3 = false;
-
-                    while (!numeroValido3) {
-                        int tipoAnimalEntrada = scanner.nextInt();
+                        println("-------------------------------------------------");
+                        print("Valor declarado: ");
+                        double valorDeclarado = scanner.nextDouble();
                         scanner.nextLine();
 
-                        switch (tipoAnimalEntrada) {
-                            case 1: //Perro
-                                tipoAnimal = Animal.tipoAnimal.PERRO;
-                                numeroValido3 = true;
-                                break;
-                            case 2:
-                                tipoAnimal = Animal.tipoAnimal.GATO;
-                                numeroValido3 = true;
-                                break;
-                            case 3:
-                                tipoAnimal = Animal.tipoAnimal.HAMSTER;
-                                numeroValido3 = true;
-                                break;
-                            case 4:
-                                tipoAnimal = Animal.tipoAnimal.LORO;
-                                numeroValido3 = true;
-                                break;
-                            case 5:
-                                tipoAnimal = Animal.tipoAnimal.CABALLO;
-                                numeroValido3 = true;
-                                break;
-                            case 6:
-                                tipoAnimal = Animal.tipoAnimal.VACA;
-                                numeroValido3 = true;
-                                break;
-                            default:
-                                print("Número no válido. Inténtalo de nuevo: ");
-                        }
-                    }
-
-                    producto = new Animal(nombre, edad, peso1, tipoAnimal);
-                    Animal animal = (Animal) producto;
-                    println(animal);
-                    numeroValido = true;
-                    break;
-                case 3:
-                    producto = new Documento();
-                    Documento documento = (Documento) producto;
-                    numeroValido = true;
-                    break;
-                default:
-                    print("Número no válido. Inténtalo de nuevo: ");
-                    break;
-            }
-                
-               
-
-            println("----------------DATOS DEL USUARIO----------------");
-
-            print("Nombre del remitente: ");
-            String nombreRemitente = scanner.nextLine();
-            print("Cédula del remitente: ");
-            long cedulaRemitente = scanner.nextLong();
-            print("Telefono del remitente: ");
-            long telefonoRemitente = scanner.nextLong();
-            scanner.nextLine();
-
-            Cliente remitente = new Cliente(nombreRemitente, cedulaRemitente, telefonoRemitente);
-
-            println("-------------------------------------------------");
-            print("Nombre del destinatario: ");
-            String nombreDestinatario = scanner.nextLine();
-            print("Cédula del destinatario: ");
-            long cedulaDestinatario = scanner.nextLong();
-            print("Telefono del destinatario: ");
-            long telefonoDestinatario = scanner.nextLong();
-
-            Destinatario destinatario = new Destinatario(nombreDestinatario, cedulaDestinatario, telefonoDestinatario);
-
-            String[] palabra = sucursalOrigen.getNombre().split(" ");
-            println("------------------DATOS DE ENVÍO-----------------");
-
-            println("Ciudad de origen: " + sucursalOrigen.getCiudad());
-            println("Sucursal: " + palabra[1]);
-
-            ArrayList<Sucursal> ciudadesDestino = new ArrayList<>();
-
-            for (Sucursal sucursal : Sucursal.getTodasLasSucursales()) {
-                if (!Objects.equals(sucursal.getCiudad(), sucursalOrigen.getCiudad())) {
-                    ciudadesDestino.add(sucursal);
-                }
-            }
-
-            String ciudades = String.format("Seleccione la ciudad de destino: \n" +
-                    "1) %s\n" +
-                    "2) %s\n" +
-                    "3) %s", ciudadesDestino.get(0).getCiudad(), ciudadesDestino.get(2).getCiudad(), ciudadesDestino.get(4).getCiudad());
-
-            println("-------------------------------------------------");
-            println(ciudades);
-            print("Elige una opción: ");
-
-            Sucursal sucursalDestino = null;
-            boolean numeroValido4 = false;
-
-            while (!numeroValido4) {
-                int destinoEntrada = scanner.nextInt();
-
-                switch (destinoEntrada) {
-                    case 1:
-                        String sucursales = String.format("Seleccione la Sucursal de preferencia:\n" +
-                                "1) %s\n" +
-                                "2) %s", ciudadesDestino.get(0).getNombre(), ciudadesDestino.get(1).getNombre());
-
-                        println("-------------------------------------------------");
-                        println(sucursales);
-                        print("Elige una opción: ");
-
-                        boolean numeroValido5 = false;
-
-                        while (!numeroValido5) {
-                            int sucursalEntrada = scanner.nextInt();
-
-                            switch (sucursalEntrada) {
-                                case 1:
-                                    sucursalDestino = ciudadesDestino.get(0);
-                                    numeroValido5 = true;
-                                    break;
-                                case 2:
-                                    sucursalDestino = ciudadesDestino.get(1);
-                                    numeroValido5 = true;
-                                    break;
-                                default:
-                                    print("Número no válido. Inténtalo de nuevo: ");
-                            }
-                        }
-                        numeroValido4 = true;
+                        producto = new Paquete(peso, alto, ancho, largo, fragil, valorDeclarado);
+                        Paquete paquete = (Paquete) producto;
+                        println(producto);
+                        numeroValido = true;
                         break;
-                    case 2:
-                        String sucursales1 = String.format("Seleccione la Sucursal de preferencia:\n" +
-                                "1) %s\n" +
-                                "2) %s", ciudadesDestino.get(2).getNombre(), ciudadesDestino.get(3).getNombre());
+
+                    case 2: //Animal
+                        println("-------------------------------------------------");
+                        print("Nombre del animal: ");
+                        String nombre = scanner.nextLine();
+                        print("Edad del animal: ");
+                        int edad = scanner.nextInt();
+                        print("Peso del animal: ");
+                        double peso1 = scanner.nextDouble();
 
                         println("-------------------------------------------------");
-                        println(sucursales1);
+                        println("Ingrese el tipo del animal:");
+                        println("1) Perro");
+                        println("2) Gato");
+                        println("3) Hamster");
+                        println("4) Loro");
+                        println("5) Caballo");
+                        println("6) Vaca");
                         print("Elige una opción: ");
 
-                        boolean numeroValido6 = false;
+                        tipoAnimal tipoAnimal = null;
+                        boolean numeroValido3 = false;
 
-                        while (!numeroValido6) {
-                            int sucursalEntrada = scanner.nextInt();
+                        while (!numeroValido3) {
+                            int tipoAnimalEntrada = scanner.nextInt();
+                            scanner.nextLine();
 
-                            switch (sucursalEntrada) {
-                                case 1:
-                                    sucursalDestino = ciudadesDestino.get(2);
-                                    numeroValido6 = true;
+                            switch (tipoAnimalEntrada) {
+                                case 1: //Perro
+                                    tipoAnimal = Animal.tipoAnimal.PERRO;
+                                    numeroValido3 = true;
                                     break;
                                 case 2:
-                                    sucursalDestino = ciudadesDestino.get(3);
-                                    numeroValido6 = true;
+                                    tipoAnimal = Animal.tipoAnimal.GATO;
+                                    numeroValido3 = true;
+                                    break;
+                                case 3:
+                                    tipoAnimal = Animal.tipoAnimal.HAMSTER;
+                                    numeroValido3 = true;
+                                    break;
+                                case 4:
+                                    tipoAnimal = Animal.tipoAnimal.LORO;
+                                    numeroValido3 = true;
+                                    break;
+                                case 5:
+                                    tipoAnimal = Animal.tipoAnimal.CABALLO;
+                                    numeroValido3 = true;
+                                    break;
+                                case 6:
+                                    tipoAnimal = Animal.tipoAnimal.VACA;
+                                    numeroValido3 = true;
                                     break;
                                 default:
                                     print("Número no válido. Inténtalo de nuevo: ");
                             }
                         }
-                        numeroValido4 = true;
+
+                        producto = new Animal(nombre, edad, peso1, tipoAnimal);
+                        Animal animal = (Animal) producto;
+                        println(animal);
+                        numeroValido = true;
                         break;
                     case 3:
-                        String sucursales2 = String.format("Seleccione la Sucursal de preferencia:\n" +
-                                "1) %s\n" +
-                                "2) %s", ciudadesDestino.get(4).getNombre(), ciudadesDestino.get(5).getNombre());
-
-                        println("-------------------------------------------------");
-                        println(sucursales2);
-                        print("Elige una opción: ");
-
-                        boolean numeroValido7 = false;
-
-                        while (!numeroValido7) {
-                            int sucursalEntrada = scanner.nextInt();
-
-                            switch (sucursalEntrada) {
-                                case 1:
-                                    sucursalDestino = ciudadesDestino.get(4);
-                                    numeroValido7 = true;
-                                    break;
-                                case 2:
-                                    sucursalDestino = ciudadesDestino.get(5);
-                                    numeroValido7 = true;
-                                    break;
-                                default:
-                                    print("Número no válido. Inténtalo de nuevo: ");
-                            }
-                        }
-                        numeroValido4 = true;
+                        producto = new Documento();
+                        Documento documento = (Documento) producto;
+                        numeroValido = true;
                         break;
                     default:
                         print("Número no válido. Inténtalo de nuevo: ");
+                        break;
                 }
-            }
 
-            boolean disponibilidadSucursal = false;
-            boolean disponibilidadTransporte = false;
 
-            if (producto instanceof Paquete || producto instanceof Documento) {
-                if (sucursalOrigen.verificarDisponibilidad(producto)) {
-                    disponibilidadSucursal = true;
-                }
-            } else if (producto instanceof Animal) {
-                if (sucursalOrigen.verificarDisponibilidad(producto)) {
-                    if (sucursalOrigen.disponibilidadJaulas((Animal) producto)) {
-                        disponibilidadSucursal = true;
+                println("----------------DATOS DEL USUARIO----------------");
+
+                print("Nombre del remitente: ");
+                String nombreRemitente = scanner.nextLine();
+                print("Cédula del remitente: ");
+                long cedulaRemitente = scanner.nextLong();
+                print("Telefono del remitente: ");
+                long telefonoRemitente = scanner.nextLong();
+                scanner.nextLine();
+
+                Cliente remitente = new Cliente(nombreRemitente, cedulaRemitente, telefonoRemitente);
+
+                println("-------------------------------------------------");
+                print("Nombre del destinatario: ");
+                String nombreDestinatario = scanner.nextLine();
+                print("Cédula del destinatario: ");
+                long cedulaDestinatario = scanner.nextLong();
+                print("Telefono del destinatario: ");
+                long telefonoDestinatario = scanner.nextLong();
+
+                Destinatario destinatario = new Destinatario(nombreDestinatario, cedulaDestinatario, telefonoDestinatario);
+
+                String[] palabra = sucursalOrigen.getNombre().split(" ");
+                println("------------------DATOS DE ENVÍO-----------------");
+
+                println("Ciudad de origen: " + sucursalOrigen.getCiudad());
+                println("Sucursal: " + palabra[1]);
+
+                ArrayList<Sucursal> ciudadesDestino = new ArrayList<>();
+
+                for (Sucursal sucursal : Sucursal.getTodasLasSucursales()) {
+                    if (!Objects.equals(sucursal.getCiudad(), sucursalOrigen.getCiudad())) {
+                        ciudadesDestino.add(sucursal);
                     }
                 }
-            }
 
-            Transporte vehiculo = null;
+                String ciudades = String.format("Seleccione la ciudad de destino: \n" +
+                        "1) %s\n" +
+                        "2) %s\n" +
+                        "3) %s", ciudadesDestino.get(0).getCiudad(), ciudadesDestino.get(2).getCiudad(), ciudadesDestino.get(4).getCiudad());
 
-            if (disponibilidadSucursal) {
-
-                if (remitente.getMembresia().getBeneficio() == Membresia.tipo.PLATINUM || remitente.getMembresia().getBeneficio() == Membresia.tipo.GOLD) {
-                    println("---------------DATOS DE TRANSPORTE---------------");
-                    println("Ingrese el tipo de tranporte de su preferencia:");
-                    println("1) Camión");
-                    println("2) Avión (Envío directo y más rápido)");
-                    print("Elige una opción: ");
-
-                    boolean numeroValido5 = false;
-
-                    while (!numeroValido5) {
-                        int transporteEntrada = scanner.nextInt();
-
-                        switch (transporteEntrada) {
-                            case 1:
-                                if (!sucursalOrigen.getCamionesEnSucursal().isEmpty()) {
-                                    vehiculo = sucursalOrigen.getCamionesEnSucursal().get(0);
-                                    numeroValido5 = true;
-                                    disponibilidadTransporte = true;
-                                    break;
-                                } else {
-                                    println("Lo sentimos no tenemos disponibilidad de camiones en este momento");
-                                    numeroValido5 = true;
-                                    break;
-                                }
-                            case 2:
-                                if (!sucursalOrigen.getAvionesEnSucursal().isEmpty()) {
-                                    for (Avion aviones : sucursalOrigen.getAvionesEnSucursal()) {
-                                        if (aviones.getSucursalDestino() == sucursalDestino) {
-                                            vehiculo = aviones;
-                                            disponibilidadTransporte = true;
-                                            break;
-                                        }
-                                        if (vehiculo == null) {
-                                            println("Lo sentimos no tenemos disponibilidad de aviones que se dirigen a esa sucursal en este momento");
-                                        }
-                                    }
-                                    numeroValido5 = true;
-                                    break;
-                                } else {
-                                    println("Lo sentimos no tenemos disponibilidad de aviones en este momento");
-                                    numeroValido5 = true;
-                                    break;
-                                }
-                            default:
-                                print("Número no válido. Inténtalo de nuevo: ");
-                        }
-                    }
-
-                } else {
-                    if (!sucursalOrigen.getCamionesEnSucursal().isEmpty()) {
-                        vehiculo = sucursalOrigen.getCamionesEnSucursal().get(0);
-                        disponibilidadTransporte = true;
-
-                    } else {
-                        println("Lo sentimos no tenemos disponibilidad de camiones en este momento");
-                    }
-
-                }
-            } else {
-                println("Lo sentimos, no tenemos disponibilidad en la sucursal");
-            }
-
-            if (disponibilidadTransporte) {
-                println("------------------FORMA DE PAGO------------------");
-                println("Seleccione el pago de su preferencia para el pedido:");
-                println("1) Pago total");
-                println("2) Pago fraccionado");
-                println("3) Pago contraentrega");
+                println("-------------------------------------------------");
+                println(ciudades);
                 print("Elige una opción: ");
 
-                boolean numeroValido6 = false;
+                Sucursal sucursalDestino = null;
+                boolean numeroValido4 = false;
 
-                tipoDePago tipoDePago = null;
+                while (!numeroValido4) {
+                    int destinoEntrada = scanner.nextInt();
 
-                while (!numeroValido6) {
-                    int pagoEntrada = scanner.nextInt();
-
-                    Guia guia = null;
-
-                    switch (pagoEntrada) {
+                    switch (destinoEntrada) {
                         case 1:
-                            tipoDePago = Guia.tipoDePago.REMITENTE;
-                            guia = new Guia(producto, remitente, destinatario, sucursalOrigen, sucursalDestino, tipoDePago, true, vehiculo);
-                            println(guia.toString());
+                            String sucursales = String.format("Seleccione la Sucursal de preferencia:\n" +
+                                    "1) %s\n" +
+                                    "2) %s", ciudadesDestino.get(0).getNombre(), ciudadesDestino.get(1).getNombre());
 
-                            println("Diríjase a la pestaña principal para pagar su servicio.");
-                            println("");
+                            println("-------------------------------------------------");
+                            println(sucursales);
+                            print("Elige una opción: ");
 
-                            print("1) Volver al menú principal: ");
+                            boolean numeroValido5 = false;
 
-                            boolean numerovalido7 = false;
+                            while (!numeroValido5) {
+                                int sucursalEntrada = scanner.nextInt();
 
-                            while (!numerovalido7) {
-                                int menuPrincipalEntrada = scanner.nextInt();
-                                switch (menuPrincipalEntrada) {
+                                switch (sucursalEntrada) {
                                     case 1:
-                                        Main.menuPrincipal(sucursalOrigen);
-                                        numerovalido7 = true;
+                                        sucursalDestino = ciudadesDestino.get(0);
+                                        numeroValido5 = true;
+                                        break;
+                                    case 2:
+                                        sucursalDestino = ciudadesDestino.get(1);
+                                        numeroValido5 = true;
                                         break;
                                     default:
                                         print("Número no válido. Inténtalo de nuevo: ");
                                 }
                             }
-
-                            numeroValido6 = true;
+                            numeroValido4 = true;
                             break;
                         case 2:
-                            tipoDePago = Guia.tipoDePago.FRACCIONADO;
-                            guia = new Guia(producto, remitente, destinatario, sucursalOrigen, sucursalDestino, tipoDePago, true, vehiculo);
-                            println(guia.toString());
+                            String sucursales1 = String.format("Seleccione la Sucursal de preferencia:\n" +
+                                    "1) %s\n" +
+                                    "2) %s", ciudadesDestino.get(2).getNombre(), ciudadesDestino.get(3).getNombre());
 
-                            println("Diríjase a la pestaña principal para pagar su servicio.");
-                            println("");
-                            print("1) Volver al menú principal: ");
+                            println("-------------------------------------------------");
+                            println(sucursales1);
+                            print("Elige una opción: ");
 
-                            boolean numerovalido8 = false;
+                            boolean numeroValido6 = false;
 
-                            while (!numerovalido8) {
-                                int menuPrincipalEntrada = scanner.nextInt();
-                                switch (menuPrincipalEntrada) {
+                            while (!numeroValido6) {
+                                int sucursalEntrada = scanner.nextInt();
+
+                                switch (sucursalEntrada) {
                                     case 1:
-                                        Main.menuPrincipal(sucursalOrigen);
-                                        numerovalido8 = true;
+                                        sucursalDestino = ciudadesDestino.get(2);
+                                        numeroValido6 = true;
+                                        break;
+                                    case 2:
+                                        sucursalDestino = ciudadesDestino.get(3);
+                                        numeroValido6 = true;
                                         break;
                                     default:
                                         print("Número no válido. Inténtalo de nuevo: ");
                                 }
                             }
-
-                            numeroValido6 = true;
+                            numeroValido4 = true;
                             break;
                         case 3:
-                            tipoDePago = Guia.tipoDePago.DESTINATARIO;
-                            guia = new Guia(producto, remitente, destinatario, sucursalOrigen, sucursalDestino, tipoDePago, true, vehiculo);
-                            println(guia.toString());
+                            String sucursales2 = String.format("Seleccione la Sucursal de preferencia:\n" +
+                                    "1) %s\n" +
+                                    "2) %s", ciudadesDestino.get(4).getNombre(), ciudadesDestino.get(5).getNombre());
 
-                            sucursalOrigen.agregarProducto(producto);
+                            println("-------------------------------------------------");
+                            println(sucursales2);
+                            print("Elige una opción: ");
 
-                            Random random = new Random();
-                            println("Muchas gracias por usar nuestro servicio, favor acerquese \na la caja #" +
-                                    random.nextInt(5) + 1 + " para entregar el " + guia.getProducto().getClass().getSimpleName());
-                            println("");
-                            print("1) Volver al menú principal: ");
+                            boolean numeroValido7 = false;
 
-                            boolean numerovalido9 = false;
+                            while (!numeroValido7) {
+                                int sucursalEntrada = scanner.nextInt();
 
-                            while (!numerovalido9) {
-                                int menuPrincipalEntrada = scanner.nextInt();
-                                switch (menuPrincipalEntrada) {
+                                switch (sucursalEntrada) {
                                     case 1:
-                                        Main.menuPrincipal(sucursalOrigen);
-                                        numerovalido9 = true;
+                                        sucursalDestino = ciudadesDestino.get(4);
+                                        numeroValido7 = true;
+                                        break;
+                                    case 2:
+                                        sucursalDestino = ciudadesDestino.get(5);
+                                        numeroValido7 = true;
                                         break;
                                     default:
                                         print("Número no válido. Inténtalo de nuevo: ");
                                 }
                             }
-                            numeroValido6 = true;
+                            numeroValido4 = true;
                             break;
                         default:
                             print("Número no válido. Inténtalo de nuevo: ");
                     }
                 }
-            }
-        	}
-                    catch (InputMismatchException e) {
-                        System.out.println("Error: Ha ingresado un valor incorrecto. Por favor, ingrese un valor válido.");
-                        scanner.nextLine(); 
-                    } catch (Exception e) {
-                        System.out.println("Error: " + e.getMessage());
-                        scanner.nextLine(); 
+
+                boolean disponibilidadSucursal = false;
+                boolean disponibilidadTransporte = false;
+
+                if (producto instanceof Paquete || producto instanceof Documento) {
+                    if (sucursalOrigen.verificarDisponibilidad(producto)) {
+                        disponibilidadSucursal = true;
                     }
-
-                    System.out.println("¿Desea continuar (1 para continuar, cualquier otra tecla para cancelar)?: ");
-                    int choice = scanner.nextInt();
-                    if (choice != 1) {
-                        exit = true; // Salir del proceso de enviar paquetes
+                } else if (producto instanceof Animal) {
+                    if (sucursalOrigen.verificarDisponibilidad(producto)) {
+                        if (sucursalOrigen.disponibilidadJaulas((Animal) producto)) {
+                            disponibilidadSucursal = true;
+                        }
                     }
-                } while (!exit);
+                }
 
-                scanner.close();
+                Transporte vehiculo = null;
+
+                if (disponibilidadSucursal) {
+
+                    if (remitente.getMembresia().getBeneficio() == Membresia.tipo.PLATINUM || remitente.getMembresia().getBeneficio() == Membresia.tipo.GOLD) {
+                        println("---------------DATOS DE TRANSPORTE---------------");
+                        println("Ingrese el tipo de tranporte de su preferencia:");
+                        println("1) Camión");
+                        println("2) Avión (Envío directo y más rápido)");
+                        print("Elige una opción: ");
+
+                        boolean numeroValido5 = false;
+
+                        while (!numeroValido5) {
+                            int transporteEntrada = scanner.nextInt();
+
+                            switch (transporteEntrada) {
+                                case 1:
+                                    if (!sucursalOrigen.getCamionesEnSucursal().isEmpty()) {
+                                        vehiculo = sucursalOrigen.getCamionesEnSucursal().get(0);
+                                        numeroValido5 = true;
+                                        disponibilidadTransporte = true;
+                                        break;
+                                    } else {
+                                        println("Lo sentimos no tenemos disponibilidad de camiones en este momento");
+                                        numeroValido5 = true;
+                                        break;
+                                    }
+                                case 2:
+                                    if (!sucursalOrigen.getAvionesEnSucursal().isEmpty()) {
+                                        for (Avion aviones : sucursalOrigen.getAvionesEnSucursal()) {
+                                            if (aviones.getSucursalDestino() == sucursalDestino) {
+                                                vehiculo = aviones;
+                                                disponibilidadTransporte = true;
+                                                break;
+                                            }
+                                            if (vehiculo == null) {
+                                                println("Lo sentimos no tenemos disponibilidad de aviones que se dirigen a esa sucursal en este momento");
+                                            }
+                                        }
+                                        numeroValido5 = true;
+                                        break;
+                                    } else {
+                                        println("Lo sentimos no tenemos disponibilidad de aviones en este momento");
+                                        numeroValido5 = true;
+                                        break;
+                                    }
+                                default:
+                                    print("Número no válido. Inténtalo de nuevo: ");
+                            }
+                        }
+
+                    } else {
+                        if (!sucursalOrigen.getCamionesEnSucursal().isEmpty()) {
+                            vehiculo = sucursalOrigen.getCamionesEnSucursal().get(0);
+                            disponibilidadTransporte = true;
+
+                        } else {
+                            println("Lo sentimos no tenemos disponibilidad de camiones en este momento");
+                        }
+
+                    }
+                } else {
+                    println("Lo sentimos, no tenemos disponibilidad en la sucursal");
+                }
+
+                if (disponibilidadTransporte) {
+                    println("------------------FORMA DE PAGO------------------");
+                    println("Seleccione el pago de su preferencia para el pedido:");
+                    println("1) Pago total");
+                    println("2) Pago fraccionado");
+                    println("3) Pago contraentrega");
+                    print("Elige una opción: ");
+
+                    boolean numeroValido6 = false;
+
+                    tipoDePago tipoDePago = null;
+
+                    while (!numeroValido6) {
+                        int pagoEntrada = scanner.nextInt();
+
+                        Guia guia = null;
+
+                        switch (pagoEntrada) {
+                            case 1:
+                                tipoDePago = Guia.tipoDePago.REMITENTE;
+                                guia = new Guia(producto, remitente, destinatario, sucursalOrigen, sucursalDestino, tipoDePago, vehiculo);
+                                println(guia.toString());
+
+                                println("Diríjase a la pestaña principal para pagar su servicio.");
+                                println("");
+
+                                print("1) Volver al menú principal: ");
+
+                                boolean numerovalido7 = false;
+
+                                while (!numerovalido7) {
+                                    int menuPrincipalEntrada = scanner.nextInt();
+                                    switch (menuPrincipalEntrada) {
+                                        case 1:
+                                            Main.menuPrincipal(sucursalOrigen);
+                                            numerovalido7 = true;
+                                            break;
+                                        default:
+                                            print("Número no válido. Inténtalo de nuevo: ");
+                                    }
+                                }
+
+                                numeroValido6 = true;
+                                break;
+                            case 2:
+                                tipoDePago = Guia.tipoDePago.FRACCIONADO;
+                                guia = new Guia(producto, remitente, destinatario, sucursalOrigen, sucursalDestino, tipoDePago, vehiculo);
+                                println(guia.toString());
+
+                                println("Diríjase a la pestaña principal para pagar su servicio.");
+                                println("");
+                                print("1) Volver al menú principal: ");
+
+                                boolean numerovalido8 = false;
+
+                                while (!numerovalido8) {
+                                    int menuPrincipalEntrada = scanner.nextInt();
+                                    switch (menuPrincipalEntrada) {
+                                        case 1:
+                                            Main.menuPrincipal(sucursalOrigen);
+                                            numerovalido8 = true;
+                                            break;
+                                        default:
+                                            print("Número no válido. Inténtalo de nuevo: ");
+                                    }
+                                }
+
+                                numeroValido6 = true;
+                                break;
+                            case 3:
+                                tipoDePago = Guia.tipoDePago.DESTINATARIO;
+                                guia = new Guia(producto, remitente, destinatario, sucursalOrigen, sucursalDestino, tipoDePago, vehiculo);
+                                println(guia.toString());
+
+                                sucursalOrigen.agregarProducto(producto);
+
+                                Random random = new Random();
+                                println("Muchas gracias por usar nuestro servicio, favor acerquese \na la caja #" +
+                                        random.nextInt(5) + 1 + " para entregar el " + guia.getProducto().getClass().getSimpleName());
+                                println("");
+                                print("1) Volver al menú principal: ");
+
+                                boolean numerovalido9 = false;
+
+                                while (!numerovalido9) {
+                                    int menuPrincipalEntrada = scanner.nextInt();
+                                    switch (menuPrincipalEntrada) {
+                                        case 1:
+                                            Main.menuPrincipal(sucursalOrigen);
+                                            numerovalido9 = true;
+                                            break;
+                                        default:
+                                            print("Número no válido. Inténtalo de nuevo: ");
+                                    }
+                                }
+                                numeroValido6 = true;
+                                break;
+                            default:
+                                print("Número no válido. Inténtalo de nuevo: ");
+                        }
+                    }
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Ha ingresado un valor incorrecto. Por favor, ingrese un valor válido.");
+                scanner.nextLine();
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+                scanner.nextLine();
             }
-        	
 
-    
+            System.out.println("¿Desea continuar (1 para continuar, cualquier otra tecla para cancelar)?: ");
+            int choice = scanner.nextInt();
+            if (choice != 1) {
+                exit = true; // Salir del proceso de enviar paquetes
+            }
+        } while (!exit);
+
+        scanner.close();
+    }
+
 
     public static void pagarServicio(Sucursal sucursal) {
         Scanner scanner = new Scanner(System.in);
@@ -690,7 +695,7 @@ public class Main {
                     }
                 }
             } else { //Accedido por el destinatario
-                if (guia.getTipoDePago() == tipoDePago.DESTINATARIO || guia.getTipoDePago() ==tipoDePago.FRACCIONADO) {
+                if (guia.getTipoDePago() == tipoDePago.DESTINATARIO || guia.getTipoDePago() == tipoDePago.FRACCIONADO) {
                     println("-----------------MÉTODO DE PAGO------------------");
                     println("Ingrese el método de pago:");
                     println("1) Tarjeta Crédito o Débito");
@@ -1038,7 +1043,7 @@ public class Main {
                         break;
                     case 2: //membresía
                         if (cuentaCliente.getTitular() instanceof Cliente) {
-                            Cliente titular = (Cliente)cuentaCliente.getTitular();
+                            Cliente titular = (Cliente) cuentaCliente.getTitular();
                             println(titular.getMembresia());
                         } else {
                             println("No puede hacer uso de tu membresía si no eres el remitente"); //No me gusta el mensaje
@@ -1079,10 +1084,10 @@ public class Main {
     }
 
     public static void salirDelSistema() {
-    	System.out.println("Muchas gracias por usar nuestro servicio, Hasta la proxima...");
-    	Serializador.serializar();
-    	System.exit(0);
-    	
+        System.out.println("Muchas gracias por usar nuestro servicio, Hasta la proxima...");
+        Serializador.serializar();
+        System.exit(0);
+
         // TODO Auto-generated method stub
 
     }
@@ -1098,8 +1103,7 @@ public class Main {
     // :(
 
 
-    
-   // Sirve a medias jasjasj ya lo corrijo KEVIN
+    // Sirve a medias jasjasj ya lo corrijo KEVIN
     public static void recogerPaquete(Sucursal sucursal) { //Sucursal desde la cual se está recogiendo el paquete
         Scanner scanner = new Scanner(System.in);
         boolean datosValidos = false;
@@ -1109,35 +1113,35 @@ public class Main {
                 print("Ingrese el código de la guía: ");
                 int codigoPaquete = scanner.nextInt();
                 scanner.nextLine();
-                
+
                 print("Ingrese su nombre: ");
                 String nombreDestinatario = scanner.nextLine();
-                
+
                 print("Ingrese su cédula: ");
                 int cedulaDestinatario = scanner.nextInt();
 
                 datosValidos = true;
-                
+
                 //Encuentra el producto por el código de la guia
                 Producto producto = encontrarProductoPorCodigo(codigoPaquete);
-                
+
                 //aas
-                if(producto != null) {
-                	//se verifican los datos del destinatario
-                	if(verificarDatos(producto, nombreDestinatario, cedulaDestinatario, sucursal)) {
-                		realizarEntrega(producto, sucursal);
-                	}else {
-                		System.out.println("Los datos que proporcionó no coinciden con los datos del destinatario.");
-                	}
-                }else {
-                	System.out.println("Lo sentimos pero no se encontró un paquete asignado al código que proporcionó.");
+                if (producto != null) {
+                    //se verifican los datos del destinatario
+                    if (verificarDatos(producto, nombreDestinatario, cedulaDestinatario, sucursal)) {
+                        realizarEntrega(producto, sucursal);
+                    } else {
+                        System.out.println("Los datos que proporcionó no coinciden con los datos del destinatario.");
+                    }
+                } else {
+                    System.out.println("Lo sentimos pero no se encontró un paquete asignado al código que proporcionó.");
                 }
-                
+
             } catch (InputMismatchException e) {
                 System.out.println("Entrada no válida. Por favor intentelo de nuevo: ");
                 scanner.nextLine();
             }
-        
+
         }
     }
 
@@ -1160,27 +1164,23 @@ public class Main {
     private static void realizarEntrega(Producto producto, Sucursal sucursal) {
         Guia guia = producto.getGuia();
 
-        if (guia.isEntregaEnSucursal()) {
-            if (guia.getEstado() == Guia.estado.ENESPERA && sucursal.getInventario().contains(producto)) {
-                if (guia.getTipoDePago() == Guia.tipoDePago.DESTINATARIO) {
-                    println("Para retirar el producto tiene que cancelar el servicio por valor de $" + guia.getPrecioTotal());
-                    // Agregar lógica de pago
-                } else {
-                    sucursal.getInventario().remove(producto);
-                    Random random = new Random();
-                    println("Operación realizada con éxito, favor acercarse a la caja0\n" +
-                            random.nextInt(5) + " para retirar su paquete, muchas gracias por usar nuestro servicio");
-                }
-            } else if (guia.getEstado() == Guia.estado.ENTREGADO) {
-                println("El paquete fue entregado el día " + guia.getFecha().getDayOfWeek() + " del mes " + guia.getFecha().getMonth());
-            } else if (guia.getEstado() == Guia.estado.ENTRANSITO) {
-                println("El paquete todavía no ha llegado");
-
+        if (guia.getEstado() == Guia.estado.ENESPERA && sucursal.getInventario().contains(producto)) {
+            if (guia.getTipoDePago() == Guia.tipoDePago.DESTINATARIO) {
+                println("Para retirar el producto tiene que cancelar el servicio por valor de $" + guia.getPrecioTotal());
+                // Agregar lógica de pago
+            } else {
+                sucursal.getInventario().remove(producto);
+                Random random = new Random();
+                println("Operación realizada con éxito, favor acercarse a la caja0\n" +
+                        random.nextInt(5) + " para retirar su paquete, muchas gracias por usar nuestro servicio");
             }
-        } else {
-            println("Lo sentimos, el paquete fue programado para tener como destino la siguiente dirección: " +
-                    guia.getDireccion());
+        } else if (guia.getEstado() == Guia.estado.ENTREGADO) {
+            println("El paquete fue entregado el día " + guia.getFecha().getDayOfWeek() + " del mes " + guia.getFecha().getMonth());
+        } else if (guia.getEstado() == Guia.estado.ENTRANSITO) {
+            println("El paquete todavía no ha llegado");
+
         }
+
     }
         /*Producto producto = null;
         for (Producto productos : Producto.getTodosLosProductos()) { //Revisa en todos los productos creados

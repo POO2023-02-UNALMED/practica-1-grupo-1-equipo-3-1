@@ -1,6 +1,8 @@
 package transportes;
 
 import administracion.Sucursal;
+import productos.Producto;
+
 import java.util.ArrayList;
 
 public class Camion extends Transporte {
@@ -11,9 +13,9 @@ public class Camion extends Transporte {
     private Sucursal ubicacionAnterior;
     private Sucursal ubicacionSiguiente;
     private boolean enSucursal;
-    
 
-    public Camion(Sucursal ciudadRegistro,  int capacidadVolumen, int capacidadPeso, String matricula){
+
+    public Camion(Sucursal ciudadRegistro, int capacidadVolumen, int capacidadPeso, String matricula) {
         super(ciudadRegistro, capacidadVolumen, capacidadPeso, matricula, 20);
         Camion.cant_camiones++;
 
@@ -23,7 +25,7 @@ public class Camion extends Transporte {
     }
 
     @Override
-    public void mantenimiento(){
+    public void mantenimiento() {
         this.setEstado(20);
     }
 
@@ -47,6 +49,18 @@ public class Camion extends Transporte {
     public void entrarASucursal(Sucursal sucursal) {
         ubicacionActual = sucursal;
         sucursal.agregarCamion(this);
+        for (Producto producto : inventario) { //Busca en el inventario los producto que tiene como llegada está sucursal
+            if (producto.getGuia().getSucursalLlegada() == sucursal) {
+                if (sucursal.getCapacidadVolumen() > producto.getVolumen()) { //Verifica si hay capacidad para guardar el producto
+                    if (sucursal.getCapacidadPeso() > producto.getPeso()) { //Verifica si hay capacidad para guardar el producto
+                        inventario.remove(producto); //Elimina el producto del inventario del transporte
+                        sucursal.getInventario().add(producto); //Agrega el producto al inventario de la sucursal
+                    }
+                }
+
+
+            }
+        }
         enSucursal = true;
     }
 
@@ -63,6 +77,39 @@ public class Camion extends Transporte {
         this.enSucursal = false;
     }
 
+    public void agregarProductos() { //Agrega los productos que van a ser enviados, pasan del inventario de sucursal al del transporte
+        for (Producto producto : sucursalOrigen.getInventario()) {
+            if (producto.getGuia().getSucursalOrigen() == sucursalOrigen) { //Agrega SOLO los productos que vayan a salir a envio, no confundir con los que llegaron de otra sucursales
+                sucursalOrigen.getInventario().remove(producto);
+                inventario.add(producto);
+            }
+        }
+    }
+
+    //Revisar
+    public void iniciarRecorrido() {//Se le aplica al camion desde la sucursal de origen
+        for (int i = 1; i < ruta.size() - 1; i++) {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            //sale de una sucursal a otra se demora 5 segundos
+
+            entrarASucursal(ruta.get(i));
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            //Espera en esa sucursal 5 segundos
+            salirDeSucursal(ruta.get(i));
+
+        }
+
+        entrarASucursal(ruta.get(ruta.size() - 1)); //Finaliza el recorrido y vuelve a la sucursal propia
+    }
+
     //Revisar
     public String ubicarTransporte() {
         //Cómo lo hacemos?
@@ -73,22 +120,11 @@ public class Camion extends Transporte {
         }
     }
 
-    //Revisar
-    public void iniciarRecorrido() {
-        for (int i = 1; i < ruta.size() - 1; i++) {
-            entrarASucursal(ruta.get(i));
-            //Espera en esa sucursal 3 horas
-            salirDeSucursal(ruta.get(i));
-            //Calcula el tiempo entre una sucursal y otra y eso es lo que se demora
-        }
-
-        entrarASucursal(ruta.get(ruta.size() - 1)); //Finaliza el recorrido y vuelve a la sucursal propia
-    }
-
-    public void recogerPaquete(){
+    public void recogerPaquete() {
         //Crear guia
 
     }
+
     public static int getCant_camiones() {
         return cant_camiones;
     }

@@ -101,9 +101,7 @@ public class Main {
         */
     	Deserializador.deserializar();
     	
-=======
- */
->>>>>>> Stashed changes
+
         //Menu principal
         Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
 

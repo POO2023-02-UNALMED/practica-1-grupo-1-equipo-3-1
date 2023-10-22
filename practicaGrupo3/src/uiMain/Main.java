@@ -1217,8 +1217,25 @@ public class Main {
                 if (producto != null) {
                     //se verifican los datos del destinatario
                     if (verificarDatos(producto, nombreDestinatario, cedulaDestinatario)) {
-                        realizarEntrega(producto, sucursal);
-                    } else {
+                    	Guia guia = producto.getGuia();
+                        if (guia.getEstado() == Guia.estado.ENESPERA && sucursal.getInventario().contains(producto)) {
+                            if (guia.getTipoDePago() == Guia.tipoDePago.DESTINATARIO) {
+                                println("Para retirar el producto tiene que cancelar el servicio por valor de $" + guia.getPrecioTotal());
+                            }
+                    }if(guia.getEstado() == Guia.estado.ENESPERA && sucursal.getInventario().contains(producto)) {
+                    	if(guia.getTipoDePago() == Guia.tipoDePago.REMITENTE) {
+                    		sucursal.getInventario().remove(producto);
+                            Random random = new Random();
+                            println("Operación realizada con éxito, favor acercarse a la caja" +
+                                    random.nextInt(5) + "\npara retirar su paquete, muchas gracias por usar nuestro servicio");
+                    	}
+                } else if (guia.getEstado() == Guia.estado.ENTREGADO) {
+                    println("El paquete fue entregado el día " + guia.getFecha().getDayOfWeek() + " del mes " + guia.getFecha().getMonth());
+                } else if (guia.getEstado() == Guia.estado.ENTRANSITO) {
+                    println("El paquete todavía no ha llegado");
+
+                }
+                    }else {
                         System.out.println("Los datos que proporcionó no coinciden con los datos del destinatario.");
                     }
                 } else {
@@ -1254,34 +1271,8 @@ public class Main {
     }
   
 
-    private static void realizarEntrega(Producto producto, Sucursal sucursal) {
-        Guia guia = producto.getGuia();
-
-        if (guia.getEstado() == Guia.estado.ENESPERA && sucursal.getInventario().contains(producto)) {
-            if (guia.getTipoDePago() == Guia.tipoDePago.DESTINATARIO) {
-                println("Para retirar el producto tiene que cancelar el servicio por valor de $" + guia.getPrecioTotal());
-                // Agregar lógica de pago
-            }
-        }
-        if(guia.getEstado() == Guia.estado.ENESPERA && sucursal.getInventario().contains(producto)) {
-            	if(guia.getTipoDePago() == Guia.tipoDePago.REMITENTE) {
-            		sucursal.getInventario().remove(producto);
-                    Random random = new Random();
-                    println("Operación realizada con éxito, favor acercarse a la caja" +
-                            random.nextInt(5) + "\npara retirar su paquete, muchas gracias por usar nuestro servicio");
-            	}
-        }
-          
-        else if (guia.getEstado() == Guia.estado.ENTREGADO) {
-            println("El paquete fue entregado el día " + guia.getFecha().getDayOfWeek() + " del mes " + guia.getFecha().getMonth());
-        } else if (guia.getEstado() == Guia.estado.ENTRANSITO) {
-            println("El paquete todavía no ha llegado");
-
-        }
-        
-
-    }
-        /*Producto producto = null;
+    
+      /*Producto producto = null;
         for (Producto productos : Producto.getTodosLosProductos()) { //Revisa en todos los productos creados
             int codigoPaquete = Producto.codigo;
 			if (producto.getCodigo() == codigoPaquete) { //Encuentra el producto que coincida con el codigo

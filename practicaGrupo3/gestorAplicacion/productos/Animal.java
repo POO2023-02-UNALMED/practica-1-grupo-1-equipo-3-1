@@ -1,7 +1,8 @@
 package productos;
 
+import java.io.Serializable;
 
-public class Animal extends Producto {
+public class Animal extends Producto implements Serializable{
     private String nombre; /*Para que aparezca su nombre si se murió o ya llegó al lugar de destino a la hora de rastrear el paquete
     "Toby ya llegó" o "Toby falleció, lo sentimos" */
     private int edad; //Entre mas viejo, más probabilidad tiene de morirse en la trayectoria
@@ -10,7 +11,8 @@ public class Animal extends Producto {
     private tipoAnimal tipo; //Si es un perro o un gato etc
     private tamanoAnimal tamano; /*Solo hay tres tamaños preestablecidos, si quieres enviar un gato la opcion es "PEQUENO",
     cada tamano tiene un volumen distinto que va a ocupar en la sucursal y en el camion.*/
-
+    private static final long serialVersionUID = 1L;
+    
     public enum tipoAnimal {
         PERRO,
         GATO,

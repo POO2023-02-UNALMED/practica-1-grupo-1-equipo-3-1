@@ -1,6 +1,9 @@
 package personas;
 // HECHA POR: TOMAS MURILLO ARISTIZABAL
 import administracion.Membresia;
+
+import java.io.Serializable;
+
 import administracion.CuentaBancaria;
 
 import administracion.Membresia;
@@ -9,7 +12,9 @@ import administracion.CuentaBancaria;
 // EN ESTA CLASE SE ALMACENA TODA LA INFORMACION DEL CLIENTE O REMITENTE, QUE ES LA PERSONA QUE ENVIA EL PAQUETE
 // EN ESTA CLASE ADEMAS DE HEREDAR DE PERSONA TIENE UN ATRIBUTO SUYO PROPIO QUE ES MEMBRESIA
 
-public class Cliente extends Persona{
+public class Cliente extends Persona implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
 	private Membresia membresia;
 
 	public Cliente() {

@@ -1,6 +1,10 @@
 package productos;
 
-public class Documento extends Producto {
+import java.io.Serializable;
+
+public class Documento extends Producto implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
     public Documento() {
         super(generarCodigo(), 0.1, 0.1);
 

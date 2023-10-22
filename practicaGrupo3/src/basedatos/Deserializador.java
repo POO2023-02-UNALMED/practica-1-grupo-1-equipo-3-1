@@ -17,6 +17,8 @@ import administracion.Sucursal;
 import transportes.Transporte;
 import personas.Persona;
 import administracion.CuentaBancaria;
+import productos.Producto;
+import administracion.Guia;
 
 public class Deserializador {
 
@@ -92,6 +94,30 @@ public class Deserializador {
 					e.printStackTrace();;
 				}
 
+			}else if (file.getAbsolutePath().contains("Productos")) {
+				try {
+				archivo = new FileInputStream(file);
+				guardado = new ObjectInputStream(archivo);
+				Producto.setTodosLosProductos((ArrayList<Producto>) guardado.readObject());
+				}catch(FileNotFoundException e) {
+					e.printStackTrace();
+				}catch(IOException e) {
+					e.printStackTrace();
+				}catch(ClassNotFoundException e) {
+					e.printStackTrace();;
+				}
+			}else if (file.getAbsolutePath().contains("Guias")) {
+				try {
+				archivo = new FileInputStream(file);
+				guardado = new ObjectInputStream(archivo);
+				Guia.setTodasLasGuias((ArrayList<Guia>) guardado.readObject());
+				}catch(FileNotFoundException e) {
+					e.printStackTrace();
+				}catch(IOException e) {
+					e.printStackTrace();
+				}catch(ClassNotFoundException e) {
+					e.printStackTrace();;
+				}
 			}
 		}
 	}

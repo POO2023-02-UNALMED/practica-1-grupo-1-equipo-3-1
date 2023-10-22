@@ -50,14 +50,16 @@ public class Main {
 
         Persona guzman = new Cliente("Jaime Guzman", 123456789, 987654321);
         CuentaBancaria guzmanCuenta = new CuentaBancaria(guzman, 1010101010, 666, "09/27", 1000000);
+       
+        
+
+    	
+ 
+        Serializador.serializar();
+*/
 
 
- */
-        //Serializador.serializar();
-
-
-
-        Deserializador.deserializar();
+       Deserializador.deserializar();
         /*for (Sucursal sucursal : Sucursal.getTodasLasSucursales()) {
             println(sucursal.getNombre());
         }
@@ -65,21 +67,14 @@ public class Main {
         for (Persona persona : Persona.getTodasLasPersonas()) {
             println(persona.getNombre());
         }
-
-
-
-        for (CuentaBancaria cuenta : CuentaBancaria.getTodasLasCuentas()) {
-            println(cuenta.getTitular());
+         for (CuentaBancaria cuenta : CuentaBancaria.getTodasLasCuentas()) {
+            println(cuenta.getNumero());
             println("----");
 
-        }
+
 */
+
         //println(CuentaBancaria.getTodasLasCuentas());
-
-
-    	Persona guzman = new Cliente("Jaime Guzman", 123456789, 987654321);
-        CuentaBancaria guzmanCuenta = new CuentaBancaria(guzman, 1010101010, 666, "09/27", 1000000);
-
         
         //Menu principal
         Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));

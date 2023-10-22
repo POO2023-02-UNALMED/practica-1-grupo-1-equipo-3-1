@@ -1,9 +1,10 @@
 package productos;
 import java.util.Random;
+import java.io.Serializable;
 import java.util.ArrayList;
 import administracion.*;
 
-public abstract class Producto {
+public abstract class Producto implements Serializable{
     protected double peso;
     protected final int codigo; //EL codigo de cada paquete es unico e inmutable
     protected double volumen;
@@ -13,6 +14,7 @@ public abstract class Producto {
     //El volumen y el peso es el espacio que ocupará el producto de cada transporte y sucursal
     private Guia guia;
     private static ArrayList<Producto> todosLosProductos = new ArrayList<>();
+    private static final long serialVersionUID = 1L;
 
     public Producto(int codigo, double volumen, double peso) {
         this(codigo, peso);
@@ -92,6 +94,9 @@ public abstract class Producto {
 
     public void setGuia(Guia guia) {
         this.guia = guia;
+    }
+    public static void setTodosLosProductos(ArrayList<Producto> todosLosProductos) {
+    	Producto.todosLosProductos = todosLosProductos;
     }
 
 }

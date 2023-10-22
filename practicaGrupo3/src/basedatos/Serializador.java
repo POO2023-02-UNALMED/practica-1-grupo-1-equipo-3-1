@@ -11,6 +11,8 @@ import administracion.Sucursal;
 import transportes.Transporte;
 import personas.Persona;
 import administracion.CuentaBancaria;
+import productos.Producto;
+import administracion.Guia;
 
 public class Serializador {
 	private static File rutaTemp = new File("src\\basedatos\\temp");
@@ -95,9 +97,32 @@ public class Serializador {
 							e.printStackTrace();
 
 						}
-					}
-				}
-	}
+					}else if(archivo1.getAbsolutePath().contains("Productos")) {
+						try {
+							rutaArchivo = new FileOutputStream(archivo1);
+							fichero_objeto = new ObjectOutputStream(rutaArchivo);
+							fichero_objeto.writeObject(Producto.getTodosLosProductos());
+						}catch (FileNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block e.printStackTrace();
+							e.printStackTrace();
+				}	
+			}else if(archivo1.getAbsolutePath().contains("Guias")) {
+				try {
+					rutaArchivo = new FileOutputStream(archivo1);
+					fichero_objeto = new ObjectOutputStream(rutaArchivo);
+					fichero_objeto.writeObject(Guia.getTodasLasGuias());
+				}catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block e.printStackTrace();
+					e.printStackTrace();
+		  }	
+	   }
+	 }
+   }
 }
-
 

@@ -1,13 +1,15 @@
 package productos;
 
-public class Paquete extends Producto {
+import java.io.Serializable;
+
+public class Paquete extends Producto implements Serializable{
     private boolean fragil; //Si este es fragil, el costo del envío es mayor y más probable es que sufra daños en el envío
     private double valorDeclarado; //Valor otorgado al producto, si se pierde el producto, le reembolsamos esa cantidad
     private double alto;
     private double ancho;
     private double largo;
     private boolean roto;
-    
+    private static final long serialVersionUID = 1L;
 
     public Paquete(double peso, double alto, double ancho, double largo, boolean fragil,  double valorDeclarado) {
         super(generarCodigo(), alto * largo * ancho, peso);

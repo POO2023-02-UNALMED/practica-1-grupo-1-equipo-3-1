@@ -8,6 +8,7 @@ import personas.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.io.Serializable;
 import java.lang.Math;
 import java.util.Random;
 import java.time.format.DateTimeFormatter;
@@ -16,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 import productos.*;
 import transportes.*;
 
-public class Guia {
+public class Guia implements Serializable{
 	// atributos de clase
 	private Transporte vehiculo;
 	private float tiempo;
@@ -34,11 +35,13 @@ public class Guia {
 	private double pagoPendiente;
 	private LocalDateTime fecha;
 	private String fechaDeEnvio;
+	private static ArrayList<Guia> todasLasGuias = new ArrayList<>();
 
 	//private LocalDateTime fechaDeLlegada;
 	private estado estado;
 	private tipoDePago tipoDePago;
-
+	private static final long serialVersionUID = 1L;
+	
 	public enum tipoDePago {
 		REMITENTE,
 		FRACCIONADO,
@@ -295,5 +298,13 @@ public class Guia {
 
 	public void setTipoDePago(tipoDePago tipoDePago) {
 		this.tipoDePago = tipoDePago;
+	}
+
+	public static ArrayList<Guia> getTodasLasGuias() {
+		return todasLasGuias;
+	}
+
+	public static void setTodasLasGuias(ArrayList<Guia> todasLasGuias) {
+		Guia.todasLasGuias = todasLasGuias;
 	}
 }

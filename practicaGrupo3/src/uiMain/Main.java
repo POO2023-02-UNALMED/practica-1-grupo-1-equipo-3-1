@@ -25,7 +25,7 @@ public class Main {
     public static void main(String[] args) {
 
 
-        /*
+/*
         ArrayList<Camion> camionesMN = new ArrayList<>();
 
         ArrayList<Moto> motosMN = new ArrayList<>();
@@ -91,15 +91,19 @@ public class Main {
 
 
         println(Transporte.getTodosLosTransportes());
-        
+
 
 
         println(documento.getCodigo());
 
 
+<<<<<<< Updated upstream
         */
     	Deserializador.deserializar();
     	
+=======
+ */
+>>>>>>> Stashed changes
         //Menu principal
         Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
 
@@ -1274,6 +1278,17 @@ public class Main {
                         Camion camion = (Camion)guia.getVehiculo();
                         println("-------------------------------------------------");
                         println(camion.ubicarTransporte());
+
+                        StringBuilder barra = new StringBuilder();
+                        barra.append("[");
+                        for (int i = 0; i < (int)(guia.avancePedido()); i++) {
+                            barra.append("+");
+                        }
+                        for (int j = 0; j < 100 - (int)(guia.avancePedido()); j++) {
+                            barra.append("-");
+                        }
+                        barra.append("]");
+                        println(barra);
                         println(guia.avancePedido());
                         println("");
 
@@ -1296,10 +1311,54 @@ public class Main {
                     break;
                 case ENESPERA:
                     println("Tu " + guia.getProducto().getClass().getSimpleName() + " ya llegó a la sucursal de destino");
+                    StringBuilder barra = new StringBuilder();
+                    barra.append("[");
+                    for (int i = 0; i < (int)(guia.avancePedido()); i++) {
+                        barra.append("+");
+                    }
+                    for (int j = 0; j < 100 - (int)(guia.avancePedido()); j++) {
+                        barra.append("-");
+                    }
+                    barra.append("]");
+                    println(barra);
                     println(guia.avancePedido());
+                    println("");
+
+                    print("1) Volver al menú principal: ");
+
+                    boolean numerovalido = false;
+
+                    while (!numerovalido) {
+                        int menuPrincipalEntrada = scanner.nextInt();
+                        switch (menuPrincipalEntrada) {
+                            case 1:
+                                Main.menuPrincipal(sucursal);
+                                numerovalido = true;
+                                break;
+                            default:
+                                print("Número no válido. Inténtalo de nuevo: ");
+                        }
+                    }
                     break;
                 case ENTREGADO:
                     println("Tu paquete ya ha sido reclamado");
+                    println("");
+
+                    print("1) Volver al menú principal: ");
+
+                    boolean numerovalido2 = false;
+
+                    while (!numerovalido2) {
+                        int menuPrincipalEntrada = scanner.nextInt();
+                        switch (menuPrincipalEntrada) {
+                            case 1:
+                                Main.menuPrincipal(sucursal);
+                                numerovalido2 = true;
+                                break;
+                            default:
+                                print("Número no válido. Inténtalo de nuevo: ");
+                        }
+                    }
             }
         } else {
             println("Lo sentimos, el código de la guía no coincide, intentalo de nuevo");

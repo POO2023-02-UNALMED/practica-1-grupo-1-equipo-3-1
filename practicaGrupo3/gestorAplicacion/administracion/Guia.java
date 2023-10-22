@@ -14,6 +14,7 @@ import java.util.Random;
 import java.time.format.DateTimeFormatter;
 
 
+
 import productos.*;
 import transportes.*;
 
@@ -91,13 +92,19 @@ public class Guia implements Serializable{
 			case ENTREGADO:
 				return 100;
             case ENTRANSITO:
+				double porcentaje = 0;
 				if (vehiculo instanceof Camion) {
 					double escalas = 100.0 / (ruta.size() - 1);
 					Camion camion = (Camion)vehiculo;
 					if (camion.getUbicacionActual() != null) {
-						return escalas * ruta.indexOf(camion.getUbicacionActual());
+						porcentaje = escalas * ruta.indexOf(camion.getUbicacionActual());
+						double redondeado = Math.round(porcentaje * 10.0) / 10.0;
+
+						return redondeado;
 					} else {
-						return (escalas * ruta.indexOf(camion.getUbicacionAnterior())) + (escalas / 2);
+						porcentaje = (escalas * ruta.indexOf(camion.getUbicacionAnterior())) + (escalas / 2);
+						double redondeado = Math.round(porcentaje * 10.0) / 10.0;
+						return redondeado;
 					}
 				} else {
 					return 50;

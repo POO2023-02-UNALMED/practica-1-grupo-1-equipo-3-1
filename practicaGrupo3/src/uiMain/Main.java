@@ -304,7 +304,7 @@ public class Main {
             String nombreDestinatario = scanner.nextLine();
             print("Cédula del destinatario: ");
             long cedulaDestinatario = scanner.nextLong();
-            print("Telefono del remitente: ");
+            print("Telefono del destinatario: ");
             long telefonoDestinatario = scanner.nextLong();
 
             Destinatario destinatario = new Destinatario(nombreDestinatario, cedulaDestinatario, telefonoDestinatario);
@@ -402,7 +402,7 @@ public class Main {
                                 "1) %s\n" +
                                 "2) %s", ciudadesDestino.get(4).getNombre(), ciudadesDestino.get(5).getNombre());
 
-                        println("--------------------------------");
+                        println("-------------------------------------------------");
                         println(sucursales2);
                         print("Elige una opción: ");
 
@@ -589,8 +589,24 @@ public class Main {
                             sucursalOrigen.agregarProducto(producto);
 
                             Random random = new Random();
-                            println("Muchas gracias por usar nuestro servicio, favor acerquese a la caja #" + random.nextInt(5) + 1 + " para despachar el " + guia.getProducto().getClass().getSimpleName());
+                            println("Muchas gracias por usar nuestro servicio, favor acerquese \na la caja #" +
+                                    random.nextInt(5) + 1 + " para entregar el " + guia.getProducto().getClass().getSimpleName());
+                            println("");
+                            print("1) Volver al menú principal: ");
 
+                            boolean numerovalido9 = false;
+
+                            while (!numerovalido9) {
+                                int menuPrincipalEntrada = scanner.nextInt();
+                                switch (menuPrincipalEntrada) {
+                                    case 1:
+                                        Main.menuPrincipal(sucursalOrigen);
+                                        numerovalido9 = true;
+                                        break;
+                                    default:
+                                        print("Número no válido. Inténtalo de nuevo: ");
+                                }
+                            }
                             numeroValido6 = true;
                             break;
                         default:
@@ -626,7 +642,6 @@ public class Main {
         print("Ingrese el código de la guía a pagar: ");
         int codigo = scanner.nextInt();
 
-        println(Producto.getTodosLosProductos());
         Guia guia = null;
         for (Producto producto : Producto.getTodosLosProductos())
             if (producto.getCodigo() == codigo) {
@@ -794,24 +809,47 @@ public class Main {
 
     //FUNCIONA
     public static void pagarEfectivo(Guia guia, Sucursal sucursal) {
-        Random random = new Random();
-        int numeroAleatorio = random.nextInt(5) + 1;
-        println("Acerquese a la caja #" + numeroAleatorio + " para cancelar");
         if (guia.getSucursalOrigen() == sucursal) { //¿El metodo ha sido accedido desde la sucursal de origen? Eso quiere decir que el que está pagando es el remitente
             switch (guia.getTipoDePago()) {
                 case REMITENTE:
                     guia.setPagoPendiente(guia.getPagoPendiente() * 0);
+                    break;
                 case FRACCIONADO:
                     guia.setPagoPendiente(guia.getPagoPendiente() / 2);
+                    break;
             }
         } else { //Está pagando el destinatario
             switch (guia.getTipoDePago()) {
-                case REMITENTE:
+                case DESTINATARIO:
                     guia.setPagoPendiente(guia.getPagoPendiente() * 0);
+                    break;
                 case FRACCIONADO:
                     guia.setPagoPendiente(guia.getPagoPendiente() / 2);
+                    break;
             }
         }
+
+        Random random = new Random();
+        int numeroAleatorio = random.nextInt(5) + 1;
+        println("----------------PAGO EN EFECTIVO-----------------");
+        println("Gracias por usar nuestro servicio, porfavor\nacerquese a la caja #" + numeroAleatorio + " para cancelar $" + (guia.getPrecioTotal() - guia.getPagoPendiente()));
+        println("");
+        print("1) Volver al menú principal: ");
+
+        boolean numerovalido = false;
+
+        while (!numerovalido) {
+            int menuPrincipalEntrada = scanner.nextInt();
+            switch (menuPrincipalEntrada) {
+                case 1:
+                    Main.menuPrincipal(sucursal);
+                    numerovalido = true;
+                    break;
+                default:
+                    print("Número no válido. Inténtalo de nuevo: ");
+            }
+        }
+
     }
 
 

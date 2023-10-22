@@ -67,10 +67,10 @@ public class Guia {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
 
 		fechaDeEnvio = fecha.format(formatter);
-		pagoPendiente = precioTotal;
 		asignarRuta();
 		asignarPrecio();
 		aplicarDescuento();
+		pagoPendiente = precioTotal;
 	}
 	
 	//métodos

@@ -1213,33 +1213,38 @@ public class Main {
                 //Encuentra el producto por el código de la guia
                 Producto producto = encontrarProductoPorCodigo(codigoPaquete);
 
-                //aas
+
                 if (producto != null) {
                     //se verifican los datos del destinatario
                     if (verificarDatos(producto, nombreDestinatario, cedulaDestinatario)) {
                     	Guia guia = producto.getGuia();
+                    	//Se verifica que el paquete llegó y que está en el inventario de la sucursal
                         if (guia.getEstado() == Guia.estado.ENESPERA && sucursal.getInventario().contains(producto)) {
+                        	//se verifica que el pago lo debe hacer el destinatario
                             if (guia.getTipoDePago() == Guia.tipoDePago.DESTINATARIO) {
                                 println("Para retirar el producto tiene que cancelar el servicio por valor de $" + guia.getPrecioTotal());
                             }
-                    }if(guia.getEstado() == Guia.estado.ENESPERA && sucursal.getInventario().contains(producto)) {
-                    	if(guia.getTipoDePago() == Guia.tipoDePago.REMITENTE) {
+                        //Se verifica que el paquete llegó y que está en el inventario de la sucursal
+                        }if(guia.getEstado() == Guia.estado.ENESPERA && sucursal.getInventario().contains(producto)) {
+                        	//se verifica que el pago lo realizó el remitente, por ende se puede retirar el paquete
+                        	if(guia.getTipoDePago() == Guia.tipoDePago.REMITENTE) {
                     		sucursal.getInventario().remove(producto);
                             Random random = new Random();
                             println("Operación realizada con éxito, favor acercarse a la caja" +
                                     random.nextInt(5) + "\npara retirar su paquete, muchas gracias por usar nuestro servicio");
                     	}
+                  //Se verifica si un paquete ya fue entregado
                 } else if (guia.getEstado() == Guia.estado.ENTREGADO) {
                     println("El paquete fue entregado el día " + guia.getFecha().getDayOfWeek() + " del mes " + guia.getFecha().getMonth());
+                  //En caso tal que el paquete aún no haya llegado al destino
                 } else if (guia.getEstado() == Guia.estado.ENTRANSITO) {
                     println("El paquete todavía no ha llegado");
 
                 }
-                    }else {
-                        System.out.println("Los datos que proporcionó no coinciden con los datos del destinatario.");
-                    }
+                 //Si se trata de recoger algún paquete que no existe
                 } else {
                     System.out.println("Lo sentimos pero no se encontró un paquete asignado al código que proporcionó.");
+                }
                 }
 
             } catch (InputMismatchException e) {
@@ -1250,7 +1255,6 @@ public class Main {
         }
     }
 
-    //esto verificar con prints
     private static Producto encontrarProductoPorCodigo(int codigo) {
         for (Producto producto : Producto.getTodosLosProductos()) {
             if (producto.getCodigo() == codigo) {
@@ -1267,7 +1271,7 @@ public class Main {
         if (destinatario.getNombre().equals(nombreDestinatario) && Long.valueOf(destinatario.getCedula()).equals(cedulaDestinatario)) {
             return true;
         }
-        return false;
+        return false; // Datos no coinciden
     }
   
 

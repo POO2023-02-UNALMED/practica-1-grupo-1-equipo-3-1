@@ -118,9 +118,51 @@ public class Main {
 
     public static void menuPrincipal(Sucursal sucursal) {
         Scanner scanner = new Scanner(System.in);
+        
 
-        while (true) {
             println("--- BIENVENIDO AL SISTEMA DE ENVIOS CORREMINAS ---");
+            println("¿En qué sucursal te encuentras?");
+            println("1) Medellín.");
+            println("2) Bogotá.");
+            println("3) Cali.");
+            print("Elija una opcion: ");
+            int opcion1 = scanner.nextInt();
+            	
+            switch (opcion1) {
+            	case 1: 
+            		println("1) Medellin Norte.");
+            		println("2) Medellin Sur.");
+            		print("Elija una opcion: ");
+            		int ciudad1 = scanner.nextInt();
+            		ciudadOrigen(ciudad1);
+            		break;
+            		
+            	case 2:
+            		println("1) Bogotá Norte.");
+            		println("2) Bogotá Sur.");
+            		print("Elija una opcion: ");
+            		int ciudad2 = scanner.nextInt();
+            		ciudadOrigen(ciudad2);
+            		break;
+            		
+            	case 3:
+            		println("1) Cali Norte.");
+            		println("2) Cali Sur.");
+            		print("Elija una opcion: ");
+            		int ciudad3 = scanner.nextInt();
+            		ciudadOrigen(ciudad3);
+            		break;
+            		
+            	default:
+                     print("Número no válido. Inténtalo de nuevo: ");
+                     scanner.nextLine();
+            	}
+   
+            
+        
+            	
+        while (true) {
+            println("--- BIENVENIDO AL SISTEMA DE ENVIOS CORREMINAS SEDE ---");
             println("¿Qué operación deseas realizar?");
             println("1) Enviar paquete.");
             println("2) Pagar servicio.");
@@ -169,7 +211,14 @@ public class Main {
     }
 
 
-    public static void enviarPaquete(Sucursal sucursalOrigen) {
+
+
+	private static void ciudadOrigen(int ciudadOrigen) {
+		
+		
+	}
+
+	public static void enviarPaquete(Sucursal sucursalOrigen) {
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
 

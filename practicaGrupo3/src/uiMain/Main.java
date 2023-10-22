@@ -97,11 +97,10 @@ public class Main {
             println("¿Qué operación deseas realizar?");
             println("1) Enviar paquete.");
             println("2) Pagar servicio.");
-            println("3) Verificar paquete.");
-            println("4) Rastrear paquete.");
-            println("5) Recoger paquete.");
-            println("6) Reclamos.");
-            println("7) Terminar.");
+            println("3) Rastrear paquete.");
+            println("4) Recoger paquete.");
+            println("5) Reclamos.");
+            println("6) Terminar.");
             print("Elige una opcion: ");
             
             try {
@@ -117,22 +116,18 @@ public class Main {
 
                      break;
                  case 3:
-                     verificarPaquete();
-
-                     break;
-                 case 4:
                      rastrearPaquete(1);
 
                      break;
-                 case 5:
+                 case 4:
                      recogerPaquete(sucursal);
 
                      break;
-                 case 6:
+                 case 5:
                      opcionesReclamo();
 
                      break;
-                 case 7:
+                 case 6:
                      salirDelSistema();
 
                      break;
@@ -304,7 +299,7 @@ public class Main {
             String nombreDestinatario = scanner.nextLine();
             print("Cédula del destinatario: ");
             long cedulaDestinatario = scanner.nextLong();
-            print("Telefono del remitente: ");
+            print("Telefono del destinatario: ");
             long telefonoDestinatario = scanner.nextLong();
 
             Destinatario destinatario = new Destinatario(nombreDestinatario, cedulaDestinatario, telefonoDestinatario);
@@ -402,7 +397,7 @@ public class Main {
                                 "1) %s\n" +
                                 "2) %s", ciudadesDestino.get(4).getNombre(), ciudadesDestino.get(5).getNombre());
 
-                        println("--------------------------------");
+                        println("-------------------------------------------------");
                         println(sucursales2);
                         print("Elige una opción: ");
 
@@ -589,8 +584,24 @@ public class Main {
                             sucursalOrigen.agregarProducto(producto);
 
                             Random random = new Random();
-                            println("Muchas gracias por usar nuestro servicio, favor acerquese a la caja #" + random.nextInt(5) + 1 + " para despachar el " + guia.getProducto().getClass().getSimpleName());
+                            println("Muchas gracias por usar nuestro servicio, favor acerquese \na la caja #" +
+                                    random.nextInt(5) + 1 + " para entregar el " + guia.getProducto().getClass().getSimpleName());
+                            println("");
+                            print("1) Volver al menú principal: ");
 
+                            boolean numerovalido9 = false;
+
+                            while (!numerovalido9) {
+                                int menuPrincipalEntrada = scanner.nextInt();
+                                switch (menuPrincipalEntrada) {
+                                    case 1:
+                                        Main.menuPrincipal(sucursalOrigen);
+                                        numerovalido9 = true;
+                                        break;
+                                    default:
+                                        print("Número no válido. Inténtalo de nuevo: ");
+                                }
+                            }
                             numeroValido6 = true;
                             break;
                         default:
@@ -626,7 +637,6 @@ public class Main {
         print("Ingrese el código de la guía a pagar: ");
         int codigo = scanner.nextInt();
 
-        println(Producto.getTodosLosProductos());
         Guia guia = null;
         for (Producto producto : Producto.getTodosLosProductos())
             if (producto.getCodigo() == codigo) {
@@ -794,24 +804,47 @@ public class Main {
 
     //FUNCIONA
     public static void pagarEfectivo(Guia guia, Sucursal sucursal) {
-        Random random = new Random();
-        int numeroAleatorio = random.nextInt(5) + 1;
-        println("Acerquese a la caja #" + numeroAleatorio + " para cancelar");
         if (guia.getSucursalOrigen() == sucursal) { //¿El metodo ha sido accedido desde la sucursal de origen? Eso quiere decir que el que está pagando es el remitente
             switch (guia.getTipoDePago()) {
                 case REMITENTE:
                     guia.setPagoPendiente(guia.getPagoPendiente() * 0);
+                    break;
                 case FRACCIONADO:
                     guia.setPagoPendiente(guia.getPagoPendiente() / 2);
+                    break;
             }
         } else { //Está pagando el destinatario
             switch (guia.getTipoDePago()) {
-                case REMITENTE:
+                case DESTINATARIO:
                     guia.setPagoPendiente(guia.getPagoPendiente() * 0);
+                    break;
                 case FRACCIONADO:
                     guia.setPagoPendiente(guia.getPagoPendiente() / 2);
+                    break;
             }
         }
+
+        Random random = new Random();
+        int numeroAleatorio = random.nextInt(5) + 1;
+        println("----------------PAGO EN EFECTIVO-----------------");
+        println("Gracias por usar nuestro servicio, porfavor\nacerquese a la caja #" + numeroAleatorio + " para cancelar $" + (guia.getPrecioTotal() - guia.getPagoPendiente()));
+        println("");
+        print("1) Volver al menú principal: ");
+
+        boolean numerovalido = false;
+
+        while (!numerovalido) {
+            int menuPrincipalEntrada = scanner.nextInt();
+            switch (menuPrincipalEntrada) {
+                case 1:
+                    Main.menuPrincipal(sucursal);
+                    numerovalido = true;
+                    break;
+                default:
+                    print("Número no válido. Inténtalo de nuevo: ");
+            }
+        }
+
     }
 
 
@@ -884,11 +917,22 @@ public class Main {
                             }
                         }
                     } else { //Está pagando el destinatario
-                        if (guia.getTipoDePago() == tipoDePago.DESTINATARIO) {
+                        if (guia.getTipoDePago() == tipoDePago.DESTINATARIO || guia.getTipoDePago() == tipoDePago.FRACCIONADO) {
                             if (cuentaCliente.descontarSaldo(guia.getPagoPendiente())) {
-                                println("Transacción exitosa");
                                 guia.setPagoPendiente(guia.getPagoPendiente() * 0);
                                 cuentaCliente.getTitular().subirReputacion();
+
+                                println("-------------------------------------------------");
+
+                                Random random = new Random();
+                                println("¡¡Transacción exitosa!!");
+                                println("Muchas gracias por usar nuestro servicio, favor acerquese a la caja #" + random.nextInt(5) + 1 + " para despachar el " + guia.getProducto().getClass().getSimpleName());
+
+                                println("-------------------------------------------------");
+                                cuentaCliente.getTitular().subirReputacion();
+                            } else {
+                                println("Lo sentimos, no hay suficiente dinero en la cuenta");
+                                alternativa(guia, sucursal);
                             }
                         }
                     }
@@ -897,6 +941,23 @@ public class Main {
                     break;
                 case 2:
                     println("Servicio cancelado, vuelve pronto");
+                    println("");
+
+                    print("1) Volver al menú principal: ");
+
+                    boolean numerovalido2 = false;
+
+                    while (!numerovalido2) {
+                        int menuPrincipalEntrada = scanner.nextInt();
+                        switch (menuPrincipalEntrada) {
+                            case 1:
+                                Main.menuPrincipal(sucursal);
+                                numerovalido2 = true;
+                                break;
+                            default:
+                                print("Número no válido. Inténtalo de nuevo: ");
+                        }
+                    }
 
                     numeroValido = true;
                     break;

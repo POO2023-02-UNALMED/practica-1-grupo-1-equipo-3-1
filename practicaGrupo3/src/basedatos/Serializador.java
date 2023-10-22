@@ -16,7 +16,7 @@ import administracion.Guia;
 
 public class Serializador {
 	private static File rutaTemp = new File("src\\basedatos\\temp");
-	
+
 	/*
  	Este metodo es el encargado de serializar las listas
 	que estan creadas en la clases.

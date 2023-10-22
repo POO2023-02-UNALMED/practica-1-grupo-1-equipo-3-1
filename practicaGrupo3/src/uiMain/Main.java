@@ -127,14 +127,15 @@ public class Main {
             println("3) Cali.");
             print("Elija una opcion: ");
             int opcion1 = scanner.nextInt();
-            	
+
             switch (opcion1) {
             	case 1: 
             		println("1) Medellin Norte.");
             		println("2) Medellin Sur.");
             		print("Elija una opcion: ");
             		int ciudad1 = scanner.nextInt();
-            		ciudadOrigen(ciudad1);
+                    ciudadOrigen(opcion1, ciudad1);
+            		
             		break;
             		
             	case 2:
@@ -142,7 +143,8 @@ public class Main {
             		println("2) Bogotá Sur.");
             		print("Elija una opcion: ");
             		int ciudad2 = scanner.nextInt();
-            		ciudadOrigen(ciudad2);
+            		ciudadOrigen(opcion1, ciudad2);
+            		
             		break;
             		
             	case 3:
@@ -150,7 +152,8 @@ public class Main {
             		println("2) Cali Sur.");
             		print("Elija una opcion: ");
             		int ciudad3 = scanner.nextInt();
-            		ciudadOrigen(ciudad3);
+            		ciudadOrigen(opcion1, ciudad3);
+            		
             		break;
             		
             	default:
@@ -211,10 +214,29 @@ public class Main {
     }
 
 
+    //se accede a la guia y se le envía esta ciudad de origen?
 
-
-	private static void ciudadOrigen(int ciudadOrigen) {
-		
+	private static void ciudadOrigen(int opcion1, int sucurOrigen) {
+		if (opcion1 == 1) {
+			if (sucurOrigen == 1) {
+				String sucursalOrigen = "Medellín Norte";
+			}if (sucurOrigen ==2) {
+				String sucursalOrigen = "Medellín Sur";
+			}
+			
+		}if(opcion1 == 2) {
+			if(sucurOrigen == 1) {
+				String sucursalOrigen = "Bogotá Norte";
+			}if(sucurOrigen == 2) {
+				String sucursalOrigen = "Bogotá Sur";
+			}
+		}if(opcion1 == 3) {
+			if(sucurOrigen == 1) {
+				String sucursalOrigen = "Cali Norte";
+			}if(sucurOrigen == 2) {
+				String sucursalOrigen = "Cali Sur";
+			}
+		}
 		
 	}
 

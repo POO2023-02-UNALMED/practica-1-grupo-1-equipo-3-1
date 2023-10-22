@@ -104,7 +104,8 @@ public class Main {
 
         //Menu principal
         Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
-
+        Cliente guzman = new Cliente("Jaime Guzman", 123456789, 987654321);
+        CuentaBancaria guzmanCuenta = new CuentaBancaria(guzman, 1010101010, 666, "09/27", 1000000);
 
     }
 
@@ -120,7 +121,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         
 
-            println("--- BIENVENIDO AL SISTEMA DE ENVIOS CORREMINAS ---");
+            /*println("--- BIENVENIDO AL SISTEMA DE ENVIOS CORREMINAS ---");
             println("¿En qué sucursal te encuentras?");
             println("1) Medellín.");
             println("2) Bogotá.");
@@ -134,7 +135,7 @@ public class Main {
             		println("2) Medellin Sur.");
             		print("Elija una opcion: ");
             		int ciudad1 = scanner.nextInt();
-                    ciudadOrigen(opcion1, ciudad1);
+                    ciudadOrigen(opcion1, ciudad1, sucursal);
             		
             		break;
             		
@@ -143,7 +144,7 @@ public class Main {
             		println("2) Bogotá Sur.");
             		print("Elija una opcion: ");
             		int ciudad2 = scanner.nextInt();
-            		ciudadOrigen(opcion1, ciudad2);
+            		ciudadOrigen(opcion1, ciudad2, sucursal);
             		
             		break;
             		
@@ -152,20 +153,20 @@ public class Main {
             		println("2) Cali Sur.");
             		print("Elija una opcion: ");
             		int ciudad3 = scanner.nextInt();
-            		ciudadOrigen(opcion1, ciudad3);
+            		ciudadOrigen(opcion1, ciudad3, sucursal);
             		
             		break;
             		
             	default:
                      print("Número no válido. Inténtalo de nuevo: ");
                      scanner.nextLine();
-            	}
+            	}*/
    
             
         
             	
         while (true) {
-            println("--- BIENVENIDO AL SISTEMA DE ENVIOS CORREMINAS SEDE ---");
+            println("--- BIENVENIDO AL SISTEMA DE ENVIOS CORREMINAS SEDE ---"); //colocar la sede en la que está
             println("¿Qué operación deseas realizar?");
             println("1) Enviar paquete.");
             println("2) Pagar servicio.");
@@ -214,9 +215,9 @@ public class Main {
     }
 
 
-    //se accede a la guia y se le envía esta ciudad de origen?
+    //no sé cómo hacer que en la guia esto sea la sucursal de origen xd
 
-	private static void ciudadOrigen(int opcion1, int sucurOrigen) {
+	/*private static void ciudadOrigen(int opcion1, int sucurOrigen, Sucursal SucursalOrigen) {
 		if (opcion1 == 1) {
 			if (sucurOrigen == 1) {
 				String sucursalOrigen = "Medellín Norte";
@@ -238,7 +239,7 @@ public class Main {
 			}
 		}
 		
-	}
+	}*/
 
 	public static void enviarPaquete(Sucursal sucursalOrigen) {
         Scanner scanner = new Scanner(System.in);
@@ -1215,7 +1216,7 @@ public class Main {
                 //aas
                 if (producto != null) {
                     //se verifican los datos del destinatario
-                    if (verificarDatos(producto, nombreDestinatario, cedulaDestinatario, sucursal)) {
+                    if (verificarDatos(producto, nombreDestinatario, cedulaDestinatario)) {
                         realizarEntrega(producto, sucursal);
                     } else {
                         System.out.println("Los datos que proporcionó no coinciden con los datos del destinatario.");
@@ -1242,11 +1243,15 @@ public class Main {
         return null; // Producto no encontrado
     }
 
-    private static boolean verificarDatos(Producto producto, String nombreDestinatario, int cedulaDestinatario, Sucursal sucursal) {
-        return producto.getGuia().getSucursalLlegada() == sucursal &&
-                producto.getGuia().getDestinatario().getNombre().equals(nombreDestinatario) &&
-                producto.getGuia().getDestinatario().getCedula() == cedulaDestinatario;
+    private static boolean verificarDatos(Producto producto, String nombreDestinatario, int cedulaDestinatario) {
+        if(producto.getGuia().getDestinatario().getNombre().equals(nombreDestinatario)) {
+        	if( producto.getGuia().getDestinatario().getCedula() == cedulaDestinatario) {
+        		return true;
+        	}
+        }
+		return false;
     }
+  
 
     private static void realizarEntrega(Producto producto, Sucursal sucursal) {
         Guia guia = producto.getGuia();
@@ -1255,18 +1260,24 @@ public class Main {
             if (guia.getTipoDePago() == Guia.tipoDePago.DESTINATARIO) {
                 println("Para retirar el producto tiene que cancelar el servicio por valor de $" + guia.getPrecioTotal());
                 // Agregar lógica de pago
-            } else {
-                sucursal.getInventario().remove(producto);
-                Random random = new Random();
-                println("Operación realizada con éxito, favor acercarse a la caja0\n" +
-                        random.nextInt(5) + " para retirar su paquete, muchas gracias por usar nuestro servicio");
             }
-        } else if (guia.getEstado() == Guia.estado.ENTREGADO) {
+        }
+        if(guia.getEstado() == Guia.estado.ENESPERA && sucursal.getInventario().contains(producto)) {
+            	if(guia.getTipoDePago() == Guia.tipoDePago.REMITENTE) {
+            		sucursal.getInventario().remove(producto);
+                    Random random = new Random();
+                    println("Operación realizada con éxito, favor acercarse a la caja" +
+                            random.nextInt(5) + "\npara retirar su paquete, muchas gracias por usar nuestro servicio");
+            	}
+        }
+          
+        else if (guia.getEstado() == Guia.estado.ENTREGADO) {
             println("El paquete fue entregado el día " + guia.getFecha().getDayOfWeek() + " del mes " + guia.getFecha().getMonth());
         } else if (guia.getEstado() == Guia.estado.ENTRANSITO) {
             println("El paquete todavía no ha llegado");
 
         }
+        
 
     }
         /*Producto producto = null;

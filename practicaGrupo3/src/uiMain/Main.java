@@ -922,11 +922,22 @@ public class Main {
                             }
                         }
                     } else { //Está pagando el destinatario
-                        if (guia.getTipoDePago() == tipoDePago.DESTINATARIO) {
+                        if (guia.getTipoDePago() == tipoDePago.DESTINATARIO || guia.getTipoDePago() == tipoDePago.FRACCIONADO) {
                             if (cuentaCliente.descontarSaldo(guia.getPagoPendiente())) {
-                                println("Transacción exitosa");
                                 guia.setPagoPendiente(guia.getPagoPendiente() * 0);
                                 cuentaCliente.getTitular().subirReputacion();
+
+                                println("-------------------------------------------------");
+
+                                Random random = new Random();
+                                println("¡¡Transacción exitosa!!");
+                                println("Muchas gracias por usar nuestro servicio, favor acerquese a la caja #" + random.nextInt(5) + 1 + " para despachar el " + guia.getProducto().getClass().getSimpleName());
+
+                                println("-------------------------------------------------");
+                                cuentaCliente.getTitular().subirReputacion();
+                            } else {
+                                println("Lo sentimos, no hay suficiente dinero en la cuenta");
+                                alternativa(guia, sucursal);
                             }
                         }
                     }
@@ -935,6 +946,23 @@ public class Main {
                     break;
                 case 2:
                     println("Servicio cancelado, vuelve pronto");
+                    println("");
+
+                    print("1) Volver al menú principal: ");
+
+                    boolean numerovalido2 = false;
+
+                    while (!numerovalido2) {
+                        int menuPrincipalEntrada = scanner.nextInt();
+                        switch (menuPrincipalEntrada) {
+                            case 1:
+                                Main.menuPrincipal(sucursal);
+                                numerovalido2 = true;
+                                break;
+                            default:
+                                print("Número no válido. Inténtalo de nuevo: ");
+                        }
+                    }
 
                     numeroValido = true;
                     break;

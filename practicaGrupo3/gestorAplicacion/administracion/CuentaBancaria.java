@@ -21,7 +21,7 @@ public class CuentaBancaria implements Serializable {
         generarFechaExpiracionAleatoria();
         generarSaldoAleatorio();
 
-        todasLasCuentas.add(this);
+        //todasLasCuentas.add(this);
     }
 
     public CuentaBancaria(Persona titular, long numero, int cvv, String fechaExpiracion, double saldo) {

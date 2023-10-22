@@ -67,7 +67,7 @@ public class Main {
         Deserializador.deserializar();
 
 
-        /*FALLA
+        
 
         for (Persona persona : Persona.getTodasLasPersonas()) {
             println(persona.getNombre());
@@ -80,9 +80,14 @@ public class Main {
         for (Guia guia : Guia.getTodasLasGuias()) {
             println(guia);
         }
+        
+        for (Transporte vehiculo: Transporte.getTodosLosTransportes() ) {
+        	println(vehiculo);
+        	println(vehiculo.getSucursalOrigen());
+        }
+    
 
-        println(Transporte.getTodosLosTransportes());
-*/
+
 
 
 

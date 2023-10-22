@@ -62,6 +62,7 @@ public class Guia implements Serializable{
 		this.tipoDePago = tipoDePago;
 		this.vehiculo = vehiculo;
 		this.producto.setGuia(this);
+		Guia.todasLasGuias.add(this);
 
 		fecha = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");

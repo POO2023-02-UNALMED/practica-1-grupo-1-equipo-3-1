@@ -24,7 +24,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-/*
+
+        /*
         ArrayList<Camion> camionesMN = new ArrayList<>();
 
         ArrayList<Moto> motosMN = new ArrayList<>();
@@ -32,9 +33,6 @@ public class Main {
         ArrayList<Avion> avionesMN = new ArrayList<>();
 
         Sucursal medellinNorte = new Sucursal("Medellin Norte", 100, 100, -6, 8, camionesMN, motosMN, avionesMN);
-        camionesMN.add(new Camion(medellinNorte, 27, 300, "ABC109"));
-        motosMN.add(new Moto(medellinNorte, 1, 30, "ABC123"));
-
         Sucursal medellinSur = new Sucursal("Medellin Sur", 100, 100, -6, 6, camionesMN, motosMN, avionesMN);
 
         Sucursal caliNorte = new Sucursal("Cali Norte", 400, 200, -8, -4, camionesMN, motosMN, avionesMN);
@@ -44,27 +42,31 @@ public class Main {
         Sucursal pastoSur = new Sucursal("Pasto Sur", 200, 700, -12, -12, camionesMN, motosMN, avionesMN);
 
         Sucursal bogotaNorte = new Sucursal("Bogotá Norte", 1000, 500, 4, 2, camionesMN, motosMN, avionesMN);
-        avionesMN.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "asdfg"));
 
         Sucursal bogotaSur = new Sucursal("Bogotá Sur", 1000, 500, 4, 2, camionesMN, motosMN, avionesMN);
 
+        camionesMN.add(new Camion(medellinNorte, 27, 300, "ABC109"));
+        motosMN.add(new Moto(medellinNorte, 1, 30, "ABC123"));
+        avionesMN.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "asdfg"));
+
         Cliente guzman = new Cliente("Jaime Guzman", 123456789, 987654321);
         CuentaBancaria guzmanCuenta = new CuentaBancaria(guzman, 1010101010, 666, "09/27", 1000000);
-
         Destinatario david = new Destinatario("David", 55555, 666666);
+
         Producto documento = new Documento();
-        Guia guiaDoc = new Guia(documento, guzman, david, medellinNorte, pastoSur, tipoDePago.REMITENTE, camionesMN.get(0));
+        Guia guiaDoc = new Guia(documento, guzman, david, medellinNorte, caliSur, tipoDePago.REMITENTE, camionesMN.get(0));
 
+        medellinNorte.getInventario().add(documento);
+        Camion camionmn = medellinNorte.getCamionesEnSucursal().get(0);
 
- */
-
-    	
+        camionmn.agregarProductos();
+        camionmn.iniciarRecorrido();
 
         //Serializador.serializar();
 
 
 
-        Deserializador.deserializar();
+        //Deserializador.deserializar();
 
 
         /*FALLA
@@ -82,12 +84,15 @@ public class Main {
         }
 
         println(Transporte.getTodosLosTransportes());
-*/
+        
 
 
+        println(documento.getCodigo());
 
+
+        */
         //Menu principal
-        //Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
+        Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
 
 
     }
@@ -127,7 +132,7 @@ public class Main {
 
                         break;
                     case 3:
-                        rastrearPaquete(1);
+                        rastrearPaquete(sucursal);
 
                         break;
                     case 4:
@@ -1239,35 +1244,58 @@ public class Main {
 
     //Revisar
     //Rastrear
-    public static void rastrearPaquete(int codigo) {
+    public static void rastrearPaquete(Sucursal sucursal) {
+        Scanner scanner = new Scanner(System.in);
+        println("----------------RASTREAR PRODUCTO----------------");
+        print("Ingrese el código de la guía a rastrear: ");
+        int codigo = scanner.nextInt();
 
-        Producto producto = null;
-        for (Producto producto1 : Producto.getTodosLosProductos()) {
-            if (producto1.getCodigo() == codigo) {
-                producto = producto1;
+
+        Guia guia = null;
+        for (Producto producto : Producto.getTodosLosProductos())
+            if (producto.getCodigo() == codigo) {
+                guia = producto.getGuia();
                 break;
             }
-        }
 
-        if (producto != null) {
-            switch (producto.getGuia().getEstado()) {
+        if (guia != null) {
+            switch (guia.getEstado()) {
                 case ENTRANSITO:
-                    String lugarActual;
-                    boolean estaEnSucursal;
-                    for (Sucursal sucursal : producto.getGuia().getRuta()) {
-                        if (sucursal.verificarProducto(producto)) {
-                            estaEnSucursal = true;
-                            lugarActual = sucursal.getNombre();
-                            break;
+                    if (guia.getVehiculo() instanceof Camion) {
+                        Camion camion = (Camion)guia.getVehiculo();
+                        println("-------------------------------------------------");
+                        println(camion.ubicarTransporte());
+                        println(guia.avancePedido());
+                        println("");
+
+                        print("1) Volver al menú principal: ");
+
+                        boolean numerovalido = false;
+
+                        while (!numerovalido) {
+                            int menuPrincipalEntrada = scanner.nextInt();
+                            switch (menuPrincipalEntrada) {
+                                case 1:
+                                    Main.menuPrincipal(sucursal);
+                                    numerovalido = true;
+                                    break;
+                                default:
+                                    print("Número no válido. Inténtalo de nuevo: ");
+                            }
                         }
                     }
-
-                    //if (estaEnSucursal) {}
-
+                    break;
+                case ENESPERA:
+                    println("Tu " + guia.getProducto().getClass().getSimpleName() + " ya llegó a la sucursal de destino");
+                    println(guia.avancePedido());
+                    break;
+                case ENTREGADO:
+                    println("Tu paquete ya ha sido reclamado");
             }
-
         } else {
-
+            println("Lo sentimos, el código de la guía no coincide, intentalo de nuevo");
+            println("");
+            rastrearPaquete(sucursal);
         }
         // TODO Auto-generated method stub
 

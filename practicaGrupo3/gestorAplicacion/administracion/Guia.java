@@ -83,6 +83,29 @@ public class Guia implements Serializable{
 		return magnitud;
 	}
 
+	public double avancePedido() {
+		switch (estado) {
+			case ENESPERA:
+				return 100;
+			case ENTREGADO:
+				return 100;
+            case ENTRANSITO:
+				if (vehiculo instanceof Camion) {
+					double escalas = 100.0 / (ruta.size() - 1);
+					Camion camion = (Camion)vehiculo;
+					if (camion.getUbicacionActual() != null) {
+						return escalas * ruta.indexOf(camion.getUbicacionActual());
+					} else {
+						return (escalas * ruta.indexOf(camion.getUbicacionAnterior())) + (escalas / 2);
+					}
+				} else {
+					return 50;
+				}
+			default:
+				return 0;
+		}
+    }
+
 	public void asignarPrecio() {
 		int cantidadDeSucursales = ruta.size() - 1;
 		int costoTransporte = 0;

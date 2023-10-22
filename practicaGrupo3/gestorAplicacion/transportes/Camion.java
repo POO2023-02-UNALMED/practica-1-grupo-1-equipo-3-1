@@ -1,5 +1,6 @@
 package transportes;
 
+import administracion.Guia;
 import administracion.Sucursal;
 import productos.Producto;
 
@@ -12,6 +13,7 @@ public class Camion extends Transporte {
     private Sucursal ubicacionActual;
     private Sucursal ubicacionAnterior;
     private Sucursal ubicacionSiguiente;
+    private String ubicacion;
     private boolean enSucursal;
 
 
@@ -47,18 +49,23 @@ public class Camion extends Transporte {
 
     //Revisar
     public void entrarASucursal(Sucursal sucursal) {
+        //System.out.println("Estoy en " + sucursal.getNombre());
         ubicacionActual = sucursal;
         sucursal.agregarCamion(this);
         for (Producto producto : inventario) { //Busca en el inventario los producto que tiene como llegada está sucursal
             if (producto.getGuia().getSucursalLlegada() == sucursal) {
                 if (sucursal.getCapacidadVolumen() > producto.getVolumen()) { //Verifica si hay capacidad para guardar el producto
                     if (sucursal.getCapacidadPeso() > producto.getPeso()) { //Verifica si hay capacidad para guardar el producto
-                        inventario.remove(producto); //Elimina el producto del inventario del transporte
                         sucursal.getInventario().add(producto); //Agrega el producto al inventario de la sucursal
+                        producto.getGuia().setEstado(Guia.estado.ENESPERA);
+                        //System.out.println("Dejé el paquete" + producto.getClass() + " en la sucursal " + sucursal.getNombre());
                     }
                 }
-
-
+            }
+        }
+        for (Producto producto : sucursal.getInventario()) {
+            if (inventario.contains(producto)) {
+                inventario.remove(producto); //Elimina el producto del inventario del transporte
             }
         }
         enSucursal = true;
@@ -75,48 +82,59 @@ public class Camion extends Transporte {
         }
         sucursal.removerCamion(this);
         this.enSucursal = false;
+        //System.out.println("Salí de " + sucursal.getNombre());
     }
 
     public void agregarProductos() { //Agrega los productos que van a ser enviados, pasan del inventario de sucursal al del transporte
         for (Producto producto : sucursalOrigen.getInventario()) {
             if (producto.getGuia().getSucursalOrigen() == sucursalOrigen) { //Agrega SOLO los productos que vayan a salir a envio, no confundir con los que llegaron de otra sucursales
-                sucursalOrigen.getInventario().remove(producto);
                 inventario.add(producto);
             }
+        }
+
+        for (Producto producto1 : inventario) {
+            sucursalOrigen.getInventario().remove(producto1);
         }
     }
 
     //Revisar
-    public void iniciarRecorrido() {//Se le aplica al camion desde la sucursal de origen
-        for (int i = 1; i < ruta.size() - 1; i++) {
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            //sale de una sucursal a otra se demora 5 segundos
-
-            entrarASucursal(ruta.get(i));
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            //Espera en esa sucursal 5 segundos
-            salirDeSucursal(ruta.get(i));
-
+    public void iniciarRecorrido() {
+        for (Producto producto : inventario) {
+            producto.getGuia().setEstado(Guia.estado.ENTRANSITO);
         }
+        ubicacionAnterior = sucursalOrigen;
+        Thread simulacionThread = new Thread(() -> {
+            for (int i = 1; i < ruta.size() - 1; i++) {
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                // Sale de una sucursal a otra se demora 5 segundos
 
-        entrarASucursal(ruta.get(ruta.size() - 1)); //Finaliza el recorrido y vuelve a la sucursal propia
+                entrarASucursal(ruta.get(i));
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                // Espera en esa sucursal 5 segundos
+                salirDeSucursal(ruta.get(i));
+            }
+
+            entrarASucursal(ruta.get(ruta.size() - 1)); // Finaliza el recorrido y vuelve a la sucursal propia
+        });
+
+        simulacionThread.start();
     }
 
     //Revisar
     public String ubicarTransporte() {
         //Cómo lo hacemos?
-        if (enSucursal == true) {
-            return ubicacionActual.getNombre();
+        if (enSucursal) {
+            return "El producto en este momento se encuentra en la sucursal " + ubicacionActual.getNombre();
         } else {
-            return "Entre la ciudad de " + ubicacionAnterior.getNombre() + " y la ciudad de " + ubicacionSiguiente.getNombre();
+            return "El producto se encuentra entre la sucursal de " + ubicacionAnterior.getNombre() + " y la sursal de " + ubicacionSiguiente.getNombre();
         }
     }
 
@@ -125,10 +143,28 @@ public class Camion extends Transporte {
 
     }
 
+    public boolean isEnSucursal() {
+        return enSucursal;
+    }
+
     public static int getCant_camiones() {
         return cant_camiones;
     }
 
+    public ArrayList<Sucursal> getRuta() {
+        return ruta;
+    }
 
+    public Sucursal getUbicacionActual() {
+        return ubicacionActual;
+    }
+
+    public Sucursal getUbicacionAnterior() {
+        return ubicacionAnterior;
+    }
+
+    public Sucursal getUbicacionSiguiente() {
+        return ubicacionSiguiente;
+    }
 }
 

@@ -1206,7 +1206,7 @@ public class Main {
                 String nombreDestinatario = scanner.nextLine();
 
                 print("Ingrese su cédula: ");
-                int cedulaDestinatario = scanner.nextInt();
+                long cedulaDestinatario = scanner.nextLong();
 
                 datosValidos = true;
 
@@ -1243,13 +1243,14 @@ public class Main {
         return null; // Producto no encontrado
     }
 
-    private static boolean verificarDatos(Producto producto, String nombreDestinatario, int cedulaDestinatario) {
-        if(producto.getGuia().getDestinatario().getNombre().equals(nombreDestinatario)) {
-        	if( producto.getGuia().getDestinatario().getCedula() == cedulaDestinatario) {
-        		return true;
-        	}
+    private static boolean verificarDatos(Producto producto, String nombreDestinatario, long cedulaDestinatario) {
+        Guia guia = producto.getGuia();
+        Destinatario destinatario = guia.getDestinatario();
+
+        if (destinatario.getNombre().equals(nombreDestinatario) && Long.valueOf(destinatario.getCedula()).equals(cedulaDestinatario)) {
+            return true;
         }
-		return false;
+        return false;
     }
   
 

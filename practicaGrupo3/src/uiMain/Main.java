@@ -1517,9 +1517,10 @@ public class Main {
 
     //Recoger
     // Sirve a medias jasjasj ya lo corrijo KEVIN
-    public static void recogerPaquete(Sucursal sucursal) { //Sucursal desde la cual se está recogiendo el paquete
+    public static void recogerPaquete(Sucursal sucursalDestino) { //Sucursal desde la cual se está recogiendo el paquete
         Scanner scanner = new Scanner(System.in);
         boolean datosValidos = false;
+        
         while (!datosValidos) {
             try {
                 println("-----------------RECOGER PRODUCTO----------------");
@@ -1539,14 +1540,15 @@ public class Main {
                 //Encuentra el producto por el código de la guia
                 Producto producto = encontrarProductoPorCodigo(codigoPaquete);
                 Guia guia = producto.getGuia();
+                sucursalDestino = guia.getSucursalLlegada();
                 
               //Se verifica que el paquete llegó y que está en el inventario de la sucursal
-               if (sucursal.getInventario().contains(producto)) {
+               if (sucursalDestino.getInventario().contains(producto)) {
                 	//si el saldo pendiente es 0
             	   if(guia.getPagoPendiente() == 0) {
             		   //se validan los datos
             		   if(verificarDatos(producto,cedulaDestinatario)) {
-            			   sucursal.getInventario().remove(producto);
+            			   sucursalDestino.getInventario().remove(producto);
                				Random random = new Random();
                				println("Operación realizada con éxito, favor acercarse a la caja" +
                				random.nextInt(5) + "para retirar su paquete, muchas gracias por usar nuestro servicio");
@@ -1556,16 +1558,16 @@ public class Main {
             	   }if(guia.getPagoPendiente() != 0) {
             		   println("Para retirar el producto tiene que cancelar el servicio por valor de $" + guia.getPagoPendiente());
             	   }
-                }if(!sucursal.getInventario().contains(producto)) {
+                }if(!sucursalDestino.getInventario().contains(producto)) {
                 	print("El producto no se encuentra en la sucursal");
                 }
                
-                println(sucursal);
+                println(sucursalDestino);
                 println(verificarDatos(producto,cedulaDestinatario));
                 println(encontrarProductoPorCodigo(codigoPaquete));
                 println(guia.getPagoPendiente());
                 println(guia.getEstado());
-                println(sucursal.getInventario().remove(producto));
+                println(sucursalDestino.getInventario().remove(producto));
 
             }
            catch (InputMismatchException e) {

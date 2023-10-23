@@ -1586,16 +1586,10 @@ public class Main {
             	   }if(guia.getPagoPendiente() != 0) {
             		   println("Para retirar el producto tiene que cancelar el servicio por valor de $" + guia.getPagoPendiente());
             	   }
-                }if(!sucursalDestino.getInventario().contains(producto)) {
+                }else {
                 	print("El producto no se encuentra en la sucursal");
                 }
-               
-                println(sucursalDestino);
-                println(verificarDatos(producto,cedulaDestinatario));
-                println(encontrarProductoPorCodigo(codigoPaquete));
-                println(guia.getPagoPendiente());
-                println(guia.getEstado());
-                println(sucursalDestino.getInventario().remove(producto));
+
 
             }
            catch (InputMismatchException e) {

@@ -1,12 +1,10 @@
 package productos;
-
+//HECHO POR TOMAS GOMEZ
 import java.io.Serializable;
 
 public class Animal extends Producto implements Serializable{
-    private String nombre; /*Para que aparezca su nombre si se murió o ya llegó al lugar de destino a la hora de rastrear el paquete
-    "Toby ya llegó" o "Toby falleció, lo sentimos" */
-    private int edad; //Entre mas viejo, más probabilidad tiene de morirse en la trayectoria
-    private boolean vivo; //Si el animal muere en el trayecto se cambia este valor
+    private String nombre; 
+    private int edad; //Entre mas viejo, el precio final será más costoso
     private boolean peligroso; //Si es peligroso, aumenta el precio en una cuarta parte
     private tipoAnimal tipo; //Si es un perro o un gato etc
     private tamanoAnimal tamano; /*Solo hay tres tamaños preestablecidos, si quieres enviar un gato la opcion es "PEQUENO",
@@ -33,7 +31,6 @@ public class Animal extends Producto implements Serializable{
         this.nombre = nombre;
         this.edad = edad;
         this.tipo = tipo;
-        vivo = true;
 
         asignarTamano();
         asignarPeligro();
@@ -131,6 +128,8 @@ public class Animal extends Producto implements Serializable{
             costoDelPedido *= 1.25; //Si el animal es peligroso, el valor del pedido aumenta en una cuarta parte
         }
     }
+    
+    //GET Y SET
 
     public String getNombre() {
         return nombre;
@@ -138,10 +137,6 @@ public class Animal extends Producto implements Serializable{
 
     public int getEdad() {
         return edad;
-    }
-
-    public boolean isVivo() {
-        return vivo;
     }
 
     public boolean isPeligroso() {
@@ -164,9 +159,6 @@ public class Animal extends Producto implements Serializable{
         this.edad = edad;
     }
 
-    public void setVivo(boolean vivo) {
-        this.vivo = vivo;
-    }
 
     public void setPeligroso(boolean peligroso) {
         this.peligroso = peligroso;

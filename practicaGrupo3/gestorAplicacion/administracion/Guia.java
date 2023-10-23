@@ -1,10 +1,10 @@
 package administracion;
-
+//HECHA POR TOMÁS GÓMEZ
 
 
 import personas.*;
 
-//import sucursal.* No hace falta ya que estan en el mismo paquete
+
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,11 +23,9 @@ public class Guia implements Serializable{
 	private Transporte vehiculo;
 	private float tiempo;
 	private Producto producto;
-	private Sucursal sucursalOrigen; //la clase sucursal debe tener método destino
-	private Sucursal sucursalLlegada; //la clase sucursal debe tener método destino
-	private ArrayList<Sucursal> ruta = new ArrayList<>(); /*Lista de sucursales por las que va a pasar incluyendo
-	la ciudad de salida y la de destino*/
-	// pago está en sucursal, ¿qué hacemos acá?
+	private Sucursal sucursalOrigen; 
+	private Sucursal sucursalLlegada; 
+	private ArrayList<Sucursal> ruta = new ArrayList<>(); 
 	private Cliente remitente;
 	private Destinatario destinatario; 
 	private double precioTotal;
@@ -77,15 +75,7 @@ public class Guia implements Serializable{
 		pagoPendiente = precioTotal;
 	}
 	
-	//métodos
-	// Método para calcular la distancia entre dos puntos
-	//FUNCIONA
-	public static double calcularDistancia(Sucursal origen, Sucursal destino) {
-		double x = destino.getLongitud() - origen.getLongitud();
-		double y = destino.getLatitud() - origen.getLatitud();
-		double magnitud = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
-		return magnitud;
-	}
+	//Métodos de Clase
 
 	public double avancePedido() {
 		switch (estado) {
@@ -149,8 +139,7 @@ public class Guia implements Serializable{
 
 	}
 	
-	//Antihoraria
-	//FUNCIONA
+
 	public void asignarRuta() {
 		if (vehiculo instanceof Camion) {
 			ArrayList<Sucursal> sucursales = Sucursal.getTodasLasSucursales(); //La lista sería [Medellin, Cali, Pasto, Florencia, Bogotá]

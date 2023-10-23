@@ -4,7 +4,7 @@ import java.util.Random;
 import java.io.Serializable;
 import personas.*;
 
-//Cabecera Clase:
+
 // La finalidad de esta clase es saber el beneficio de entrega
 // y demas beneficios que incluye la membresia que cada cliente tiene.
 public class Membresia implements Serializable {
@@ -12,8 +12,6 @@ public class Membresia implements Serializable {
 	private int precio;
 	private Cliente cliente;
 	
-	/*KEVIN. ¿Podriamos colocar el caso en el que el cliente no tenga membresía? 
-			leer el método calcularCantidadEscalas en la línea 322 de la clase sucursal donde dice default.*/
 	public enum tipo{
 		DEFAULT(50),
 		SILVER(40),
@@ -31,8 +29,7 @@ public class Membresia implements Serializable {
 			}
 		}
 	
-// Aqui estan los constructoes, el atributo beneficio que es donde se guarda el tipo de beneficio que se obtuvo aleatoriamente,
-// por eso el metodo de crearMembresia que es precisamente el metodo que  hace el randomizer se llama en los constructores para cuando se cree de una se obtenga un tipo.
+
 	public Membresia() {
 		this.beneficio = crearMembresia();
 	}
@@ -86,17 +83,6 @@ public class Membresia implements Serializable {
 		return "El cliente tiene el beneficio " + String.valueOf(getBeneficio()).toLowerCase();
 	}
 
-	/*public String toString() {
-		String r;
-		if (cliente == null) {
-			r = "El cliente tiene el beneficio " + getBeneficio();
-		}
-		else {
-			r = "El cliente " + getCliente().getNombre() + " tiene el beneficio " + getBeneficio();
-		}
-		return r;
-	}
 
-	 */
 
 }

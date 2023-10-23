@@ -1,5 +1,5 @@
 package productos;
-
+//HECHO POR TOMAS GOMEZ
 import java.io.Serializable;
 
 public class Documento extends Producto implements Serializable{
@@ -23,5 +23,3 @@ public class Documento extends Producto implements Serializable{
         costoDelPedido = 10000;
     }
 }
-
-//No estoy seguro de si es necesario esta subclase, no sé que mas atributos pueda tener

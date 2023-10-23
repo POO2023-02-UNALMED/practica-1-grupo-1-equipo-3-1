@@ -7,6 +7,7 @@ import java.io.Serializable;
 import personas.*;
 
 public class CuentaBancaria implements Serializable {
+	//Atributos de clase
 	private Persona titular; 
     private long numero;
     private int cvv;
@@ -14,16 +15,9 @@ public class CuentaBancaria implements Serializable {
     private double saldo;
     private static ArrayList<CuentaBancaria> todasLasCuentas = new ArrayList<>();
     private static final long serialVersionUID = 1L;
-    
-    public CuentaBancaria() {
-        generarNumeroAleatorio();
-        generarCVVAleatorio();
-        generarFechaExpiracionAleatoria();
-        generarSaldoAleatorio();
+   
 
-        //todasLasCuentas.add(this);
-    }
-
+    //Constructor
     public CuentaBancaria(Persona titular, long numero, int cvv, String fechaExpiracion, double saldo) {
         this.titular = titular;
         this.numero = numero;
@@ -37,6 +31,8 @@ public class CuentaBancaria implements Serializable {
     }
     
 
+    //Métodos de clase
+    
     private void generarNumeroAleatorio() {
         Random random = new Random();
         numero = 100000000000L + random.nextInt(900000000); 
@@ -99,13 +95,6 @@ public class CuentaBancaria implements Serializable {
     			"Fecha De Expiración: " + fechaExpiracion +"\n"+
                 "Saldo: $" + saldo+"\n"+
                 "--------------------------------";
-    			
-    			
-    	/*"Los Datos De Tú Cuenta Bancaria Son Los Siguientes:\n"
-         +"Número De Cuenta: " + numero +"\n"
-         +"CVV: " + cvv +"\n"
-        +"Fecha De Expiración: " + fechaExpiracion +"\n"
-        +"Saldo: $" + saldo+"\n";*/
     }
     
 	public boolean descontarSaldo(double montoAPagar) {

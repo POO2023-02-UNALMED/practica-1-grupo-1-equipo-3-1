@@ -1,5 +1,5 @@
 package transportes;
-
+//HECHO POR DANIELA SÁNCHEZ
 import administracion.Guia;
 import administracion.Sucursal;
 import productos.Producto;
@@ -12,9 +12,6 @@ public class Camion extends Transporte implements Serializable {
 
     public Camion(Sucursal sucursalOrigen, int capacidadVolumen, int capacidadPeso, String matricula) {
         super(sucursalOrigen, capacidadVolumen, capacidadPeso, matricula);
-        //Sucursales por las que va a pasar el transporte
-        //EJEMPLO si el transporte es de Pasto va a tener una ruta = [Pasto, Florencia, Bogotá, Medellín, Cali, Pasto]
-        //Esto es único de Camion debido a que las motos son dentro de las ciudades y los aviones hacen envíos directos
     }
 
     @Override
@@ -36,7 +33,7 @@ public class Camion extends Transporte implements Serializable {
 
     @Override
     public void entrarASucursal(Sucursal sucursal) {
-        //System.out.println("Estoy en " + sucursal.getNombre());
+
         ubicacionActual = sucursal;
         sucursal.agregarCamion(this);
         for (Producto producto : inventario) { //Busca en el inventario los producto que tiene como llegada está sucursal
@@ -45,7 +42,7 @@ public class Camion extends Transporte implements Serializable {
                     if (sucursal.getCapacidadPeso() > producto.getPeso()) { //Verifica si hay capacidad para guardar el producto
                         sucursal.getInventario().add(producto); //Agrega el producto al inventario de la sucursal
                         producto.getGuia().setEstado(Guia.estado.ENESPERA);
-                        //System.out.println("Dejé el paquete" + producto.getClass() + " en la sucursal " + sucursal.getNombre());
+                       
                     }
                 }
             }
@@ -69,7 +66,7 @@ public class Camion extends Transporte implements Serializable {
         }
         sucursal.removerCamion(this);
         this.enSucursal = false;
-        //System.out.println("Salí de " + sucursal.getNombre());
+
     }
 
     @Override

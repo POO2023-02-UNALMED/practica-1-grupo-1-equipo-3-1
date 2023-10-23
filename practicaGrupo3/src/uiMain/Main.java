@@ -8,7 +8,8 @@ import administracion.*;
 import transportes.*;
 import administracion.Opinion;
 import administracion.Membresia;
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import basedatos.Serializador;
@@ -1464,10 +1465,7 @@ public class Main {
                 }
 
 
-                //Revisar
-                //Recoger
-                //Estaba en la clase Sucursal y no esta terminado, hayq eu cambiarle MUCHAS cosas
-                // :(
+                //TOMAS M
 
                 /*if (opinionInt >= 0.0 && opinionInt <= 5.0) {
                     numeroValido3 = true;
@@ -1543,7 +1541,7 @@ public class Main {
     public static void recogerPaquete(Sucursal sucursalDestino) { //Sucursal desde la cual se está recogiendo el paquete
         Scanner scanner = new Scanner(System.in);
         boolean datosValidos = false;
-
+        
         while (!datosValidos) {
             try {
                 println("-----------------RECOGER PRODUCTO----------------");
@@ -1562,9 +1560,20 @@ public class Main {
 
                 //Encuentra el producto por el código de la guia
                 Producto producto = encontrarProductoPorCodigo(codigoPaquete);
+                //Obtenemos la guia asociada al producto
                 Guia guia = producto.getGuia();
+                //Definimos la sucursal destino con la guia
                 sucursalDestino = guia.getSucursalLlegada();
 
+                //verificamos si el paquete fue entregado
+                //consultar si funciona jsajs
+                if(producto.getGuia().getEstado() == Guia.estado.ENTREGADO) {
+                	LocalDateTime fechaEntrega = LocalDateTime.now();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+                    String fechaEntregaStr = fechaEntrega.format(formatter);
+                    println("El paquete fue entregado el " + fechaEntregaStr);	
+                }
+                
                 //Se verifica que el paquete llegó y que está en el inventario de la sucursal
                 if (sucursalDestino.getInventario().contains(producto)) {
                     //si el saldo pendiente es 0
@@ -1573,8 +1582,15 @@ public class Main {
                         if (verificarDatos(producto, cedulaDestinatario)) {
                             sucursalDestino.getInventario().remove(producto);
                             Random random = new Random();
-                            println("Operación realizada con éxito, favor acercarse a la caja" +
-                                    random.nextInt(5) + "para retirar su paquete, muchas gracias por usar nuestro servicio");
+                            LocalDateTime fechaEntrega = LocalDateTime.now();
+                    		
+                            println("**************************************");
+                            println("*  Operación realizada con éxito    *");
+                            println("*  Favor acercarse a la caja No. " +random.nextInt(5));
+                            println("*  para retirar su paquete.         *");
+                            println("*  ¡Muchas gracias por usar nuestro *");
+                            println("*  servicio!                        *");
+                            println("**************************************");
                         } else {
                             println("Los datos ingresados no corresponden con los del remitente.");
                         }
@@ -1583,7 +1599,7 @@ public class Main {
                         println("Para retirar el producto tiene que cancelar el servicio por valor de $" + guia.getPagoPendiente());
                     }
                 } else {
-                    print("El producto no se encuentra en la sucursal");
+                    print("El producto no se encuentra en la sucursal.");
                 }
 
 

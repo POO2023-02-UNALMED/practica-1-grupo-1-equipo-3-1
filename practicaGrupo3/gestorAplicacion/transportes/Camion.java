@@ -21,7 +21,7 @@ public class Camion extends Transporte implements Serializable{
     public Camion(Sucursal ciudadRegistro, int capacidadVolumen, int capacidadPeso, String matricula) {
         super(ciudadRegistro, capacidadVolumen, capacidadPeso, matricula, 20);
         Camion.cant_camiones++;
-
+        ubicacionActual = ciudadRegistro;
         asignarRuta(); //Sucursales por las que va a pasar el transporte
         //EJEMPLO si el transporte es de Pasto va a tener una ruta = [Pasto, Florencia, Bogotá, Medellín, Cali, Pasto]
         //Esto es único de Camion debido a que las motos son dentro de las ciudades y los aviones hacen envíos directos
@@ -89,12 +89,18 @@ public class Camion extends Transporte implements Serializable{
     public void agregarProductos() { //Agrega los productos que van a ser enviados, pasan del inventario de sucursal al del transporte
         for (Producto producto : sucursalOrigen.getInventario()) {
             if (producto.getGuia().getSucursalOrigen() == sucursalOrigen) { //Agrega SOLO los productos que vayan a salir a envio, no confundir con los que llegaron de otra sucursales
-                inventario.add(producto);
+                if (producto.getGuia().getVehiculo() == this) {
+                    inventario.add(producto);
+
+                }
             }
         }
 
         for (Producto producto1 : inventario) {
-            sucursalOrigen.getInventario().remove(producto1);
+            if (sucursalOrigen.getInventario().contains(producto1)) {
+                sucursalOrigen.getInventario().remove(producto1);
+
+            }
         }
     }
 
@@ -102,6 +108,7 @@ public class Camion extends Transporte implements Serializable{
         for (Producto producto : inventario) {
             producto.getGuia().setEstado(Guia.estado.ENTRANSITO); //Cambia el estado de todos los productos del inventario
         }
+
         ubicacionAnterior = sucursalOrigen;
         ubicacionSiguiente = ruta.get(1);
 
@@ -123,8 +130,13 @@ public class Camion extends Transporte implements Serializable{
                 // Espera en esa sucursal 5 segundos
                 salirDeSucursal(ruta.get(i));
             }
-
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             entrarASucursal(ruta.get(ruta.size() - 1)); // Finaliza el recorrido y vuelve a la sucursal propia
+
         });
 
         simulacionThread.start();
@@ -136,7 +148,7 @@ public class Camion extends Transporte implements Serializable{
         if (enSucursal) {
             return "El producto en este momento se encuentra en la sucursal " + ubicacionActual.getNombre();
         } else {
-            return "El producto se encuentra entre la sucursal de " + ubicacionAnterior.getNombre() + " y la sursal de " + ubicacionSiguiente.getNombre();
+            return "El producto se encuentra entre la sucursal de " + ubicacionAnterior.getNombre() + " y la sucursal de " + ubicacionSiguiente.getNombre();
         }
     }
 

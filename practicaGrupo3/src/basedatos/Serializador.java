@@ -109,7 +109,7 @@ public class Serializador {
 						} catch (IOException e) {
 							// TODO Auto-generated catch block e.printStackTrace();
 							e.printStackTrace();
-				}	
+				}
 			}else if(archivo1.getAbsolutePath().contains("Guias")) {
 				try {
 					rutaArchivo = new FileOutputStream(archivo1);
@@ -121,7 +121,7 @@ public class Serializador {
 				} catch (IOException e) {
 					// TODO Auto-generated catch block e.printStackTrace();
 					e.printStackTrace();
-		  }	
+		  }
 	   }else if(archivo1.getAbsolutePath().contains("Opiniones")) {
 			try {
 				rutaArchivo = new FileOutputStream(archivo1);
@@ -133,7 +133,7 @@ public class Serializador {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block e.printStackTrace();
 				e.printStackTrace();
-	     }	
+	     }
       }
 	 }
    }

@@ -7,6 +7,7 @@ import administracion.Guia.tipoDePago;
 import administracion.*;
 import personas.Cliente;
 import transportes.*;
+import administracion.Opinion;
 
 
 import java.util.ArrayList;
@@ -32,17 +33,28 @@ public class Main {
         ArrayList<Avion> avionesMN = new ArrayList<>();
 
         Sucursal medellinNorte = new Sucursal("Medellin Norte", 100, 100, -6, 8, camionesMN, motosMN, avionesMN);
+        new Opinion(5.0,5.0,medellinNorte);
+
         Sucursal medellinSur = new Sucursal("Medellin Sur", 100, 100, -6, 6, camionesMN, motosMN, avionesMN);
+        new Opinion(4.5,3.0,medellinSur);
 
         Sucursal caliNorte = new Sucursal("Cali Norte", 400, 200, -8, -4, camionesMN, motosMN, avionesMN);
+        new Opinion(3.0,5.0,caliNorte);
+
         Sucursal caliSur = new Sucursal("Cali Sur", 400, 200, -8, -6, camionesMN, motosMN, avionesMN);
+        new Opinion(3.7,3.4,caliSur);
 
         Sucursal pastoNorte = new Sucursal("Pasto Norte", 200, 700, -12, -10, camionesMN, motosMN, avionesMN);
+        new Opinion(3.2,4.6,pastoNorte);
+
         Sucursal pastoSur = new Sucursal("Pasto Sur", 200, 700, -12, -12, camionesMN, motosMN, avionesMN);
+        new Opinion(2.5,3.8,pastoSur);
 
         Sucursal bogotaNorte = new Sucursal("Bogotá Norte", 1000, 500, 4, 2, camionesMN, motosMN, avionesMN);
+        new Opinion(2.4,2.6,bogotaNorte);
 
         Sucursal bogotaSur = new Sucursal("Bogotá Sur", 1000, 500, 4, 2, camionesMN, motosMN, avionesMN);
+        new Opinion(2.8,4.2,bogotaSur);
 
         camionesMN.add(new Camion(medellinNorte, 27, 300, "ABC109"));
         motosMN.add(new Moto(medellinNorte, 1, 30, "ABC123"));
@@ -83,6 +95,7 @@ public class Main {
         camionmn.iniciarRecorrido();
 
         println(documento.getGuia());
+		println(Opinion.generarTablaSucursales());
 
         println(documento.getCodigo());
 
@@ -250,7 +263,7 @@ public class Main {
             println("2) Pagar servicio");
             println("3) Rastrear paquete");
             println("4) Recoger paquete");
-            println("5) Reclamos");
+            println("5) Opiniones");
             println("6) Cambiar Sucursal");
             println("7) Terminar");
             print("Elige una opcion: ");
@@ -1290,10 +1303,97 @@ public class Main {
 
     }
 
-    public static void opcionesReclamo() {
-        // TODO Auto-generated method stub
+    public static void opcionesOpiniones(Sucursal sucursal) {
+        Scanner scanner = new Scanner(System.in);
+        println("-------------Opinion Sucursales------------");
+        println("");
+        println(Opinion.generarTablaSucursales());
+        println("");
 
-    }
+        println("Ingrese a que sucursal quiere ingresar una opinion:");
+        println("1) Medellin Norte");
+        println("2) Medellin Sur");
+        println("3) Cali Norte");
+        println("4) Cali Sur");
+        println("5) Pasto Norte");
+        println("6) Pasto Sur");
+        println("7) Bogotá Norte");
+        println("8) Bogotá Sur");
+        print("Elige una opción: ");
+
+        boolean numeroValido1 = false;
+        Sucursal sucursalOpinion = null;
+
+        while (!numeroValido1) {
+            int OpinionEntrada = scanner.nextInt();
+            switch (OpinionEntrada) {
+                case 1:
+                    sucursalOpinion = Sucursal.getTodasLasSucursales().get(0);
+                    numeroValido1 = true;
+                    break;
+                case 2:
+                    sucursalOpinion = Sucursal.getTodasLasSucursales().get(1);
+                    numeroValido1 = true;
+                    break;
+                case 3:
+                    sucursalOpinion = Sucursal.getTodasLasSucursales().get(2);
+                    numeroValido1 = true;
+                    break;
+                case 4:
+                    sucursalOpinion = Sucursal.getTodasLasSucursales().get(3);
+                    numeroValido1 = true;
+                    break;
+                case 5:
+                    sucursalOpinion = Sucursal.getTodasLasSucursales().get(4);
+                    numeroValido1 = true;
+                    break;
+                case 6:
+                    sucursalOpinion = Sucursal.getTodasLasSucursales().get(5);
+                    numeroValido1 = true;
+                    break;
+                case 7:
+                    sucursalOpinion = Sucursal.getTodasLasSucursales().get(6);
+                    numeroValido1 = true;
+                    break;
+                case 8:
+                    sucursalOpinion = Sucursal.getTodasLasSucursales().get(7);
+                    numeroValido1 = true;
+                    break;
+                default:
+                    print("Número no válido. Inténtalo de nuevo: ");
+            }
+        }
+        println("-----------------------------------------------------------");
+        println("Usted escogio la sucursal: " + sucursalOpinion.getNombre());
+        println("-----------------------------------------------------------");
+        println("Ingrese su opinion de puntualidad de la sucursal escogida");
+        boolean numeroValido2 = false;
+        Double opinionPunt = 0.0;
+        while(!numeroValido2) {
+            opinionPunt = scanner.nextDouble();
+
+            if (opinionPunt >= 0.0 && opinionPunt <= 5.0) {
+                numeroValido2 = true;
+                sucursalOpinion.getOpinionSucursal().agregarOpinionPunt(opinionPunt);
+            }else {
+                print("Número no válido. Inténtalo de nuevo: ");
+            }
+        }
+        //println(opinionPunt);
+        println("Ingrese su opinion de integridad de la sucursal escogida");
+        boolean numeroValido3 = false;
+        Double opinionInt = 0.0;
+        while(!numeroValido3) {
+            opinionInt = scanner.nextDouble();
+
+            if (opinionInt >= 0.0 && opinionInt <= 5.0) {
+                numeroValido3 = true;
+                sucursalOpinion.getOpinionSucursal().agregarOpinionInt(opinionInt);
+            }else {
+                print("Número no válido. Inténtalo de nuevo: ");
+            }
+        }
+        //println(opinionInt);
 
     //Revisar
     //Recoger

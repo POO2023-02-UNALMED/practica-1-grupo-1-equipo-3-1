@@ -19,6 +19,7 @@ import personas.Persona;
 import administracion.CuentaBancaria;
 import productos.Producto;
 import administracion.Guia;
+import administracion.Opinion;
 
 public class Deserializador {
 
@@ -111,6 +112,18 @@ public class Deserializador {
 				archivo = new FileInputStream(file);
 				guardado = new ObjectInputStream(archivo);
 				Guia.setTodasLasGuias((ArrayList<Guia>) guardado.readObject());
+				}catch(FileNotFoundException e) {
+					e.printStackTrace();
+				}catch(IOException e) {
+					e.printStackTrace();
+				}catch(ClassNotFoundException e) {
+					e.printStackTrace();;
+				}
+			}else if (file.getAbsolutePath().contains("Opiniones")) {
+				try {
+				archivo = new FileInputStream(file);
+				guardado = new ObjectInputStream(archivo);
+				Opinion.setTodasLasOpiniones((ArrayList<Opinion>) guardado.readObject());
 				}catch(FileNotFoundException e) {
 					e.printStackTrace();
 				}catch(IOException e) {

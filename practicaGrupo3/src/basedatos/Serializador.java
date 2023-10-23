@@ -16,7 +16,7 @@ import administracion.Guia;
 import administracion.Opinion;
 
 public class Serializador {
-	private static File rutaTemp = new File("src\\basedatos\\temp");
+	private static File rutaTemp = new File("C:/Users/Tomás Gómez/Documents/Github/practica-1-grupo-1-equipo-3-1/practicaGrupo3/src/basedatos/temp");
 
 	/*
  	Este metodo es el encargado de serializar las listas
@@ -109,7 +109,7 @@ public class Serializador {
 						} catch (IOException e) {
 							// TODO Auto-generated catch block e.printStackTrace();
 							e.printStackTrace();
-				}	
+				}
 			}else if(archivo1.getAbsolutePath().contains("Guias")) {
 				try {
 					rutaArchivo = new FileOutputStream(archivo1);
@@ -121,7 +121,7 @@ public class Serializador {
 				} catch (IOException e) {
 					// TODO Auto-generated catch block e.printStackTrace();
 					e.printStackTrace();
-		  }	
+		  }
 	   }else if(archivo1.getAbsolutePath().contains("Opiniones")) {
 			try {
 				rutaArchivo = new FileOutputStream(archivo1);
@@ -133,7 +133,7 @@ public class Serializador {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block e.printStackTrace();
 				e.printStackTrace();
-	     }	
+	     }
       }
 	 }
    }

@@ -7,31 +7,17 @@ import productos.Producto;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Camion extends Transporte implements Serializable{
-    private static int cant_camiones;
-    private static int cantidadCamionesDisponibles;
-    private ArrayList<Sucursal> ruta = new ArrayList<>();
-    private Sucursal ubicacionActual;
-    private Sucursal ubicacionAnterior;
-    private Sucursal ubicacionSiguiente;
-    private String ubicacion;
-    private boolean enSucursal;
+public class Camion extends Transporte implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public Camion(Sucursal ciudadRegistro, int capacidadVolumen, int capacidadPeso, String matricula) {
-        super(ciudadRegistro, capacidadVolumen, capacidadPeso, matricula, 20);
-        Camion.cant_camiones++;
-        ubicacionActual = ciudadRegistro;
-        asignarRuta(); //Sucursales por las que va a pasar el transporte
+    public Camion(Sucursal sucursalOrigen, int capacidadVolumen, int capacidadPeso, String matricula) {
+        super(sucursalOrigen, capacidadVolumen, capacidadPeso, matricula);
+        //Sucursales por las que va a pasar el transporte
         //EJEMPLO si el transporte es de Pasto va a tener una ruta = [Pasto, Florencia, Bogotá, Medellín, Cali, Pasto]
         //Esto es único de Camion debido a que las motos son dentro de las ciudades y los aviones hacen envíos directos
     }
 
     @Override
-    public void mantenimiento() {
-        this.setEstado(20);
-    }
-
     public void asignarRuta() {
         ArrayList<Sucursal> sucursales = Sucursal.getTodasLasSucursales();
 
@@ -48,7 +34,7 @@ public class Camion extends Transporte implements Serializable{
         }
     }
 
-    //Revisar
+    @Override
     public void entrarASucursal(Sucursal sucursal) {
         //System.out.println("Estoy en " + sucursal.getNombre());
         ubicacionActual = sucursal;
@@ -72,7 +58,7 @@ public class Camion extends Transporte implements Serializable{
         enSucursal = true;
     }
 
-    //Revisar
+    @Override
     public void salirDeSucursal(Sucursal sucursal) {
         ubicacionAnterior = ubicacionActual;
         ubicacionActual = null;
@@ -86,24 +72,7 @@ public class Camion extends Transporte implements Serializable{
         //System.out.println("Salí de " + sucursal.getNombre());
     }
 
-    public void agregarProductos() { //Agrega los productos que van a ser enviados, pasan del inventario de sucursal al del transporte
-        for (Producto producto : sucursalOrigen.getInventario()) {
-            if (producto.getGuia().getSucursalOrigen() == sucursalOrigen) { //Agrega SOLO los productos que vayan a salir a envio, no confundir con los que llegaron de otra sucursales
-                if (producto.getGuia().getVehiculo() == this) {
-                    inventario.add(producto);
-
-                }
-            }
-        }
-
-        for (Producto producto1 : inventario) {
-            if (sucursalOrigen.getInventario().contains(producto1)) {
-                sucursalOrigen.getInventario().remove(producto1);
-
-            }
-        }
-    }
-
+    @Override
     public void iniciarRecorrido() {
         for (Producto producto : inventario) {
             producto.getGuia().setEstado(Guia.estado.ENTRANSITO); //Cambia el estado de todos los productos del inventario
@@ -143,43 +112,16 @@ public class Camion extends Transporte implements Serializable{
         simulacionThread.start();
     }
 
-    //Revisar
     public String ubicarTransporte() {
-        //Cómo lo hacemos?
         if (enSucursal) {
-            return "El producto en este momento se encuentra en la sucursal " + ubicacionActual.getNombre();
+            return "El Camión de matrícula " + matricula + "\n" +
+                    "que contiene su pedido en este momento se encuentra en la sucursal " + ubicacionActual.getNombre();
         } else {
-            return "El producto se encuentra entre la sucursal de " + ubicacionAnterior.getNombre() + " y la sucursal de " + ubicacionSiguiente.getNombre();
+            return "El Camión de matrícula " + matricula + " que contiene su pedido " + "\n" +
+                    "en este momento se encuentra entre la sucursal de " + "\n" +
+                    ubicacionAnterior.getNombre() + " y la sucursal de " + ubicacionSiguiente.getNombre();
         }
     }
 
-    public void recogerPaquete() {
-        //Crear guia
-
-    }
-
-    public boolean isEnSucursal() {
-        return enSucursal;
-    }
-
-    public static int getCant_camiones() {
-        return cant_camiones;
-    }
-
-    public ArrayList<Sucursal> getRuta() {
-        return ruta;
-    }
-
-    public Sucursal getUbicacionActual() {
-        return ubicacionActual;
-    }
-
-    public Sucursal getUbicacionAnterior() {
-        return ubicacionAnterior;
-    }
-
-    public Sucursal getUbicacionSiguiente() {
-        return ubicacionSiguiente;
-    }
 }
 

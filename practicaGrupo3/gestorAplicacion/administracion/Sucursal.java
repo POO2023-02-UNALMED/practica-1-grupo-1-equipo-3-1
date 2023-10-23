@@ -29,7 +29,6 @@ public class Sucursal implements Serializable {
     private ArrayList<Producto> inventario = new ArrayList<>(); //TOMAS
     private static ArrayList<Sucursal> todasLasSucursales = new ArrayList<>(); //TOMAS
     private Map<Horario, String> horario;
-    private ArrayList<Moto> motosEnSucursal = new ArrayList<>();
     private ArrayList<Camion> camionesEnSucursal = new ArrayList<>();
     private ArrayList<Avion> avionesEnSucursal = new ArrayList<>();
     private static CuentaBancaria correminas = new CuentaBancaria();
@@ -43,31 +42,28 @@ public class Sucursal implements Serializable {
     private int cantidadJaulasGrandes;
 
     private Opinion opinionSucursal;
-  
+
     //EL IDENTIFICADOR PARA EL DESERIALIZADOR
     private static final long serialVersionUID = 1L; //
 
     //constructor
-    public Sucursal(String nombre, int capacidadVolumen, int capacidadPeso, int longitud, int latitud, ArrayList<Camion> camionesEnSucursal, ArrayList<Moto> motosEnSucursal, ArrayList<Avion> avionesEnSucursal) {
+    public Sucursal(String nombre, int capacidadVolumen, int capacidadPeso, int longitud, int latitud, ArrayList<Camion> camionesEnSucursal, ArrayList<Avion> avionesEnSucursal) {
         this.nombre = nombre;
         String[] palabra = nombre.split(" ");
         ciudad = palabra[0];
 
         this.capacidadVolumen = capacidadVolumen;
         this.capacidadPeso = capacidadPeso;
-        //this.horario = horario;
         this.longitud = longitud;
         this.latitud = latitud;
         this.camionesEnSucursal = camionesEnSucursal;
-        this.motosEnSucursal = motosEnSucursal;
         this.avionesEnSucursal = avionesEnSucursal;
 
         cantidadJaulasPequenas = 5;
         cantidadJaulasMedianas = 3;
         cantidadJaulasGrandes = 2;
 
-        Sucursal.todasLasSucursales.add(this); //TOMAS
-        //consultarHorario();
+        Sucursal.todasLasSucursales.add(this);
 
     }
 
@@ -154,8 +150,16 @@ public class Sucursal implements Serializable {
         camionesEnSucursal.add(camion);
     }
 
+    public void agregarAvion(Avion avion) {
+        avionesEnSucursal.add(avion);
+    }
+
     public void removerCamion(Camion camion) {
         camionesEnSucursal.remove(camion);
+    }
+
+    public void removerAvion(Avion avion) {
+        avionesEnSucursal.remove(avion);
     }
 
     public String agregarProducto(Producto nuevoProducto) { //Se usa este metodo cuando se hace el envío o llega un paquete de otra sucursal
@@ -229,13 +233,7 @@ public class Sucursal implements Serializable {
     public String asignarTransporte(Producto producto, Transporte tipoTransporte) {
         boolean disponibilidad = false;
 
-        if (tipoTransporte instanceof Moto) {
-            if (cantidadMotosDisponibles > 0) {
-                cantidadMotosDisponibles--;
-                producto.getGuia().setVehiculo(tipoTransporte);
-                disponibilidad = true;
-            }
-        } else if (tipoTransporte instanceof Camion) {
+        if (tipoTransporte instanceof Camion) {
             if (cantidadCamionesDisponibles > 0) {
                 producto.getGuia().setVehiculo(tipoTransporte);
                 cantidadCamionesDisponibles--;
@@ -419,10 +417,6 @@ public class Sucursal implements Serializable {
         return camionesEnSucursal;
     }
 
-    public ArrayList<Moto> getMotosEnSucursal() {
-        return motosEnSucursal;
-    }
-
     public ArrayList<Avion> getAvionesEnSucursal() {
         return avionesEnSucursal;
     }
@@ -434,8 +428,9 @@ public class Sucursal implements Serializable {
     public int getCapacidadPeso() {
         return capacidadPeso;
     }
+
     public void setCapacidadPeso(int numero) {
-    	this.capacidadPeso = numero;
+        this.capacidadPeso = numero;
     }
 
     public int getCantidadCamionesDisponibles() {
@@ -454,11 +449,11 @@ public class Sucursal implements Serializable {
         this.nombre = nombre;
     }
 
-	public Opinion getOpinionSucursal() {
-		return opinionSucursal;
-	}
+    public Opinion getOpinionSucursal() {
+        return opinionSucursal;
+    }
 
-	public void setOpinionSucursal(Opinion opinionSucursal) {
-		this.opinionSucursal = opinionSucursal;
-	}
+    public void setOpinionSucursal(Opinion opinionSucursal) {
+        this.opinionSucursal = opinionSucursal;
+    }
 }

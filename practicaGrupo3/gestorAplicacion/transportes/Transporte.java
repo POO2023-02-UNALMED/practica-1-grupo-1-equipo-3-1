@@ -1,54 +1,88 @@
 package transportes;
 
+import administracion.Sucursal;
+import productos.Producto;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import administracion.*;
-import productos.*;
-
 public abstract class Transporte implements Serializable {
-    private static int cant_transporte = 0;
-    protected Sucursal sucursalOrigen;
+    protected Sucursal sucursalOrigen; //Sucursal a la que pertenece el transporte
     protected int capacidadVolumen;
     protected int capacidadPeso;
     protected String matricula;
-    protected int estado;
-    protected ArrayList<Producto> inventario = new ArrayList<>(); //TOMAS Cada vehiculo va a a tener su propio inventario
+    protected Sucursal ubicacionActual;
+    protected Sucursal ubicacionAnterior;
+    protected Sucursal ubicacionSiguiente;
+    protected boolean enSucursal;
+    protected ArrayList<Sucursal> ruta = new ArrayList<>();
+    protected ArrayList<Producto> inventario = new ArrayList<>(); //Cada vehiculo va a a tener su propio inventario
+
     private static ArrayList<Transporte> todosLosTransportes = new ArrayList<>();
-    private Sucursal sucursal; //Sucursal a la que pertenece el transporte
     private static final long serialVersionUID = 1L;
 
-    public Transporte(Sucursal sucursalOrigen, int capacidadVolumen, int capacidadPeso, String matricula, int estado) {
+    public Transporte(Sucursal sucursalOrigen, int capacidadVolumen, int capacidadPeso, String matricula) {
         this.sucursalOrigen = sucursalOrigen;
         this.capacidadVolumen = capacidadVolumen;
         this.capacidadPeso = capacidadPeso;
         this.matricula = matricula;
-        this.estado = estado;
+        ubicacionActual = sucursalOrigen;
 
-        Transporte.cant_transporte++;
         Transporte.todosLosTransportes.add(this);
+
+        asignarRuta();
     }
 
-    public abstract void mantenimiento();
+    public abstract void asignarRuta();
 
-    /*  TOMAS Lo comenté para verificarlo más adelante
-        public String entregarPaquete(Guia guia){
-            this.guia = guia;
-            this.guia.lugar_actual = this.guia.destino;
-            this.ciudad_actual = this.guia.lugar_actual;
-            this.estado--;
-            if(this.estado == 1){
-                this.mantenimiento();
+    public abstract void iniciarRecorrido();
+
+    public abstract String ubicarTransporte();
+
+    public abstract void entrarASucursal(Sucursal sucursal);
+
+    public abstract void salirDeSucursal(Sucursal sucursal);
+
+    public void agregarProductos() { //Agrega los productos que van a ser enviados, pasan del inventario de sucursal al del transporte
+        for (Producto producto : sucursalOrigen.getInventario()) {
+            if (producto.getGuia().getSucursalOrigen() == sucursalOrigen) { //Agrega SOLO los productos que vayan a salir a envio, no confundir con los que llegaron de otra sucursales
+                if (producto.getGuia().getVehiculo() == this) {
+                    inventario.add(producto);
+
+                }
             }
-            return "Entregado con éxito";
         }
-    */
+
+        for (Producto producto1 : inventario) {
+            if (sucursalOrigen.getInventario().contains(producto1)) {
+                sucursalOrigen.getInventario().remove(producto1);
+
+            }
+        }
+    }
+
+    public Sucursal getUbicacionAnterior() {
+        return ubicacionAnterior;
+    }
+
+    public Sucursal getUbicacionActual() {
+        return ubicacionActual;
+    }
+
+    public Sucursal getUbicacionSiguiente() {
+        return ubicacionSiguiente;
+    }
+
     public Sucursal getSucursalOrigen() {
         return sucursalOrigen;
     }
 
-    public void setCiudad_registro(Sucursal ciudadRegistro) {
-        this.sucursalOrigen = ciudadRegistro;
+    public ArrayList<Sucursal> getRuta() {
+        return ruta;
+    }
+
+    public String getMatricula() {
+        return matricula;
     }
 
     public ArrayList<Producto> getInventario() {
@@ -67,20 +101,15 @@ public abstract class Transporte implements Serializable {
         return Transporte.todosLosTransportes;
     }
 
-    public static void setTodosLosTransportes(ArrayList<Transporte> lista) {
-        todosLosTransportes = lista;
+    public boolean isEnSucursal() {
+        return enSucursal;
     }
 
-    public int getEstado() {
-        return estado;
+    public static void setTodosLosTransportes(ArrayList<Transporte> lista) {
+        todosLosTransportes = lista;
     }
 
     public void setInventario(ArrayList<Producto> inventario) {
         this.inventario = inventario;
     }
-
-    public void setEstado(int estado) {
-        this.estado = estado;
-    }
-
 }

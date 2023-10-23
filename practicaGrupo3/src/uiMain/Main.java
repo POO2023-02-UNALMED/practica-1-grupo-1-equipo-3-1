@@ -13,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import basedatos.Serializador;
+import basedatos.Deserializador;
 
 // Menu principal
 public class Main {
@@ -20,7 +21,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-
+/*
         ArrayList<Camion> camionesMN = new ArrayList<>();
 
         ArrayList<Moto> motosMN = new ArrayList<>();
@@ -69,7 +70,7 @@ public class Main {
         medellinNorte.getInventario().add(paquete);
 
         Camion camionmn = medellinNorte.getCamionesEnSucursal().get(0);
-
+*/
         /*
 
 
@@ -90,7 +91,7 @@ public class Main {
 
         //println(documento.getCodigo());
 
-        //Deserializador.deserializar();
+        Deserializador.deserializar();
         Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
 
     }
@@ -1377,25 +1378,21 @@ public class Main {
                 numero = scanner.nextDouble();
                 if (numero >= 0.0 && numero <= 5.0) {
                     esValido = true;
-                    System.out.println("Número válido: " + numero);
+                    println("Número válido: " + numero);
                     sucursalOpinion.getOpinionSucursal().agregarOpinionPunt(numero);
                 } else {
-                    System.out.println("Número fuera del rango. Inténtalo de nuevo.");
+                    println("Número fuera del rango. Inténtalo de nuevo.");
                 }
             } catch (Exception e) {
-                System.out.println("Entrada no válida. Inténtalo de nuevo.");
-                scanner.next(); // Limpiar el búfer de entrada
-                boolean numeroValido2 = false;
-                Double opinionPunt = 0.0;
-                while (!numeroValido2) {
-                    opinionPunt = scanner.nextDouble();
-
-
-                    //println(opinionPunt);
-                    println("Ingrese su opinion de integridad de la sucursal escogida");
-                    double numero2;
-                    boolean esValido1 = false;
-                    while (!esValido1) {
+                println("Entrada no válida. Inténtalo de nuevo.");
+            scanner.next();} // Limpiar el búfer de entrada
+            
+            
+   
+             println("Ingrese su opinion de integridad de la sucursal escogida");
+              double numero2;
+              boolean esValido1 = false;
+                 while (!esValido1) {
                         print("Ingresa un número entre 0 y 5: ");
                         try {
                             numero2 = scanner.nextDouble();
@@ -1427,7 +1424,7 @@ public class Main {
                                                 } else {
                                                     println("La persona existe en la Base de datos pero no es un Cliente.");
                                                 }
-                                                break; // Salir del bucle una vez encontrada la persona
+                                                break;
                                             }
                                         }
 
@@ -1452,31 +1449,26 @@ public class Main {
                             println("Entrada no válida. Inténtalo de nuevo.");
                         }
                     }
-                    if (sucursalOpinion.getOpinionSucursal().promedioPuntualidad() < 1.0) {
-                        sucursalOpinion.setCapacidadPeso(sucursalOpinion.getCapacidadPeso() - 10);
-                        println("Sentimos la molestia que pudimos haber causado, para el mejoramiento del servicio hemos implmentado en esta sucursal un plan de mejoramiento.");
-
-                    }
-
-                    println(Opinion.generarTablaSucursales());
-                    println("MUCHAS GRACIAS POR REGISTRAR SU OPINION, EN NUESTRA EMPRESA SU OPINION HACE LA DIFERENCIA :)");
-                    println("-----------------------------------------------------------");
-                    println("");
-                }
+                    
+               }
 
 
-                //TOMAS M
-
-                /*if (opinionInt >= 0.0 && opinionInt <= 5.0) {
-                    numeroValido3 = true;
-                    sucursalOpinion.getOpinionSucursal().agregarOpinionInt(opinionInt);
-                } else {
-                    print("Número no válido. Inténtalo de nuevo: ");*/
+                
+        if (sucursalOpinion.getOpinionSucursal().promedioPuntualidad() < 1.0) {
+            sucursalOpinion.setCapacidadPeso(sucursalOpinion.getCapacidadPeso() - 10);
+            println("Sentimos la molestia que pudimos haber causado, para el mejoramiento del servicio hemos implmentado en esta sucursal un plan de mejoramiento.");
             }
-        }
-        //println(opinionInt);
+        println(Opinion.generarTablaSucursales());
+        println("MUCHAS GRACIAS POR REGISTRAR SU OPINION, EN NUESTRA EMPRESA SU OPINION HACE LA DIFERENCIA :)");
+        println("-----------------------------------------------------------");
+        println("");
+        Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
 
-    }
+     }
+ 
+  
+
+
 
 
 

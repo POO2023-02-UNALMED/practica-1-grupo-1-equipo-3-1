@@ -1514,69 +1514,68 @@ public class Main {
 
     }
 
-    //Revisar
+
     //Recoger
-    //Estaba en la clase Sucursal y no esta terminado, hayq eu cambiarle MUCHAS cosas
-    // :(
     // Sirve a medias jasjasj ya lo corrijo KEVIN
     public static void recogerPaquete(Sucursal sucursal) { //Sucursal desde la cual se está recogiendo el paquete
         Scanner scanner = new Scanner(System.in);
         boolean datosValidos = false;
         while (!datosValidos) {
-            println("-----------------RECOGER PRODUCTO----------------");
-            print("Ingrese el código de la guía: ");
-            int codigoPaquete = scanner.nextInt();
-            scanner.nextLine();
+            try {
+                println("-----------------RECOGER PRODUCTO----------------");
+                
+                print("Ingrese el código de la guía: ");
+                int codigoPaquete = scanner.nextInt();
+                scanner.nextLine();
 
-            print("Ingrese su nombre: ");
-            String nombreDestinatario = scanner.nextLine();
+                print("Ingrese su nombre: ");
+                String nombreDestinatario = scanner.nextLine();
 
-            print("Ingrese su cédula: ");
-            long cedulaDestinatario = scanner.nextLong();
+                print("Ingrese su cédula: ");
+                long cedulaDestinatario = scanner.nextLong();
 
-            datosValidos = true;
+                datosValidos = true;
 
-            //Encuentra el producto por el código de la guia
-            Producto producto = encontrarProductoPorCodigo(codigoPaquete);
-
-
-            if (producto != null) {
-                //se verifican los datos del destinatario
-                if (verificarDatos(producto, nombreDestinatario, cedulaDestinatario)) {
-                    Guia guia = producto.getGuia();
-                    //Se verifica que el paquete llegó y que está en el inventario de la sucursal
-                    if (guia.getEstado() == Guia.estado.ENESPERA && sucursal.getInventario().contains(producto)) {
-                        //se verifica que el pago lo debe hacer el destinatario
-                        if (guia.getTipoDePago() == Guia.tipoDePago.DESTINATARIO) {
-                            println("Para retirar el producto tiene que cancelar el servicio por valor de $" + guia.getPrecioTotal());
-                        }
-                        //Se verifica que el paquete llegó y que está en el inventario de la sucursal
-                    }
-                    if (guia.getEstado() == Guia.estado.ENESPERA && sucursal.getInventario().contains(producto)) {
-                        //se verifica que el pago lo realizó el remitente, por ende se puede retirar el paquete
-                        if (guia.getTipoDePago() == Guia.tipoDePago.REMITENTE) {
-                            sucursal.getInventario().remove(producto);
-                            Random random = new Random();
-                            println("Operación realizada con éxito, favor acercarse a la caja" +
-                                    random.nextInt(5) + "para retirar su paquete, muchas gracias por usar nuestro servicio");
-                        }
-                        //Se verifica si un paquete ya fue entregado
-                    } else if (guia.getEstado() == Guia.estado.ENTREGADO) {
-                        println("El paquete fue entregado el día " + guia.getFecha().getDayOfWeek() + " del mes " + guia.getFecha().getMonth());
-                        //En caso tal que el paquete aún no haya llegado al destino
-                    } else if (guia.getEstado() == Guia.estado.ENTRANSITO) {
-                        println("El paquete todavía no ha llegado");
-
-                    }
-                    //Si se trata de recoger algún paquete que no existe
-                } else {
-                    System.out.println("Lo sentimos pero no se encontró un paquete asignado al código que proporcionó.");
+                //Encuentra el producto por el código de la guia
+                Producto producto = encontrarProductoPorCodigo(codigoPaquete);
+                Guia guia = producto.getGuia();
+                
+              //Se verifica que el paquete llegó y que está en el inventario de la sucursal
+               if (sucursal.getInventario().contains(producto)) {
+                	//si el saldo pendiente es 0
+            	   if(guia.getPagoPendiente() == 0) {
+            		   //se validan los datos
+            		   if(verificarDatos(producto,cedulaDestinatario)) {
+            			   sucursal.getInventario().remove(producto);
+               				Random random = new Random();
+               				println("Operación realizada con éxito, favor acercarse a la caja" +
+               				random.nextInt(5) + "para retirar su paquete, muchas gracias por usar nuestro servicio");
+            		   }else {
+            			   println("Los datos ingresados no corresponden con los del remitente.");
+            		   }
+            	   }if(guia.getPagoPendiente() != 0) {
+            		   println("Para retirar el producto tiene que cancelar el servicio por valor de $" + guia.getPagoPendiente());
+            	   }
+                }if(!sucursal.getInventario().contains(producto)) {
+                	print("El producto no se encuentra en la sucursal");
                 }
+               
+                println(sucursal);
+                println(verificarDatos(producto,cedulaDestinatario));
+                println(encontrarProductoPorCodigo(codigoPaquete));
+                println(guia.getPagoPendiente());
+                println(guia.getEstado());
+                println(sucursal.getInventario().remove(producto));
+
             }
-
-
+           catch (InputMismatchException e) {
+            System.out.println("Entrada no válida. Por favor intentelo de nuevo: ");
+            scanner.nextLine();
+        }
         }
     }
+  
+
 
     private static Producto encontrarProductoPorCodigo(int codigo) {
         for (Producto producto : Producto.getTodosLosProductos()) {
@@ -1587,17 +1586,13 @@ public class Main {
         return null; // Producto no encontrado
     }
 
-    private static boolean verificarDatos(Producto producto, String nombreDestinatario, long cedulaDestinatario) {
+    private static boolean verificarDatos(Producto producto, long cedulaDestinatario) {
         Guia guia = producto.getGuia();
         Destinatario destinatario = guia.getDestinatario();
-
-        if (destinatario.getNombre().equals(nombreDestinatario)) {
-            if (Long.valueOf(destinatario.getCedula()).equals(cedulaDestinatario)) {
-
-                return true;
-            }
+        if (Long.valueOf(destinatario.getCedula()).equals(cedulaDestinatario)) {	
+            return true;
         }
-        return false;// Datos no coinciden
+		return false;// Destinatario diferente
     }
 
     //Revisar

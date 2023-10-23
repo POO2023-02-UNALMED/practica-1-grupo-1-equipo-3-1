@@ -5,12 +5,11 @@ import java.util.*;
 
 import administracion.Guia;
 import personas.*;
-import administracion.AgregarProductos;
 import productos.*;
 import transportes.*;
 
 
-public class Sucursal implements Serializable, AgregarProductos {
+public class Sucursal implements Serializable {
     enum Horario {
         LUNES,
         MARTES,

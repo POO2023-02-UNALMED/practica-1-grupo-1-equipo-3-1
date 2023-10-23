@@ -234,7 +234,7 @@ public class Main {
         ArrayList<Avion> avionesFuera = new ArrayList<>(); //Eliminar los aviones que salieron de la lista de la sucursal
 
         for (Camion camion : sucursal.getCamionesEnSucursal()) {
-            camion.agregarProducto();
+            camion.agregarProductos();
 
             if (camion.getUbicacionActual() == sucursal) {
                 if (camion.getInventario().size() == 4) { //Si un camion de la sucursal tiene 3 productos o más comienza el recorrido
@@ -252,7 +252,7 @@ public class Main {
         }
 
         for (Avion avion : sucursal.getAvionesEnSucursal()) {
-            avion.agregarProducto();
+            avion.agregarProductos();
 
             if (avion.getUbicacionActual() == sucursal) {
                 if (avion.getInventario().size() == 5) {

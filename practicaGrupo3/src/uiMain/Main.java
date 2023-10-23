@@ -9,10 +9,7 @@ import transportes.*;
 import administracion.Opinion;
 import administracion.Membresia;
 
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 import basedatos.Serializador;
 
@@ -232,7 +229,7 @@ public class Main {
             camion.agregarProductos();
 
             if (camion.getUbicacionActual() == sucursal) {
-                if (camion.getInventario().size() == 4) { //Si un camion de la sucursal tiene 3 productos o más comienza el recorrido
+                if (camion.getInventario().size() == 3) { //Si un camion de la sucursal tiene 3 productos o más comienza el recorrido
                     camion.iniciarRecorrido();
                     camionesFuera.add(camion);
                     println("Empezó recorrido");
@@ -1636,7 +1633,6 @@ public class Main {
         println("-----------------RASTREAR PRODUCTO---------------");
         print("Ingrese el código de la guía a rastrear: ");
         int codigo = scanner.nextInt();
-
 
         Guia guia = null;
         for (Producto producto : Producto.getTodosLosProductos()) {

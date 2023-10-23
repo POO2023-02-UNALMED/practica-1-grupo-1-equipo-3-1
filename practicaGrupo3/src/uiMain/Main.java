@@ -1228,10 +1228,10 @@ public class Main {
                         }if(guia.getEstado() == Guia.estado.ENESPERA && sucursal.getInventario().contains(producto)) {
                         	//se verifica que el pago lo realizó el remitente, por ende se puede retirar el paquete
                         	if(guia.getTipoDePago() == Guia.tipoDePago.REMITENTE) {
-                    		sucursal.getInventario().remove(producto);
-                            Random random = new Random();
-                            println("Operación realizada con éxito, favor acercarse a la caja" +
-                                    random.nextInt(5) + "\npara retirar su paquete, muchas gracias por usar nuestro servicio");
+                        		sucursal.getInventario().remove(producto);
+                        		Random random = new Random();
+                        		println("Operación realizada con éxito, favor acercarse a la caja" +
+                                    random.nextInt(5) + "para retirar su paquete, muchas gracias por usar nuestro servicio");
                     	}
                   //Se verifica si un paquete ya fue entregado
                 } else if (guia.getEstado() == Guia.estado.ENTREGADO) {
@@ -1268,10 +1268,13 @@ public class Main {
         Guia guia = producto.getGuia();
         Destinatario destinatario = guia.getDestinatario();
 
-        if (destinatario.getNombre().equals(nombreDestinatario) && Long.valueOf(destinatario.getCedula()).equals(cedulaDestinatario)) {
+        if (destinatario.getNombre().equals(nombreDestinatario)) {
+        	if (Long.valueOf(destinatario.getCedula()).equals(cedulaDestinatario)) {
+        		
             return true;
         }
-        return false; // Datos no coinciden
+        }
+		return false;// Datos no coinciden
     }
   
 

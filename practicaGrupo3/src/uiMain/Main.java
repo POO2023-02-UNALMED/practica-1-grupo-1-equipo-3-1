@@ -113,8 +113,9 @@ public class Main {
         println("--- BIENVENIDO AL SISTEMA DE ENVIOS CORREMINAS ---");
         println("¿Desde que ciudad se encuentra?");
         println("1) Medellín.");
-        println("2) Bogotá.");
-        println("3) Cali.");
+        println("2) Cali.");
+        println("4) Bogotá.");
+        println("3) Pasto");
         print("Elija una opcion: ");
 
         boolean numeroValido = false;

@@ -450,4 +450,12 @@ public class Sucursal implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+	public Opinion getOpinionSucursal() {
+		return opinionSucursal;
+	}
+
+	public void setOpinionSucursal(Opinion opinionSucursal) {
+		this.opinionSucursal = opinionSucursal;
+	}
 }

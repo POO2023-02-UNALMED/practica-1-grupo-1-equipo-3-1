@@ -13,6 +13,7 @@ import personas.Persona;
 import administracion.CuentaBancaria;
 import productos.Producto;
 import administracion.Guia;
+import administracion.Opinion;
 
 public class Serializador {
 	private static File rutaTemp = new File("src\\basedatos\\temp");
@@ -121,7 +122,19 @@ public class Serializador {
 					// TODO Auto-generated catch block e.printStackTrace();
 					e.printStackTrace();
 		  }	
-	   }
+	   }else if(archivo1.getAbsolutePath().contains("Opiniones")) {
+			try {
+				rutaArchivo = new FileOutputStream(archivo1);
+				fichero_objeto = new ObjectOutputStream(rutaArchivo);
+				fichero_objeto.writeObject(Opinion.getTodasLasOpiniones());
+			}catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block e.printStackTrace();
+				e.printStackTrace();
+	     }	
+      }
 	 }
    }
 }

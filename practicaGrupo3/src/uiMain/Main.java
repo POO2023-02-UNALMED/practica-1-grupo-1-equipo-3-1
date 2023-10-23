@@ -20,50 +20,91 @@ public class Main {
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-
 /*
+
         ArrayList<Camion> camionesMN = new ArrayList<>();
+        ArrayList<Camion> camionesMS = new ArrayList<>();
+        ArrayList<Camion> camionesCN = new ArrayList<>();
+        ArrayList<Camion> camionesCS = new ArrayList<>();
+        ArrayList<Camion> camionesPN = new ArrayList<>();
+        ArrayList<Camion> camionesPS = new ArrayList<>();
+        ArrayList<Camion> camionesBN = new ArrayList<>();
+        ArrayList<Camion> camionesBS = new ArrayList<>();
 
         ArrayList<Avion> avionesMN = new ArrayList<>();
+        ArrayList<Avion> avionesMS = new ArrayList<>();
+        ArrayList<Avion> avionesCN = new ArrayList<>();
+        ArrayList<Avion> avionesCS = new ArrayList<>();
+        ArrayList<Avion> avionesPN = new ArrayList<>();
+        ArrayList<Avion> avionesPS = new ArrayList<>();
+        ArrayList<Avion> avionesBN = new ArrayList<>();
+        ArrayList<Avion> avionesBS = new ArrayList<>();
+
 
         Sucursal medellinNorte = new Sucursal("Medellin Norte", 100, 100, -6, 8, camionesMN, avionesMN);
         new Opinion(5.0, 5.0, medellinNorte);
 
-        Sucursal medellinSur = new Sucursal("Medellin Sur", 100, 100, -6, 6, camionesMN, avionesMN);
+        Sucursal medellinSur = new Sucursal("Medellin Sur", 100, 100, -6, 6, camionesMS, avionesMS);
         new Opinion(4.5, 3.0, medellinSur);
 
-        Sucursal caliNorte = new Sucursal("Cali Norte", 400, 200, -8, -4, camionesMN, avionesMN);
+        Sucursal caliNorte = new Sucursal("Cali Norte", 400, 200, -8, -4, camionesCN, avionesCN);
         new Opinion(3.0, 5.0, caliNorte);
 
-        Sucursal caliSur = new Sucursal("Cali Sur", 400, 200, -8, -6, camionesMN, avionesMN);
+        Sucursal caliSur = new Sucursal("Cali Sur", 400, 200, -8, -6, camionesCS, avionesCS);
         new Opinion(3.7, 3.4, caliSur);
 
-        Sucursal pastoNorte = new Sucursal("Pasto Norte", 200, 700, -12, -10, camionesMN, avionesMN);
+        Sucursal pastoNorte = new Sucursal("Pasto Norte", 200, 700, -12, -10, camionesPN, avionesPN);
         new Opinion(3.2, 4.6, pastoNorte);
 
-        Sucursal pastoSur = new Sucursal("Pasto Sur", 200, 700, -12, -12, camionesMN, avionesMN);
+        Sucursal pastoSur = new Sucursal("Pasto Sur", 200, 700, -12, -12, camionesPS, avionesPS);
         new Opinion(2.5, 3.8, pastoSur);
 
-        Sucursal bogotaNorte = new Sucursal("Bogotá Norte", 1000, 500, 4, 2, camionesMN, avionesMN);
+        Sucursal bogotaNorte = new Sucursal("Bogotá Norte", 1000, 500, 4, 2, camionesBN, avionesBN);
         new Opinion(2.4, 2.6, bogotaNorte);
 
-        Sucursal bogotaSur = new Sucursal("Bogotá Sur", 1000, 500, 4, 2, camionesMN, avionesMN);
+        Sucursal bogotaSur = new Sucursal("Bogotá Sur", 1000, 500, 4, 2, camionesBS, avionesBS);
         new Opinion(2.8, 4.2, bogotaSur);
 
         camionesMN.add(new Camion(medellinNorte, 27, 300, "ABC109"));
-        avionesMN.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "asdfg"));
-        camionesMN.add(new Camion(medellinNorte, 50, 300, "FUQ143"));
-        avionesMN.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "asdfg"));
-        camionesMN.add(new Camion(medellinNorte, 50, 300, "FTR456"));
-        avionesMN.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "asdfg"));
-        camionesMN.add(new Camion(medellinNorte, 50, 300, "STU673"));
-        avionesMN.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "asdfg"));
-        camionesMN.add(new Camion(medellinNorte, 50, 300, "POO123"));
-        avionesMN.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "asdfg"));
-        
+        camionesMN.add(new Camion(medellinNorte, 27, 300, "ABC110"));
+        avionesMN.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "EDF678"));
+
+        camionesMS.add(new Camion(medellinNorte, 50, 300, "FUQ143"));
+        camionesMS.add(new Camion(medellinNorte, 50, 300, "FUQ142"));
+        avionesMS.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "HIJ432"));
+
+        camionesCN.add(new Camion(caliNorte, 50, 300, "FTR456"));
+        camionesCN.add(new Camion(caliNorte, 50, 300, "FTR457"));
+        avionesCN.add(new Avion(caliNorte, bogotaNorte, 200, 2000, "KLM123"));
+
+        camionesCS.add(new Camion(medellinNorte, 50, 300, "STU673"));
+        camionesCS.add(new Camion(medellinNorte, 50, 300, "STU674"));
+        avionesCS.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "OKJ098"));
+
+        camionesPN.add(new Camion(medellinNorte, 50, 300, "STP673"));
+        camionesPN.add(new Camion(medellinNorte, 50, 300, "STP674"));
+        avionesPN.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "THI876"));
+
+        camionesPS.add(new Camion(medellinNorte, 50, 300, "POO123"));
+        camionesPS.add(new Camion(medellinNorte, 50, 300, "POO456"));
+        avionesPS.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "TLP234"));
+
+        camionesBN.add(new Camion(medellinNorte, 50, 300, "GUY256"));
+        camionesBN.add(new Camion(medellinNorte, 50, 300, "GUY257"));
+        avionesBN.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "JHG109"));
+
+        camionesBS.add(new Camion(medellinNorte, 50, 300, "QWE109"));
+        camionesBS.add(new Camion(medellinNorte, 50, 300, "QWE110"));
+        avionesBS.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "DFG567"));
+
         Cliente guzman = new Cliente("Jaime Guzman", 123456789, 987654321);
         CuentaBancaria guzmanCuenta = new CuentaBancaria(guzman, 1010101010, 666, "09/27", 1000000);
+
         Destinatario david = new Destinatario("David", 55555, 666666);
+        CuentaBancaria davidCuenta = new CuentaBancaria(david, 987654321, 333, "08/25", 300000);
+
+        Cliente oswaldo = new Cliente("Oswaldo", 20202020, 567891234);
+        CuentaBancaria oswaldoCuenta = new CuentaBancaria(oswaldo, 99999999, 123, "23/29", 0);
 
         Producto documento = new Documento();
         Guia guiaDoc = new Guia(documento, guzman, david, medellinNorte, bogotaSur, tipoDePago.REMITENTE, camionesMN.get(0));
@@ -71,22 +112,23 @@ public class Main {
         Producto paquete = new Paquete(4, 1, 1, 1, false, 10000);
         Guia guiapaq = new Guia(paquete, guzman, david, medellinNorte, bogotaSur, tipoDePago.FRACCIONADO, camionesMN.get(0));
 
+
+
         medellinNorte.getInventario().add(documento);
         medellinNorte.getInventario().add(paquete);
-
-        Camion camionmn = medellinNorte.getCamionesEnSucursal().get(0);
-
-       
+*/
 
 
 
-        Serializador.serializar();
+        //Serializador.serializar();
 
-     */
+
 
 
         Deserializador.deserializar();
-        Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
+
+        println(Sucursal.getTodasLasSucursales().get(0).getInventario());
+        //Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
 
     }
 
@@ -227,7 +269,7 @@ public class Main {
             camion.agregarProductos();
 
             if (camion.getUbicacionActual() == sucursal) {
-                if (camion.getInventario().size() == 4) { //Si un camion de la sucursal tiene 3 productos o más comienza el recorrido
+                if (camion.getInventario().size() == 3) { //Si un camion de la sucursal tiene 3 productos o más comienza el recorrido
                     camion.iniciarRecorrido();
                     camionesFuera.add(camion);
                     println("Empezó recorrido");
@@ -245,7 +287,7 @@ public class Main {
             avion.agregarProductos();
 
             if (avion.getUbicacionActual() == sucursal) {
-                if (avion.getInventario().size() == 5) {
+                if (avion.getInventario().size() == 4) {
                     avion.iniciarRecorrido();
                     avionesFuera.add(avion);
                     println("Empezó recorrido avion");

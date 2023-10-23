@@ -55,7 +55,15 @@ public class Main {
         camionesMN.add(new Camion(medellinNorte, 27, 300, "ABC109"));
         motosMN.add(new Moto(medellinNorte, 1, 30, "ABC123"));
         avionesMN.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "asdfg"));
-
+        camionesMN.add(new Camion(medellinNorte, 50, 300, "FUQ143"));
+        avionesMN.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "asdfg"));
+        camionesMN.add(new Camion(medellinNorte, 50, 300, "FTR456"));
+        avionesMN.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "asdfg"));
+        camionesMN.add(new Camion(medellinNorte, 50, 300, "STU673"));
+        avionesMN.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "asdfg"));
+        camionesMN.add(new Camion(medellinNorte, 50, 300, "POO123"));
+        avionesMN.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "asdfg"));
+        
         Cliente guzman = new Cliente("Jaime Guzman", 123456789, 987654321);
         CuentaBancaria guzmanCuenta = new CuentaBancaria(guzman, 1010101010, 666, "09/27", 1000000);
         Destinatario david = new Destinatario("David", 55555, 666666);
@@ -70,8 +78,8 @@ public class Main {
         medellinNorte.getInventario().add(paquete);
 
         Camion camionmn = medellinNorte.getCamionesEnSucursal().get(0);
-*/
-        /*
+
+       
 
 
 

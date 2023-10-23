@@ -1,4 +1,5 @@
 package productos;
+//HECHO POR TOMAS GOMEZ
 import java.util.Random;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -42,6 +43,8 @@ public abstract class Producto implements Serializable{
         return codigoAleatorio;
     }
     
+    //SET Y GET
+    
     public double getPeso() {
         return peso;
     }
@@ -50,7 +53,6 @@ public abstract class Producto implements Serializable{
         return codigo;
     }
 
-    // Métodos get
     public double getVolumen() {
         return volumen;
     }
@@ -71,7 +73,6 @@ public abstract class Producto implements Serializable{
         return Producto.todosLosProductos;
     }
 
-    // Métodos set
     public void setPeso(double peso) {
         this.peso = peso;
     }

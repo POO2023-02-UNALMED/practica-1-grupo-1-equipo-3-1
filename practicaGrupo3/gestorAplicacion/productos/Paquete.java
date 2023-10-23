@@ -1,5 +1,5 @@
 package productos;
-
+//HECHO POR TOMAS GOMEZ
 import java.io.Serializable;
 
 public class Paquete extends Producto implements Serializable{

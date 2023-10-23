@@ -1,5 +1,5 @@
 package uiMain;
-
+//HECHA POR TODOS LOS INTEGRANTES
 import productos.*;
 import personas.*;
 import productos.Animal.tipoAnimal;
@@ -84,17 +84,6 @@ public class Main {
 
      */
 
-        //Deserializador.deserializar();
-
-
-        //Menu principal
-
-        //camionmn.agregarProductos();
-        //camionmn.iniciarRecorrido();
-
-        //println(Opinion.generarTablaSucursales());
-
-        //println(documento.getCodigo());
 
         Deserializador.deserializar();
         Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
@@ -315,31 +304,9 @@ public class Main {
     }
 
 
-    //no sé cómo hacer que en la guia esto sea la sucursal de origen xd
+ 
 
-	/*private static void ciudadOrigen(int opcion1, int sucurOrigen, Sucursal SucursalOrigen) {
-		if (opcion1 == 1) {
-			if (sucurOrigen == 1) {
-				String sucursalOrigen = "Medellín Norte";
-			}if (sucurOrigen ==2) {
-				String sucursalOrigen = "Medellín Sur";
-			}
 
-		}if(opcion1 == 2) {
-			if(sucurOrigen == 1) {
-				String sucursalOrigen = "Bogotá Norte";
-			}if(sucurOrigen == 2) {
-				String sucursalOrigen = "Bogotá Sur";
-			}
-		}if(opcion1 == 3) {
-			if(sucurOrigen == 1) {
-				String sucursalOrigen = "Cali Norte";
-			}if(sucurOrigen == 2) {
-				String sucursalOrigen = "Cali Sur";
-			}
-		}
-
-	}*/
 
     public static void enviarPaquete(Sucursal sucursalOrigen) {
         Scanner scanner = new Scanner(System.in);
@@ -1530,69 +1497,8 @@ public class Main {
      }
  
   
+    
 
-
-
-
-
-
-      /*Producto producto = null;
-        for (Producto productos : Producto.getTodosLosProductos()) { //Revisa en todos los productos creados
-            int codigoPaquete = Producto.codigo;
-			if (producto.getCodigo() == codigoPaquete) { //Encuentra el producto que coincida con el codigo
-                producto = productos;
-                break;
-            }
-        }
-
-        if (producto != null) {
-            if (producto.getGuia().getSucursalLlegada() == sucursal) { //Verifica si esa si es la sucursal de destino final
-                String nombreRemitente = null;
-				if (producto.getGuia().getDestinatario().getNombre().equals(nombreRemitente)) { //Verifica el nombre del destinatario
-                    long cedulaRemitente = 0;
-					if (producto.getGuia().getDestinatario().getCedula() == cedulaRemitente) { //Verifica la cedula del destinatario
-                        if (producto.getGuia().isEntregaEnSucursal()) { //Creo que esto es redundante
-                            if (producto.getGuia().getEstado() == Guia.estado.ENESPERA && sucursal.getInventario().contains(producto)) { //Tambien redundante
-                                //if (producto.getGuia().)
-                                if (producto.getGuia().getTipoDePago() == Guia.tipoDePago.DESTINATARIO) { //Verifica el pago contraentrega
-                                    println("Para retirar el producto tiene que cancelar el servicio por valor de $" +
-                                            producto.getGuia().getPrecioTotal());
-                                    //Pagar
-                                } else {
-                                    sucursal.getInventario().remove(producto);
-                                    Random random = new Random();
-                                    println("Operación realizada con éxito, favor acercarce a la caja " +
-                                            random.nextInt(5) + " para retirar su paquete, muchas gracias por usar nuestro servicio");
-                                }
-                            } else if (producto.getGuia().getEstado() == Guia.estado.ENTREGADO) {
-                                println("El paquete fue entregado el dia# del mes #");
-                            } else if (producto.getGuia().getEstado() == Guia.estado.ENTRANSITO) {
-                                println("El paquete todavía no ha llegado");
-                                //rastrear
-                            }
-                        } else {
-                            println("Lo sentimos, el paquete fue programado para tener como destino la siguiente dirección" +
-                                    producto.getGuia().getDireccion());
-                        }
-                    } else {
-                        println("Datos incorrectos, intente nuevamente");
-                    }
-                } else {
-                    println("Datos incorrectos, intente nuevamente");
-                }
-            } else {
-                println("El paquete tiene como destino la ciudad de " + producto.getGuia().getSucursalLlegada().getNombre());
-            }
-        } else {
-            println("Datos incorrectos, intente nuevamente");
-        }
-    }
-
-    }*/
-
-
-    //Recoger
-    // Sirve a medias jasjasj ya lo corrijo KEVIN
     public static void recogerPaquete(Sucursal sucursalDestino) { //Sucursal desde la cual se está recogiendo el paquete
         Scanner scanner = new Scanner(System.in);
         boolean datosValidos = false;
@@ -1684,8 +1590,7 @@ public class Main {
         return false;// Destinatario diferente
     }
 
-    //Revisar
-    //Rastrear
+
     public static void rastrearPaquete(Sucursal sucursal) {
         Scanner scanner = new Scanner(System.in);
 
@@ -1828,67 +1733,8 @@ public class Main {
             }
         }
     }
-
-
-    public static void verificarPaquete() {
-        // TODO Auto-generated method stub
-    }
 }
 
-//kevin terminar
-
-/*
-	//case 2 - solicitamos el código del paquete para así mostrar la factura asociada a dicho paquete
-	private static void pagarServicio() {
-
-		System.out.print("--- Es hora de pagar ---\n");
-		System.out.print("¿Quién realizará el pago?\n");
-			System.out.print("1. Remitente \n");
-			System.out.print("2. Destinatario \n");
-		System.out.print("Selecciona una opción: ");
-		int quienPaga = readInt();
-
-		if (quienPaga == 1) {
-			// qué otras cosas se podrían añadir¿?
-			System.out.print("Por favor digita los siguientes datos:\n");
-			System.out.print("Nombre del remitente:");
-			int nombreRemitente = readInt();
-			System.out.print("CC del remitente:");
-			long cedulaRemitente = readLong();
-			System.out.print("Código asignado en tu factura:");
-			int codigoPaquete = readInt();
-		}
-		if (quienPaga == 2) {
-			System.out.print("Por favor digita los siguientes datos:\n");
-			System.out.print("Nombre del destinatario:");
-			int nombreRemitente = readInt();
-			System.out.print("CC del destinatario:");
-			long cedulaRemitente = readLong();
-			System.out.print("Código asignado en tu factura:");
-			int codigoPaquete = readInt();
-		}
-
- EventosAleatorios
-public class Main {
-	static Scanner sc = new Scanner(System.in);
-    public static void main(String[] args) {
-        EventosAleatorios eventos = new EventosAleatorios();
-        String mensajeEvento = eventos.generarEventoAleatorio();
-
-        if (mensajeEvento.contains("se ha roto") || mensajeEvento.contains("ha sido robado") || mensajeEvento.contains("se ha perdido")
-        		|| mensajeEvento.contains("La GUERRILLA") || mensajeEvento.contains("ha sido explotado")
-        		|| mensajeEvento.contains("se ha roto!") || mensajeEvento.contains("ha ESCAPADO.")
-        		|| mensajeEvento.contains("ha MUERTO")) {
-            System.out.println(mensajeEvento);
-            System.out.println("¿Deseas presentar un reclamo?");
-            System.out.println("1) Sí");
-            System.out.println("2) No");
-        } else {
-            System.out.println(mensajeEvento);
-        }
-    }
-}
-*/
 
 
 

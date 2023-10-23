@@ -1,4 +1,5 @@
 package transportes;
+//HECHO POR DANIELA SÁNCHEZ
 import administracion.*;
 import productos.Producto;
 
@@ -21,7 +22,7 @@ public class Avion extends Transporte implements Serializable{
     }
 
     public void entrarASucursal(Sucursal sucursal) {
-        //System.out.println("Estoy en " + sucursal.getNombre());
+        
         ubicacionActual = sucursal;
         sucursal.agregarAvion(this);
         for (Producto producto : inventario) { //Busca en el inventario los producto que tiene como llegada está sucursal
@@ -30,7 +31,7 @@ public class Avion extends Transporte implements Serializable{
                     if (sucursal.getCapacidadPeso() > producto.getPeso()) { //Verifica si hay capacidad para guardar el producto
                         sucursal.getInventario().add(producto); //Agrega el producto al inventario de la sucursal
                         producto.getGuia().setEstado(Guia.estado.ENESPERA);
-                        //System.out.println("Dejé el paquete" + producto.getClass() + " en la sucursal " + sucursal.getNombre());
+                       
                     }
                 }
             }
@@ -53,7 +54,7 @@ public class Avion extends Transporte implements Serializable{
         }
         sucursal.removerAvion(this);
         this.enSucursal = false;
-        //System.out.println("Salí de " + sucursal.getNombre());
+
     }
 
     @Override

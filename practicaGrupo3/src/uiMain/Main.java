@@ -1446,7 +1446,7 @@ public class Main {
                 } else {
                     println("Número fuera del rango. Inténtalo de nuevo.");
                 }
-            } catch (Exception e) {
+            } catch (InputMismatchException e) {
                 println("Entrada no válida. Inténtalo de nuevo.");
             scanner.next();} // Limpiar el búfer de entrada
             
@@ -1508,7 +1508,7 @@ public class Main {
                             } else {
                                 println("Número fuera del rango. Inténtalo de nuevo.");
                             }
-                        } catch (Exception e1) {
+                        } catch (InputMismatchException e) {
                             println("Entrada no válida. Inténtalo de nuevo.");
                         }
                     }

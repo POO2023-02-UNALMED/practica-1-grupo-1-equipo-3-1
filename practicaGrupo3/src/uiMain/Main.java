@@ -229,7 +229,7 @@ public class Main {
             camion.agregarProductos();
 
             if (camion.getUbicacionActual() == sucursal) {
-                if (camion.getInventario().size() == 3) { //Si un camion de la sucursal tiene 3 productos o más comienza el recorrido
+                if (camion.getInventario().size() == 4) { //Si un camion de la sucursal tiene 3 productos o más comienza el recorrido
                     camion.iniciarRecorrido();
                     camionesFuera.add(camion);
                     println("Empezó recorrido");
@@ -807,7 +807,8 @@ public class Main {
 
     public static void pagarServicio(Sucursal sucursal) {
         Scanner scanner = new Scanner(System.in);
-        println("------------------------------------------------PAGAR-------------------------------------------------");
+        println("----------------------PAGAR----------------------");
+
         print("Ingrese el código de la guía a pagar: ");
         int codigo = scanner.nextInt();
 
@@ -821,7 +822,7 @@ public class Main {
         if (guia != null) {
             if (guia.getSucursalOrigen() == sucursal) { //¿El metodo ha sido accedido desde la sucursal de origen? Eso quiere decir que el que está pagando es el remitente
                 if (guia.getTipoDePago() == tipoDePago.REMITENTE || guia.getTipoDePago() == tipoDePago.FRACCIONADO) {
-                    println("-------------------------------------------MÉTODO DE PAGO---------------------------------------------");
+                    println("------------------MÉTODO DE PAGO-----------------");
                     println("Ingrese el método de pago:");
                     println("1) Tarjeta Crédito o Débito");
                     println("2) Efectivo");
@@ -865,7 +866,7 @@ public class Main {
                 }
             } else { //Accedido por el destinatario
                 if (guia.getTipoDePago() == tipoDePago.DESTINATARIO || guia.getTipoDePago() == tipoDePago.FRACCIONADO) {
-                    println("-------------------------------------------MÉTODO DE PAGO---------------------------------------------");
+                    println("------------------MÉTODO DE PAGO-----------------");
                     println("Ingrese el método de pago:");
                     println("1) Tarjeta Crédito o Débito");
                     println("2) Efectivo");
@@ -912,7 +913,7 @@ public class Main {
                 }
             }
         } else {
-            println("------------------------------------------------------------------------------------------------------");
+            println("-------------------------------------------------");
             println("Lo sentimos, el código de la guía no coincide, intentalo de nuevo");
             println("");
 

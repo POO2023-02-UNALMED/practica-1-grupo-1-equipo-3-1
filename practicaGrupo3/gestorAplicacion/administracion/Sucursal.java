@@ -43,7 +43,7 @@ public class Sucursal implements Serializable {
     private int cantidadJaulasGrandes;
 
     private Opinion opinionSucursal;
-    private int capacidadStockSucursales = 30; // Esto es para la funcionalidad de opinion
+  
     //EL IDENTIFICADOR PARA EL DESERIALIZADOR
     private static final long serialVersionUID = 1L; //
 
@@ -433,6 +433,9 @@ public class Sucursal implements Serializable {
 
     public int getCapacidadPeso() {
         return capacidadPeso;
+    }
+    public void setCapacidadPeso(int numero) {
+    	this.capacidadPeso = numero;
     }
 
     public int getCantidadCamionesDisponibles() {

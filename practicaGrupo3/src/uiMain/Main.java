@@ -17,6 +17,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 import basedatos.Serializador;
+import basedatos.Deserializador;
 
 // Menu principal
 public class Main {
@@ -24,7 +25,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-
+/*
 
         ArrayList<Camion> camionesMN = new ArrayList<>();
 
@@ -74,7 +75,7 @@ public class Main {
         medellinNorte.getInventario().add(paquete);
 
         Camion camionmn = medellinNorte.getCamionesEnSucursal().get(0);
-
+*/
         /*
 
 
@@ -100,7 +101,8 @@ public class Main {
         println(documento.getCodigo());
 
          */
-
+    	Deserializador.deserializar();
+    	
         Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
 
     }
@@ -1367,35 +1369,63 @@ public class Main {
         println("Usted escogio la sucursal: " + sucursalOpinion.getNombre());
         println("-----------------------------------------------------------");
         println("Ingrese su opinion de puntualidad de la sucursal escogida");
-        boolean numeroValido2 = false;
-        Double opinionPunt = 0.0;
-        while(!numeroValido2) {
-            opinionPunt = scanner.nextDouble();
 
-            if (opinionPunt >= 0.0 && opinionPunt <= 5.0) {
-                numeroValido2 = true;
-                sucursalOpinion.getOpinionSucursal().agregarOpinionPunt(opinionPunt);
-            }else {
-                print("Número no válido. Inténtalo de nuevo: ");
+        double numero;
+        boolean esValido = false;
+        while (!esValido) {
+            System.out.print("Ingresa un número entre 0 y 5: ");
+            try {
+                numero = scanner.nextDouble();
+                if (numero >= 0.0 && numero <= 5.0) {
+                    esValido = true;
+                    System.out.println("Número válido: " + numero);
+                    sucursalOpinion.getOpinionSucursal().agregarOpinionPunt(numero);
+                } else {
+                    System.out.println("Número fuera del rango. Inténtalo de nuevo.");
+                }
+            } catch (Exception e) {
+                System.out.println("Entrada no válida. Inténtalo de nuevo.");
+                scanner.next(); // Limpiar el búfer de entrada
             }
         }
+
+
         //println(opinionPunt);
         println("Ingrese su opinion de integridad de la sucursal escogida");
-        boolean numeroValido3 = false;
-        Double opinionInt = 0.0;
-        while(!numeroValido3) {
-            opinionInt = scanner.nextDouble();
-
-            if (opinionInt >= 0.0 && opinionInt <= 5.0) {
-                numeroValido3 = true;
-                sucursalOpinion.getOpinionSucursal().agregarOpinionInt(opinionInt);
-            }else {
-                print("Número no válido. Inténtalo de nuevo: ");
+        double numero2;
+        boolean esValido1 = false;
+        while (!esValido1) {
+            System.out.print("Ingresa un número entre 0 y 5: ");
+            try {
+                numero2 = scanner.nextDouble();
+                if (numero2 >= 0.0 && numero2 <= 5.0) {
+                    esValido1 = true;
+                    System.out.println("Número válido: " + numero2);
+                    sucursalOpinion.getOpinionSucursal().agregarOpinionInt(numero2);
+                } else {
+                    System.out.println("Número fuera del rango. Inténtalo de nuevo.");
+                }
+            } catch (Exception e) {
+                System.out.println("Entrada no válida. Inténtalo de nuevo.");
+                
             }
         }
+        
+        println(Opinion.generarTablaSucursales());
     }
-        //println(opinionInt);
-
+    /*
+    public static String Analisis(Sucursal sucursal, Double opPunt, Double opInt) {
+ 		if (opPunt < 1.0 ) {
+ 			sucursal.setCapacidadPeso(sucursal.getCapacidadPeso()-10);
+ 			return "Sentimos la molestia que pudimos haber causado, para el mejoramiento del servicio hemos implmentado en esta sucursal un plan de mejoramiento.\n"
+ 					+ "Muchas gracias por dar su opinion, en esta empresa su opinion hace la diferencia :)";
+ 			
+ 		}if (opInt < 2.0) {
+ 			
+ 		}
+ 		return "Muchas gracias por dar su opinion, en esta empresa su opinion hace la diferencia :)";
+     }
+    */
     //Revisar
     //Recoger
     //Estaba en la clase Sucursal y no esta terminado, hayq eu cambiarle MUCHAS cosas

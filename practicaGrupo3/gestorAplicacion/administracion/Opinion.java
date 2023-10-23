@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import administracion.Sucursal;
 import productos.Producto;
  
-//Las listas van a almacenar todas las opiniones, para eso cree
-// en la clase sucursal un nuevo atributo que es de tipo opinion
-// para guardar ahi las opiniones de cada sucursal
+//HECHA POR: TOMAS MURILLO ARISTIZABAL
+
+//EN ESTA CLASE SE ALMACENA TODAS LAS OPINIONES DE LAS SUCURSALES, SE GURDAN EN LISTAS CADA OPINION QUE SE DEN EN LA SUCURSAL, Y HAY METODOS PARA CALCULAR SU PROMEDIO.
+//ADEMAS LAS OPINIONES TENDRA SU REPERCUSION EN LAS SUCURSALES
 
 public class Opinion implements Serializable {
 	
@@ -26,6 +27,7 @@ public class Opinion implements Serializable {
 		Opinion.todasLasOpiniones.add(this);
 	}
 	
+	//ESTOS METODOS DAN EL PROMEDIO DE LAS OPINIONES EN LA LISTA, ESTO ES PARA QUE SOLO MUESTRE UN NUMERO EN VEZ TODA LA LISTA DE OPINIONES
 	public Double promedioPuntualidad() {
 		Double suma = 0.0;
 		for (Double nota: opinionPuntualidad) {
@@ -42,6 +44,8 @@ public class Opinion implements Serializable {
 		}
 		return (double) (suma/ opinionIntegridad.size());
 	}
+	
+	// ESTOS METODOS HACEN POSIBLE AGREGAR OPINIONES A CADA LISTA RESPECTIVAMENTE
 	public void agregarOpinionPunt(Double opinion) {
 		
 		opinionPuntualidad.add(opinion);
@@ -49,6 +53,8 @@ public class Opinion implements Serializable {
 	public void agregarOpinionInt(Double opinion) {
 		opinionIntegridad.add(opinion);
 	}
+	
+	// ESTE METODO LO QUE HACE ES QUE GENERAR LA TABLA DONDE SE VE CADA SUCURSAL Y SUS OPIONIONES
 	public static String generarTablaSucursales() {
 	    StringBuilder tabla = new StringBuilder();
 	    tabla.append(String.format("%-20s %20s %20s%n", "Sucursales", "Punt. Opinion", "Punt. Integridad"));
@@ -64,34 +70,6 @@ public class Opinion implements Serializable {
 	    tabla.append("------------------------------------------------------------\n");
 	    return tabla.toString();
 	}
-
-/*	
-	public String Analisis() {
-		if (promedioPuntualidad() < 2) {
-			this.sucursal.setCapacidadPeso(this.sucursal.getCapacidadPeso()-10);
-			return "Sentimos los inconvenientes con esta sucursal, Aumentaremos la eficiencia implementando un plan de mejoramiento. Gracias por su critica constructiva"
-		}
-		if (promedioIntegridad() < 2 ) {
-			for (Producto producto: getSucursal().getInventario()) {
-				if (producto.getGuia().getSucursalLlegada() == //SI ES IGUAL A LA SIGIENTE TERMINAL EN LA RUTA){
-					//PREPARAR UNOS O LOS TRANSPORTES QUE SEAN NECEARIO PARA LLEVAR LOS PAQUETES Y ENVIARLOS
-						}
-				else {
-					if (//SI EN LA CIUDAD DE LA SUCURSAL SE ENCUENTRA TODAVIA ABIERTA LA OTRA SUCURSAL SE ENVIA EL RESTO DE LOS PAQUETES ALLA ) {
-						
-					}
-					else {
-						// SI LA SUCURSAL DE LA OTRA CIUDAD SE ENCUENTRA TAMBIEN CERRADA SE ENVIA A LA SIGUIENTE SUCURSAL DE LA RUTA
-					}
-				}
-			}
-			
-			// LUEGO DE GESTIONAR TODOS LOS PAQUETES PARA ELLIMINAR LA SUCURSAL SE ELIMINA DE LA LISTA DE SUCURSALES, Y PARA ASEGURARNOS QUE NO SE ENVIAN MAS PAQUETES
-			// LO ELIMINAMOS AUNQUE TODAVIA NO SE COMO
-		}
-	}
-*/
-	
 	
 	//METODOS GETTERS Y SETTERS:
 	

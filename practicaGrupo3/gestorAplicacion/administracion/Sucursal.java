@@ -3,13 +3,14 @@ package administracion;
 import java.io.Serializable;
 import java.util.*;
 
-import administracion.Guia.estado;
+import administracion.Guia;
 import personas.*;
+import administracion.AgregarProductos;
 import productos.*;
 import transportes.*;
 
 
-public class Sucursal implements Serializable {
+public class Sucursal implements Serializable, AgregarProductos {
     enum Horario {
         LUNES,
         MARTES,
@@ -162,7 +163,7 @@ public class Sucursal implements Serializable {
         avionesEnSucursal.remove(avion);
     }
 
-    public String agregarProducto(Producto nuevoProducto) { //Se usa este metodo cuando se hace el envío o llega un paquete de otra sucursal
+    public void agregarProducto(Producto nuevoProducto) { //Se usa este metodo cuando se hace el envío o llega un paquete de otra sucursal
         boolean seAgrega = false;
 
         if (nuevoProducto instanceof Animal) { //Verfica si este producto es animal
@@ -203,13 +204,6 @@ public class Sucursal implements Serializable {
 
                 }
             }
-        }
-
-        if (seAgrega) {
-            Random random = new Random();
-            return "Envío programado con exíto, acercate a la caja #" + random.nextInt(5) + 1;
-        } else {
-            return "Ocurrió un error";
         }
     }
 

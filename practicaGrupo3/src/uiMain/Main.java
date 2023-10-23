@@ -11,13 +11,11 @@ import administracion.Opinion;
 
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
 import basedatos.Serializador;
-import basedatos.Deserializador;
 
 // Menu principal
 public class Main {
@@ -235,7 +233,7 @@ public class Main {
             camion.agregarProductos();
 
             if (camion.getUbicacionActual() == sucursal) {
-                if (camion.getInventario().size() == 3) { //Si un camion de la sucursal tiene 3 productos o más comienza el recorrido
+                if (camion.getInventario().size() == 4) { //Si un camion de la sucursal tiene 3 productos o más comienza el recorrido
                     camion.iniciarRecorrido();
                     camionesFuera.add(camion);
                     println("Empezó recorrido");
@@ -1156,6 +1154,7 @@ public class Main {
                                 println("Muchas gracias por usar nuestro servicio, favor acerquese a la caja #" + random.nextInt(5) + 1 + " para despachar el " + guia.getProducto().getClass().getSimpleName());
 
                                 println("-------------------------------------------------");
+
                                 cuentaCliente.getTitular().subirReputacion();
                             } else {
                                 println("Lo sentimos, no hay suficiente dinero en la cuenta");
@@ -1601,8 +1600,8 @@ public class Main {
     //Rastrear
     public static void rastrearPaquete(Sucursal sucursal) {
         Scanner scanner = new Scanner(System.in);
-        println("-------------------------------------------RASTREAR PRODUCTO------------------------------------------");
 
+        println("-----------------RASTREAR PRODUCTO---------------");
         print("Ingrese el código de la guía a rastrear: ");
         int codigo = scanner.nextInt();
 
@@ -1615,103 +1614,70 @@ public class Main {
             }
         }
 
+
         if (guia != null) {
+            StringBuilder barra = new StringBuilder();
+            barra.append("[");
+            for (int i = 0; i < (int) (guia.avancePedido()); i++) {
+                barra.append("+");
+            }
+            for (int j = 0; j < 100 - (int) (guia.avancePedido()); j++) {
+                barra.append("-");
+            }
+            barra.append("]");
+
+            println("-------------------------------------------------");
+
             switch (guia.getEstado()) {
+                case ENSUCURSALORIGEN:
+                    println("El camión con tu pedido está preparándose para salir");
+                    println(barra);
+                    println(guia.avancePedido() + "%");
+
+                    break;
                 case ENTRANSITO:
                     if (guia.getVehiculo() instanceof Camion) {
                         Camion camion = (Camion) guia.getVehiculo();
-
-                        println("------------------------------------------------------------------------------------------------------");
                         println(camion.ubicarTransporte());
-
-
-                        StringBuilder barra = new StringBuilder();
-                        barra.append("[");
-                        for (int i = 0; i < (int) (guia.avancePedido()); i++) {
-                            barra.append("+");
-                        }
-                        for (int j = 0; j < 100 - (int) (guia.avancePedido()); j++) {
-                            barra.append("-");
-
-                        }
-                        barra.append("]");
                         println(barra);
                         println(guia.avancePedido() + "%");
-                        println("");
-
-                        print("1) Volver al menú principal: ");
-
-                        boolean numerovalido = false;
-
-                        while (!numerovalido) {
-                            int menuPrincipalEntrada = scanner.nextInt();
-                            switch (menuPrincipalEntrada) {
-                                case 1:
-                                    Main.menuPrincipal(sucursal);
-                                    numerovalido = true;
-                                    break;
-                                default:
-                                    print("Número no válido. Inténtalo de nuevo: ");
-                            }
-                        }
+                    } else {
+                        //AVion
                     }
+
                     break;
                 case ENESPERA:
-                    println("------------------------------------------------------------------------------------------------------");
                     println("Tu " + guia.getProducto().getClass().getSimpleName() + " ya llegó a la sucursal de destino");
-                    StringBuilder barra = new StringBuilder();
-                    barra.append("[");
-                    for (int i = 0; i < (int) (guia.avancePedido()); i++) {
-                        barra.append("+");
-                    }
-                    for (int j = 0; j < 100 - (int) (guia.avancePedido()); j++) {
-                        barra.append("-");
-                    }
-                    barra.append("]");
                     println(barra);
                     println(guia.avancePedido() + "%");
-                    println("");
-
-                    print("1) Volver al menú principal: ");
-
-                    boolean numerovalido = false;
-
-                    while (!numerovalido) {
-                        int menuPrincipalEntrada = scanner.nextInt();
-                        switch (menuPrincipalEntrada) {
-                            case 1:
-                                Main.menuPrincipal(sucursal);
-                                numerovalido = true;
-                                break;
-                            default:
-                                print("Número no válido. Inténtalo de nuevo: ");
-                        }
-                    }
                     break;
+
                 case ENTREGADO:
-                    println("------------------------------------------------------------------------------------------------------");
-
                     println("Tu paquete ya ha sido reclamado");
-                    println("");
+                    println(barra);
+                    println(guia.avancePedido() + "%");
+                    break;
 
-                    print("1) Volver al menú principal: ");
+            }
+            println("");
 
-                    boolean numerovalido2 = false;
+            print("1) Volver al menú principal: ");
 
-                    while (!numerovalido2) {
-                        int menuPrincipalEntrada = scanner.nextInt();
-                        switch (menuPrincipalEntrada) {
-                            case 1:
-                                Main.menuPrincipal(sucursal);
-                                numerovalido2 = true;
-                                break;
-                            default:
-                                print("Número no válido. Inténtalo de nuevo: ");
-                        }
-                    }
+            boolean numerovalido = false;
+
+            while (!numerovalido) {
+                int menuPrincipalEntrada = scanner.nextInt();
+                switch (menuPrincipalEntrada) {
+                    case 1:
+                        Main.menuPrincipal(sucursal);
+                        numerovalido = true;
+                        break;
+                    default:
+                        print("Número no válido. Inténtalo de nuevo: ");
+                }
             }
         } else {
-            println("------------------------------------------------------------------------------------------------------");
+            println("-------------------------------------------------");
             println("Lo sentimos, el código de la guía no coincide, intentalo de nuevo");
             println("");
 
@@ -1738,6 +1704,7 @@ public class Main {
             }
         }
     }
+
 
     public static void verificarPaquete() {
         // TODO Auto-generated method stub

@@ -5,10 +5,9 @@ import personas.*;
 import productos.Animal.tipoAnimal;
 import administracion.Guia.tipoDePago;
 import administracion.*;
-import personas.Cliente;
 import transportes.*;
 import administracion.Opinion;
-
+import administracion.Membresia;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -1395,37 +1394,78 @@ public class Main {
         double numero2;
         boolean esValido1 = false;
         while (!esValido1) {
-            System.out.print("Ingresa un número entre 0 y 5: ");
+            print("Ingresa un número entre 0 y 5: ");
             try {
                 numero2 = scanner.nextDouble();
                 if (numero2 >= 0.0 && numero2 <= 5.0) {
                     esValido1 = true;
-                    System.out.println("Número válido: " + numero2);
+                    println("Número válido: " + numero2);
                     sucursalOpinion.getOpinionSucursal().agregarOpinionInt(numero2);
+                    if (numero2 < 1.0) {
+                    	boolean encontrada = false;
+             	        do {
+             	            print("Ingrese su nombre: ");
+             	            String nombreBuscado = scanner.next();
+             	            print("Ingrese su cédula: ");
+             	            Long cedulaBuscada = scanner.nextLong();
+             	            print("Ingrese su telefono: ");
+             	            Long telefonoBuscada = scanner.nextLong();
+
+             	            encontrada = false;
+
+             	            for (Persona persona : Persona.getTodasLasPersonas()) {
+             	                if (persona.getNombre().equals(nombreBuscado) && persona.getCedula() == cedulaBuscada) {
+             	                    encontrada = true;
+             	                    if (persona instanceof Cliente) {
+             	                        println("La persona existe en la Base de datos y es un Cliente.");
+             	                        ((Cliente) persona).getMembresia().setBeneficio(Membresia.tipo.PLATINUM);
+             	                      println("-----------------------------------------------------------");
+             	                      println("Lamentamos los inconvenientes Sr/ Sra " + persona.getNombre() + " se le ha mejorado la membresia a Platinum como compensancion");
+             	                      println("-----------------------------------------------------------");
+             	                    } else {
+             	                        println("La persona existe en la Base de datos pero no es un Cliente.");
+             	                    }
+             	                    break; // Salir del bucle una vez encontrada la persona
+             	                }
+             	            }
+
+             	            if (!encontrada) {
+             	                // SE CREA UNA PERSONA CON LOS DATOS SUMINISTRADOS
+             	                Cliente x = new Cliente(nombreBuscado,cedulaBuscada, telefonoBuscada);
+             	                x.getMembresia().setBeneficio(Membresia.tipo.PLATINUM);
+             	                println("-----------------------------------------------------------");
+             	                println("Se le ha creado una cuenta con los siguientes datos: ");
+             	                println(x);
+             	                println("La proxima vez que use nuestro servicio utilice esta cuenta para acceder a grandiosos beneficios. ");
+             	                println("-----------------------------------------------------------");
+             	                break;
+             	            }
+             	        } while (!encontrada);
+
+                    }
                 } else {
-                    System.out.println("Número fuera del rango. Inténtalo de nuevo.");
+                    println("Número fuera del rango. Inténtalo de nuevo.");
                 }
             } catch (Exception e) {
-                System.out.println("Entrada no válida. Inténtalo de nuevo.");
-                
+                println("Entrada no válida. Inténtalo de nuevo.");
             }
         }
-        
-        println(Opinion.generarTablaSucursales());
-    }
-    /*
-    public static String Analisis(Sucursal sucursal, Double opPunt, Double opInt) {
- 		if (opPunt < 1.0 ) {
- 			sucursal.setCapacidadPeso(sucursal.getCapacidadPeso()-10);
- 			return "Sentimos la molestia que pudimos haber causado, para el mejoramiento del servicio hemos implmentado en esta sucursal un plan de mejoramiento.\n"
- 					+ "Muchas gracias por dar su opinion, en esta empresa su opinion hace la diferencia :)";
- 			
- 		}if (opInt < 2.0) {
+ 		if (sucursalOpinion.getOpinionSucursal().promedioPuntualidad() < 1.0 ) {
+ 			sucursalOpinion.setCapacidadPeso(sucursalOpinion.getCapacidadPeso()-10);
+ 			println( "Sentimos la molestia que pudimos haber causado, para el mejoramiento del servicio hemos implmentado en esta sucursal un plan de mejoramiento.");
  			
  		}
- 		return "Muchas gracias por dar su opinion, en esta empresa su opinion hace la diferencia :)";
-     }
-    */
+
+ 		println(Opinion.generarTablaSucursales());
+ 		println("MUCHAS GRACIAS POR REGISTRAR SU OPINION, EN NUESTRA EMPRESA SU OPINION HACE LA DIFERENCIA :)");
+ 		println("-----------------------------------------------------------");
+ 		println("");
+ 	}
+ 
+ 		
+
+ 
+   
     //Revisar
     //Recoger
     //Estaba en la clase Sucursal y no esta terminado, hayq eu cambiarle MUCHAS cosas

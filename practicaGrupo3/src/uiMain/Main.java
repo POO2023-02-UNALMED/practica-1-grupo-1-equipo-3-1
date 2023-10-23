@@ -289,7 +289,7 @@ public class Main {
 
                         break;
                     case 5:
-                        opcionesReclamo();
+                        opcionesOpiniones();
 
                         break;
                     case 6:
@@ -1303,7 +1303,7 @@ public class Main {
 
     }
 
-    public static void opcionesOpiniones(Sucursal sucursal) {
+    public static void opcionesOpiniones() {
         Scanner scanner = new Scanner(System.in);
         println("-------------Opinion Sucursales------------");
         println("");
@@ -1393,6 +1393,7 @@ public class Main {
                 print("Número no válido. Inténtalo de nuevo: ");
             }
         }
+    }
         //println(opinionInt);
 
     //Revisar

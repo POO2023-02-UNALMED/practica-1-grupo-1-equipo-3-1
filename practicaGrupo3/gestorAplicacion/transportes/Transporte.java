@@ -1,12 +1,13 @@
 package transportes;
 
 import administracion.Sucursal;
+import administracion.AgregarProductos;
 import productos.Producto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Transporte implements Serializable {
+public abstract class Transporte implements Serializable, AgregarProductos {
     protected Sucursal sucursalOrigen; //Sucursal a la que pertenece el transporte
     protected int capacidadVolumen;
     protected int capacidadPeso;
@@ -43,7 +44,7 @@ public abstract class Transporte implements Serializable {
 
     public abstract void salirDeSucursal(Sucursal sucursal);
 
-    public void agregarProductos() { //Agrega los productos que van a ser enviados, pasan del inventario de sucursal al del transporte
+    public void agregarProducto() { //Agrega los productos que van a ser enviados, pasan del inventario de sucursal al del transporte
         for (Producto producto : sucursalOrigen.getInventario()) {
             if (producto.getGuia().getSucursalOrigen() == sucursalOrigen) { //Agrega SOLO los productos que vayan a salir a envio, no confundir con los que llegaron de otra sucursales
                 if (producto.getGuia().getVehiculo() == this) {

@@ -15,7 +15,6 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
-import basedatos.Deserializador;
 import basedatos.Serializador;
 
 // Menu principal
@@ -25,7 +24,7 @@ public class Main {
     public static void main(String[] args) {
 
 
-/*
+
         ArrayList<Camion> camionesMN = new ArrayList<>();
 
         ArrayList<Moto> motosMN = new ArrayList<>();
@@ -59,12 +58,13 @@ public class Main {
         medellinNorte.getInventario().add(documento);
         Camion camionmn = medellinNorte.getCamionesEnSucursal().get(0);
 
-        camionmn.agregarProductos();
-        camionmn.iniciarRecorrido();
+        /*
+
+
 
         Serializador.serializar();
 
-
+         */
 
         //Deserializador.deserializar();
 
@@ -93,19 +93,22 @@ public class Main {
         println(Transporte.getTodosLosTransportes());
 
 
-
-        println(documento.getCodigo());
-
-
-<<<<<<< Updated upstream
         */
-    	Deserializador.deserializar();
+    	//Deserializador.deserializar();
     	
 
         //Menu principal
+        /*
+        camionmn.agregarProductos();
+        camionmn.iniciarRecorrido();
+
+        println(documento.getGuia());
+
+        println(documento.getCodigo());
+
+         */
+
         Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
-        Cliente guzman = new Cliente("Jaime Guzman", 123456789, 987654321);
-        CuentaBancaria guzmanCuenta = new CuentaBancaria(guzman, 1010101010, 666, "09/27", 1000000);
 
     }
 
@@ -117,63 +120,134 @@ public class Main {
         System.out.println(objeto);
     }
 
+    public static void seleccionSucursal() {
+        println("--- BIENVENIDO AL SISTEMA DE ENVIOS CORREMINAS ---");
+        println("¿Desde que ciudad se encuentra?");
+        println("1) Medellín.");
+        println("2) Bogotá.");
+        println("3) Cali.");
+        print("Elija una opcion: ");
+
+        boolean numeroValido = false;
+
+        while (!numeroValido) {
+            int opcion1 = scanner.nextInt();
+            switch (opcion1) {
+                case 1:
+                    println("1) Medellin Norte.");
+                    println("2) Medellin Sur.");
+                    print("Elija una opcion: ");
+
+                    boolean numeroValido2 = false;
+
+                    while (!numeroValido2) {
+                        int ciudad1 = scanner.nextInt();
+
+                        switch (ciudad1) {
+                            case 1:
+                                menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
+                                numeroValido2 = true;
+                                break;
+                            case 2:
+                                menuPrincipal(Sucursal.getTodasLasSucursales().get(1));
+                                numeroValido2 = true;
+                                break;
+                        }
+                    }
+
+                    numeroValido = true;
+                    break;
+                case 2:
+                    println("1) Cali Norte.");
+                    println("2) Cali Sur.");
+                    print("Elija una opcion: ");
+
+                    boolean numeroValido3 = false;
+
+                    while (!numeroValido3) {
+                        int ciudad1 = scanner.nextInt();
+
+                        switch (ciudad1) {
+                            case 1:
+                                menuPrincipal(Sucursal.getTodasLasSucursales().get(2));
+                                numeroValido3 = true;
+                                break;
+                            case 2:
+                                menuPrincipal(Sucursal.getTodasLasSucursales().get(3));
+                                numeroValido3 = true;
+                                break;
+                        }
+                    }
+
+                    numeroValido = true;
+                    break;
+                case 3:
+                    println("1) Pasto Norte.");
+                    println("2) Pasto Sur.");
+                    print("Elija una opcion: ");
+
+                    boolean numeroValido4 = false;
+
+                    while (!numeroValido4) {
+                        int ciudad1 = scanner.nextInt();
+
+                        switch (ciudad1) {
+                            case 1:
+                                menuPrincipal(Sucursal.getTodasLasSucursales().get(4));
+                                numeroValido4 = true;
+                                break;
+                            case 2:
+                                menuPrincipal(Sucursal.getTodasLasSucursales().get(5));
+                                numeroValido4 = true;
+                                break;
+                        }
+                    }
+
+                    numeroValido = true;
+                    break;
+                case 4:
+                    println("1) Bogotá Norte.");
+                    println("2) Bogotá Sur.");
+                    print("Elija una opcion: ");
+
+                    boolean numeroValido5 = false;
+
+                    while (!numeroValido5) {
+                        int ciudad1 = scanner.nextInt();
+
+                        switch (ciudad1) {
+                            case 1:
+                                menuPrincipal(Sucursal.getTodasLasSucursales().get(6));
+                                numeroValido5 = true;
+                                break;
+                            case 2:
+                                menuPrincipal(Sucursal.getTodasLasSucursales().get(7));
+                                numeroValido5 = true;
+                                break;
+                        }
+                    }
+
+                    numeroValido = true;
+                    break;
+                default:
+                    print("Número no válido. Inténtalo de nuevo: ");
+                    scanner.nextLine();
+            }
+        }
+    }
+
     public static void menuPrincipal(Sucursal sucursal) {
         Scanner scanner = new Scanner(System.in);
-        
-
-            /*println("--- BIENVENIDO AL SISTEMA DE ENVIOS CORREMINAS ---");
-            println("¿En qué sucursal te encuentras?");
-            println("1) Medellín.");
-            println("2) Bogotá.");
-            println("3) Cali.");
-            print("Elija una opcion: ");
-            int opcion1 = scanner.nextInt();
-
-            switch (opcion1) {
-            	case 1: 
-            		println("1) Medellin Norte.");
-            		println("2) Medellin Sur.");
-            		print("Elija una opcion: ");
-            		int ciudad1 = scanner.nextInt();
-                    ciudadOrigen(opcion1, ciudad1, sucursal);
-            		
-            		break;
-            		
-            	case 2:
-            		println("1) Bogotá Norte.");
-            		println("2) Bogotá Sur.");
-            		print("Elija una opcion: ");
-            		int ciudad2 = scanner.nextInt();
-            		ciudadOrigen(opcion1, ciudad2, sucursal);
-            		
-            		break;
-            		
-            	case 3:
-            		println("1) Cali Norte.");
-            		println("2) Cali Sur.");
-            		print("Elija una opcion: ");
-            		int ciudad3 = scanner.nextInt();
-            		ciudadOrigen(opcion1, ciudad3, sucursal);
-            		
-            		break;
-            		
-            	default:
-                     print("Número no válido. Inténtalo de nuevo: ");
-                     scanner.nextLine();
-            	}*/
-   
-            
-        
-            	
         while (true) {
-            println("--- BIENVENIDO AL SISTEMA DE ENVIOS CORREMINAS SEDE ---"); //colocar la sede en la que está
+            println("--- BIENVENIDO AL SISTEMA DE ENVIOS CORREMINAS SEDE " + sucursal.getNombre() + "---"); //colocar la sede en la que está
             println("¿Qué operación deseas realizar?");
-            println("1) Enviar paquete.");
-            println("2) Pagar servicio.");
-            println("3) Rastrear paquete.");
-            println("4) Recoger paquete.");
-            println("5) Reclamos.");
-            println("6) Terminar.");
+            println("1) Enviar paquete");
+            println("2) Pagar servicio");
+            println("3) Rastrear paquete");
+            println("4) Recoger paquete");
+            println("5) Reclamos");
+            println("6) Cambiar Sucursal");
+            println("7) Terminar");
             print("Elige una opcion: ");
 
             try {
@@ -201,6 +275,10 @@ public class Main {
 
                         break;
                     case 6:
+                        seleccionSucursal();
+
+                        break;
+                    case 7:
                         salirDelSistema();
 
                         break;
@@ -252,6 +330,7 @@ public class Main {
                 println("1) Paquete");
                 println("2) Animal");
                 println("3) Documento");
+                println("4) Volver al menú");
                 print("Elige una opción: ");
 
                 int tipoDeProducto = scanner.nextInt();
@@ -372,6 +451,9 @@ public class Main {
                         Documento documento = (Documento) producto;
                         numeroValido = true;
                         break;
+                    case 4:
+                        Main.menuPrincipal(sucursalOrigen);
+
                     default:
                         print("Número no válido. Inténtalo de nuevo: ");
                         break;
@@ -943,10 +1025,15 @@ public class Main {
 
     public static void confirmarPago(Guia guia, CuentaBancaria cuentaCliente, Sucursal sucursal) { //TOMAS REVISAR
         Scanner scanner = new Scanner(System.in);
+        double precio = guia.getPrecioTotal();
+
+        if (guia.getTipoDePago() == tipoDePago.FRACCIONADO) {
+            precio = precio / 2;
+        }
 
         println("-----------------CONFIRMAR PAGO------------------");
 
-        println("¿Desea confirmar el pago por $" + guia.getPrecioTotal() + "?");
+        println("¿Desea confirmar el pago por $" + precio + "?");
         println("1) Sí");
         println("2) No");
         println("3) Ver credenciales de la cuenta");
@@ -1003,7 +1090,22 @@ public class Main {
                                 println("Muchas gracias por usar nuestro servicio, favor acerquese a la caja #" + random.nextInt(5) + 1 + " para despachar el " + guia.getProducto().getClass().getSimpleName());
                                 println("Recuerda que el destinatario dde pagar un total de $" + guia.getPagoPendiente());
 
-                                println("-------------------------------------------------");
+                                println("");
+                                print("1) Volver al menú principal: ");
+
+                                boolean numerovalido3 = false;
+
+                                while (!numerovalido3) {
+                                    int menuPrincipalEntrada = scanner.nextInt();
+                                    switch (menuPrincipalEntrada) {
+                                        case 1:
+                                            Main.menuPrincipal(sucursal);
+                                            numerovalido3 = true;
+                                            break;
+                                        default:
+                                            print("Número no válido. Inténtalo de nuevo: ");
+                                    }
+                                }
                             } else {
                                 println("Lo sentimos, no hay suficiente dinero en la cuenta");
                                 alternativa(guia, sucursal);

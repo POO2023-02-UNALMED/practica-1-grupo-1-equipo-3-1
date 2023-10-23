@@ -48,6 +48,7 @@ public class Guia implements Serializable{
 	}
 
 	public enum estado{
+		ENSUCURSALORIGEN,
 		ENTRANSITO,
 		ENESPERA,
 		ENTREGADO
@@ -64,6 +65,7 @@ public class Guia implements Serializable{
 		this.vehiculo = vehiculo;
 		this.producto.setGuia(this);
 		Guia.todasLasGuias.add(this);
+		this.estado = estado.ENSUCURSALORIGEN;
 
 		fecha = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
@@ -87,6 +89,8 @@ public class Guia implements Serializable{
 
 	public double avancePedido() {
 		switch (estado) {
+			case ENSUCURSALORIGEN:
+				return 0;
 			case ENESPERA:
 				return 100;
 			case ENTREGADO:

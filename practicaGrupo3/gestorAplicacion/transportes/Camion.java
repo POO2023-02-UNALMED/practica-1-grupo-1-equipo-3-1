@@ -98,7 +98,6 @@ public class Camion extends Transporte implements Serializable{
         }
     }
 
-    //Revisar
     public void iniciarRecorrido() {
         for (Producto producto : inventario) {
             producto.getGuia().setEstado(Guia.estado.ENTRANSITO);

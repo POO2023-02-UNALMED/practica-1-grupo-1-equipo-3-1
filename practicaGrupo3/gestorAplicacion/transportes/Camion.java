@@ -100,9 +100,11 @@ public class Camion extends Transporte implements Serializable{
 
     public void iniciarRecorrido() {
         for (Producto producto : inventario) {
-            producto.getGuia().setEstado(Guia.estado.ENTRANSITO);
+            producto.getGuia().setEstado(Guia.estado.ENTRANSITO); //Cambia el estado de todos los productos del inventario
         }
         ubicacionAnterior = sucursalOrigen;
+        ubicacionSiguiente = ruta.get(1);
+
         Thread simulacionThread = new Thread(() -> {
             for (int i = 1; i < ruta.size() - 1; i++) {
                 try {

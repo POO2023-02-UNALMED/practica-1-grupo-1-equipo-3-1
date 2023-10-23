@@ -55,7 +55,12 @@ public class Main {
         Producto documento = new Documento();
         Guia guiaDoc = new Guia(documento, guzman, david, medellinNorte, caliSur, tipoDePago.REMITENTE, camionesMN.get(0));
 
+        Producto paquete = new Paquete(4, 1, 1, 1, false, 10000);
+        Guia guiapaq = new Guia(paquete, guzman, david, medellinNorte, bogotaSur, tipoDePago.FRACCIONADO, camionesMN.get(0));
+
         medellinNorte.getInventario().add(documento);
+        medellinNorte.getInventario().add(paquete);
+
         Camion camionmn = medellinNorte.getCamionesEnSucursal().get(0);
 
         /*
@@ -69,31 +74,6 @@ public class Main {
         //Deserializador.deserializar();
 
 
-        /*
-
-        for (Persona persona : Persona.getTodasLasPersonas()) {
-            println(persona.getNombre());
-        }
-         for (CuentaBancaria cuenta : CuentaBancaria.getTodasLasCuentas()) {
-            println(cuenta.getNumero());
-            println("----");
-        }
-
-        for (Guia guia : Guia.getTodasLasGuias()) {
-            println(guia);
-        }
-        
-        for (Transporte vehiculo: Transporte.getTodosLosTransportes() ) {
-        	println(vehiculo);
-        	println(vehiculo.getSucursalOrigen());
-        }
-    
-
-
-        println(Transporte.getTodosLosTransportes());
-
-
-        */
     	//Deserializador.deserializar();
     	
 
@@ -237,9 +217,34 @@ public class Main {
     }
 
     public static void menuPrincipal(Sucursal sucursal) {
+        //Cada vez que se vuelva al menu principal se pasan los productos del inventario de la sucursal al de los vehiculos
+        for (Producto producto : sucursal.getInventario()) {
+            if (producto.getGuia().getSucursalLlegada() != sucursal) {
+                producto.getGuia().getVehiculo().getInventario().add(producto); //Se agrega el producto al inventario del camion
+            }
+        }
+
+        ArrayList<Camion> camionesFuera = new ArrayList<>(); //Esto es para eliminar los camiones que salieron de la lista de la sucursal
+
+        for (Camion camion : sucursal.getCamionesEnSucursal()) {
+            for (Producto producto : camion.getInventario()) { //Este bucle es para eliminar los productos ya montados a los camiones del inventario de la sucursal
+                if (sucursal.getInventario().contains(producto)) {
+                    sucursal.getInventario().remove(producto);
+                }
+            }
+            if (camion.getInventario().size() == 3) { //Si un camion de la sucursal tiene 3 productos o más comienza el recorrido
+                camion.iniciarRecorrido();
+                camionesFuera.add(camion);
+            }
+        }
+
+        for (Camion camion : camionesFuera) {
+            sucursal.getCamionesEnSucursal().remove(camion);
+        }
+
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            println("--- BIENVENIDO AL SISTEMA DE ENVIOS CORREMINAS SEDE " + sucursal.getNombre() + "---"); //colocar la sede en la que está
+            println("--- BIENVENIDO AL SISTEMA DE ENVIOS CORREMINAS SEDE " + sucursal.getNombre().toUpperCase() + "---"); //colocar la sede en la que está
             println("¿Qué operación deseas realizar?");
             println("1) Enviar paquete");
             println("2) Pagar servicio");
@@ -1049,6 +1054,8 @@ public class Main {
                             if (cuentaCliente.descontarSaldo(guia.getPagoPendiente())) {
                                 guia.setPagoPendiente(guia.getPagoPendiente() * 0);
                                 cuentaCliente.getTitular().subirReputacion();
+                                sucursal.agregarProducto(guia.getProducto()); //Se agrega el producto al inventario de la sucursal
+
 
                                 println("-------------------------------------------------");
 
@@ -1081,6 +1088,7 @@ public class Main {
                             if (cuentaCliente.descontarSaldo(guia.getPagoPendiente() / 2)) {
                                 guia.setPagoPendiente(guia.getPagoPendiente() / 2);
                                 cuentaCliente.getTitular().subirReputacion();
+                                sucursal.agregarProducto(guia.getProducto()); //Se agrega el producto al inventario de la sucursal
 
                                 println("-------------------------------------------------");
 

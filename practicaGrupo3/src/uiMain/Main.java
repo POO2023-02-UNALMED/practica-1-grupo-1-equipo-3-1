@@ -1446,7 +1446,7 @@ public class Main {
                 } else {
                     println("Número fuera del rango. Inténtalo de nuevo.");
                 }
-            } catch (Exception e) {
+            } catch (Exception e1) {
                 println("Entrada no válida. Inténtalo de nuevo.");
             }
         }
@@ -1471,11 +1471,11 @@ public class Main {
     //Estaba en la clase Sucursal y no esta terminado, hayq eu cambiarle MUCHAS cosas
     // :(
 
-                if (opinionInt >= 0.0 && opinionInt <= 5.0) {
+                /*if (opinionInt >= 0.0 && opinionInt <= 5.0) {
                     numeroValido3 = true;
                     sucursalOpinion.getOpinionSucursal().agregarOpinionInt(opinionInt);
                 } else {
-                    print("Número no válido. Inténtalo de nuevo: ");
+                    print("Número no válido. Inténtalo de nuevo: ");*/
                 }
             }
             //println(opinionInt);
@@ -1540,7 +1540,7 @@ public class Main {
     }*/
 
 
-    }
+    
 
 
     //Recoger

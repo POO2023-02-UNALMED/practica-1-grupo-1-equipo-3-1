@@ -110,6 +110,7 @@ public class Camion extends Transporte implements Serializable{
         }
 
         ubicacionAnterior = sucursalOrigen;
+        ubicacionActual = null;
         ubicacionSiguiente = ruta.get(1);
 
         Thread simulacionThread = new Thread(() -> {

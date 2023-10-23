@@ -16,7 +16,7 @@ import administracion.Guia;
 import administracion.Opinion;
 
 public class Serializador {
-	private static File rutaTemp = new File("src\\basedatos\\temp");
+	private static File rutaTemp = new File("C:/Users/Tomás Gómez/Documents/Github/practica-1-grupo-1-equipo-3-1/practicaGrupo3/src/basedatos/temp");
 
 	/*
  	Este metodo es el encargado de serializar las listas

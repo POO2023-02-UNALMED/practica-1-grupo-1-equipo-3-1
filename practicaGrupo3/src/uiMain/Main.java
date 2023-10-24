@@ -1148,6 +1148,50 @@ public class Main {
 public static void pagarTarjeta(Guia guia, Sucursal sucursal) {
     Scanner scanner = new Scanner(System.in);
 	
+    println("-----------------PAGO POR TARJETA----------------");
+    print("Nombre del Titular: ");
+    String titular = scanner.nextLine();
+    print("Número: ");
+    long numero = scanner.nextLong();
+    print("CVV: ");
+    int cvv = scanner.nextInt();
+    scanner.nextLine();
+    print("Fecha de expiración: ");
+    String fechaExpiracion = scanner.nextLine();
+
+    CuentaBancaria cuentaCliente = null;
+    for (CuentaBancaria cuenta : CuentaBancaria.getTodasLasCuentas()) {
+        if (cuenta.getNumero() == numero) {
+            cuentaCliente = cuenta;
+            break;
+        }
+    }
+    if (cuentaCliente != null) {
+        if (cuentaCliente.getTitular().getNombre().equals(titular)) {
+            if (cuentaCliente.getNumero() == numero) {
+                if (cuentaCliente.getCVV() == cvv) {
+                    if (cuentaCliente.getFechaExpiracion().equals(fechaExpiracion)) {
+                        confirmarPago(guia, cuentaCliente, sucursal);
+                    } else {
+                        println("Datos incorrectos, intente nuevamente");
+                        println("");
+                        pagarTarjeta(guia, sucursal);
+                    }
+                } else {
+                    println("Datos incorrectos, intente nuevamente");
+                    println("");
+                    pagarTarjeta(guia, sucursal);
+                }
+            } else {
+                println("Datos incorrectos, intente nuevamente");
+                println("");
+                pagarTarjeta(guia, sucursal);
+            }
+        } else {
+            println("Datos incorrectos, intente nuevamente");
+            println("");
+            pagarTarjeta(guia, sucursal);
+        }
         } else {
             println("Lo sentimos, esta cuenta no existe, intentelo de nuevo");
             println("");

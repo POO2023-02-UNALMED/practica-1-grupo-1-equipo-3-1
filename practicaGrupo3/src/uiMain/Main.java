@@ -21,7 +21,12 @@ public class Main {
 
     public static void main(String[] args) {
 
+<<<<<<< Updated upstream
 /*
+=======
+        /*
+
+>>>>>>> Stashed changes
         ArrayList<Camion> camionesMN = new ArrayList<>();
         ArrayList<Camion> camionesMS = new ArrayList<>();
         ArrayList<Camion> camionesCN = new ArrayList<>();
@@ -133,6 +138,7 @@ public class Main {
         medellinNorte.getInventario().add(paquete2);
         medellinNorte.getInventario().add(animal2);
 
+        */
 
         Serializador.serializar();
 
@@ -142,8 +148,16 @@ public class Main {
         Deserializador.deserializar();
 
 
+<<<<<<< Updated upstream
         println(Transporte.getTodosLosTransportes());
         //Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
+=======
+        Deserializador.deserializar();
+
+
+        //println(Transporte.getTodosLosTransportes());
+        Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
+>>>>>>> Stashed changes
 
     }
 
@@ -274,7 +288,6 @@ public class Main {
 
     public static void menuPrincipal(Sucursal sucursal) {
         Scanner scanner = new Scanner(System.in);
-
         //Cada vez que se vuelva al menu principal se pasan los productos del inventario de la sucursal al de los vehiculos
 
         ArrayList<Camion> camionesFuera = new ArrayList<>(); //Esto es para eliminar los camiones que salieron de la lista de la sucursal
@@ -287,7 +300,6 @@ public class Main {
                 if (camion.getInventario().size() == 3) { //Si un camion de la sucursal tiene 3 productos o más comienza el recorrido
                     camion.iniciarRecorrido();
                     camionesFuera.add(camion);
-                    println("Empezó recorrido");
                 }
             } else {
                 camionesFuera.add(camion); //Evitar error de duplicacion
@@ -305,7 +317,6 @@ public class Main {
                 if (avion.getInventario().size() == 5) {
                     avion.iniciarRecorrido();
                     avionesFuera.add(avion);
-                    println("Empezó recorrido avion");
                 }
             } else {
                 avionesFuera.add(avion);

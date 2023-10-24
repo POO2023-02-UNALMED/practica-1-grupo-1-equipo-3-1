@@ -653,6 +653,435 @@ public class Main {
                 disponibilidadSucursal = true;
             }
         } else if (producto instanceof Animal) {
+        	if (sucursalOrigen.verificarDisponibilidad(producto)) {
+                if (sucursalOrigen.disponibilidadJaulas((Animal) producto)) {
+                    disponibilidadSucursal = true;
+                }
+            }
+        }
+
+        Transporte vehiculo = null;
+
+        if (disponibilidadSucursal) {
+
+            println("---------------DATOS DE TRANSPORTE---------------");
+            println("Ingrese el tipo de tranporte de su preferencia:");
+            println("1) Camión");
+            println("2) Avión (Envío directo y más rápido)");
+            print("Elige una opción: ");
+
+            boolean numeroValido5 = false;
+
+            while (!numeroValido5) {
+                int transporteEntrada = scanner.nextInt();
+
+                switch (transporteEntrada) {
+                    case 1:
+                        if (!sucursalOrigen.getCamionesEnSucursal().isEmpty()) {
+                            vehiculo = sucursalOrigen.getCamionesEnSucursal().get(0);
+                            numeroValido5 = true;
+                            disponibilidadTransporte = true;
+                            break;
+                        } else {
+                            println("Lo sentimos no tenemos disponibilidad de camiones en este momento");
+                            println("");
+                            print("1) Volver al menú principal: ");
+
+                            boolean numerovalido = false;
+
+                            while (!numerovalido) {
+                                int menuPrincipalEntrada = scanner.nextInt();
+                                switch (menuPrincipalEntrada) {
+                                    case 1:
+                                        Main.menuPrincipal(sucursalOrigen);
+                                        numerovalido = true;
+                                        break;
+                                    default:
+                                        print("Número no válido. Inténtalo de nuevo: ");
+                                }
+                            }
+                            numeroValido5 = true;
+                            break;
+                        }
+                    case 2:
+                        if (!sucursalOrigen.getAvionesEnSucursal().isEmpty()) {
+                            for (Avion aviones : sucursalOrigen.getAvionesEnSucursal()) {
+                                if (aviones.getSucursalDestino() == sucursalDestino) {
+                                    vehiculo = aviones;
+                                    disponibilidadTransporte = true;
+                                    break;
+                                }
+                                if (vehiculo == null) {
+                                    println("Lo sentimos no tenemos disponibilidad de aviones que se dirigen a esa sucursal en este momento");
+                                    println("");
+                                    print("1) Volver al menú principal: ");
+
+                                    boolean numerovalido = false;
+
+                                    while (!numerovalido) {
+                                        int menuPrincipalEntrada = scanner.nextInt();
+                                        switch (menuPrincipalEntrada) {
+                                            case 1:
+                                                Main.menuPrincipal(sucursalOrigen);
+                                                numerovalido = true;
+                                                break;
+                                            default:
+                                                print("Número no válido. Inténtalo de nuevo: ");
+                                        }
+                                    }
+                                }
+                            }
+                            numeroValido5 = true;
+                            break;
+                        } else {
+                            println("Lo sentimos no tenemos disponibilidad de aviones en este momento");
+                            println("");
+                            print("1) Volver al menú principal: ");
+
+                            boolean numerovalido = false;
+
+                            while (!numerovalido) {
+                                int menuPrincipalEntrada = scanner.nextInt();
+                                switch (menuPrincipalEntrada) {
+                                    case 1:
+                                        Main.menuPrincipal(sucursalOrigen);
+                                        numerovalido = true;
+                                        break;
+                                    default:
+                                        print("Número no válido. Inténtalo de nuevo: ");
+                                }
+                            }
+                            numeroValido5 = true;
+                            break;
+                        }
+                    default:
+                        print("Número no válido. Inténtalo de nuevo: ");
+                }
+            }
+
+
+        } else {
+            println("Lo sentimos, no tenemos disponibilidad en la sucursal");
+            println("");
+            print("1) Volver al menú principal: ");
+
+            boolean numerovalido = false;
+
+            while (!numerovalido) {
+                int menuPrincipalEntrada = scanner.nextInt();
+                switch (menuPrincipalEntrada) {
+                    case 1:
+                        Main.menuPrincipal(sucursalOrigen);
+                        numerovalido = true;
+                        break;
+                    default:
+                        print("Número no válido. Inténtalo de nuevo: ");
+                }
+            }
+        }
+
+        if (disponibilidadTransporte) {
+            println("------------------FORMA DE PAGO------------------");
+            println("Seleccione el pago de su preferencia para el pedido:");
+            println("1) Pago total");
+            println("2) Pago fraccionado");
+            println("3) Pago contraentrega");
+            print("Elige una opción: ");
+
+            boolean numeroValido6 = false;
+
+            tipoDePago tipoDePago = null;
+
+            while (!numeroValido6) {
+                int pagoEntrada = scanner.nextInt();
+
+                Guia guia = null;
+
+                switch (pagoEntrada) {
+                    case 1:
+                        tipoDePago = Guia.tipoDePago.REMITENTE;
+                        guia = new Guia(producto, remitente, destinatario, sucursalOrigen, sucursalDestino, tipoDePago, vehiculo);
+                        println(guia.toString());
+
+                        println("Diríjase a la pestaña principal para pagar su servicio.");
+                        println("");
+
+                        print("1) Volver al menú principal: ");
+
+                        boolean numerovalido7 = false;
+
+                        while (!numerovalido7) {
+                            int menuPrincipalEntrada = scanner.nextInt();
+                            switch (menuPrincipalEntrada) {
+                                case 1:
+                                    Main.menuPrincipal(sucursalOrigen);
+                                    numerovalido7 = true;
+                                    break;
+                                default:
+                                    print("Número no válido. Inténtalo de nuevo: ");
+                            }
+                        }
+
+                        numeroValido6 = true;
+                        break;
+                    case 2:
+                        tipoDePago = Guia.tipoDePago.FRACCIONADO;
+                        guia = new Guia(producto, remitente, destinatario, sucursalOrigen, sucursalDestino, tipoDePago, vehiculo);
+                        println(guia.toString());
+
+                        println("Diríjase a la pestaña principal para pagar su servicio.");
+                        println("");
+                        print("1) Volver al menú principal: ");
+
+                        boolean numerovalido8 = false;
+
+                        while (!numerovalido8) {
+                            int menuPrincipalEntrada = scanner.nextInt();
+                            switch (menuPrincipalEntrada) {
+                                case 1:
+                                    Main.menuPrincipal(sucursalOrigen);
+                                    numerovalido8 = true;
+                                    break;
+                                default:
+                                    print("Número no válido. Inténtalo de nuevo: ");
+                            }
+                        }
+
+                        numeroValido6 = true;
+                        break;
+                    case 3:
+                        tipoDePago = Guia.tipoDePago.DESTINATARIO;
+                        guia = new Guia(producto, remitente, destinatario, sucursalOrigen, sucursalDestino, tipoDePago, vehiculo);
+                        println(guia.toString());
+
+                        sucursalOrigen.agregarProducto(producto);
+
+                        Random random = new Random();
+                        println("Muchas gracias por usar nuestro servicio, favor acerquese \na la caja #" +
+                                (random.nextInt(5) + 1) + " para entregar el " + guia.getProducto().getClass().getSimpleName());
+                        println("");
+                        print("1) Volver al menú principal: ");
+
+                        boolean numerovalido9 = false;
+
+                        while (!numerovalido9) {
+                            int menuPrincipalEntrada = scanner.nextInt();
+                            switch (menuPrincipalEntrada) {
+                                case 1:
+                                    Main.menuPrincipal(sucursalOrigen);
+                                    numerovalido9 = true;
+                                    break;
+                                default:
+                                    print("Número no válido. Inténtalo de nuevo: ");
+                            }
+                        }
+                        numeroValido6 = true;
+                        break;
+                    default:
+                        print("Número no válido. Inténtalo de nuevo: ");
+                }
+            }
+        }
+        scanner.close();
+    }
+
+
+    public static void pagarServicio(Sucursal sucursal) {
+        Scanner scanner = new Scanner(System.in);
+        println("----------------------PAGAR----------------------");
+
+        print("Ingrese el código de la guía a pagar: ");
+        int codigo = scanner.nextInt();
+
+        Guia guia = null;
+        for (Producto producto : Producto.getTodosLosProductos())
+            if (producto.getCodigo() == codigo) {
+                guia = producto.getGuia();
+                break;
+            }
+
+        if (guia != null) {
+            if (guia.getPagoPendiente() != 0) {
+                if (guia.getSucursalOrigen() == sucursal) { //¿El metodo ha sido accedido desde la sucursal de origen? Eso quiere decir que el que está pagando es el remitente
+                    if (guia.getTipoDePago() == tipoDePago.REMITENTE || guia.getTipoDePago() == tipoDePago.FRACCIONADO) {
+                        println("------------------MÉTODO DE PAGO-----------------");
+                        println("Ingrese el método de pago:");
+                        println("1) Tarjeta Crédito o Débito");
+                        println("2) Efectivo");
+                        print("Elige una opción: ");
+
+                        boolean numeroValido = false;
+
+                        while (!numeroValido) {
+                            int metodoDePagoEntrada = scanner.nextInt();
+                            switch (metodoDePagoEntrada) {
+                                case 1:
+                                    pagarTarjeta(guia, sucursal);
+                                    numeroValido = true;
+                                    break;
+                                case 2:
+                                    pagarEfectivo(guia, sucursal);
+                                    numeroValido = true;
+                                    break;
+                                default:
+                                    print("Número no válido. Inténtalo de nuevo: ");
+                            }
+                        }
+                    } else {
+                        println("El tipo de pago seleccionado fue contraentrega, el destinatario\n paga completamente el pedido");
+                        println("");
+                        print("1) Volver al menú principal: ");
+
+                        boolean numerovalido2 = false;
+
+                        while (!numerovalido2) {
+                            int menuPrincipalEntrada = scanner.nextInt();
+                            switch (menuPrincipalEntrada) {
+                                case 1:
+                                    Main.menuPrincipal(sucursal);
+                                    numerovalido2 = true;
+                                    break;
+                                default:
+                                    print("Número no válido. Inténtalo de nuevo: ");
+                            }
+                        }
+                    }
+                } else { //Accedido por el destinatario
+                    if (guia.getTipoDePago() == tipoDePago.DESTINATARIO || guia.getTipoDePago() == tipoDePago.FRACCIONADO) {
+                        println("------------------MÉTODO DE PAGO-----------------");
+                        println("Ingrese el método de pago:");
+                        println("1) Tarjeta Crédito o Débito");
+                        println("2) Efectivo");
+                        print("Elige una opción: ");
+
+                        boolean numeroValido = false;
+
+                        while (!numeroValido) {
+                            int metodoDePagoEntrada = scanner.nextInt();
+                            switch (metodoDePagoEntrada) {
+                                case 1:
+                                    pagarTarjeta(guia, sucursal);
+
+                                    numeroValido = true;
+                                    break;
+                                case 2:
+                                    pagarEfectivo(guia, sucursal);
+
+                                    numeroValido = true;
+                                    break;
+                                default:
+                                    print("Número no válido. Inténtalo de nuevo: ");
+                            }
+                        }
+                    } else {
+                        println("El pedido ya está completamente pago.");
+                        println("Diríjase a la pestaña principal para recoger su pedido.");
+                        println("");
+                        print("1) Volver al menú principal: ");
+
+                        boolean numerovalido2 = false;
+
+                        while (!numerovalido2) {
+                            int menuPrincipalEntrada = scanner.nextInt();
+                            switch (menuPrincipalEntrada) {
+                                case 1:
+                                    Main.menuPrincipal(sucursal);
+                                    numerovalido2 = true;
+                                    break;
+                                default:
+                                    print("Número no válido. Inténtalo de nuevo: ");
+                            }
+                        }
+                    }
+                }
+            } else {
+                println("-------------------------------------------------");
+                println("El pedido ya ha sido completamente pago");
+                println("");
+                print("1) Volver al menú principal: ");
+
+                boolean numerovalido = false;
+
+                while (!numerovalido) {
+                    int menuPrincipalEntrada = scanner.nextInt();
+                    switch (menuPrincipalEntrada) {
+                        case 1:
+                            menuPrincipal(sucursal);
+                            numerovalido = true;
+                            break;
+                        default:
+                            print("Número no válido. Inténtalo de nuevo: ");
+                    }
+                }
+            }
+        } else {
+            println("-------------------------------------------------");
+            println("Lo sentimos, el código de la guía no coincide, intentelo de nuevo");
+            println("");
+
+            println("1) Volver a intentar");
+            println("2) Volver al menú principal");
+            print("Elija una opcion: ");
+
+
+            boolean numerovalido = false;
+
+            while (!numerovalido) {
+                int menuPrincipalEntrada = scanner.nextInt();
+                switch (menuPrincipalEntrada) {
+                    case 1:
+                        pagarServicio(sucursal);
+                        numerovalido = true;
+                        break;
+                    case 2:
+                        Main.menuPrincipal(sucursal);
+                        numerovalido = true;
+                        break;
+                    default:
+                        print("Número no válido. Inténtalo de nuevo: ");
+                }
+            }
+        }
+
+        scanner.close();
+    }
+
+    public static void pagarServicio(Sucursal sucursal, Guia guia) {
+        if (guia.getSucursalOrigen() == sucursal) { //¿El metodo ha sido accedido desde la sucursal de origen? Eso quiere decir que el que está pagando es el remitente
+            if (guia.getTipoDePago() == tipoDePago.REMITENTE || guia.getTipoDePago() == tipoDePago.FRACCIONADO) {
+                println("------------------MÉTODO DE PAGO-----------------");
+                println("Ingrese el método de pago:");
+                println("1) Tarjeta Crédito o Débito");
+                println("2) Efectivo");
+                print("Elige una opción: ");
+
+                boolean numeroValido = false;
+
+                while (!numeroValido) {
+                    int metodoDePagoEntrada = scanner.nextInt();
+                    switch (metodoDePagoEntrada) {
+                        case 1:
+                            pagarTarjeta(guia, sucursal);
+                            numeroValido = true;
+                            break;
+                        case 2:
+                            pagarEfectivo(guia, sucursal);
+                            numeroValido = true;
+                            break;
+                        default:
+                            print("Número no válido. Inténtalo de nuevo: ");
+                    }
+                }
+            } else {
+                println("El tipo de pago seleccionado fue contraentrega, el destinatario\n paga completamente el pedido");
+                println("");
+                print("1) Volver al menú principal: ");
+
+                boolean numerovalido2 = false;
+
+                while (!numerovalido2) {
+                    int menuPrincipalEntrada = scanner.nextInt();
+                    
         } else {
             println("Lo sentimos, esta cuenta no existe, intentelo de nuevo");
             println("");

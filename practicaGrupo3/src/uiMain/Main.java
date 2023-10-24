@@ -1,5 +1,6 @@
 package uiMain;
 //HECHA POR TODOS LOS INTEGRANTES
+
 import productos.*;
 import personas.*;
 import productos.Animal.tipoAnimal;
@@ -8,6 +9,7 @@ import administracion.*;
 import transportes.*;
 import administracion.Opinion;
 import administracion.Membresia;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -21,6 +23,7 @@ public class Main {
 
     public static void main(String[] args) {
 
+        /*
         ArrayList<Camion> camionesMN = new ArrayList<>();
         ArrayList<Camion> camionesMS = new ArrayList<>();
         ArrayList<Camion> camionesCN = new ArrayList<>();
@@ -123,7 +126,6 @@ public class Main {
         Producto animal2 = new Animal("Ana", 5, 80, tipoAnimal.VACA);
         Guia guiaAnimal2 = new Guia(animal2, david, guzman, medellinNorte, bogotaNorte, tipoDePago.DESTINATARIO, avionesMN.get(0));
 
-
         medellinNorte.getInventario().add(documento);
         medellinNorte.getInventario().add(paquete);
 
@@ -134,11 +136,12 @@ public class Main {
 
         Serializador.serializar();
 
-        //Deserializador.deserializar();
 
-        //println(Transporte.getTodosLosTransportes());
-        //Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
-        //println(Sucursal.getTodasLasSucursales().get(0).getAvionesEnSucursal().get(0).getInventario());
+         */
+        Deserializador.deserializar();
+
+
+        Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
 
     }
 
@@ -155,8 +158,8 @@ public class Main {
         println("¿Desde que ciudad se encuentra?");
         println("1) Medellín.");
         println("2) Cali.");
-        println("4) Bogotá.");
         println("3) Pasto");
+        println("4) Bogotá.");
         print("Elija una opcion: ");
 
         boolean numeroValido = false;
@@ -353,10 +356,6 @@ public class Main {
             }
         }
     }
-
-
- 
-
 
 
     public static void enviarPaquete(Sucursal sucursalOrigen) {
@@ -902,95 +901,116 @@ public class Main {
             }
 
         if (guia != null) {
-            if (guia.getSucursalOrigen() == sucursal) { //¿El metodo ha sido accedido desde la sucursal de origen? Eso quiere decir que el que está pagando es el remitente
-                if (guia.getTipoDePago() == tipoDePago.REMITENTE || guia.getTipoDePago() == tipoDePago.FRACCIONADO) {
-                    println("------------------MÉTODO DE PAGO-----------------");
-                    println("Ingrese el método de pago:");
-                    println("1) Tarjeta Crédito o Débito");
-                    println("2) Efectivo");
-                    print("Elige una opción: ");
+            if (guia.getPagoPendiente() != 0) {
+                if (guia.getSucursalOrigen() == sucursal) { //¿El metodo ha sido accedido desde la sucursal de origen? Eso quiere decir que el que está pagando es el remitente
+                    if (guia.getTipoDePago() == tipoDePago.REMITENTE || guia.getTipoDePago() == tipoDePago.FRACCIONADO) {
+                        println("------------------MÉTODO DE PAGO-----------------");
+                        println("Ingrese el método de pago:");
+                        println("1) Tarjeta Crédito o Débito");
+                        println("2) Efectivo");
+                        print("Elige una opción: ");
 
-                    boolean numeroValido = false;
+                        boolean numeroValido = false;
 
-                    while (!numeroValido) {
-                        int metodoDePagoEntrada = scanner.nextInt();
-                        switch (metodoDePagoEntrada) {
-                            case 1:
-                                pagarTarjeta(guia, sucursal);
-                                numeroValido = true;
-                                break;
-                            case 2:
-                                pagarEfectivo(guia, sucursal);
-                                numeroValido = true;
-                                break;
-                            default:
-                                print("Número no válido. Inténtalo de nuevo: ");
+                        while (!numeroValido) {
+                            int metodoDePagoEntrada = scanner.nextInt();
+                            switch (metodoDePagoEntrada) {
+                                case 1:
+                                    pagarTarjeta(guia, sucursal);
+                                    numeroValido = true;
+                                    break;
+                                case 2:
+                                    pagarEfectivo(guia, sucursal);
+                                    numeroValido = true;
+                                    break;
+                                default:
+                                    print("Número no válido. Inténtalo de nuevo: ");
+                            }
+                        }
+                    } else {
+                        println("El tipo de pago seleccionado fue contraentrega, el destinatario\n paga completamente el pedido");
+                        println("");
+                        print("1) Volver al menú principal: ");
+
+                        boolean numerovalido2 = false;
+
+                        while (!numerovalido2) {
+                            int menuPrincipalEntrada = scanner.nextInt();
+                            switch (menuPrincipalEntrada) {
+                                case 1:
+                                    Main.menuPrincipal(sucursal);
+                                    numerovalido2 = true;
+                                    break;
+                                default:
+                                    print("Número no válido. Inténtalo de nuevo: ");
+                            }
                         }
                     }
-                } else {
-                    println("El tipo de pago seleccionado fue contraentrega, el destinatario\n paga completamente el pedido");
-                    println("");
-                    print("1) Volver al menú principal: ");
+                } else { //Accedido por el destinatario
+                    if (guia.getTipoDePago() == tipoDePago.DESTINATARIO || guia.getTipoDePago() == tipoDePago.FRACCIONADO) {
+                        println("------------------MÉTODO DE PAGO-----------------");
+                        println("Ingrese el método de pago:");
+                        println("1) Tarjeta Crédito o Débito");
+                        println("2) Efectivo");
+                        print("Elige una opción: ");
 
-                    boolean numerovalido2 = false;
+                        boolean numeroValido = false;
 
-                    while (!numerovalido2) {
-                        int menuPrincipalEntrada = scanner.nextInt();
-                        switch (menuPrincipalEntrada) {
-                            case 1:
-                                Main.menuPrincipal(sucursal);
-                                numerovalido2 = true;
-                                break;
-                            default:
-                                print("Número no válido. Inténtalo de nuevo: ");
+                        while (!numeroValido) {
+                            int metodoDePagoEntrada = scanner.nextInt();
+                            switch (metodoDePagoEntrada) {
+                                case 1:
+                                    pagarTarjeta(guia, sucursal);
+
+                                    numeroValido = true;
+                                    break;
+                                case 2:
+                                    pagarEfectivo(guia, sucursal);
+
+                                    numeroValido = true;
+                                    break;
+                                default:
+                                    print("Número no válido. Inténtalo de nuevo: ");
+                            }
+                        }
+                    } else {
+                        println("El pedido ya está completamente pago.");
+                        println("Diríjase a la pestaña principal para recoger su pedido.");
+                        println("");
+                        print("1) Volver al menú principal: ");
+
+                        boolean numerovalido2 = false;
+
+                        while (!numerovalido2) {
+                            int menuPrincipalEntrada = scanner.nextInt();
+                            switch (menuPrincipalEntrada) {
+                                case 1:
+                                    Main.menuPrincipal(sucursal);
+                                    numerovalido2 = true;
+                                    break;
+                                default:
+                                    print("Número no válido. Inténtalo de nuevo: ");
+                            }
                         }
                     }
                 }
-            } else { //Accedido por el destinatario
-                if (guia.getTipoDePago() == tipoDePago.DESTINATARIO || guia.getTipoDePago() == tipoDePago.FRACCIONADO) {
-                    println("------------------MÉTODO DE PAGO-----------------");
-                    println("Ingrese el método de pago:");
-                    println("1) Tarjeta Crédito o Débito");
-                    println("2) Efectivo");
-                    print("Elige una opción: ");
+            } else {
+                println("-------------------------------------------------");
+                println("El pedido ya ha sido completamente pago");
+                println("");
+                print("1) Volver al menú principal: ");
 
-                    boolean numeroValido = false;
+                boolean numerovalido = false;
 
-                    while (!numeroValido) {
-                        int metodoDePagoEntrada = scanner.nextInt();
-                        switch (metodoDePagoEntrada) {
-                            case 1:
-                                pagarTarjeta(guia, sucursal);
-
-                                numeroValido = true;
-                                break;
-                            case 2:
-                                pagarEfectivo(guia, sucursal);
-
-                                numeroValido = true;
-                                break;
-                            default:
-                                print("Número no válido. Inténtalo de nuevo: ");
-                        }
-                    }
-                } else {
-                    println("El pedido ya está completamente pago.");
-                    println("Diríjase a la pestaña principal para recoger su pedido.");
-                    println("");
-                    print("1) Volver al menú principal: ");
-
-                    boolean numerovalido2 = false;
-
-                    while (!numerovalido2) {
-                        int menuPrincipalEntrada = scanner.nextInt();
-                        switch (menuPrincipalEntrada) {
-                            case 1:
-                                Main.menuPrincipal(sucursal);
-                                numerovalido2 = true;
-                                break;
-                            default:
-                                print("Número no válido. Inténtalo de nuevo: ");
-                        }
+                while (!numerovalido) {
+                    int menuPrincipalEntrada = scanner.nextInt();
+                    switch (menuPrincipalEntrada) {
+                        case 1:
+                            menuPrincipal(sucursal);
+                            numerovalido = true;
+                            break;
+                        default:
+                            print("Número no válido. Inténtalo de nuevo: ");
                     }
                 }
             }
@@ -1019,6 +1039,103 @@ public class Main {
                         break;
                     default:
                         print("Número no válido. Inténtalo de nuevo: ");
+                }
+            }
+        }
+
+        scanner.close();
+    }
+
+    public static void pagarServicio(Sucursal sucursal, Guia guia) {
+        if (guia.getSucursalOrigen() == sucursal) { //¿El metodo ha sido accedido desde la sucursal de origen? Eso quiere decir que el que está pagando es el remitente
+            if (guia.getTipoDePago() == tipoDePago.REMITENTE || guia.getTipoDePago() == tipoDePago.FRACCIONADO) {
+                println("------------------MÉTODO DE PAGO-----------------");
+                println("Ingrese el método de pago:");
+                println("1) Tarjeta Crédito o Débito");
+                println("2) Efectivo");
+                print("Elige una opción: ");
+
+                boolean numeroValido = false;
+
+                while (!numeroValido) {
+                    int metodoDePagoEntrada = scanner.nextInt();
+                    switch (metodoDePagoEntrada) {
+                        case 1:
+                            pagarTarjeta(guia, sucursal);
+                            numeroValido = true;
+                            break;
+                        case 2:
+                            pagarEfectivo(guia, sucursal);
+                            numeroValido = true;
+                            break;
+                        default:
+                            print("Número no válido. Inténtalo de nuevo: ");
+                    }
+                }
+            } else {
+                println("El tipo de pago seleccionado fue contraentrega, el destinatario\n paga completamente el pedido");
+                println("");
+                print("1) Volver al menú principal: ");
+
+                boolean numerovalido2 = false;
+
+                while (!numerovalido2) {
+                    int menuPrincipalEntrada = scanner.nextInt();
+                    switch (menuPrincipalEntrada) {
+                        case 1:
+                            Main.menuPrincipal(sucursal);
+                            numerovalido2 = true;
+                            break;
+                        default:
+                            print("Número no válido. Inténtalo de nuevo: ");
+                    }
+                }
+            }
+        } else { //Accedido por el destinatario
+            if (guia.getTipoDePago() == tipoDePago.DESTINATARIO || guia.getTipoDePago() == tipoDePago.FRACCIONADO) {
+                println("------------------MÉTODO DE PAGO-----------------");
+                println("Ingrese el método de pago:");
+                println("1) Tarjeta Crédito o Débito");
+                println("2) Efectivo");
+                print("Elige una opción: ");
+
+                boolean numeroValido = false;
+
+                while (!numeroValido) {
+                    int metodoDePagoEntrada = scanner.nextInt();
+                    switch (metodoDePagoEntrada) {
+                        case 1:
+                            pagarTarjeta(guia, sucursal);
+
+                            numeroValido = true;
+                            break;
+                        case 2:
+                            pagarEfectivo(guia, sucursal);
+
+                            numeroValido = true;
+                            break;
+                        default:
+                            print("Número no válido. Inténtalo de nuevo: ");
+                    }
+                }
+            } else {
+                println("El pedido ya está completamente pago.");
+                println("Diríjase a la pestaña principal para recoger su pedido.");
+                println("");
+                print("1) Volver al menú principal: ");
+
+                boolean numerovalido2 = false;
+
+                while (!numerovalido2) {
+                    int menuPrincipalEntrada = scanner.nextInt();
+                    switch (menuPrincipalEntrada) {
+                        case 1:
+                            Main.menuPrincipal(sucursal);
+                            numerovalido2 = true;
+                            break;
+                        default:
+                            print("Número no válido. Inténtalo de nuevo: ");
+                    }
                 }
             }
         }
@@ -1078,28 +1195,53 @@ public class Main {
         } else {
             println("Lo sentimos, esta cuenta no existe, intentelo de nuevo");
             println("");
-            pagarTarjeta(guia, sucursal);
+            println("1) Volver a intentar");
+            println("2) Volver al menú principal");
+            print("Elija una opcion: ");
+
+            boolean numerovalido = false;
+
+            while (!numerovalido) {
+                int menuPrincipalEntrada = scanner.nextInt();
+                switch (menuPrincipalEntrada) {
+                    case 1:
+                        pagarTarjeta(guia, sucursal);
+                        numerovalido = true;
+                        break;
+                    case 2:
+                        Main.menuPrincipal(sucursal);
+                        numerovalido = true;
+                        break;
+                    default:
+                        print("Número no válido. Inténtalo de nuevo: ");
+                }
+            }
         }
     }
 
     //FUNCIONA
     public static void pagarEfectivo(Guia guia, Sucursal sucursal) {
+        double precio = 0;
         if (guia.getSucursalOrigen() == sucursal) { //¿El metodo ha sido accedido desde la sucursal de origen? Eso quiere decir que el que está pagando es el remitente
             switch (guia.getTipoDePago()) {
                 case REMITENTE:
                     guia.setPagoPendiente(guia.getPagoPendiente() * 0);
+                    precio = guia.getPrecioTotal();
                     break;
                 case FRACCIONADO:
                     guia.setPagoPendiente(guia.getPagoPendiente() / 2);
+                    precio = guia.getPrecioTotal() / 2;
                     break;
             }
         } else { //Está pagando el destinatario
             switch (guia.getTipoDePago()) {
                 case DESTINATARIO:
-                    guia.setPagoPendiente(guia.getPagoPendiente() * 0);
+                    guia.setPagoPendiente(0);
+                    precio = guia.getPrecioTotal();
                     break;
                 case FRACCIONADO:
-                    guia.setPagoPendiente(guia.getPagoPendiente() / 2);
+                    guia.setPagoPendiente(0);
+                    precio = guia.getPrecioTotal() / 2;
                     break;
             }
         }
@@ -1109,7 +1251,7 @@ public class Main {
 
         int numeroAleatorio = random.nextInt(5) + 1;
         println("----------------PAGO EN EFECTIVO-----------------");
-        println("Gracias por usar nuestro servicio, porfavor\nacerquese a la caja #" + numeroAleatorio + " para cancelar $" + (guia.getPrecioTotal() - guia.getPagoPendiente()));
+        println("Gracias por usar nuestro servicio, porfavor\nacerquese a la caja #" + numeroAleatorio + " para cancelar $" + precio);
         println("");
         print("1) Volver al menú principal: ");
 
@@ -1154,7 +1296,7 @@ public class Main {
                     if (guia.getSucursalOrigen() == sucursal) { //¿El metodo ha sido accedido desde la sucursal de origen? Eso quiere decir que el que está pagando es el remitente
                         if (guia.getTipoDePago() == tipoDePago.REMITENTE) {
                             if (cuentaCliente.descontarSaldo(guia.getPagoPendiente())) {
-                                guia.setPagoPendiente(guia.getPagoPendiente() * 0);
+                                guia.setPagoPendiente(0);
                                 cuentaCliente.getTitular().subirReputacion();
                                 sucursal.agregarProducto(guia.getProducto()); //Se agrega el producto al inventario de la sucursal
 
@@ -1224,7 +1366,7 @@ public class Main {
                     } else { //Está pagando el destinatario
                         if (guia.getTipoDePago() == tipoDePago.DESTINATARIO || guia.getTipoDePago() == tipoDePago.FRACCIONADO) {
                             if (cuentaCliente.descontarSaldo(guia.getPagoPendiente())) {
-                                guia.setPagoPendiente(guia.getPagoPendiente() * 0);
+                                guia.setPagoPendiente(0);
                                 cuentaCliente.getTitular().subirReputacion();
 
                                 println("-------------------------------------------------");
@@ -1464,12 +1606,12 @@ public class Main {
         println("-----------------------------------------------------------");
         println("Usted escogio la sucursal: " + sucursalOpinion.getNombre());
         println("-----------------------------------------------------------");
-        
+
 
         double numero;
         boolean esValido = false;
         while (!esValido) {
-        	println("Ingrese su opinion de puntualidad de la sucursal escogida");
+            println("Ingrese su opinion de puntualidad de la sucursal escogida");
             System.out.print("Ingresa un número entre 0 y 5: ");
             try {
                 numero = scanner.nextDouble();
@@ -1482,140 +1624,132 @@ public class Main {
                 }
             } catch (InputMismatchException e) {
                 println("Entrada no válida. Inténtalo de nuevo.");
-            scanner.next();} // Limpiar el búfer de entrada
-            
-        } 
-   
-             println("Ingrese su opinion de integridad de la sucursal escogida");
-              double numero2;
-              boolean esValido1 = false;
-                 while (!esValido1) {
-                        print("Ingresa un número entre 0 y 5: ");
-                        try {
-                            numero2 = scanner.nextDouble();
-                            if (numero2 >= 0.0 && numero2 <= 5.0) {
-                                esValido1 = true;
-                                println("Número válido: " + numero2);
-                                sucursalOpinion.getOpinionSucursal().agregarOpinionInt(numero2);
-                                if (numero2 < 1.0) {
-                                    boolean encontrada = false;
-                                    do {
-                                        print("Ingrese su nombre: ");
-                                        String nombreBuscado = scanner.next();
-                                        print("Ingrese su cédula: ");
-                                        Long cedulaBuscada = scanner.nextLong();
-                                        print("Ingrese su telefono: ");
-                                        Long telefonoBuscada = scanner.nextLong();
+                scanner.next();
+            } // Limpiar el búfer de entrada
 
-                                        encontrada = false;
+        }
 
-                                        for (Persona persona : Persona.getTodasLasPersonas()) {
-                                            if (persona.getNombre().equals(nombreBuscado) && persona.getCedula() == cedulaBuscada) {
-                                                encontrada = true;
-                                                if (persona instanceof Cliente) {
-                                                    println("La persona existe en la Base de datos y es un Cliente.");
-                                                    ((Cliente) persona).getMembresia().setBeneficio(Membresia.tipo.PLATINUM);
-                                                    println("-----------------------------------------------------------");
-                                                    println("Lamentamos los inconvenientes Sr/ Sra " + persona.getNombre() + " se le ha mejorado la membresia a Platinum como compensancion");
-                                                    println("-----------------------------------------------------------");
-                                                } else {
-                                                    println("La persona existe en la Base de datos pero no es un Cliente.");
-                                                }
-                                                break;
-                                            }
-                                        }
+        println("Ingrese su opinion de integridad de la sucursal escogida");
+        double numero2;
+        boolean esValido1 = false;
+        while (!esValido1) {
+            print("Ingresa un número entre 0 y 5: ");
+            try {
+                numero2 = scanner.nextDouble();
+                if (numero2 >= 0.0 && numero2 <= 5.0) {
+                    esValido1 = true;
+                    println("Número válido: " + numero2);
+                    sucursalOpinion.getOpinionSucursal().agregarOpinionInt(numero2);
+                    if (numero2 < 1.0) {
+                        boolean encontrada = false;
+                        do {
+                            print("Ingrese su nombre: ");
+                            String nombreBuscado = scanner.next();
+                            print("Ingrese su cédula: ");
+                            Long cedulaBuscada = scanner.nextLong();
+                            print("Ingrese su telefono: ");
+                            Long telefonoBuscada = scanner.nextLong();
 
-                                        if (!encontrada) {
-                                            // SE CREA UNA PERSONA CON LOS DATOS SUMINISTRADOS
-                                            Cliente x = new Cliente(nombreBuscado, cedulaBuscada, telefonoBuscada);
-                                            x.getMembresia().setBeneficio(Membresia.tipo.PLATINUM);
-                                            println("-----------------------------------------------------------");
-                                            println("Se le ha creado una cuenta con los siguientes datos: ");
-                                            println(x);
-                                            println("La proxima vez que use nuestro servicio utilice esta cuenta para acceder a grandiosos beneficios. ");
-                                            println("-----------------------------------------------------------");
-                                            break;
-                                        }
-                                    } while (!encontrada);
+                            encontrada = false;
 
+                            for (Persona persona : Persona.getTodasLasPersonas()) {
+                                if (persona.getNombre().equals(nombreBuscado) && persona.getCedula() == cedulaBuscada) {
+                                    encontrada = true;
+                                    if (persona instanceof Cliente) {
+                                        println("La persona existe en la Base de datos y es un Cliente.");
+                                        ((Cliente) persona).getMembresia().setBeneficio(Membresia.tipo.PLATINUM);
+                                        println("-----------------------------------------------------------");
+                                        println("Lamentamos los inconvenientes Sr/ Sra " + persona.getNombre() + " se le ha mejorado la membresia a Platinum como compensancion");
+                                        println("-----------------------------------------------------------");
+                                    } else {
+                                        println("La persona existe en la Base de datos pero no es un Cliente.");
+                                    }
+                                    break;
                                 }
-                            } else {
-                                println("Número fuera del rango. Inténtalo de nuevo.");
                             }
-                        } catch (InputMismatchException e) {
-                            println("Entrada no válida. Inténtalo de nuevo.");
-                        }
+
+                            if (!encontrada) {
+                                // SE CREA UNA PERSONA CON LOS DATOS SUMINISTRADOS
+                                Cliente x = new Cliente(nombreBuscado, cedulaBuscada, telefonoBuscada);
+                                x.getMembresia().setBeneficio(Membresia.tipo.PLATINUM);
+                                println("-----------------------------------------------------------");
+                                println("Se le ha creado una cuenta con los siguientes datos: ");
+                                println(x);
+                                println("La proxima vez que use nuestro servicio utilice esta cuenta para acceder a grandiosos beneficios. ");
+                                println("-----------------------------------------------------------");
+                                break;
+                            }
+                        } while (!encontrada);
+
                     }
-                    
-             
+                } else {
+                    println("Número fuera del rango. Inténtalo de nuevo.");
+                }
+            } catch (InputMismatchException e) {
+                println("Entrada no válida. Inténtalo de nuevo.");
+            }
+        }
 
 
-                
         if (sucursalOpinion.getOpinionSucursal().promedioPuntualidad() < 1.0) {
             sucursalOpinion.setCapacidadPeso(sucursalOpinion.getCapacidadPeso() - 10);
             println("Sentimos la molestia que pudimos haber causado, para el mejoramiento del servicio hemos implmentado en esta sucursal un plan de mejoramiento.");
-            }
+        }
         println(Opinion.generarTablaSucursales());
         println("MUCHAS GRACIAS POR REGISTRAR SU OPINION, EN NUESTRA EMPRESA SU OPINION HACE LA DIFERENCIA :)");
         println("-----------------------------------------------------------");
         println("");
         Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
 
-     }
- 
-  
-    
+    }
 
-    public static void recogerPaquete(Sucursal sucursalDestino) { //Sucursal desde la cual se está recogiendo el paquete
+
+    public static void recogerPaquete(Sucursal sucursal) { //Sucursal desde la cual se está recogiendo el paquete
         Scanner scanner = new Scanner(System.in);
-        boolean datosValidos = false;
-        
-        while (!datosValidos) {
-            try {
-                println("-----------------RECOGER PRODUCTO----------------");
 
-                print("Ingrese el código de la guía: ");
-                int codigoPaquete = scanner.nextInt();
-                scanner.nextLine();
+        println("-----------------RECOGER PRODUCTO----------------");
 
-                print("Ingrese su nombre: ");
-                String nombreDestinatario = scanner.nextLine();
+        print("Ingrese el código de la guía: ");
+        int codigoPaquete = scanner.nextInt();
+        scanner.nextLine();
 
-                print("Ingrese su cédula: ");
-                long cedulaDestinatario = scanner.nextLong();
+        print("Ingrese su nombre: ");
+        String nombreDestinatario = scanner.nextLine();
 
-                datosValidos = true;
+        print("Ingrese su cédula: ");
+        long cedulaDestinatario = scanner.nextLong();
 
-                //Encuentra el producto por el código de la guia
-                Producto producto = encontrarProductoPorCodigo(codigoPaquete);
-                //Obtenemos la guia asociada al producto
-                Guia guia = producto.getGuia();
-                //Definimos la sucursal destino con la guia
-                sucursalDestino = guia.getSucursalLlegada();
+        //Encuentra el producto por el código de la guia
+        Producto producto = encontrarProductoPorCodigo(codigoPaquete);
 
 
+        if (producto != null) {
+            //Obtenemos la guia asociada al producto
+            Guia guia = producto.getGuia();
 
+            if (verificarDatos(producto, cedulaDestinatario)) {
                 //Se verifica que el paquete llegó y que está en el inventario de la sucursal
-                if (sucursalDestino.getInventario().contains(producto)) {
-                    //si el saldo pendiente es 0
-                    if (guia.getPagoPendiente() == 0) {
-                        //se validan los datos
-                        if (verificarDatos(producto, cedulaDestinatario)) {
-                            
+                if (guia.getSucursalLlegada() == sucursal) {
+                    if (sucursal.getInventario().contains(producto) && guia.getEstado() != Guia.estado.ENTREGADO) {
+
+                        //si el saldo pendiente es 0
+                        if (guia.getTipoDePago() == tipoDePago.REMITENTE) {
+                            //se validan los datos
+
                             Random random = new Random();
                             LocalDateTime fechaEntrega = LocalDateTime.now();
-                    		println("");
+                            println("");
                             println("************************************* *");
                             println("*  Operación realizada con éxito     *");
-                            println("*  Favor acercarse a la caja No. " +random.nextInt(5)+"  *");
+                            println("*  Favor acercarse a la caja No. " + random.nextInt(5) + "  *");
                             println("*  para retirar su paquete.          *");
                             println("*  ¡Muchas gracias por usar nuestro  *");
                             println("*  servicio!                         *");
                             println("**************************************");
                             //cambia el estado de la guia
                             guia.setEstado(Guia.estado.ENTREGADO);
-                            sucursalDestino.getInventario().remove(producto);
-                            
+                            sucursal.getInventario().remove(producto);
+
                             //volver al menu
                             println("");
 
@@ -1627,123 +1761,206 @@ public class Main {
                                 int menuPrincipalEntrada = scanner.nextInt();
                                 switch (menuPrincipalEntrada) {
                                     case 1:
-                                        Main.menuPrincipal(sucursalDestino);
+                                        menuPrincipal(sucursal);
                                         numerovalido = true;
                                         break;
                                     default:
                                         print("Número no válido. Inténtalo de nuevo: ");
                                 }
                             }
-  
+
                         } else {
-                            println("Los datos ingresados no corresponden con los del remitente.");
-                        }
-                    }else {
-                    	if(guia.getPagoPendiente() != 0) {
-                    		println("Para poder recoger este paquete debes pagar la deuda pendiente asociada a este.");
-                    		println("¿Desea continuar con el proceso?");
-                    		println("1) Sí");
-                    		println("2) No");
-                    		print("Escoja una opción: ");
-                    		boolean numeroValido1 = false;
-                    		while (!numeroValido1) {
-                                int confirmapago = scanner.nextInt();
-                                switch (confirmapago) {
-                                    case 1:
-                                    	println("------------------MÉTODO DE PAGO-----------------");
-                                		println("Ingrese el método de pago");
-                                		println("1) Tarjeta Crédito o Débito");
-                                		println("2) Efectivo");
-                                    	print("Escoja una opción: ");
-                                    	
-                                    	boolean numeroValido = false;
+                            if (guia.getPagoPendiente() != 0) {
+                                println("-------------------------------------------------");
+                                println("Para poder recoger este paquete debes pagar la deuda pendiente asociada a este.");
+                                println("¿Desea pagar el envío?");
+                                println("1) Sí");
+                                println("2) Volver al menú principal");
+                                print("Elige una opción: ");
+                                boolean numeroValido1 = false;
+                                while (!numeroValido1) {
+                                    int confirmapago = scanner.nextInt();
+                                    switch (confirmapago) {
+                                        case 1:
+                                            pagarServicio(sucursal, guia);
+                                        case 2:
+                                            //volver al menu
+                                            Main.menuPrincipal(sucursal);
+                                            break;
 
-                                        while (!numeroValido) {
-                                            int metodoDePagoEntrada = scanner.nextInt();
-                                            switch (metodoDePagoEntrada) {
-                                                case 1:
-                                                    pagarTarjeta(guia, sucursalDestino);
-
-                                                    numeroValido = true;
-                                                    break;
-                                                case 2:
-                                                    pagarEfectivo(guia, sucursalDestino);
-
-                                                    numeroValido = true;
-                                                    break;
-                                                default:
-                                                    print("Número no válido. Inténtalo de nuevo: ");
-                                            }	
-                                        }
-                                    case 2:
-                                    	//volver al menu
-                                        Main.menuPrincipal(sucursalDestino);
-                                        break;
-                                        
-                                    default:
-                                    	 print("Número no válido. Inténtalo de nuevo: ");
+                                        default:
+                                            print("Número no válido. Inténtalo de nuevo: ");
+                                    }
                                 }
-                    		}
-                    	} else {
-                    		print("El producto no se encuentra en la sucursal.");
-                    	}
-                    }
-                }
-                //Se verifica si el paquete no está en la sucursal
-                if(!sucursalDestino.getInventario().contains(producto)) {
-                    //verificamos si el paquete fue entregado
-                    if(guia.getEstado() == Guia.estado.ENTREGADO) {
-                    	LocalDateTime fechaEntrega = LocalDateTime.now();
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
-                        String fechaEntregaStr = fechaEntrega.format(formatter);
-                        println("El paquete que busca ya fue entregado." );
-                        
-                      //volver al menu
-                        println("");
-                        print("1) Volver al menú principal: ");
+                            } else {
+                                Random random = new Random();
+                                LocalDateTime fechaEntrega = LocalDateTime.now();
+                                println("");
+                                println("************************************* *");
+                                println("*  Operación realizada con éxito     *");
+                                println("*  Favor acercarse a la caja No. " + random.nextInt(5) + "  *");
+                                println("*  para retirar su paquete.          *");
+                                println("*  ¡Muchas gracias por usar nuestro  *");
+                                println("*  servicio!                         *");
+                                println("**************************************");
+                                //cambia el estado de la guia
+                                guia.setEstado(Guia.estado.ENTREGADO);
+                                sucursal.getInventario().remove(producto);
 
-                        boolean numerovalido = false;
+                                //volver al menu
+                                println("");
 
-                        while (!numerovalido) {
-                            int menuPrincipalEntrada = scanner.nextInt();
-                            switch (menuPrincipalEntrada) {
-                                case 1:
-                                    Main.menuPrincipal(sucursalDestino);
-                                    numerovalido = true;
-                                    break;
-                                default:
-                                    print("Número no válido. Inténtalo de nuevo: ");
+                                print("1) Volver al menú principal: ");
+
+                                boolean numerovalido = false;
+
+                                while (!numerovalido) {
+                                    int menuPrincipalEntrada = scanner.nextInt();
+                                    switch (menuPrincipalEntrada) {
+                                        case 1:
+                                            menuPrincipal(sucursal);
+                                            numerovalido = true;
+                                            break;
+                                        default:
+                                            print("Número no válido. Inténtalo de nuevo: ");
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        //Se verifica si el paquete no está en la sucursal
+                        //verificamos si el paquete fue entregado
+                        if (guia.getEstado() == Guia.estado.ENTREGADO) {
+                            println("-------------------------------------------------");
+                            println("El paquete que busca ya fue entregado.");
+
+                            //volver al menu
+                            println("");
+                            print("1) Volver al menú principal: ");
+
+                            boolean numerovalido = false;
+
+                            while (!numerovalido) {
+                                int menuPrincipalEntrada = scanner.nextInt();
+                                switch (menuPrincipalEntrada) {
+                                    case 1:
+                                        menuPrincipal(sucursal);
+                                        numerovalido = true;
+                                        break;
+                                    default:
+                                        print("Número no válido. Inténtalo de nuevo: ");
+                                }
+                            }
+                        } else {
+                            println("-------------------------------------------------");
+                            println("El envío no ha llegado");
+                            println("¿Desea rastrear el envío?");
+                            println("1) Sí");
+                            println("2) Volver al menú principal");
+                            print("Elige una opción: ");
+
+
+                            boolean numeroValido = false;
+
+                            while (!numeroValido) {
+                                int entrada = scanner.nextInt();
+                                switch (entrada) {
+                                    case 1:
+                                        rastrearPaquete(sucursal);
+
+                                        numeroValido = true;
+                                        break;
+                                    case 2:
+                                        menuPrincipal(sucursal);
+
+                                        numeroValido = true;
+                                        break;
+                                    default:
+                                        print("Número no válido. Inténtalo de nuevo: ");
+                                }
                             }
                         }
                     }
-                }else {
-                    	println("El paquete que intenta buscar no existe.");
-                    	//volver al menu
-                        println("");
-                        print("1) Volver al menú principal: ");
+                } else {
+                    println("-------------------------------------------------");
+                    println("EL envío tiene como destino la sucursal de " + guia.getSucursalLlegada().getNombre());
+                    println("¿Desea rastrear el envío?");
+                    println("1) Sí");
+                    println("2) Volver al menú principal");
+                    print("Elige una opción: ");
 
-                        boolean numerovalido = false;
 
-                        while (!numerovalido) {
-                            int menuPrincipalEntrada = scanner.nextInt();
-                            switch (menuPrincipalEntrada) {
-                                case 1:
-                                    Main.menuPrincipal(sucursalDestino);
-                                    numerovalido = true;
-                                    break;
-                                default:
-                                    print("Número no válido. Inténtalo de nuevo: ");
-                            }
+                    boolean numeroValido = false;
+
+                    while (!numeroValido) {
+                        int entrada = scanner.nextInt();
+                        switch (entrada) {
+                            case 1:
+                                rastrearPaquete(sucursal);
+
+                                numeroValido = true;
+                                break;
+                            case 2:
+                                menuPrincipal(sucursal);
+
+                                numeroValido = true;
+                                break;
+                            default:
+                                print("Número no válido. Inténtalo de nuevo: ");
                         }
                     }
                 }
-            catch (InputMismatchException e) {
-                System.out.println("Entrada no válida. Por favor intentelo de nuevo: ");
-                scanner.nextLine();
+            } else {
+                println("-------------------------------------------------");
+                println("Los datos ingresados no corresponden con los del remitente.");
+                println("");
+                print("1) Volver al menú principal: ");
+
+                boolean numerovalido = false;
+
+                while (!numerovalido) {
+                    int menuPrincipalEntrada = scanner.nextInt();
+                    switch (menuPrincipalEntrada) {
+                        case 1:
+                            Main.menuPrincipal(sucursal);
+                            numerovalido = true;
+                            break;
+                        default:
+                            print("Número no válido. Inténtalo de nuevo: ");
+                    }
+                }
+
+            }
+        } else {
+            println("-------------------------------------------------");
+            println("El paquete que intenta buscar no existe.");
+            //volver al menu
+            println("");
+            print("1) Volver al menú principal: ");
+
+            boolean numerovalido = false;
+
+            while (!numerovalido) {
+                int menuPrincipalEntrada = scanner.nextInt();
+                switch (menuPrincipalEntrada) {
+                    case 1:
+                        menuPrincipal(sucursal);
+                        numerovalido = true;
+                        break;
+                    default:
+                        print("Número no válido. Inténtalo de nuevo: ");
+                }
+            }
+        }
+
+
+        if (producto.getGuia().getEstado() == Guia.estado.ENTREGADO) {
+            if (sucursal.getInventario().contains(producto)) {
+                sucursal.getInventario().remove(producto);
             }
         }
     }
-    
+
     private static Producto encontrarProductoPorCodigo(int codigo) {
         for (Producto producto : Producto.getTodosLosProductos()) {
             if (producto.getCodigo() == codigo) {
@@ -1755,7 +1972,7 @@ public class Main {
 
     private static boolean verificarDatos(Producto producto, long cedulaDestinatario) {
         Guia guia = producto.getGuia();
-        Destinatario destinatario = (Destinatario)guia.getDestinatario();
+        Destinatario destinatario = (Destinatario) guia.getDestinatario();
         if (Long.valueOf(destinatario.getCedula()).equals(cedulaDestinatario)) {
             return true;
         }

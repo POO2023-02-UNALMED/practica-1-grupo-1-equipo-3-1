@@ -1584,14 +1584,7 @@ public class Main {
                 //Definimos la sucursal destino con la guia
                 sucursalDestino = guia.getSucursalLlegada();
 
-                //verificamos si el paquete fue entregado
-                //consultar si funciona jsajs
-                if(producto.getGuia().getEstado() == Guia.estado.ENTREGADO) {
-                	LocalDateTime fechaEntrega = LocalDateTime.now();
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
-                    String fechaEntregaStr = fechaEntrega.format(formatter);
-                    println("El paquete fue entregado el " + fechaEntregaStr);	
-                }
+    
                 
                 //Se verifica que el paquete llegó y que está en el inventario de la sucursal
                 if (sucursalDestino.getInventario().contains(producto)) {
@@ -1599,37 +1592,149 @@ public class Main {
                     if (guia.getPagoPendiente() == 0) {
                         //se validan los datos
                         if (verificarDatos(producto, cedulaDestinatario)) {
-                            sucursalDestino.getInventario().remove(producto);
+                            
                             Random random = new Random();
                             LocalDateTime fechaEntrega = LocalDateTime.now();
-                    		
+                    		println("");
+                            println("************************************* *");
+                            println("*  Operación realizada con éxito     *");
+                            println("*  Favor acercarse a la caja No. " +random.nextInt(5)+"  *");
+                            println("*  para retirar su paquete.          *");
+                            println("*  ¡Muchas gracias por usar nuestro  *");
+                            println("*  servicio!                         *");
                             println("**************************************");
-                            println("*  Operación realizada con éxito    *");
-                            println("*  Favor acercarse a la caja No. " +random.nextInt(5));
-                            println("*  para retirar su paquete.         *");
-                            println("*  ¡Muchas gracias por usar nuestro *");
-                            println("*  servicio!                        *");
-                            println("**************************************");
+                            //cambia el estado de la guia
+                            guia.setEstado(Guia.estado.ENTREGADO);
+                            sucursalDestino.getInventario().remove(producto);
+                            
+                            //volver al menu
+                            println("");
+
+                            print("1) Volver al menú principal: ");
+
+                            boolean numerovalido = false;
+
+                            while (!numerovalido) {
+                                int menuPrincipalEntrada = scanner.nextInt();
+                                switch (menuPrincipalEntrada) {
+                                    case 1:
+                                        Main.menuPrincipal(sucursalDestino);
+                                        numerovalido = true;
+                                        break;
+                                    default:
+                                        print("Número no válido. Inténtalo de nuevo: ");
+                                }
+                            }
+  
                         } else {
                             println("Los datos ingresados no corresponden con los del remitente.");
                         }
+                    }else {
+                    	if(guia.getPagoPendiente() != 0) {
+                    		println("Para poder recoger este paquete debes pagar la deuda pendiente asociada a este.");
+                    		println("¿Desea continuar con el proceso?");
+                    		println("1) Sí");
+                    		println("2) No");
+                    		print("Escoja una opción: ");
+                    		boolean numeroValido1 = false;
+                    		while (!numeroValido1) {
+                                int confirmapago = scanner.nextInt();
+                                switch (confirmapago) {
+                                    case 1:
+                                    	println("------------------MÉTODO DE PAGO-----------------");
+                                		println("Ingrese el método de pago");
+                                		println("1) Tarjeta Crédito o Débito");
+                                		println("2) Efectivo");
+                                    	print("Escoja una opción: ");
+                                    	
+                                    	boolean numeroValido = false;
+
+                                        while (!numeroValido) {
+                                            int metodoDePagoEntrada = scanner.nextInt();
+                                            switch (metodoDePagoEntrada) {
+                                                case 1:
+                                                    pagarTarjeta(guia, sucursalDestino);
+
+                                                    numeroValido = true;
+                                                    break;
+                                                case 2:
+                                                    pagarEfectivo(guia, sucursalDestino);
+
+                                                    numeroValido = true;
+                                                    break;
+                                                default:
+                                                    print("Número no válido. Inténtalo de nuevo: ");
+                                            }	
+                                        }
+                                    case 2:
+                                    	//volver al menu
+                                        Main.menuPrincipal(sucursalDestino);
+                                        break;
+                                        
+                                    default:
+                                    	 print("Número no válido. Inténtalo de nuevo: ");
+                                }
+                    		}
+                    	} else {
+                    		print("El producto no se encuentra en la sucursal.");
+                    	}
                     }
-                    if (guia.getPagoPendiente() != 0) {
-                        println("Para retirar el producto tiene que cancelar el servicio por valor de $" + guia.getPagoPendiente());
-                    }
-                } else {
-                    print("El producto no se encuentra en la sucursal.");
                 }
+                //Se verifica si el paquete no está en la sucursal
+                if(!sucursalDestino.getInventario().contains(producto)) {
+                    //verificamos si el paquete fue entregado
+                    if(guia.getEstado() == Guia.estado.ENTREGADO) {
+                    	LocalDateTime fechaEntrega = LocalDateTime.now();
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy HH:mm");
+                        String fechaEntregaStr = fechaEntrega.format(formatter);
+                        println("El paquete que busca ya fue entregado." );
+                        
+                      //volver al menu
+                        println("");
+                        print("1) Volver al menú principal: ");
 
+                        boolean numerovalido = false;
 
-            } catch (InputMismatchException e) {
+                        while (!numerovalido) {
+                            int menuPrincipalEntrada = scanner.nextInt();
+                            switch (menuPrincipalEntrada) {
+                                case 1:
+                                    Main.menuPrincipal(sucursalDestino);
+                                    numerovalido = true;
+                                    break;
+                                default:
+                                    print("Número no válido. Inténtalo de nuevo: ");
+                            }
+                        }
+                    }
+                }else {
+                    	println("El paquete que intenta buscar no existe.");
+                    	//volver al menu
+                        println("");
+                        print("1) Volver al menú principal: ");
+
+                        boolean numerovalido = false;
+
+                        while (!numerovalido) {
+                            int menuPrincipalEntrada = scanner.nextInt();
+                            switch (menuPrincipalEntrada) {
+                                case 1:
+                                    Main.menuPrincipal(sucursalDestino);
+                                    numerovalido = true;
+                                    break;
+                                default:
+                                    print("Número no válido. Inténtalo de nuevo: ");
+                            }
+                        }
+                    }
+                }
+            catch (InputMismatchException e) {
                 System.out.println("Entrada no válida. Por favor intentelo de nuevo: ");
                 scanner.nextLine();
             }
         }
     }
-
-
+    
     private static Producto encontrarProductoPorCodigo(int codigo) {
         for (Producto producto : Producto.getTodosLosProductos()) {
             if (producto.getCodigo() == codigo) {

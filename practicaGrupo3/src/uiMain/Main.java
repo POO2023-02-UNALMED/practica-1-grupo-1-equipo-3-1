@@ -1447,12 +1447,13 @@ public class Main {
         println("-----------------------------------------------------------");
         println("Usted escogio la sucursal: " + sucursalOpinion.getNombre());
         println("-----------------------------------------------------------");
-        println("Ingrese su opinion de puntualidad de la sucursal escogida");
+       
 
         double numero;
         boolean esValido = false;
         while (!esValido) {
-            System.out.print("Ingresa un número entre 0 y 5: ");
+        	println("Ingrese su opinion de puntualidad de la sucursal escogida");
+            print("Ingresa un número entre 0 y 5: ");
             try {
                 numero = scanner.nextDouble();
                 if (numero >= 0.0 && numero <= 5.0) {
@@ -1465,13 +1466,14 @@ public class Main {
             } catch (InputMismatchException e) {
                 println("Entrada no válida. Inténtalo de nuevo.");
             scanner.next();} // Limpiar el búfer de entrada
-            
+        }
             
    
-             println("Ingrese su opinion de integridad de la sucursal escogida");
+             
               double numero2;
               boolean esValido1 = false;
                  while (!esValido1) {
+                	 println("Ingrese su opinion de integridad de la sucursal escogida");
                         print("Ingresa un número entre 0 y 5: ");
                         try {
                             numero2 = scanner.nextDouble();
@@ -1529,7 +1531,7 @@ public class Main {
                         }
                     }
                     
-               }
+            
 
 
                 

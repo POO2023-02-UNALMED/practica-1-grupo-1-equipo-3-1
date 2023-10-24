@@ -21,7 +21,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-<<<<<<< Updated upstream
 /*
 =======
         /*
@@ -142,22 +141,19 @@ public class Main {
 
         Serializador.serializar();
 
-*/
+
 
 
         Deserializador.deserializar();
 
 
-<<<<<<< Updated upstream
         println(Transporte.getTodosLosTransportes());
         //Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
-=======
         Deserializador.deserializar();
 
 
         //println(Transporte.getTodosLosTransportes());
         Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
->>>>>>> Stashed changes
 
     }
 

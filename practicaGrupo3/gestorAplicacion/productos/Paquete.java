@@ -23,8 +23,6 @@ public class Paquete extends Producto implements Serializable{
         this.volumen = alto * largo * ancho;
         roto = false;
 
-        asignarCostoDelPedido();
-
     }
 
     @Override

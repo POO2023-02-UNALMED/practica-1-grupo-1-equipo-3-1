@@ -8,7 +8,6 @@ public class Documento extends Producto implements Serializable{
     public Documento() {
         super(generarCodigo(), 0.1, 0.1);
 
-        asignarCostoDelPedido();
     }
 
     @Override

@@ -21,11 +21,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-/*
-=======
-        /*
-
->>>>>>> Stashed changes
         ArrayList<Camion> camionesMN = new ArrayList<>();
         ArrayList<Camion> camionesMS = new ArrayList<>();
         ArrayList<Camion> camionesCN = new ArrayList<>();
@@ -137,25 +132,13 @@ public class Main {
         medellinNorte.getInventario().add(paquete2);
         medellinNorte.getInventario().add(animal2);
 
-        */
-
-        //Serializador.serializar();
-
-
-
+        Serializador.serializar();
 
         //Deserializador.deserializar();
 
-
-
-
         //println(Transporte.getTodosLosTransportes());
         //Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
-        Deserializador.deserializar();
-
-
-        //println(Transporte.getTodosLosTransportes());
-        Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
+        //println(Sucursal.getTodasLasSucursales().get(0).getAvionesEnSucursal().get(0).getInventario());
 
     }
 
@@ -315,6 +298,7 @@ public class Main {
                 if (avion.getInventario().size() == 5) {
                     avion.iniciarRecorrido();
                     avionesFuera.add(avion);
+                    println("avion");
                 }
             } else {
                 avionesFuera.add(avion);
@@ -1214,7 +1198,7 @@ public class Main {
                                 Random random = new Random();
                                 println(String.format(format, "¡¡Transacción exitosa!!"));
                                 println("Muchas gracias por usar nuestro servicio, favor acerquese a la caja #" + random.nextInt(5) + 1 + " para despachar el " + guia.getProducto().getClass().getSimpleName());
-                                println("Recuerda que el destinatario dde pagar un total de $" + guia.getPagoPendiente());
+                                println("Recuerda que el destinatario debe pagar un total de $" + guia.getPagoPendiente());
 
                                 println("");
                                 print("1) Volver al menú principal: ");
@@ -1248,7 +1232,22 @@ public class Main {
                                 Random random = new Random();
                                 println("¡¡Transacción exitosa!!");
                                 println("Muchas gracias por usar nuestro servicio, favor acerquese a la caja #" + random.nextInt(5) + 1 + " para despachar el " + guia.getProducto().getClass().getSimpleName());
+                                println("");
+                                print("1) Volver al menú principal: ");
 
+                                boolean numerovalido3 = false;
+
+                                while (!numerovalido3) {
+                                    int menuPrincipalEntrada = scanner.nextInt();
+                                    switch (menuPrincipalEntrada) {
+                                        case 1:
+                                            Main.menuPrincipal(sucursal);
+                                            numerovalido3 = true;
+                                            break;
+                                        default:
+                                            print("Número no válido. Inténtalo de nuevo: ");
+                                    }
+                                }
                                 println("-------------------------------------------------");
 
                                 cuentaCliente.getTitular().subirReputacion();
@@ -1594,8 +1593,8 @@ public class Main {
                 //Definimos la sucursal destino con la guia
                 sucursalDestino = guia.getSucursalLlegada();
 
-    
-                
+
+
                 //Se verifica que el paquete llegó y que está en el inventario de la sucursal
                 if (sucursalDestino.getInventario().contains(producto)) {
                     //si el saldo pendiente es 0

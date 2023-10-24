@@ -23,6 +23,7 @@ public abstract class Producto implements Serializable{
 
         Producto.todosLosProductos.add(this);
         Producto.contadorProductos ++;
+        asignarCostoDelPedido();
     }
 
     public Producto(int codigo, double peso) {

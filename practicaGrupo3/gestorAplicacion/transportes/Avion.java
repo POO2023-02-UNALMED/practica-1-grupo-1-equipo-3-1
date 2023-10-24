@@ -7,11 +7,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Avion extends Transporte implements Serializable{
-    private Sucursal sucursalDestino;
     private static final long serialVersionUID = 1L;
 
     public Avion(Sucursal sucursalOrigen, Sucursal sucursalDestino, int capacidadVolumen, int capacidadPeso, String matricula) {
-        super(sucursalOrigen, capacidadVolumen, capacidadPeso, matricula);
+        super(sucursalOrigen, sucursalDestino, capacidadVolumen, capacidadPeso, matricula);
         this.sucursalDestino = sucursalDestino;
     }
 

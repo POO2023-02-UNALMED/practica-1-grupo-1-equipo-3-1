@@ -10,15 +10,6 @@ import transportes.*;
 
 
 public class Sucursal implements Serializable {
-    enum Horario {
-        LUNES,
-        MARTES,
-        MIERCOLES,
-        JUEVES,
-        VIERNES,
-        SABADO,
-        DOMINGO,
-    }
 
     private String nombre;
     private String ciudad;

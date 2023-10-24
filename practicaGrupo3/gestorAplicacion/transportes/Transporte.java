@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public abstract class Transporte implements Serializable {
     protected Sucursal sucursalOrigen; //Sucursal a la que pertenece el transporte
+    protected Sucursal sucursalDestino;
     protected int capacidadVolumen;
     protected int capacidadPeso;
     protected String matricula;
@@ -23,6 +24,19 @@ public abstract class Transporte implements Serializable {
 
     public Transporte(Sucursal sucursalOrigen, int capacidadVolumen, int capacidadPeso, String matricula) {
         this.sucursalOrigen = sucursalOrigen;
+        this.capacidadVolumen = capacidadVolumen;
+        this.capacidadPeso = capacidadPeso;
+        this.matricula = matricula;
+        ubicacionActual = sucursalOrigen;
+
+        Transporte.todosLosTransportes.add(this);
+
+        asignarRuta();
+    }
+
+    public Transporte(Sucursal sucursalOrigen, Sucursal sucursalDestino, int capacidadVolumen, int capacidadPeso, String matricula) {
+        this.sucursalOrigen = sucursalOrigen;
+        this.sucursalDestino = sucursalDestino;
         this.capacidadVolumen = capacidadVolumen;
         this.capacidadPeso = capacidadPeso;
         this.matricula = matricula;

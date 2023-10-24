@@ -20,7 +20,7 @@ public class Main {
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-/*
+
 
         ArrayList<Camion> camionesMN = new ArrayList<>();
         ArrayList<Camion> camionesMS = new ArrayList<>();
@@ -69,33 +69,33 @@ public class Main {
         camionesMN.add(new Camion(medellinNorte, 27, 300, "ABC110"));
         avionesMN.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "EDF678"));
 
-        camionesMS.add(new Camion(medellinNorte, 50, 300, "FUQ143"));
-        camionesMS.add(new Camion(medellinNorte, 50, 300, "FUQ142"));
-        avionesMS.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "HIJ432"));
+        camionesMS.add(new Camion(medellinSur, 50, 300, "FUQ143"));
+        camionesMS.add(new Camion(medellinSur, 50, 300, "FUQ142"));
+        avionesMS.add(new Avion(medellinSur, bogotaSur, 200, 2000, "HIJ432"));
 
         camionesCN.add(new Camion(caliNorte, 50, 300, "FTR456"));
         camionesCN.add(new Camion(caliNorte, 50, 300, "FTR457"));
-        avionesCN.add(new Avion(caliNorte, bogotaNorte, 200, 2000, "KLM123"));
+        avionesCN.add(new Avion(caliNorte, medellinNorte, 200, 2000, "KLM123"));
 
-        camionesCS.add(new Camion(medellinNorte, 50, 300, "STU673"));
-        camionesCS.add(new Camion(medellinNorte, 50, 300, "STU674"));
-        avionesCS.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "OKJ098"));
+        camionesCS.add(new Camion(caliSur, 50, 300, "STU673"));
+        camionesCS.add(new Camion(caliSur, 50, 300, "STU674"));
+        avionesCS.add(new Avion(caliSur, medellinSur, 200, 2000, "OKJ098"));
 
-        camionesPN.add(new Camion(medellinNorte, 50, 300, "STP673"));
-        camionesPN.add(new Camion(medellinNorte, 50, 300, "STP674"));
-        avionesPN.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "THI876"));
+        camionesPN.add(new Camion(pastoNorte, 50, 300, "STP673"));
+        camionesPN.add(new Camion(pastoNorte, 50, 300, "STP674"));
+        avionesPN.add(new Avion(pastoNorte, caliNorte, 200, 2000, "THI876"));
 
-        camionesPS.add(new Camion(medellinNorte, 50, 300, "POO123"));
-        camionesPS.add(new Camion(medellinNorte, 50, 300, "POO456"));
-        avionesPS.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "TLP234"));
+        camionesPS.add(new Camion(pastoSur, 50, 300, "POO123"));
+        camionesPS.add(new Camion(pastoSur, 50, 300, "POO456"));
+        avionesPS.add(new Avion(pastoSur, caliSur, 200, 2000, "TLP234"));
 
-        camionesBN.add(new Camion(medellinNorte, 50, 300, "GUY256"));
-        camionesBN.add(new Camion(medellinNorte, 50, 300, "GUY257"));
-        avionesBN.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "JHG109"));
+        camionesBN.add(new Camion(bogotaNorte, 50, 300, "GUY256"));
+        camionesBN.add(new Camion(bogotaNorte, 50, 300, "GUY257"));
+        avionesBN.add(new Avion(bogotaNorte, pastoNorte, 200, 2000, "JHG109"));
 
-        camionesBS.add(new Camion(medellinNorte, 50, 300, "QWE109"));
-        camionesBS.add(new Camion(medellinNorte, 50, 300, "QWE110"));
-        avionesBS.add(new Avion(medellinNorte, bogotaNorte, 200, 2000, "DFG567"));
+        camionesBS.add(new Camion(bogotaSur, 50, 300, "QWE109"));
+        camionesBS.add(new Camion(bogotaSur, 50, 300, "QWE110"));
+        avionesBS.add(new Avion(bogotaSur, pastoSur, 200, 2000, "DFG567"));
 
         Cliente guzman = new Cliente("Jaime Guzman", 123456789, 987654321);
         CuentaBancaria guzmanCuenta = new CuentaBancaria(guzman, 1010101010, 666, "09/27", 1000000);
@@ -107,17 +107,31 @@ public class Main {
         CuentaBancaria oswaldoCuenta = new CuentaBancaria(oswaldo, 99999999, 123, "23/29", 0);
 
         Producto documento = new Documento();
-        Guia guiaDoc = new Guia(documento, guzman, david, medellinNorte, bogotaSur, tipoDePago.REMITENTE, camionesMN.get(0));
+        Guia guiaDocumento = new Guia(documento, guzman, david, medellinNorte, caliNorte, tipoDePago.FRACCIONADO, camionesMN.get(0));
 
         Producto paquete = new Paquete(4, 1, 1, 1, false, 10000);
-        Guia guiapaq = new Guia(paquete, guzman, david, medellinNorte, bogotaSur, tipoDePago.FRACCIONADO, camionesMN.get(0));
+        Guia guiapaquete = new Guia(paquete, guzman, david, medellinNorte, pastoNorte, tipoDePago.FRACCIONADO, camionesMN.get(0));
 
+        Producto animal = new Animal("Toby", 3, 10, tipoAnimal.PERRO);
+        Guia guiaAnimal = new Guia(animal, oswaldo, david, medellinNorte, bogotaNorte, tipoDePago.REMITENTE, avionesMN.get(0));
+
+        Producto documento2 = new Documento();
+        Guia guiaDocumento2 = new Guia(documento2, guzman, oswaldo, medellinNorte, bogotaNorte, tipoDePago.REMITENTE, avionesMN.get(0));
+
+        Producto paquete2 = new Paquete(10, 3, 3, 3, true, 200000);
+        Guia guiaPaquete2 = new Guia(paquete2, oswaldo, guzman, medellinNorte, bogotaNorte, tipoDePago.DESTINATARIO, avionesMN.get(0));
+
+        Producto animal2 = new Animal("Ana", 5, 80, tipoAnimal.VACA);
+        Guia guiaAnimal2 = new Guia(animal2, david, guzman, medellinNorte, bogotaNorte, tipoDePago.DESTINATARIO, avionesMN.get(0));
 
 
         medellinNorte.getInventario().add(documento);
         medellinNorte.getInventario().add(paquete);
-*/
 
+        medellinNorte.getInventario().add(animal);
+        medellinNorte.getInventario().add(documento2);
+        medellinNorte.getInventario().add(paquete2);
+        medellinNorte.getInventario().add(animal2);
 
 
         //Serializador.serializar();
@@ -125,10 +139,11 @@ public class Main {
 
 
 
-        Deserializador.deserializar();
+        //Deserializador.deserializar();
 
-        println(Sucursal.getTodasLasSucursales().get(0).getInventario());
-        //Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
+
+        //println(Sucursal.getTodasLasSucursales().get(0).getAvionesEnSucursal());
+        Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
 
     }
 
@@ -287,7 +302,7 @@ public class Main {
             avion.agregarProductos();
 
             if (avion.getUbicacionActual() == sucursal) {
-                if (avion.getInventario().size() == 4) {
+                if (avion.getInventario().size() == 5) {
                     avion.iniciarRecorrido();
                     avionesFuera.add(avion);
                     println("Empezó recorrido avion");
@@ -1626,7 +1641,7 @@ public class Main {
 
     private static boolean verificarDatos(Producto producto, long cedulaDestinatario) {
         Guia guia = producto.getGuia();
-        Destinatario destinatario = guia.getDestinatario();
+        Destinatario destinatario = (Destinatario)guia.getDestinatario();
         if (Long.valueOf(destinatario.getCedula()).equals(cedulaDestinatario)) {
             return true;
         }

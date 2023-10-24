@@ -26,8 +26,8 @@ public class Guia implements Serializable{
 	private Sucursal sucursalOrigen; 
 	private Sucursal sucursalLlegada; 
 	private ArrayList<Sucursal> ruta = new ArrayList<>(); 
-	private Cliente remitente;
-	private Destinatario destinatario; 
+	private Persona remitente;
+	private Persona destinatario;
 	private double precioTotal;
 	private double pagoPendiente;
 	private LocalDateTime fecha;
@@ -53,7 +53,7 @@ public class Guia implements Serializable{
 	} 
 
 	//Constructor
-	public Guia(Producto producto,  Cliente remitente, Destinatario destinatario,  Sucursal sucursalOrigen, Sucursal sucursalLlegada, tipoDePago tipoDePago, Transporte vehiculo) {
+	public Guia(Producto producto,  Persona remitente, Persona destinatario,  Sucursal sucursalOrigen, Sucursal sucursalLlegada, tipoDePago tipoDePago, Transporte vehiculo) {
 		this.producto = producto;
 		this.remitente = remitente;
 		this.destinatario = destinatario;
@@ -121,24 +121,23 @@ public class Guia implements Serializable{
 	}
 
 	public void aplicarDescuento() {
-		switch (getRemitente().getMembresia().getBeneficio()) {
-			case PLATINUM:
-				precioTotal = precioTotal * 0.5; //Descuento del 50%
-				break;
-			case GOLD:
-				precioTotal = precioTotal * 0.75;; //Descuento del 25%
-				break;
-			case SILVER:
-				precioTotal = precioTotal * 0.9;; //Descuento del 10%
-				break;
-			case DEFAULT:
-				precioTotal = precioTotal * 1;
-				break;
+		if (remitente instanceof  Cliente) {
+			switch (((Cliente)remitente).getMembresia().getBeneficio()) {
+				case PLATINUM:
+					precioTotal = precioTotal * 0.5; //Descuento del 50%
+					break;
+				case GOLD:
+					precioTotal = precioTotal * 0.75;; //Descuento del 25%
+					break;
+				case SILVER:
+					precioTotal = precioTotal * 0.9;; //Descuento del 10%
+					break;
+				case DEFAULT:
+					precioTotal = precioTotal * 1;
+					break;
+			}
 		}
-
-
 	}
-	
 
 	public void asignarRuta() {
 		if (vehiculo instanceof Camion) {
@@ -224,11 +223,11 @@ public class Guia implements Serializable{
         return ruta;
     }
 
-    public Cliente getRemitente() {
+    public Persona getRemitente() {
         return remitente;
     }
 
-    public Destinatario getDestinatario() {
+    public Persona getDestinatario() {
         return destinatario;
     }
 

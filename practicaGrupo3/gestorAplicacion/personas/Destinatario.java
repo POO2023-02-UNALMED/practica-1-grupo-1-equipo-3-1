@@ -10,7 +10,10 @@ import administracion.CuentaBancaria;
 public class Destinatario extends Persona implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	public Destinatario() {}
+	public Destinatario() {
+		this("pepito",105678907L,3225678976L);
+
+	}
 	public Destinatario(String nombre, long cedula, long telefono) {
 		super(nombre, cedula, telefono);
 		

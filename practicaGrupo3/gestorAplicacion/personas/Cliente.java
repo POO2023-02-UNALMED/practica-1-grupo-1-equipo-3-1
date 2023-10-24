@@ -18,6 +18,7 @@ public class Cliente extends Persona implements Serializable{
 	private Membresia membresia;
 
 	public Cliente() {
+
 	}
 	
 	public Cliente(String nombre, long cedula, long telefono){

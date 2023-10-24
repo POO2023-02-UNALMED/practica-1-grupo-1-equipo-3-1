@@ -21,7 +21,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-
+/*
         ArrayList<Camion> camionesMN = new ArrayList<>();
         ArrayList<Camion> camionesMS = new ArrayList<>();
         ArrayList<Camion> camionesCN = new ArrayList<>();
@@ -134,16 +134,16 @@ public class Main {
         medellinNorte.getInventario().add(animal2);
 
 
-        //Serializador.serializar();
+        Serializador.serializar();
+
+*/
 
 
+        Deserializador.deserializar();
 
 
-        //Deserializador.deserializar();
-
-
-        //println(Sucursal.getTodasLasSucursales().get(0).getAvionesEnSucursal());
-        Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
+        println(Transporte.getTodosLosTransportes());
+        //Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
 
     }
 

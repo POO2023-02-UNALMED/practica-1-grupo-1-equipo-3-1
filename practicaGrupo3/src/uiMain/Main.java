@@ -1394,10 +1394,12 @@ public class Main {
         println("6) Pasto Sur");
         println("7) Bogotá Norte");
         println("8) Bogotá Sur");
+        println("9) Volver al menú principal");
         print("Elige una opción: ");
 
         boolean numeroValido1 = false;
         Sucursal sucursalOpinion = null;
+        Sucursal sucursal = Sucursal.getTodasLasSucursales().get(0);
 
         while (!numeroValido1) {
             int OpinionEntrada = scanner.nextInt();
@@ -1432,6 +1434,10 @@ public class Main {
                     break;
                 case 8:
                     sucursalOpinion = Sucursal.getTodasLasSucursales().get(7);
+                    numeroValido1 = true;
+                    break;
+                case 9:
+                    Main.menuPrincipal(sucursal);
                     numeroValido1 = true;
                     break;
                 default:

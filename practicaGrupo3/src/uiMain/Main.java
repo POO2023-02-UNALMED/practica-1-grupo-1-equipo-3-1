@@ -1081,7 +1081,73 @@ public class Main {
 
                 while (!numerovalido2) {
                     int menuPrincipalEntrada = scanner.nextInt();
-                    
+                    switch (menuPrincipalEntrada) {
+                    case 1:
+                        Main.menuPrincipal(sucursal);
+                        numerovalido2 = true;
+                        break;
+                    default:
+                        print("Número no válido. Inténtalo de nuevo: ");
+                }
+            }
+        }
+    } else { //Accedido por el destinatario
+        if (guia.getTipoDePago() == tipoDePago.DESTINATARIO || guia.getTipoDePago() == tipoDePago.FRACCIONADO) {
+            println("------------------MÉTODO DE PAGO-----------------");
+            println("Ingrese el método de pago:");
+            println("1) Tarjeta Crédito o Débito");
+            println("2) Efectivo");
+            print("Elige una opción: ");
+
+            boolean numeroValido = false;
+
+            while (!numeroValido) {
+                int metodoDePagoEntrada = scanner.nextInt();
+                switch (metodoDePagoEntrada) {
+                    case 1:
+                        pagarTarjeta(guia, sucursal);
+
+                        numeroValido = true;
+                        break;
+                    case 2:
+                        pagarEfectivo(guia, sucursal);
+
+                        numeroValido = true;
+                        break;
+                    default:
+                        print("Número no válido. Inténtalo de nuevo: ");
+                }
+            }
+        } else {
+            println("El pedido ya está completamente pago.");
+            println("Diríjase a la pestaña principal para recoger su pedido.");
+            println("");
+            print("1) Volver al menú principal: ");
+
+            boolean numerovalido2 = false;
+
+            while (!numerovalido2) {
+                int menuPrincipalEntrada = scanner.nextInt();
+                switch (menuPrincipalEntrada) {
+                    case 1:
+                        Main.menuPrincipal(sucursal);
+                        numerovalido2 = true;
+                        break;
+                    default:
+                        print("Número no válido. Inténtalo de nuevo: ");
+                }
+            }
+        }
+    }
+
+    scanner.close();
+}
+
+//Revisar Scanner
+//FUNCIONA
+public static void pagarTarjeta(Guia guia, Sucursal sucursal) {
+    Scanner scanner = new Scanner(System.in);
+	
         } else {
             println("Lo sentimos, esta cuenta no existe, intentelo de nuevo");
             println("");

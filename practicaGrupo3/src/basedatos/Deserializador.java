@@ -1,5 +1,5 @@
 package basedatos;
-//HECHO POR TOMÁS MURILLO
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -23,7 +23,7 @@ import administracion.Opinion;
 
 public class Deserializador {
 
-	private static File rutaTemp = new File("C:/Users/Tomás Gómez/Documents/Github/practica-1-grupo-1-equipo-3-1/practicaGrupo3/src/basedatos/temp");
+	private static File rutaTemp = new File("src\\basedatos\\temp");
 
 	public static void deserializar() {
 

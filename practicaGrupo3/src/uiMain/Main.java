@@ -1465,11 +1465,12 @@ public class Main {
         println("-----------------------------------------------------------");
         println("Usted escogio la sucursal: " + sucursalOpinion.getNombre());
         println("-----------------------------------------------------------");
-        println("Ingrese su opinion de puntualidad de la sucursal escogida");
+        
 
         double numero;
         boolean esValido = false;
         while (!esValido) {
+        	println("Ingrese su opinion de puntualidad de la sucursal escogida");
             System.out.print("Ingresa un número entre 0 y 5: ");
             try {
                 numero = scanner.nextDouble();
@@ -1484,7 +1485,7 @@ public class Main {
                 println("Entrada no válida. Inténtalo de nuevo.");
             scanner.next();} // Limpiar el búfer de entrada
             
-            
+        } 
    
              println("Ingrese su opinion de integridad de la sucursal escogida");
               double numero2;
@@ -1547,7 +1548,7 @@ public class Main {
                         }
                     }
                     
-               }
+             
 
 
                 

@@ -127,8 +127,8 @@ public class Main {
 
         Deserializador.deserializar();
 
-        println(Sucursal.getTodasLasSucursales().get(0).getInventario());
-        //Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
+        //println(Sucursal.getTodasLasSucursales().get(0).getInventario());
+        Main.menuPrincipal(Sucursal.getTodasLasSucursales().get(0));
 
     }
 
